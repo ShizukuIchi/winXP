@@ -261,19 +261,15 @@ function MyComputer({ onClose }) {
               </div>
               <div className="com__content__left__card__content">
                 <div className="com__content__left__card__row">
-                  <img
-                    className="com__content__left__card__img"
-                    src={logo}
-                    alt="control"
+                  <iframe
+                    title="ghbtn"
+                    style={{ margin: '0 0 2px -1px' }}
+                    src="https://ghbtns.com/github-btn.html?user=ShizukuIchi&repo=winXP&type=star&count=true"
+                    frameborder="0"
+                    scrolling="0"
+                    width="170px"
+                    height="20px"
                   />
-                  <ga.OutboundLink
-                    eventLabel="https://github.com/ShizukuIchi"
-                    to="https://github.com/ShizukuIchi"
-                    className="com__content__left__card__text link"
-                    target="_blank"
-                  >
-                    Github
-                  </ga.OutboundLink>
                 </div>
                 <div className="com__content__left__card__row">
                   <img
@@ -384,8 +380,8 @@ function MyComputer({ onClose }) {
               </div>
               <div className="com__content__right__card__content">
                 <ga.OutboundLink
-                  eventLabel="https://github.com/ShizukuIchi/winXP"
-                  to="https://github.com/ShizukuIchi/winXP"
+                  eventLabel="https://github.com/ShizukuIchi"
+                  to="https://github.com/ShizukuIchi"
                   className="com__content__right__card__item--me"
                   target="_blank"
                 >

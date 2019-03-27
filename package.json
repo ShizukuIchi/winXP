@@ -2,6 +2,8 @@
   "name": "win-xp",
   "version": "0.1.0",
   "private": true,
+  "author": "ShizukuIchi <shizukuichi@gmail.com>",
+  "homepage": "https://winxp.now.sh",
   "dependencies": {
     "lodash.samplesize": "^4.2.0",
     "react": "^16.8.5",
@@ -15,7 +17,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "now-build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"
