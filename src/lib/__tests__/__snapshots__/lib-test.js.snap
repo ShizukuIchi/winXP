@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`get correct Month string 1`] = `"received is not a function"`;
+
+exports[`get correct day string 1`] = `"received is not a function"`;
