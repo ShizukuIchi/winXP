@@ -1,11 +1,10 @@
 import React, { useReducer, useRef } from 'react';
-import Footer from 'src/themes/WinXP/Footer';
 import styled from 'styled-components';
+import useMouse from 'react-use/lib/useMouse';
 import ga from 'react-ga';
 
-// import useMouse from 'src/hooks/useMouse';
-import useMouse from 'react-use/lib/useMouse';
 import { defaultIconState, defaultAppState, appSettings } from './apps';
+import Footer from './Footer';
 import Windows from './Windows';
 import Icons from './Icons';
 
@@ -89,18 +88,10 @@ const reducer = (state, action = {}) => {
       };
     }
     case 'SELECT_ICONS': {
-      const icons = state.icons.map(icon => {
-        if (action.payload.includes(icon.id))
-          return {
-            ...icon,
-            isFocus: true,
-          };
-        else
-          return {
-            ...icon,
-            isFocus: false,
-          };
-      });
+      const icons = state.icons.map(icon => ({
+        ...icon,
+        isFocus: action.payload.includes(icon.id),
+      }));
       return {
         ...state,
         icons,

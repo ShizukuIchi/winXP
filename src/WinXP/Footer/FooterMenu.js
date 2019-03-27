@@ -1,42 +1,42 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import ie from "src/assets/internetExplorer/ie.png";
-import mine from "src/assets/minesweeper/mine-icon.png";
-import setAccess from "src/assets/windowsIcons/227(32x32).png";
-import outlook from "src/assets/windowsIcons/887(32x32).png";
-import mediaPlayer from "src/assets/windowsIcons/846(32x32).png";
-import messenger from "src/assets/windowsIcons/msn.png";
-import tour from "src/assets/windowsIcons/853(32x32).png";
-import transfer from "src/assets/windowsIcons/367(32x32).png";
-import calculator from "src/assets/windowsIcons/74(32x32).png";
-import documents from "src/assets/windowsIcons/308(32x32).png";
-import recentDocuments from "src/assets/windowsIcons/301(32x32).png";
-import pictures from "src/assets/windowsIcons/307(32x32).png";
-import music from "src/assets/windowsIcons/550(32x32).png";
-import computer from "src/assets/windowsIcons/676(32x32).png";
-import controlPanel from "src/assets/windowsIcons/300(32x32).png";
-import connect from "src/assets/windowsIcons/309(32x32).png";
-import printer from "src/assets/windowsIcons/549(32x32).png";
-import help from "src/assets/windowsIcons/747(32x32).png";
-import search from "src/assets/windowsIcons/299(32x32).png";
-import run from "src/assets/windowsIcons/743(32x32).png";
-import lock from "src/assets/windowsIcons/546(32x32).png";
-import user from "src/assets/windowsIcons/user.png";
-import shut from "src/assets/windowsIcons/310(32x32).png";
-import allProgramsIcon from "src/assets/windowsIcons/all-programs.ico";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import ie from 'src/assets/windowsIcons/ie.png';
+import mine from 'src/assets/minesweeper/mine-icon.png';
+import setAccess from 'src/assets/windowsIcons/227(32x32).png';
+import outlook from 'src/assets/windowsIcons/887(32x32).png';
+import mediaPlayer from 'src/assets/windowsIcons/846(32x32).png';
+import messenger from 'src/assets/windowsIcons/msn.png';
+import tour from 'src/assets/windowsIcons/853(32x32).png';
+import transfer from 'src/assets/windowsIcons/367(32x32).png';
+import calculator from 'src/assets/windowsIcons/74(32x32).png';
+import documents from 'src/assets/windowsIcons/308(32x32).png';
+import recentDocuments from 'src/assets/windowsIcons/301(32x32).png';
+import pictures from 'src/assets/windowsIcons/307(32x32).png';
+import music from 'src/assets/windowsIcons/550(32x32).png';
+import computer from 'src/assets/windowsIcons/676(32x32).png';
+import controlPanel from 'src/assets/windowsIcons/300(32x32).png';
+import connect from 'src/assets/windowsIcons/309(32x32).png';
+import printer from 'src/assets/windowsIcons/549(32x32).png';
+import help from 'src/assets/windowsIcons/747(32x32).png';
+import search from 'src/assets/windowsIcons/299(32x32).png';
+import run from 'src/assets/windowsIcons/743(32x32).png';
+import lock from 'src/assets/windowsIcons/546(32x32).png';
+import user from 'src/assets/windowsIcons/user.png';
+import shut from 'src/assets/windowsIcons/310(32x32).png';
+import allProgramsIcon from 'src/assets/windowsIcons/all-programs.ico';
 
-import empty from "src/assets/empty.png";
+import empty from 'src/assets/empty.png';
 
-import SubMenu from "src/components/SubMenu";
+import SubMenu from 'src/components/SubMenu';
 
-import { AllPrograms, ConnectTo, MyRecentDocuments } from "./FooterMenuData";
+import { AllPrograms, ConnectTo, MyRecentDocuments } from './FooterMenuData';
 
 function FooterMenu({ className, onClick }) {
-  const [hovering, setHovering] = useState("");
+  const [hovering, setHovering] = useState('');
   function onMouseOver(e) {
-    const item = e.target.closest(".menu__item");
+    const item = e.target.closest('.menu__item');
     if (!item) return;
-    setHovering(item.querySelector(".menu__item__text").textContent);
+    setHovering(item.querySelector('.menu__item__text').textContent);
   }
   return (
     <div className={className}>
@@ -57,51 +57,53 @@ function FooterMenu({ className, onClick }) {
           <Items
             onClick={onClick}
             items={[
-              { icon: mine, text: "Minesweeper" },
-              { icon: mediaPlayer, text: "Windows Media Player" },
-              { icon: messenger, text: "Windows Messenger" },
-              { icon: tour, text: "Tour Windows XP" },
-              { icon: transfer, text: "Files and Settings Transfer Wizard" },
-              { icon: calculator, text: "Calculator" }
+              { icon: mine, text: 'Minesweeper' },
+              { icon: mediaPlayer, text: 'Windows Media Player' },
+              { icon: messenger, text: 'Windows Messenger' },
+              { icon: tour, text: 'Tour Windows XP' },
+              { icon: transfer, text: 'Files and Settings Transfer Wizard' },
+              { icon: calculator, text: 'Calculator' },
             ]}
           />
           <div style={{ flex: 1 }} />
           <div className="menu__separator" />
           <Item
             style={
-              hovering === "All Programs"
+              hovering === 'All Programs'
                 ? {
-                    backgroundColor: "#2f71cd",
-                    color: "#FFF"
+                    backgroundColor: '#2f71cd',
+                    color: '#FFF',
                   }
                 : {}
             }
             text={
-              <div style={{ display: "flex", alignItems: "center" }}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
                 All Programs
                 <img
                   src={allProgramsIcon}
                   alt=""
                   style={{
-                    marginLeft: "5px",
-                    height: "18px"
+                    marginLeft: '5px',
+                    height: '18px',
                   }}
                 />
               </div>
             }
             icon={empty}
           >
-            {hovering === "All Programs" && <SubMenu data={AllPrograms} onClick={onClick} />}
+            {hovering === 'All Programs' && (
+              <SubMenu data={AllPrograms} onClick={onClick} />
+            )}
           </Item>
         </div>
         <div className="menu__right">
           <Item text="My Documents" icon={documents} onClick={onClick} />
           <Item
             style={
-              hovering === "My Recent Documents"
+              hovering === 'My Recent Documents'
                 ? {
-                    backgroundColor: "#2f71cd",
-                    color: "#FFF"
+                    backgroundColor: '#2f71cd',
+                    color: '#FFF',
                   }
                 : {}
             }
@@ -111,36 +113,40 @@ function FooterMenu({ className, onClick }) {
             <div
               style={{
                 borderLeftColor:
-                  hovering === "My Recent Documents" ? "#FFF" : "#00136b"
+                  hovering === 'My Recent Documents' ? '#FFF' : '#00136b',
               }}
               className="menu__arrow"
             />
-            {hovering === "My Recent Documents" && (
-              <SubMenu left="153px" data={MyRecentDocuments} onClick={onClick} />
+            {hovering === 'My Recent Documents' && (
+              <SubMenu
+                left="153px"
+                data={MyRecentDocuments}
+                onClick={onClick}
+              />
             )}
           </Item>
           <Items
             onClick={onClick}
             items={[
-              { icon: pictures, text: "My Pictures" },
-              { icon: music, text: "My Music" },
-              { icon: computer, text: "My Computer" }
+              { icon: pictures, text: 'My Pictures' },
+              { icon: music, text: 'My Music' },
+              { icon: computer, text: 'My Computer' },
             ]}
           />
           <div className="menu__separator" />
           <Items
             onClick={onClick}
             items={[
-              { icon: controlPanel, text: "Control Panel" },
-              { icon: setAccess, text: "Set Program Access and Defaults" }
+              { icon: controlPanel, text: 'Control Panel' },
+              { icon: setAccess, text: 'Set Program Access and Defaults' },
             ]}
           />
           <Item
             style={
-              hovering === "Connect To"
+              hovering === 'Connect To'
                 ? {
-                    backgroundColor: "#2f71cd",
-                    color: "#FFF"
+                    backgroundColor: '#2f71cd',
+                    color: '#FFF',
                   }
                 : {}
             }
@@ -149,11 +155,11 @@ function FooterMenu({ className, onClick }) {
           >
             <div
               style={{
-                borderLeftColor: hovering === "Connect To" ? "#FFF" : "#00136b"
+                borderLeftColor: hovering === 'Connect To' ? '#FFF' : '#00136b',
               }}
               className="menu__arrow"
             />
-            {hovering === "Connect To" && (
+            {hovering === 'Connect To' && (
               <SubMenu left="153px" data={ConnectTo} onClick={onClick} />
             )}
           </Item>
@@ -162,9 +168,9 @@ function FooterMenu({ className, onClick }) {
           <Items
             onClick={onClick}
             items={[
-              { icon: help, text: "Help and Support" },
-              { icon: search, text: "Search" },
-              { icon: run, text: "Run..." }
+              { icon: help, text: 'Help and Support' },
+              { icon: search, text: 'Search' },
+              { icon: run, text: 'Run...' },
             ]}
           />
         </div>
@@ -191,7 +197,7 @@ function Item({
   icon,
   onHover = () => {},
   onClick = () => {},
-  children
+  children,
 }) {
   function _onClick() {
     onClick(text);
@@ -253,7 +259,7 @@ export default styled(FooterMenu)`
     overflow: hidden;
   }
   header:before {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     top: 1px;

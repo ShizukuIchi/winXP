@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import ga from 'react-ga';
-import go from 'src/assets/internetExplorer/290.png';
-import search from 'src/assets/internetExplorer/299(32x32).png';
+
+import go from 'src/assets/windowsIcons/290.png';
+import search from 'src/assets/windowsIcons/299(32x32).png';
 import computer from 'src/assets/windowsIcons/676(16x16).png';
-import back from 'src/assets/internetExplorer/back.png';
-import forward from 'src/assets/internetExplorer/forward.png';
+import back from 'src/assets/windowsIcons/back.png';
+import forward from 'src/assets/windowsIcons/forward.png';
 import up from 'src/assets/windowsIcons/up.png';
 import viewInfo from 'src/assets/windowsIcons/view-info.ico';
 import remove from 'src/assets/windowsIcons/302(16x16).png';
@@ -383,8 +384,8 @@ function MyComputer({ onClose }) {
               </div>
               <div className="com__content__right__card__content">
                 <ga.OutboundLink
-                  eventLabel="https://github.com/ShizukuIchi/fake-screen"
-                  to="https://github.com/ShizukuIchi/fake-screen"
+                  eventLabel="https://github.com/ShizukuIchi/winXP"
+                  to="https://github.com/ShizukuIchi/winXP"
                   className="com__content__right__card__item--me"
                   target="_blank"
                 >

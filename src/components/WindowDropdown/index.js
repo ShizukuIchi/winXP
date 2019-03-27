@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import iePaper from 'src/assets/internetExplorer/ie-paper.png';
-import ieBook from 'src/assets/internetExplorer/ie-book.png';
-import check from 'src/assets/internetExplorer/checked.png';
-import folder from 'src/assets/internetExplorer/folder.png';
+import iePaper from 'src/assets/windowsIcons/ie-paper.png';
+import ieBook from 'src/assets/windowsIcons/ie-book.png';
+import check from 'src/assets/windowsIcons/checked.png';
+import folder from 'src/assets/windowsIcons/folder.png';
 
 export function DropDown({ items, position = {}, onClick }) {
   const [option, setOption] = useState('');
@@ -16,9 +16,7 @@ export function DropDown({ items, position = {}, onClick }) {
               return (
                 <div
                   key={item.text}
-                  className={`drop-down__row${
-                    item.disable ? '--disable' : ''
-                  }`}
+                  className={`drop-down__row${item.disable ? '--disable' : ''}`}
                   onMouseEnter={() => setOption(item.text)}
                   onClick={() => onClick(item.text)}
                 >
@@ -51,7 +49,11 @@ export function DropDown({ items, position = {}, onClick }) {
                   <div className="drop-down__arrow" />
                   <div style={{ position: 'relative' }}>
                     {option === item.text && (
-                      <DropDown position={item.position} items={item.items} onClick={onClick} />
+                      <DropDown
+                        position={item.position}
+                        items={item.items}
+                        onClick={onClick}
+                      />
                     )}
                   </div>
                 </div>

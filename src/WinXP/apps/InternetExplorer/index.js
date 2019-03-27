@@ -1,25 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import ie from 'src/assets/internetExplorer/ie-paper.png';
-import printer from 'src/assets/internetExplorer/17(32x32).png';
-import go from 'src/assets/internetExplorer/290.png';
-import links from 'src/assets/internetExplorer/links.png';
-import search from 'src/assets/internetExplorer/299(32x32).png';
-import favorite from 'src/assets/internetExplorer/744(32x32).png';
-import back from 'src/assets/internetExplorer/back.png';
-import earth from 'src/assets/internetExplorer/earth.png';
-import edit from 'src/assets/internetExplorer/edit.png';
-import forward from 'src/assets/internetExplorer/forward.png';
-import history from 'src/assets/internetExplorer/history.png';
-import home from 'src/assets/internetExplorer/home.png';
-import mail from 'src/assets/internetExplorer/mail.png';
-import msn from 'src/assets/internetExplorer/msn.png';
-import refresh from 'src/assets/internetExplorer/refresh.png';
-import stop from 'src/assets/internetExplorer/stop.png';
-import windows from 'src/assets/internetExplorer/windows.png';
+import ie from 'src/assets/windowsIcons/ie-paper.png';
+import printer from 'src/assets/windowsIcons/17(32x32).png';
+import go from 'src/assets/windowsIcons/290.png';
+import links from 'src/assets/windowsIcons/links.png';
+import search from 'src/assets/windowsIcons/299(32x32).png';
+import favorite from 'src/assets/windowsIcons/744(32x32).png';
+import back from 'src/assets/windowsIcons/back.png';
+import earth from 'src/assets/windowsIcons/earth.png';
+import edit from 'src/assets/windowsIcons/edit.png';
+import forward from 'src/assets/windowsIcons/forward.png';
+import history from 'src/assets/windowsIcons/history.png';
+import home from 'src/assets/windowsIcons/home.png';
+import mail from 'src/assets/windowsIcons/mail.png';
+import msn from 'src/assets/windowsIcons/msn.png';
+import refresh from 'src/assets/windowsIcons/refresh.png';
+import stop from 'src/assets/windowsIcons/stop.png';
+import windows from 'src/assets/windowsIcons/windows.png';
 import dropdown from 'src/assets/windowsIcons/dropdown.png';
-import { Google } from 'src/themes/Google';
-import { WindowDropdown } from 'src/components';
+
+import { WindowDropdown, Google } from 'src/components';
 import dropDownData from './dropDownData';
 
 function InternetExplorer({ onClose }) {
