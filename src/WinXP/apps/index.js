@@ -52,7 +52,7 @@ export const defaultAppState = [
       height: 500,
     },
     defaultOffset: {
-      x: 330,
+      x: 340,
       y: 30,
     },
     resizable: true,
@@ -144,7 +144,7 @@ export const appSettings = {
       height: 500,
     },
     defaultOffset: {
-      x: 340,
+      x: 350,
       y: 40,
     },
     resizable: true,

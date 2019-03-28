@@ -176,11 +176,14 @@ function FooterMenu({ className, onClick }) {
         </div>
       </section>
       <footer>
-        <div className="footer__item">
+        <div className="footer__item" onClick={() => onClick('Log Off')}>
           <img className="footer__item__img" src={lock} alt="" />
           <span>Log Off</span>
         </div>
-        <div className="footer__item">
+        <div
+          className="footer__item"
+          onClick={() => onClick('Turn Off Computer')}
+        >
           <img className="footer__item__img" src={shut} alt="" />
           <span>Turn Off Computer</span>
         </div>
@@ -296,7 +299,7 @@ export default styled(FooterMenu)`
     align-items: center;
     justify-content: flex-end;
     color: #fff;
-    height: 32px;
+    height: 36px;
     width: 100%;
     background: linear-gradient(
       to bottom,
@@ -319,9 +322,16 @@ export default styled(FooterMenu)`
   }
 
   .footer__item {
+    padding: 3px;
     display: flex;
     margin-right: 10px;
     align-items: center;
+    &:hover {
+      background-color: rgba(60, 80, 210, 0.5);
+    }
+    &:hover:active > * {
+      transform: translate(1px, 1px);
+    }
   }
   .footer__item__img {
     border-radius: 3px;

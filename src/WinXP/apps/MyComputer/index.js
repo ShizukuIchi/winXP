@@ -265,7 +265,7 @@ function MyComputer({ onClose }) {
                     title="ghbtn"
                     style={{ margin: '0 0 2px -1px' }}
                     src="https://ghbtns.com/github-btn.html?user=ShizukuIchi&repo=winXP&type=star&count=true"
-                    frameborder="0"
+                    frameBorder="0"
                     scrolling="0"
                     width="170px"
                     height="20px"
