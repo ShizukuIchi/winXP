@@ -13,4 +13,4 @@ Features:
 
 Windows XP 👉 https://winxp.now.sh
 
-![](https://i.imgur.com/ElP0rFN.gif)
+![](demo/demo.gif)
