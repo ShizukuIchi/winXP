@@ -37,7 +37,6 @@ const Container = ({ className, children }) => {
   );
 };
 const Menu = ({ mode, onClose, onClickButton }) => {
-  console.log(mode, POWER_STATE.TURN_OFF);
   function renderButtons() {
     if (mode === POWER_STATE.TURN_OFF) {
       return (
