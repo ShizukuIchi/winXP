@@ -263,8 +263,8 @@ function MyComputer({ onClose }) {
                 <div className="com__content__left__card__row">
                   <iframe
                     title="ghbtn"
-                    style={{ margin: '0 0 2px -1px' }}
-                    src="https://ghbtns.com/github-btn.html?user=ShizukuIchi&repo=winXP&type=star&count=true"
+                    style={{ margin: '0 0 3px -1px', height: '30px' }}
+                    src="https://ghbtns.com/github-btn.html?user=ShizukuIchi&repo=winXP&type=star&count=true&size=large"
                     frameBorder="0"
                     scrolling="0"
                     width="170px"

@@ -7,7 +7,7 @@ Features:
 * Drag and resize, minimize, maximize windows
 * Open applications from desktop icons or start menu 
 * Minesweeper, Internet Explorer, My Computer
-* Start menu with lots of icons
+* Power off menu
 
 ## Try it!
 
