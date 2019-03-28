@@ -14,3 +14,10 @@ Features:
 Windows XP 👉 https://winxp.now.sh
 
 ![](demo/demo.gif)
+
+
+## Contributing
+Generally open an issue (or comment on an issue if there's one already) before starting work on a PR.
+
+## License
+This project is provided for educational purposes only. It is not affiliated with and has not been approved by Microsoft.
