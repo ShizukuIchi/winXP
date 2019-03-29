@@ -22,6 +22,7 @@ import cd from 'src/assets/windowsIcons/111(48x48).png';
 import dropdown from 'src/assets/windowsIcons/dropdown.png';
 import pullup from 'src/assets/windowsIcons/pullup.png';
 import logo from 'src/assets/github-logo.png';
+import mine from 'src/assets/minesweeper/mine-icon.png';
 
 import { WindowDropdown } from 'src/components';
 import dropDownData from './dropDownData';
@@ -299,6 +300,21 @@ function MyComputer({ onClose }) {
                     target="_blank"
                   >
                     Blog
+                  </ga.OutboundLink>
+                </div>
+                <div className="com__content__left__card__row">
+                  <img
+                    className="com__content__left__card__img"
+                    src={mine}
+                    alt="control"
+                  />
+                  <ga.OutboundLink
+                    eventLabel="https://github.com/ShizukuIchi/minesweeper"
+                    to="https://github.com/ShizukuIchi/minesweeper"
+                    className="com__content__left__card__text link"
+                    target="_blank"
+                  >
+                    Minesweeper(mobile)
                   </ga.OutboundLink>
                 </div>
               </div>
