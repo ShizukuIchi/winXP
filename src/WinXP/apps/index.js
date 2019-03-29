@@ -18,13 +18,13 @@ export const defaultAppState = [
       height: 500,
     },
     defaultOffset: {
-      x: 200,
-      y: 40,
+      x: 130,
+      y: 20,
     },
     resizable: true,
     headerIcon: iePaper,
     minimized: false,
-    maximized: false,
+    maximized: window.innerWidth < 800,
     id: 0,
   },
   {
@@ -35,8 +35,8 @@ export const defaultAppState = [
       height: 0,
     },
     defaultOffset: {
-      x: 230,
-      y: 80,
+      x: 180,
+      y: 170,
     },
     resizable: false,
     headerIcon: mine,
@@ -52,13 +52,13 @@ export const defaultAppState = [
       height: 500,
     },
     defaultOffset: {
-      x: 340,
-      y: 30,
+      x: 250,
+      y: 40,
     },
     resizable: true,
     headerIcon: computer,
     minimized: false,
-    maximized: false,
+    maximized: window.innerWidth < 800,
     id: 2,
   },
 ];
@@ -97,12 +97,12 @@ export const appSettings = {
       height: 500,
     },
     defaultOffset: {
-      x: 210,
-      y: 50,
+      x: 140,
+      y: 30,
     },
     resizable: true,
     minimized: false,
-    maximized: false,
+    maximized: window.innerWidth < 800,
   },
   Minesweeper: {
     headerIcon: mine,
@@ -113,8 +113,8 @@ export const appSettings = {
       height: 0,
     },
     defaultOffset: {
-      x: 240,
-      y: 90,
+      x: 190,
+      y: 180,
     },
     resizable: false,
     minimized: false,
@@ -144,13 +144,13 @@ export const appSettings = {
       height: 500,
     },
     defaultOffset: {
-      x: 350,
-      y: 40,
+      x: 260,
+      y: 50,
     },
     resizable: true,
     headerIcon: computer,
     minimized: false,
-    maximized: false,
+    maximized: window.innerWidth < 800,
   },
 };
 
