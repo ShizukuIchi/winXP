@@ -1,5 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+
+import { WindowDropdown } from 'src/components';
+import dropDownData from './dropDownData';
+
 import dead from 'src/assets/minesweeper/dead.png';
 import smile from 'src/assets/minesweeper/smile.png';
 import win from 'src/assets/minesweeper/win.png';
@@ -18,7 +22,6 @@ import mine from 'src/assets/minesweeper/mine-ceil.png';
 import mineDeath from 'src/assets/minesweeper/mine-death.png';
 import misFlagged from 'src/assets/minesweeper/misflagged.png';
 import question from 'src/assets/minesweeper/question.png';
-import checked from 'src/assets/minesweeper/checked.png';
 import digit0 from 'src/assets/minesweeper/digit0.png';
 import digit1 from 'src/assets/minesweeper/digit1.png';
 import digit2 from 'src/assets/minesweeper/digit2.png';
@@ -70,6 +73,14 @@ function renderDigits(number) {
   return numberStr
     .split('')
     .map((n, i) => <img key={i} src={digits[n]} alt={n} />);
+}
+
+function genDropDownData(difficulty) {
+  let _Game = [...dropDownData.Game];
+  _Game[2].symbol = difficulty === 'Beginner' && 'check';
+  _Game[3].symbol = difficulty === 'Intermediate' && 'check';
+  _Game[4].symbol = difficulty === 'Expert' && 'check';
+  return { Game: _Game, Help: dropDownData.Help };
 }
 
 function MineSweeperView({
@@ -172,6 +183,29 @@ function MineSweeperView({
   function hoverOption(option) {
     if (openOption) setOpenOption(option);
   }
+  function onClickOptionItem(item) {
+    switch (item) {
+      case 'Exit':
+        onClose();
+        break;
+      case 'Beginner':
+      case 'Intermediate':
+      case 'Expert':
+        onReset(item);
+        break;
+      case 'New':
+        onReset();
+        break;
+      default:
+    }
+    setOpenOption('');
+  }
+  useEffect(() => {
+    window.addEventListener('mouseup', onMouseUp);
+    return () => {
+      window.removeEventListener('mouseup', onMouseUp);
+    };
+  }, []);
   function onMouseUp(e) {
     setOpenBehavior({ index: -1, behavior: '' });
     setMouseDownContent(false);
@@ -188,151 +222,35 @@ function MineSweeperView({
   return (
     <div className={className} onContextMenu={e => e.preventDefault()}>
       <div className="mine__drop-downs" ref={dropDown}>
-        <div
-          style={{ visibility: openOption === 'Game' ? 'visible' : 'hidden' }}
-          className="mine__drop-down"
-        >
-          <div className="mine__drop-down__title">Game</div>
-          <div className="mine__drop-down__menu">
-            <div className="mine__drop-down__row" onMouseUp={() => onReset()}>
-              <div className="mine__drop-down__check" />
-              <div className="mine__drop-down__text">New</div>
-              <span className="mine__drop-down__hot-key">F2</span>
-              <div className="mine__drop-down__arrow" />
-            </div>
-            <div className="mine__drop-down__separator" />
-            <div
-              className="mine__drop-down__row"
-              onMouseUp={() => onReset('Beginner')}
-            >
-              <div className="mine__drop-down__check">
-                {difficulty === 'Beginner' && (
-                  <img src={checked} alt="checked" />
-                )}
-              </div>
-              <span>Beginner</span>
-              <span className="mine__drop-down__hot-key" />
-              <div className="mine__drop-down__arrow" />
-            </div>
-            <div
-              className="mine__drop-down__row"
-              onMouseUp={() => onReset('Intermediate')}
-            >
-              <div className="mine__drop-down__check">
-                {difficulty === 'Intermediate' && (
-                  <img src={checked} alt="checked" />
-                )}
-              </div>
-              <span>Intermediate</span>
-              <span className="mine__drop-down__hot-key" />
-              <div className="mine__drop-down__arrow" />
-            </div>
-            <div
-              className="mine__drop-down__row"
-              onMouseUp={() => onReset('Expert')}
-            >
-              <div className="mine__drop-down__check">
-                {difficulty === 'Expert' && <img src={checked} alt="checked" />}
-              </div>
-              <span>Expert</span>
-              <span className="mine__drop-down__hot-key" />
-              <div className="mine__drop-down__arrow" />
-            </div>
-            <div className="mine__drop-down__row">
-              <div className="mine__drop-down__check" />
-              <span>Custom...</span>
-              <span className="mine__drop-down__hot-key" />
-              <div className="mine__drop-down__arrow" />
-            </div>
-            <div className="mine__drop-down__separator" />
-            <div className="mine__drop-down__row">
-              <div className="mine__drop-down__check">
-                <img src={checked} alt="checked" />
-              </div>
-              <span>Marks (?)</span>
-              <span className="mine__drop-down__hot-key" />
-              <div className="mine__drop-down__arrow" />
-            </div>
-            <div className="mine__drop-down__row">
-              <div className="mine__drop-down__check">
-                <img src={checked} alt="checked" />
-              </div>
-              <span>Color</span>
-              <span className="mine__drop-down__hot-key" />
-              <div className="mine__drop-down__arrow" />
-            </div>
-            <div className="mine__drop-down__row">
-              <div className="mine__drop-down__check" />
-              <span>Sound</span>
-              <span className="mine__drop-down__hot-key" />
-              <div className="mine__drop-down__arrow" />
-            </div>
-            <div className="mine__drop-down__separator" />
-            <div className="mine__drop-down__row">
-              <div className="mine__drop-down__check" />
-              <span>Best Times...</span>
-              <span className="mine__drop-down__hot-key" />
-              <div className="mine__drop-down__arrow" />
-            </div>
-            <div className="mine__drop-down__separator" />
-
-            <div className="mine__drop-down__row" onMouseUp={onClose}>
-              <div className="mine__drop-down__check" />
-              <span>Exit</span>
-              <span className="mine__drop-down__hot-key" />
-              <div className="mine__drop-down__arrow" />
-            </div>
+        {Object.keys(genDropDownData(difficulty)).map(name => (
+          <div
+            className={`mine__drop-down ${
+              openOption === name ? 'mine__drop-down--active' : ''
+            }`}
+            key={name}
+          >
+            <div className="mine__drop-down__label">{name}</div>
+            {openOption === name && (
+              <WindowDropdown
+                onClick={onClickOptionItem}
+                items={dropDownData[name]}
+                position={{ top: '20px', left: '0' }}
+              />
+            )}
           </div>
-        </div>
-        <div
-          style={{ visibility: openOption === 'Help' ? 'visible' : 'hidden' }}
-          className="mine__drop-down"
-        >
-          <div className="mine__drop-down__title">Help</div>
-          <div className="mine__drop-down__menu">
-            <div className="mine__drop-down__row">
-              <div className="mine__drop-down__check" />
-              <div className="mine__drop-down__text">Contents</div>
-              <span className="mine__drop-down__hot-key">F1</span>
-              <div className="mine__drop-down__arrow" />
-            </div>
-            <div className="mine__drop-down__row">
-              <div className="mine__drop-down__check" />
-              <div className="mine__drop-down__text">Search for Help on...</div>
-              <span className="mine__drop-down__hot-key" />
-              <div className="mine__drop-down__arrow" />
-            </div>
-            <div className="mine__drop-down__row">
-              <div className="mine__drop-down__check" />
-              <div className="mine__drop-down__text">Using Help</div>
-              <span className="mine__drop-down__hot-key" />
-              <div className="mine__drop-down__arrow" />
-            </div>
-            <div className="mine__drop-down__separator" />
-            <div className="mine__drop-down__row">
-              <div className="mine__drop-down__check" />
-              <div className="mine__drop-down__text">About Minesweeper...</div>
-              <span className="mine__drop-down__hot-key" />
-              <div className="mine__drop-down__arrow" />
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
       <div className="mine__top-bar">
-        <div
-          onMouseDown={() => setOpenOption('Game')}
-          onMouseOver={() => hoverOption('Game')}
-          className="mine__top-bar__text"
-        >
-          Game
-        </div>
-        <div
-          onMouseDown={() => setOpenOption('Help')}
-          onMouseOver={() => hoverOption('Help')}
-          className="mine__top-bar__text"
-        >
-          Help
-        </div>
+        {Object.keys(dropDownData).map(name => (
+          <div
+            key={name}
+            onMouseDown={() => setOpenOption(name)}
+            onMouseEnter={() => hoverOption(name)}
+            className="mine__top-bar__text"
+          >
+            {name}
+          </div>
+        ))}
       </div>
       <section className="mine__content" onMouseDown={onMouseDownContent}>
         <div className="mine__score-bar">
@@ -462,51 +380,19 @@ export default styled(MineSweeperView)`
   .mine__drop-down {
     position: relative;
     z-index: 1;
-  }
-  .mine__drop-down__title {
-    padding: 0 5px;
-    height: 100%;
     line-height: 20px;
     font-size: 11px;
-    color: white;
+    height: 100%;
+    position: relative;
+    visibility: hidden;
     background-color: #1660e8;
   }
-  .mine__drop-down__menu {
-    background-color: white;
-    position: absolute;
-    box-shadow: 2px 2px 1px rgb(100, 100, 100);
-    border: 1px solid gray;
-    padding: 2px;
-    display: grid;
-    grid-template-columns: 18px auto auto 15px;
-    line-height: 18px;
-    font-size: 11px;
+  .mine__drop-down--active {
+    visibility: visible;
   }
-  .mine__drop-down__row {
-    display: contents;
-    &:hover > * {
-      background: #e99f17;
-      filter: invert(100%);
-    }
-  }
-  .mine__drop-down__separator {
-    grid-column: 1 / 5;
-    height: 1px;
-    background-color: gray;
-    margin: 3px 1px;
-  }
-  .mine__drop-down__check {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .mine__drop-down__arrow {
-  }
-  .mine__drop-down__hot-key {
-    padding-left: 5px;
-  }
-  .mine__drop-down__text {
-    white-space: nowrap;
+  .mine__drop-down__label {
+    padding: 0 5px;
+    color: #fff;
   }
   .mine__top-bar {
     position: relative;
@@ -521,7 +407,7 @@ export default styled(MineSweeperView)`
     font-size: 11px;
     &:hover {
       color: white;
-      background-color: #084fd2;
+      background-color: #1660e8;
     }
   }
   .mine__content {
