@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import risk from 'src/assets/windowsIcons/229(16x16).png';
-function Balloon({ style }) {
+function Balloon({ startAfter = 3000, duration = 15000 }) {
   const [show, setShow] = useState(true);
   const [start, setStart] = useState(false);
   useEffect(() => {
-    const openTimer = setTimeout(() => setStart(true), 4000);
-    const fadeTimer = setTimeout(() => setShow(false), 19000);
-    const closeTimer = setTimeout(() => setStart(false), 20000);
+    const openTimer = setTimeout(() => setStart(true), startAfter);
+    const fadeTimer = setTimeout(() => setShow(false), startAfter + duration);
+    const closeTimer = setTimeout(
+      () => setStart(false),
+      startAfter + duration + 1000,
+    );
     return () => {
       clearTimeout(openTimer);
       clearTimeout(fadeTimer);
@@ -16,7 +19,7 @@ function Balloon({ style }) {
   }, []);
   return (
     start && (
-      <Div style={{ ...style }} show={show}>
+      <Div show={show}>
         <div className="balloon__container">
           <button onClick={() => setShow(false)} className="balloon__close" />
           <div className="balloon__header">
