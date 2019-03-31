@@ -93,6 +93,7 @@ function MineSweeperView({
   mines,
   status,
   seconds,
+  id,
   onClose,
   difficulty,
   openingCeil,
@@ -186,7 +187,7 @@ function MineSweeperView({
   function onClickOptionItem(item) {
     switch (item) {
       case 'Exit':
-        onClose();
+        onClose(id);
         break;
       case 'Beginner':
       case 'Intermediate':

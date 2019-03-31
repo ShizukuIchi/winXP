@@ -178,11 +178,12 @@ function WinXP() {
       dispatch({ type: FOCUS_APP, payload: id });
     }
   }
-  function onCloseApp(id) {
-    if (getFocusedAppId() === id && state.focusing === FOCUSING.WINDOW) {
-      dispatch({ type: DEL_APP, payload: id });
-    }
-  }
+  const onCloseApp = React.useCallback(
+    function onCloseApp(id) {
+      if (getFocusedAppId() === id && state.focusing === FOCUSING.WINDOW) {
+        dispatch({ type: DEL_APP, payload: id });
+      }
+    },[state.apps])
   function onMouseDownIcon(id) {
     dispatch({ type: FOCUS_ICON, payload: id });
   }

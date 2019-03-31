@@ -23,7 +23,7 @@ function Windows({
       isFocus={focusedAppId === app.id}
       {...app}
     >
-      <app.component onClose={onClose.bind(null, app.id)} />
+      <app.component id={app.id} onClose={onClose} />
     </StyledWindow>
   ));
 }

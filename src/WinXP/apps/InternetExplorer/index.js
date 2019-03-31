@@ -22,7 +22,7 @@ import dropdown from 'src/assets/windowsIcons/dropdown.png';
 import { WindowDropdown, Google } from 'src/components';
 import dropDownData from './dropDownData';
 
-function InternetExplorer({ onClose }) {
+function InternetExplorer({ id,onClose }) {
   const dropDown = useRef(null);
   const [state, setState] = useState({
     route: 'main',
@@ -52,7 +52,7 @@ function InternetExplorer({ onClose }) {
   function onClickOptionItem(item) {
     switch (item) {
       case 'Close':
-        onClose();
+        onClose(id);
         break;
       case 'Home Page':
       case 'Back':
@@ -543,4 +543,4 @@ const Div = styled.div`
   }
 `;
 
-export default InternetExplorer;
+export default React.memo(InternetExplorer);

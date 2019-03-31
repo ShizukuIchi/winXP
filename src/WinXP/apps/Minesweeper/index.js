@@ -152,7 +152,7 @@ function reducer(state, action = {}) {
   }
 }
 
-function MineSweeper({ defaultDifficulty, onClose }) {
+function MineSweeper({ defaultDifficulty,id, onClose }) {
   const [state, dispatch] = useReducer(
     reducer,
     getInitState(defaultDifficulty),
@@ -232,6 +232,7 @@ function MineSweeper({ defaultDifficulty, onClose }) {
   return (
     <MinesweeperView
       {...state}
+      id={id}
       onClose={onClose}
       changeCeilState={changeCeilState}
       openCeil={openCeil}
@@ -349,4 +350,4 @@ function useTimer(status) {
   return seconds;
 }
 
-export default MineSweeper;
+export default React.memo(MineSweeper);

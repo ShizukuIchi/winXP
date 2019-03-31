@@ -27,7 +27,7 @@ import mine from 'src/assets/minesweeper/mine-icon.png';
 import { WindowDropdown } from 'src/components';
 import dropDownData from './dropDownData';
 
-function MyComputer({ onClose }) {
+function MyComputer({id, onClose }) {
   const dropDown = useRef(null);
   const [openOption, setOpenOption] = useState('');
   function hoverOption(option) {
@@ -39,7 +39,7 @@ function MyComputer({ onClose }) {
   function onClickOptionItem(item) {
     switch (item) {
       case 'Close':
-        onClose();
+        onClose(id);
         break;
       default:
     }
@@ -847,4 +847,4 @@ const Div = styled.div`
   }
 `;
 
-export default MyComputer;
+export default React.memo(MyComputer);
