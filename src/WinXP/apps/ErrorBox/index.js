@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import error from 'src/assets/windowsIcons/897(32x32).png';
 
-function Error({ onClose, className }) {
+function Error({ id, onClose, className }) {
   return (
     <div className={className}>
       <div className="error__top">
@@ -14,7 +14,7 @@ function Error({ onClose, className }) {
         </div>
       </div>
       <div className="error__bottom">
-        <div onClick={onClose} className="error__button">
+        <div onClick={()=>onClose(id)} className="error__button">
           <span>OK</span>
         </div>
       </div>
