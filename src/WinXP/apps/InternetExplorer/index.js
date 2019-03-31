@@ -179,7 +179,7 @@ function InternetExplorer({ onClose }) {
           <img src={ie} alt="ie" className="ie__address_bar__content__img" />
           <div className="ie__address_bar__content__text">
             {`https://www.google.com.tw${
-              state.route === 'search' ? `/search?q=${state.query}` : ''
+              state.route === 'search' ? `/search?q=${encodeURIComponent(state.query)}` : ''
             }`}
           </div>
           <img
