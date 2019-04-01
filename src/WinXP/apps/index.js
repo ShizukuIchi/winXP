@@ -3,6 +3,7 @@ import Minesweeper from './Minesweeper';
 import ErrorBox from './ErrorBox';
 import MyComputer from './MyComputer';
 import Notepad from './Notepad';
+import RunBox from './RunBox'
 import iePaper from 'src/assets/windowsIcons/ie-paper.png';
 import ie from 'src/assets/windowsIcons/ie.png';
 import mine from 'src/assets/minesweeper/mine-icon.png';
@@ -11,6 +12,9 @@ import computer from 'src/assets/windowsIcons/676(16x16).png';
 import computerLarge from 'src/assets/windowsIcons/676(32x32).png';
 import notepad from 'src/assets/windowsIcons/327(16x16).png';
 import notepadLarge from 'src/assets/windowsIcons/327(32x32).png';
+import run from 'src/assets/windowsIcons/743(32x32).png';
+
+
 
 export const defaultAppState = [
   {
@@ -95,6 +99,13 @@ export const defaultIconState = [
     component: Notepad,
     isFocus: false,
   },
+  {
+    id: 4,
+    icon: run,
+    title: 'Run',
+    component: RunBox,
+    isFocus: true,
+  }
 ];
 
 export const appSettings = {
@@ -178,6 +189,22 @@ export const appSettings = {
     minimized: false,
     maximized: window.innerWidth < 800,
   },
+  RunBox: {
+    headerIcon: run,
+    title: 'Run',
+    component: RunBox,
+    defaultSize: {
+      width: 380,
+      height: 120,
+    },
+    defaultOffset: {
+      x: window.innerWidth / 2 - 190,
+      y: window.innerHeight / 2 - 60,
+    },
+    resizable: false,
+    minimized: false,
+    maximized: false,
+  }
 };
 
-export { InternetExplorer, Minesweeper, ErrorBox, MyComputer, Notepad };
+export { InternetExplorer, Minesweeper, ErrorBox, MyComputer, Notepad,RunBox };
