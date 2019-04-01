@@ -26,7 +26,9 @@ export default function Notepad({ onClose }) {
         break;
       case 'Time/Date':
         const date = new Date();
-        setDocText(`${docText}${date.toLocaleTimeString()} ${date.toLocaleDateString()}`);
+        setDocText(
+          `${docText}${date.toLocaleTimeString()} ${date.toLocaleDateString()}`,
+        );
         break;
       default:
     }
@@ -171,9 +173,12 @@ const Div = styled.div`
 
 const StyledTextarea = styled.textarea`
   flex: auto;
-  box-sizing: border-box;
+  outline: none;
   font-family: 'Lucida Console', monospace;
+  font-size: 12px;
+  line-height: 14px;
+  resize: none;
   padding: 5px 2px;
-  ${props => props.wordWrap ? '' : 'white-space: nowrap; overflow-x: scroll;'}
+  ${props => (props.wordWrap ? '' : 'white-space: nowrap; overflow-x: scroll;')}
   overflow-y: scroll;
 `;
