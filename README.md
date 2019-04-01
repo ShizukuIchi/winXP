@@ -6,7 +6,7 @@ Features:
 
 - Drag and resize, minimize, maximize windows
 - Open applications from desktop icons or start menu
-- Minesweeper, Internet Explorer, My Computer
+- Minesweeper, Internet Explorer, My Computer, Notepad
 - Power off menu
 
 ## Try it!
