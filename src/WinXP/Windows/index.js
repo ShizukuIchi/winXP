@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import useWindowSize from 'react-use/lib/useWindowSize';
 import { useElementResize } from 'src/hooks';
 import styled from 'styled-components';
+import question from 'src/assets/windowsIcons/747(16x16).png'
 
 function Windows({
   apps,
@@ -99,11 +100,11 @@ function Window({
         <img src={headerIcon} alt={title} className="app__header__icon" />
         <div className="app__header__title">{title}</div>
         <div className="app__header__buttons">
-          {<button
+          {(title !== "Run") && <button
             className="app__header__minimize"
             onMouseUp={_onMouseUpMinimize}
           />}
-          {(title = "Run") ? "pc" : <button
+          {(title === "Run") ? <button className={`app__header__help`} ><img src={question} alt="help" className="run__img" /></button> : <button
             className={`app__header__maximize ${maximized ? 'maximized' : ''} ${
               resizable ? '' : 'disable'
               }`}
@@ -315,6 +316,19 @@ const StyledWindow = styled(Window)`
       width: 2px;
       background-color: white;
     }
+  }
+  .app__header__help {
+    background-image: radial-gradient(
+      circle at 90% 90%,
+      #0054e9 0%,
+      #2263d5 55%,
+      #4479e4 70%,
+      #a3bbec 90%,
+      white 100%
+    );
+   
+   
+    
   }
   .app__content {
     flex: 1;
