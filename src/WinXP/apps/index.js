@@ -199,7 +199,7 @@ export const appSettings = {
     },
     defaultOffset: {
       x: window.innerWidth / 2 - 300,
-      y: window.innerHeight / 2 + 300,
+      y: window.innerHeight / 2,
     },
     resizable: false,
     minimized: false,
