@@ -195,11 +195,11 @@ export const appSettings = {
     component: RunBox,
     defaultSize: {
       width: 380,
-      height: 120,
+      height: 160,
     },
     defaultOffset: {
-      x: window.innerWidth / 2 - 190,
-      y: window.innerHeight / 2 - 60,
+      x: window.innerWidth / 2 - 300,
+      y: window.innerHeight / 2 + 300,
     },
     resizable: false,
     minimized: false,
@@ -207,4 +207,4 @@ export const appSettings = {
   }
 };
 
-export { InternetExplorer, Minesweeper, ErrorBox, MyComputer, Notepad,RunBox };
+export { InternetExplorer, Minesweeper, ErrorBox, MyComputer, Notepad, RunBox };
