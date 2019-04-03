@@ -5,6 +5,10 @@ import error from 'src/assets/windowsIcons/897(32x32).png';
 
 function Error({ onClose, className }) {
   return (
+   <div>
+   var errorAudio = new Audio('audio_file.mp3');
+   errorAudio.play();
+   </div>
     <div className={className}>
       <div className="error__top">
         <img src={error} alt="error" className="error__img" />
@@ -20,10 +24,6 @@ function Error({ onClose, className }) {
      </div>
    </div>
   );
- <div>
-  var errorAudio = new Audio('audio_file.mp3');
-  errorAudio.play();
- </div>
 }
 
 export default styled(Error)`
