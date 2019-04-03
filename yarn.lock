@@ -8151,13 +8151,14 @@ react-scripts@2.1.8:
   optionalDependencies:
     fsevents "1.2.4"
 
-react-use@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/react-use/-/react-use-6.1.0.tgz#e239c73e37ce8b00029fa00fa7c9b45ec0264e14"
-  integrity sha512-ySiaUmiStac48j38r8Tc7PtpxU+1rLMSmnB3DW1yaD2iks3s3mYFED3hZzql+0pBoSV5DB/ysEmwD3wPy4JQpw==
+react-use@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/react-use/-/react-use-7.0.1.tgz#c7cf9821a0dd07763168b103fa8b5b7d0d6c19a7"
+  integrity sha512-khCt+G0tPIl0Vtpk2eQ63oaQBwZ3PqFLtKQw61EEd6of4HKwADW3b+V7rbbGlgpPHp1zpIXIJMla1wz+QUhg4A==
   dependencies:
     nano-css "^5.1.0"
     react-wait "^0.3.0"
+    screenfull "^4.1.0"
     throttle-debounce "^2.0.1"
     ts-easing "^0.2.0"
 
@@ -8652,6 +8653,11 @@ schema-utils@^1.0.0:
     ajv "^6.1.0"
     ajv-errors "^1.0.0"
     ajv-keywords "^3.1.0"
+
+screenfull@^4.1.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/screenfull/-/screenfull-4.2.0.tgz#d5252a5a0f56504719abbed9ebbcd9208115da03"
+  integrity sha512-qpyI9XbwuMJElWRP5vTgxkFAl4k7HpyhIqBFOZEwX9QBXn0MAuRSpn7LOc6/4CeSwoz61oBu1VPV+2fbIWC+5Q==
 
 select-hose@^2.0.0:
   version "2.0.0"
