@@ -21,8 +21,8 @@ function Error({ onClose, className }) {
    </div>
   );
  <div>
-  var audio = new Audio('audio_file.mp3');
-  audio.play();
+  var errorAudio = new Audio('audio_file.mp3');
+  errorAudio.play();
  </div>
 }
 
