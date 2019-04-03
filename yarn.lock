@@ -8151,13 +8151,14 @@ react-scripts@2.1.8:
   optionalDependencies:
     fsevents "1.2.4"
 
-react-use@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/react-use/-/react-use-6.1.0.tgz#e239c73e37ce8b00029fa00fa7c9b45ec0264e14"
-  integrity sha512-ySiaUmiStac48j38r8Tc7PtpxU+1rLMSmnB3DW1yaD2iks3s3mYFED3hZzql+0pBoSV5DB/ysEmwD3wPy4JQpw==
+react-use@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/react-use/-/react-use-7.0.1.tgz#c7cf9821a0dd07763168b103fa8b5b7d0d6c19a7"
+  integrity sha512-khCt+G0tPIl0Vtpk2eQ63oaQBwZ3PqFLtKQw61EEd6of4HKwADW3b+V7rbbGlgpPHp1zpIXIJMla1wz+QUhg4A==
   dependencies:
     nano-css "^5.1.0"
     react-wait "^0.3.0"
+    screenfull "^4.1.0"
     throttle-debounce "^2.0.1"
     ts-easing "^0.2.0"
 
@@ -8166,15 +8167,15 @@ react-wait@^0.3.0:
   resolved "https://registry.yarnpkg.com/react-wait/-/react-wait-0.3.0.tgz#0cdd4d919012451a5bc3ab0a16d00c6fd9a8c10b"
   integrity sha512-kB5x/kMKWcn0uVr9gBdNz21/oGbQwEQnF3P9p6E9yLfJ9DRcKS0fagbgYMFI0YFOoyKDj+2q6Rwax0kTYJF37g==
 
-react@^16.8.5:
-  version "16.8.5"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.8.5.tgz#49be3b655489d74504ad994016407e8a0445de66"
-  integrity sha512-daCb9TD6FZGvJ3sg8da1tRAtIuw29PbKZW++NN4wqkbEvxL+bZpaaYb4xuftW/SpXmgacf1skXl/ddX6CdOlDw==
+react@^16.8.6:
+  version "16.8.6"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.8.6.tgz#ad6c3a9614fd3a4e9ef51117f54d888da01f2bbe"
+  integrity sha512-pC0uMkhLaHm11ZSJULfOBqV4tIZkx87ZLvbbQYunNixAAvjnC+snJCg0XQXn9VIsttVsbZP/H/ewzgsd5fxKXw==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    scheduler "^0.13.5"
+    scheduler "^0.13.6"
 
 read-pkg-up@^1.0.1:
   version "1.0.1"
@@ -8652,6 +8653,11 @@ schema-utils@^1.0.0:
     ajv "^6.1.0"
     ajv-errors "^1.0.0"
     ajv-keywords "^3.1.0"
+
+screenfull@^4.1.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/screenfull/-/screenfull-4.2.0.tgz#d5252a5a0f56504719abbed9ebbcd9208115da03"
+  integrity sha512-qpyI9XbwuMJElWRP5vTgxkFAl4k7HpyhIqBFOZEwX9QBXn0MAuRSpn7LOc6/4CeSwoz61oBu1VPV+2fbIWC+5Q==
 
 select-hose@^2.0.0:
   version "2.0.0"
