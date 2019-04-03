@@ -17,6 +17,9 @@ const getTime = () => {
     hour -= 12;
     hourPostFix = 'PM';
   }
+  if (hour === 0) {
+    hour = 12;
+  }
   if (min < 10) {
     min = '0' + min;
   }
@@ -73,8 +76,7 @@ function Footer({
           className="footer__start"
           onMouseDown={toggleMenu}
         />
-        <div className="footer__window__items">
-          {[...apps]
+        {[...apps]
           .sort((a, b) => a.id - b.id)
           .map(app => (
             <FooterWindow
@@ -86,7 +88,6 @@ function Footer({
               isFocus={focusedAppId === app.id}
             />
           ))}
-        </div>
       </div>
 
       <div className="footer__items right">
@@ -146,6 +147,7 @@ const Container = styled.footer`
   .footer__items.left {
     height: 100%;
     flex: 1;
+    overflow: hidden;
   }
   .footer__items.right {
     background-color: #0b77e9;
@@ -168,7 +170,7 @@ const Container = styled.footer`
     border-left: 1px solid #1042af;
     box-shadow: inset 1px 0 1px #18bbff;
     padding: 0 10px;
-    margin-left: 1px;
+    margin-left: 10px;
   }
   .footer__items {
     display: flex;
@@ -192,12 +194,6 @@ const Container = styled.footer`
     box-shadow: 2px 4px 2px rgba(0, 0, 0, 0.5);
     bottom: 100%;
   }
-  .footer__window__items {
-    display: inline-flex;
-    margin-right: 10px;
-    width: 0;
-    flex: 1;
-  }
   .footer__window {
     flex: 1;
     max-width: 150px;
@@ -217,7 +213,6 @@ const Container = styled.footer`
   .footer__icon {
     height: 15px;
     width: 15px;
-    margin-right: 4px;
   }
   .footer__text {
     position: absolute;
