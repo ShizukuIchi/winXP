@@ -5,6 +5,10 @@ import run from 'src/assets/windowsIcons/743(32x32).png';
 
 export default function RunBox({ onClose }) {
 
+  hnadleChange = (e) => {
+    console.log(e.target)
+  }
+
 
   return (
     <Div>
@@ -13,11 +17,11 @@ export default function RunBox({ onClose }) {
       </div>
       <div className="run__input">
         <span>Open:</span>
-        <div><input type="text" className="input__box" /></div>
+        <div><input type="text" className="input__box" onChange={this.handleChange} /></div>
         <div className="run__imag"><img src={dropDown} alt="error" className="run__img" height="23px" /></div>
       </div>
       <div className="run__buttonbox">
-        <button className="run__button">Ok</button>
+        <button className="run__button" onClick="">Ok</button>
         <button className="run__button">Cancel</button>
         <button className="run__button">Browse</button>
 
