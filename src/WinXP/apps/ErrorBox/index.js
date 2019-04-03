@@ -18,8 +18,10 @@ function Error({ onClose, className }) {
           <span>OK</span>
         </div>
       </div>
-    </div>
-  );
+    var audio = new Audio('audio_file.mp3');
+   audio.play();
+  </div>
+ );
 }
 
 export default styled(Error)`
