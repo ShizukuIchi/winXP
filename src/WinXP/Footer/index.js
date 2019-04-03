@@ -73,7 +73,8 @@ function Footer({
           className="footer__start"
           onMouseDown={toggleMenu}
         />
-        {[...apps]
+        <div className="footer__window__items">
+          {[...apps]
           .sort((a, b) => a.id - b.id)
           .map(app => (
             <FooterWindow
@@ -85,6 +86,7 @@ function Footer({
               isFocus={focusedAppId === app.id}
             />
           ))}
+        </div>
       </div>
 
       <div className="footer__items right">
@@ -110,7 +112,7 @@ function FooterWindow({ id, icon, title, onMouseDown, isFocus }) {
       className={`footer__window ${isFocus ? 'focus' : 'cover'}`}
     >
       <img className="footer__icon" src={icon} alt={title} />
-      {title}
+      <span className="footer__window__title">{title}</span>
     </div>
   );
 }
@@ -189,6 +191,12 @@ const Container = styled.footer`
     box-shadow: 2px 4px 2px rgb(0, 0, 0, 0.5);
     bottom: 100%;
   }
+  .footer__window__items {
+    display: inline-flex;
+    margin-right: 10px;
+    width: 0;
+    flex: 1;
+  }
   .footer__window {
     flex-grow: 0;
     flex-shrink: 1;
@@ -196,7 +204,7 @@ const Container = styled.footer`
     color: #fff;
     border-radius: 2px;
     margin-top: 2px;
-    padding-left: 8px;
+    padding: 0 8px;
     height: 22px;
     font-size: 11px;
     background-color: #3c81f3;
@@ -206,6 +214,12 @@ const Container = styled.footer`
     overflow: hidden;
     display: flex;
     align-items: center;
+  }
+  .footer__window__title {
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
   .footer__window.cover:hover {
     background-color: #53a3ff;
