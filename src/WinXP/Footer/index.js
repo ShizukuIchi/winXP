@@ -73,7 +73,8 @@ function Footer({
           className="footer__start"
           onMouseDown={toggleMenu}
         />
-        {[...apps]
+        <div className="footer__window__items">
+          {[...apps]
           .sort((a, b) => a.id - b.id)
           .map(app => (
             <FooterWindow
@@ -85,6 +86,7 @@ function Footer({
               isFocus={focusedAppId === app.id}
             />
           ))}
+        </div>
       </div>
 
       <div className="footer__items right">
@@ -189,6 +191,12 @@ const Container = styled.footer`
     left: 0;
     box-shadow: 2px 4px 2px rgba(0, 0, 0, 0.5);
     bottom: 100%;
+  }
+  .footer__window__items {
+    display: inline-flex;
+    margin-right: 10px;
+    width: 0;
+    flex: 1;
   }
   .footer__window {
     flex: 1;
