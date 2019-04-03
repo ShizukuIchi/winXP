@@ -613,27 +613,28 @@ const Div = styled.div`
     height: 100%;
     display: flex;
     flex: 1;
-    font-size: 10;
     align-items: center;
     background-color: white;
-    padding: 0 1px;
+    position: relative;
     &__img {
       width: 14px;
       height: 14px;
-      margin-right: 2px;
     }
     &__img:last-child {
       width: 15px;
       height: 15px;
-      margin: 0;
+      right: 1px;
+      position: absolute;
     }
     &__img:last-child:hover {
-      filter: brightness(110%);
+      filter: brightness(1.1);
     }
     &__text {
-      line-height: 100%;
-      flex: 1;
       white-space: nowrap;
+      position: absolute;
+      white-space: nowrap;
+      left: 16px;
+      right: 17px;
     }
   }
 

@@ -112,7 +112,7 @@ function FooterWindow({ id, icon, title, onMouseDown, isFocus }) {
       className={`footer__window ${isFocus ? 'focus' : 'cover'}`}
     >
       <img className="footer__icon" src={icon} alt={title} />
-      <span className="footer__window__title">{title}</span>
+      <div className="footer__text">{title}</div>
     </div>
   );
 }
@@ -168,6 +168,7 @@ const Container = styled.footer`
     border-left: 1px solid #1042af;
     box-shadow: inset 1px 0 1px #18bbff;
     padding: 0 10px;
+    margin-left: 1px;
   }
   .footer__items {
     display: flex;
@@ -188,7 +189,7 @@ const Container = styled.footer`
   .footer__start__menu {
     position: absolute;
     left: 0;
-    box-shadow: 2px 4px 2px rgb(0, 0, 0, 0.5);
+    box-shadow: 2px 4px 2px rgba(0, 0, 0, 0.5);
     bottom: 100%;
   }
   .footer__window__items {
@@ -198,9 +199,8 @@ const Container = styled.footer`
     flex: 1;
   }
   .footer__window {
-    flex-grow: 0;
-    flex-shrink: 1;
-    flex-basis: 150px;
+    flex: 1;
+    max-width: 150px;
     color: #fff;
     border-radius: 2px;
     margin-top: 2px;
@@ -208,23 +208,29 @@ const Container = styled.footer`
     height: 22px;
     font-size: 11px;
     background-color: #3c81f3;
-    box-shadow: inset -1px 0px rgb(0, 0, 0, 0.3),
-      inset 1px 1px 1px rgb(255, 255, 255, 0.2);
+    box-shadow: inset -1px 0px rgba(0, 0, 0, 0.3),
+      inset 1px 1px 1px rgba(255, 255, 255, 0.2);
     position: relative;
-    overflow: hidden;
     display: flex;
     align-items: center;
   }
-  .footer__window__title {
-    display: inline-block;
-    text-overflow: ellipsis;
+  .footer__icon {
+    height: 15px;
+    width: 15px;
+    margin-right: 4px;
+  }
+  .footer__text {
+    position: absolute;
+    left: 27px;
+    right: 8px;
     white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
   }
   .footer__window.cover:hover {
     background-color: #53a3ff;
-    box-shadow: 1px 0px 1px rgb(0, 0, 0, 0.2),
-      inset 1px 1px 1px rgb(255, 255, 255, 0.3);
+    box-shadow: 1px 0px 1px rgba(0, 0, 0, 0.2),
+      inset 1px 1px 1px rgba(255, 255, 255, 0.3);
   }
   .footer__window.cover:before {
     display: block;
@@ -235,12 +241,12 @@ const Container = styled.footer`
     width: 10px;
     height: 1px;
     border-bottom-right-radius: 50%;
-    box-shadow: 2px 2px 3px rgb(255, 255, 255, 0.5);
+    box-shadow: 2px 2px 3px rgba(255, 255, 255, 0.5);
   }
   .footer__window.cover:hover:active {
     background-color: #1e52b7;
-    box-shadow: inset 0 0 1px 1px rgb(0, 0, 0, 0.3),
-      inset 1px 0 1px rgb(0, 0, 0, 0.7);
+    box-shadow: inset 0 0 1px 1px rgba(0, 0, 0, 0.3),
+      inset 1px 0 1px rgba(0, 0, 0, 0.7);
   }
   .footer__window.focus:hover {
     background-color: #3576f3;
@@ -250,13 +256,8 @@ const Container = styled.footer`
   }
   .footer__window.focus {
     background-color: #1e52b7;
-    box-shadow: inset 0 0 1px 1px rgb(0, 0, 0, 0.2),
-      inset 1px 0 1px rgb(0, 0, 0, 0.7);
-  }
-  .footer__icon {
-    height: 15px;
-    width: 15px;
-    margin-right: 4px;
+    box-shadow: inset 0 0 1px 1px rgba(0, 0, 0, 0.2),
+      inset 1px 0 1px rgba(0, 0, 0, 0.7);
   }
   .footer__time {
     margin: 0 5px;

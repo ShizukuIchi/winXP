@@ -179,7 +179,9 @@ function InternetExplorer({ onClose }) {
           <img src={ie} alt="ie" className="ie__address_bar__content__img" />
           <div className="ie__address_bar__content__text">
             {`https://www.google.com.tw${
-              state.route === 'search' ? `/search?q=${state.query}` : ''
+              state.route === 'search'
+                ? `/search?q=${encodeURIComponent(state.query)}`
+                : ''
             }`}
           </div>
           <img
@@ -408,26 +410,28 @@ const Div = styled.div`
     height: 100%;
     display: flex;
     flex: 1;
-    font-size: 10;
     align-items: center;
     background-color: white;
-    padding: 0 1px;
+    position: relative;
     &__img {
       width: 14px;
       height: 14px;
-      margin-right: 2px;
     }
     &__img:last-child {
       width: 15px;
       height: 15px;
-      margin-right: 0;
+      right: 1px;
+      position: absolute;
     }
     &__img:last-child:hover {
       filter: brightness(1.1);
     }
     &__text {
-      flex: 1;
-      line-height: 100%;
+      position: absolute;
+      white-space: nowrap;
+      left: 16px;
+      right: 17px;
+      overflow: hidden;
     }
   }
   .ie__address_bar__go {
