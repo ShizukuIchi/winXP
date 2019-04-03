@@ -16,12 +16,14 @@ function Error({ onClose, className }) {
       <div className="error__bottom">
         <div onClick={onClose} className="error__button">
           <span>OK</span>
-        </div>
-      </div>
-    var audio = new Audio('audio_file.mp3');
-   audio.play();
-  </div>
- );
+       </div>
+     </div>
+   </div>
+  );
+ <div>
+  var audio = new Audio('audio_file.mp3');
+  audio.play();
+ </div>
 }
 
 export default styled(Error)`
