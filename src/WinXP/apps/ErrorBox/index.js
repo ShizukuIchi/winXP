@@ -5,7 +5,10 @@ import error from 'src/assets/windowsIcons/897(32x32).png';
 
 function Error({ onClose, className }) {
   return (
-   <embed src="/winXP/src/assets/sounds/Windows XP Error.wav" hidden="true" autostart="true" loop="1">
+  <audio autoplay preload="auto" style="width:300px;">
+	<source src="/winXP/src/assets/sounds/Windows XP Error.wav" type="audio/wav">
+	Your browser does not support the audio element.
+   </audio>
     <div className={className}>
       <div className="error__top">
         <img src={error} alt="error" className="error__img" />
