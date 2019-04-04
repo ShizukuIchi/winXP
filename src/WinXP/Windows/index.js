@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, memo } from 'react';
 import useWindowSize from 'react-use/lib/useWindowSize';
 import { useElementResize } from 'src/hooks';
 import styled from 'styled-components';
@@ -20,15 +20,15 @@ function Windows({
       onMouseUpClose={onClose}
       onMouseUpMinimize={onMinimize}
       onMouseUpMaximize={onMaximize}
-      isFocus={focusedAppId === app.id}
+      isFocus={focusedAppId === app.id} // for styledWindow
       {...app}
     >
-      <app.component onClose={onClose.bind(null, app.id)} />
+      {/* <app.component onClose={onClose.bind(null, app.id)} /> */}
     </StyledWindow>
   ));
 }
 
-function Window({
+const Window = memo(function({
   children,
   id,
   onMouseDown,
@@ -41,6 +41,7 @@ function Window({
   resizable,
   headerIcon,
   maximized,
+  component,
   className,
 }) {
   function _onMouseDown() {
@@ -112,10 +113,12 @@ function Window({
           <button className="app__header__close" onMouseUp={_onMouseUpClose} />
         </div>
       </header>
-      <div className="app__content">{children}</div>
+      <div className="app__content">
+        {component({ onClose: _onMouseUpClose })}
+      </div>
     </div>
   );
-}
+});
 
 const StyledWindow = styled(Window)`
   display: ${({ show }) => (show ? 'flex' : 'none')};

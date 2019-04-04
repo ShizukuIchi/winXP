@@ -50,7 +50,7 @@ function Footer({
   useEffect(() => {
     const timer = setInterval(() => {
       const newTime = getTime();
-      newTime !== time && setTime(getTime());
+      newTime !== time && setTime(newTime);
     }, 1000);
     return () => clearInterval(timer);
   }, []);
