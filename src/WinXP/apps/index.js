@@ -3,6 +3,7 @@ import Minesweeper from './Minesweeper';
 import ErrorBox from './ErrorBox';
 import MyComputer from './MyComputer';
 import Notepad from './Notepad';
+import Winamp from './Winamp';
 import iePaper from 'src/assets/windowsIcons/ie-paper.png';
 import ie from 'src/assets/windowsIcons/ie.png';
 import mine from 'src/assets/minesweeper/mine-icon.png';
@@ -14,8 +15,11 @@ import notepadLarge from 'src/assets/windowsIcons/327(32x32).png';
 
 export const defaultAppState = [
   {
-    title: 'Internet Explorer',
     component: InternetExplorer,
+    header: {
+      title: 'Internet Explorer',
+      icon: iePaper,
+    },
     defaultSize: {
       width: 700,
       height: 500,
@@ -25,14 +29,16 @@ export const defaultAppState = [
       y: 20,
     },
     resizable: true,
-    headerIcon: iePaper,
     minimized: false,
     maximized: window.innerWidth < 800,
     id: 0,
   },
   {
     component: Minesweeper,
-    title: 'Minesweeper',
+    header: {
+      title: 'Minesweeper',
+      icon: mine,
+    },
     defaultSize: {
       width: 0,
       height: 0,
@@ -42,14 +48,16 @@ export const defaultAppState = [
       y: 170,
     },
     resizable: false,
-    headerIcon: mine,
     minimized: false,
     maximized: false,
     id: 1,
   },
   {
     component: MyComputer,
-    title: 'My Computer',
+    header: {
+      title: 'My Computer',
+      icon: computer,
+    },
     defaultSize: {
       width: 660,
       height: 500,
@@ -59,10 +67,29 @@ export const defaultAppState = [
       y: 40,
     },
     resizable: true,
-    headerIcon: computer,
     minimized: false,
     maximized: window.innerWidth < 800,
     id: 2,
+  },
+  {
+    component: Winamp,
+    header: {
+      title: 'Winamp',
+      icon: notepad,
+      disable: true,
+    },
+    defaultSize: {
+      width: 0,
+      height: 0,
+    },
+    defaultOffset: {
+      x: 200,
+      y: 200,
+    },
+    resizable: false,
+    minimized: false,
+    maximized: false,
+    id: 3,
   },
 ];
 
@@ -99,8 +126,10 @@ export const defaultIconState = [
 
 export const appSettings = {
   'Internet Explorer': {
-    headerIcon: iePaper,
-    title: 'Internet Explorer',
+    header: {
+      icon: iePaper,
+      title: 'InternetExplorer',
+    },
     component: InternetExplorer,
     defaultSize: {
       width: 700,
@@ -115,8 +144,10 @@ export const appSettings = {
     maximized: window.innerWidth < 800,
   },
   Minesweeper: {
-    headerIcon: mine,
-    title: 'Minesweeper',
+    header: {
+      icon: mine,
+      title: 'Minesweeper',
+    },
     component: Minesweeper,
     defaultSize: {
       width: 0,
@@ -131,8 +162,10 @@ export const appSettings = {
     maximized: false,
   },
   Error: {
-    headerIcon: error,
-    title: 'C:\\',
+    header: {
+      icon: error,
+      title: 'C:\\',
+    },
     component: ErrorBox,
     defaultSize: {
       width: 380,
@@ -147,8 +180,11 @@ export const appSettings = {
     maximized: false,
   },
   'My Computer': {
+    header: {
+      icon: computer,
+      title: 'My Computer',
+    },
     component: MyComputer,
-    title: 'My Computer',
     defaultSize: {
       width: 660,
       height: 500,
@@ -158,13 +194,15 @@ export const appSettings = {
       y: 50,
     },
     resizable: true,
-    headerIcon: computer,
     minimized: false,
     maximized: window.innerWidth < 800,
   },
   Notepad: {
+    header: {
+      icon: notepad,
+      title: 'Untitled - Notepad',
+    },
     component: Notepad,
-    title: 'Untitled - Notepad',
     defaultSize: {
       width: 660,
       height: 500,
@@ -174,10 +212,28 @@ export const appSettings = {
       y: 100,
     },
     resizable: true,
-    headerIcon: notepad,
     minimized: false,
     maximized: window.innerWidth < 800,
   },
+  Winamp: {
+    header: {
+      disable: true,
+      title: 'Winamp',
+      icon: notepad,
+    },
+    component: Winamp,
+    defaultSize: {
+      width: 0,
+      height: 0,
+    },
+    defaultOffset: {
+      x: 0,
+      y: 0,
+    },
+    resizable: false,
+    minimized: false,
+    maximized: false,
+  },
 };
 
-export { InternetExplorer, Minesweeper, ErrorBox, MyComputer, Notepad };
+export { InternetExplorer, Minesweeper, ErrorBox, MyComputer, Notepad, Winamp };

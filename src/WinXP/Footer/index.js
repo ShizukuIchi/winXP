@@ -82,8 +82,8 @@ function Footer({
             <FooterWindow
               key={app.id}
               id={app.id}
-              icon={app.headerIcon}
-              title={app.title}
+              icon={app.header.icon}
+              title={app.header.title}
               onMouseDown={onMouseDownApp}
               isFocus={focusedAppId === app.id}
             />

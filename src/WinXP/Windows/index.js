@@ -29,17 +29,16 @@ function Windows({
 }
 
 const Window = memo(function({
-  children,
+  insertProps,
   id,
   onMouseDown,
   onMouseUpClose,
   onMouseUpMinimize,
   onMouseUpMaximize,
-  title,
+  header,
   defaultSize,
   defaultOffset,
   resizable,
-  headerIcon,
   maximized,
   component,
   className,
@@ -97,8 +96,12 @@ const Window = memo(function({
     >
       <div className="header__bg" />
       <header className="app__header" ref={dragRef}>
-        <img src={headerIcon} alt={title} className="app__header__icon" />
-        <div className="app__header__title">{title}</div>
+        <img
+          src={header.icon}
+          alt={header.title}
+          className="app__header__icon"
+        />
+        <div className="app__header__title">{header.title}</div>
         <div className="app__header__buttons">
           <button
             className="app__header__minimize"
@@ -114,7 +117,11 @@ const Window = memo(function({
         </div>
       </header>
       <div className="app__content">
-        {component({ onClose: _onMouseUpClose })}
+        {component({
+          onClose: _onMouseUpClose,
+          onMinimize: _onMouseUpMinimize,
+          ...insertProps,
+        })}
       </div>
     </div>
   );
@@ -124,6 +131,7 @@ const StyledWindow = styled(Window)`
   display: ${({ show }) => (show ? 'flex' : 'none')};
   position: absolute;
   padding: 3px;
+  padding: ${({ header }) => (header.disable ? 0 : 3)}px;
   background-color: ${({ isFocus }) => (isFocus ? '#0831d9' : '#6582f5')};
   flex-direction: column;
   border-top-left-radius: 8px;
@@ -166,6 +174,7 @@ const StyledWindow = styled(Window)`
     width: 15px;
   }
   .app__header {
+    display: ${({ header }) => (header.disable ? 'none' : 'flex')};
     height: 25px;
     line-height: 25px;
     font-weight: 700;
@@ -176,7 +185,6 @@ const StyledWindow = styled(Window)`
     position: absolute;
     left: 3px;
     right: 3px;
-    display: flex;
     align-items: center;
   }
   .app__header__icon {
