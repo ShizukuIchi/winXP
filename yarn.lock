@@ -4186,6 +4186,11 @@ fs.realpath@^1.0.0:
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
   integrity sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
 
+fscreen@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/fscreen/-/fscreen-1.0.2.tgz#c4c51d96d819d75a19d728e0df445f9be9bb984f"
+  integrity sha1-xMUdltgZ11oZ1yjg30Rfm+m7mE8=
+
 fsevents@1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-1.2.4.tgz#f41dcb1af2582af3692da36fc55cbd8e1041c426"
@@ -9959,6 +9964,13 @@ web-namespaces@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/web-namespaces/-/web-namespaces-1.1.2.tgz#c8dc267ab639505276bae19e129dbd6ae72b22b4"
   integrity sha512-II+n2ms4mPxK+RnIxRPOw3zwF2jRscdJIUE9BfkKHm4FYEg9+biIoTMnaZF5MpemE3T+VhMLrhbyD4ilkPCSbg==
+
+webamp@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/webamp/-/webamp-1.3.1.tgz#352ab508d4400bda92f3b5fe7ae63241fa18ac1e"
+  integrity sha512-SsJoU0G5FUv19DOfId/P6vaI5C1IgAOr0z0x4VrUQx5Z2IQo4gca/tLu4twhk38+tK1dVrcY4x93J2EtT4FflA==
+  dependencies:
+    fscreen "^1.0.2"
 
 webidl-conversions@^4.0.2:
   version "4.0.2"
