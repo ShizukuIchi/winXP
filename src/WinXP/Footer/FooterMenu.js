@@ -7,8 +7,6 @@ import outlook from 'src/assets/windowsIcons/887(32x32).png';
 import mediaPlayer from 'src/assets/windowsIcons/846(32x32).png';
 import messenger from 'src/assets/windowsIcons/msn.png';
 import tour from 'src/assets/windowsIcons/853(32x32).png';
-import transfer from 'src/assets/windowsIcons/367(32x32).png';
-import calculator from 'src/assets/windowsIcons/74(32x32).png';
 import documents from 'src/assets/windowsIcons/308(32x32).png';
 import recentDocuments from 'src/assets/windowsIcons/301(32x32).png';
 import pictures from 'src/assets/windowsIcons/307(32x32).png';
@@ -24,6 +22,8 @@ import lock from 'src/assets/windowsIcons/546(32x32).png';
 import user from 'src/assets/windowsIcons/user.png';
 import shut from 'src/assets/windowsIcons/310(32x32).png';
 import allProgramsIcon from 'src/assets/windowsIcons/all-programs.ico';
+import winamp from 'src/assets/windowsIcons/winamp.png';
+import notepad from 'src/assets/windowsIcons/327(32x32).png';
 
 import empty from 'src/assets/empty.png';
 
@@ -58,11 +58,11 @@ function FooterMenu({ className, onClick }) {
             onClick={onClick}
             items={[
               { icon: mine, text: 'Minesweeper' },
+              { icon: notepad, text: 'Notepad' },
+              { icon: winamp, text: 'Winamp' },
               { icon: mediaPlayer, text: 'Windows Media Player' },
               { icon: messenger, text: 'Windows Messenger' },
               { icon: tour, text: 'Tour Windows XP' },
-              { icon: transfer, text: 'Files and Settings Transfer Wizard' },
-              { icon: calculator, text: 'Calculator' },
             ]}
           />
           <div style={{ flex: 1 }} />

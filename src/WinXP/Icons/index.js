@@ -89,8 +89,8 @@ function Icon({
 
 const IconsContainer = styled.div`
   position: absolute;
-  margin-top: 60px;
-  margin-left: 60px;
+  margin-top: 40px;
+  margin-left: 40px;
 `;
 
 const StyledIcon = styled(Icon)`

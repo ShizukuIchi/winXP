@@ -50,7 +50,7 @@ function Footer({
   useEffect(() => {
     const timer = setInterval(() => {
       const newTime = getTime();
-      newTime !== time && setTime(getTime());
+      newTime !== time && setTime(newTime);
     }, 1000);
     return () => clearInterval(timer);
   }, []);
@@ -82,8 +82,8 @@ function Footer({
             <FooterWindow
               key={app.id}
               id={app.id}
-              icon={app.headerIcon}
-              title={app.title}
+              icon={app.header.icon}
+              title={app.header.title}
               onMouseDown={onMouseDownApp}
               isFocus={focusedAppId === app.id}
             />

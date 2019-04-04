@@ -11,7 +11,8 @@
     "react-ga": "^2.5.7",
     "react-scripts": "2.1.8",
     "react-use": "^7.0.1",
-    "styled-components": "^4.2.0"
+    "styled-components": "^4.2.0",
+    "webamp": "^1.3.2-beta.2"
   },
   "scripts": {
     "start": "react-scripts start",
