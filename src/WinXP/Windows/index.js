@@ -22,9 +22,7 @@ function Windows({
       onMouseUpMaximize={onMaximize}
       isFocus={focusedAppId === app.id} // for styledWindow
       {...app}
-    >
-      {/* <app.component onClose={onClose.bind(null, app.id)} /> */}
-    </StyledWindow>
+    />
   ));
 }
 

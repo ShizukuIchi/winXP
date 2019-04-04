@@ -40,10 +40,22 @@ const reducer = (state, action = { type: '' }) => {
   });
   switch (action.type) {
     case ADD_APP:
+      const app = state.apps.find(
+        _app => _app.component === action.payload.component,
+      );
+      if (action.payload.multiInstance || !app) {
+        return {
+          ...state,
+          apps: [...state.apps, { ...action.payload, id: state.nextAppID }],
+          nextAppID: state.nextAppID + 1,
+          focusing: FOCUSING.WINDOW,
+        };
+      }
+
+      const restApps = [...state.apps.filter(_app => _app.id !== app.id)];
       return {
         ...state,
-        apps: [...state.apps, { ...action.payload, id: state.nextAppID }],
-        nextAppID: state.nextAppID + 1,
+        apps: app ? [...restApps, { ...app, minimized: false }] : restApps,
         focusing: FOCUSING.WINDOW,
       };
     case DEL_APP:
@@ -223,6 +235,8 @@ function WinXP() {
       dispatch({ type: ADD_APP, payload: appSettings['My Computer'] });
     else if (o === 'Notepad')
       dispatch({ type: ADD_APP, payload: appSettings.Notepad });
+    else if (o === 'Winamp')
+      dispatch({ type: ADD_APP, payload: appSettings.Winamp });
     else if (o === 'Log Off')
       dispatch({ type: POWER_OFF, payload: POWER_STATE.LOG_OFF });
     else if (o === 'Turn Off Computer')

@@ -12,6 +12,7 @@ import computer from 'src/assets/windowsIcons/676(16x16).png';
 import computerLarge from 'src/assets/windowsIcons/676(32x32).png';
 import notepad from 'src/assets/windowsIcons/327(16x16).png';
 import notepadLarge from 'src/assets/windowsIcons/327(32x32).png';
+import winamp from 'src/assets/windowsIcons/winamp.png';
 
 export const defaultAppState = [
   {
@@ -19,6 +20,7 @@ export const defaultAppState = [
     header: {
       title: 'Internet Explorer',
       icon: iePaper,
+      disable: false,
     },
     defaultSize: {
       width: 700,
@@ -38,6 +40,7 @@ export const defaultAppState = [
     header: {
       title: 'Minesweeper',
       icon: mine,
+      disable: false,
     },
     defaultSize: {
       width: 0,
@@ -53,29 +56,10 @@ export const defaultAppState = [
     id: 1,
   },
   {
-    component: MyComputer,
-    header: {
-      title: 'My Computer',
-      icon: computer,
-    },
-    defaultSize: {
-      width: 660,
-      height: 500,
-    },
-    defaultOffset: {
-      x: 250,
-      y: 40,
-    },
-    resizable: true,
-    minimized: false,
-    maximized: window.innerWidth < 800,
-    id: 2,
-  },
-  {
     component: Winamp,
     header: {
       title: 'Winamp',
-      icon: notepad,
+      icon: winamp,
       disable: true,
     },
     defaultSize: {
@@ -89,6 +73,26 @@ export const defaultAppState = [
     resizable: false,
     minimized: false,
     maximized: false,
+    id: 2,
+  },
+  {
+    component: MyComputer,
+    header: {
+      title: 'My Computer',
+      icon: computer,
+      disable: false,
+    },
+    defaultSize: {
+      width: 660,
+      height: 500,
+    },
+    defaultOffset: {
+      x: 250,
+      y: 40,
+    },
+    resizable: true,
+    minimized: false,
+    maximized: window.innerWidth < 800,
     id: 3,
   },
 ];
@@ -122,6 +126,13 @@ export const defaultIconState = [
     component: Notepad,
     isFocus: false,
   },
+  {
+    id: 4,
+    icon: winamp,
+    title: 'Winamp',
+    component: Winamp,
+    isFocus: false,
+  },
 ];
 
 export const appSettings = {
@@ -129,6 +140,7 @@ export const appSettings = {
     header: {
       icon: iePaper,
       title: 'InternetExplorer',
+      disable: false,
     },
     component: InternetExplorer,
     defaultSize: {
@@ -142,11 +154,13 @@ export const appSettings = {
     resizable: true,
     minimized: false,
     maximized: window.innerWidth < 800,
+    multiInstance: true,
   },
   Minesweeper: {
     header: {
       icon: mine,
       title: 'Minesweeper',
+      disable: false,
     },
     component: Minesweeper,
     defaultSize: {
@@ -160,11 +174,13 @@ export const appSettings = {
     resizable: false,
     minimized: false,
     maximized: false,
+    multiInstance: true,
   },
   Error: {
     header: {
       icon: error,
       title: 'C:\\',
+      disable: false,
     },
     component: ErrorBox,
     defaultSize: {
@@ -178,11 +194,13 @@ export const appSettings = {
     resizable: false,
     minimized: false,
     maximized: false,
+    multiInstance: true,
   },
   'My Computer': {
     header: {
       icon: computer,
       title: 'My Computer',
+      disable: false,
     },
     component: MyComputer,
     defaultSize: {
@@ -196,11 +214,13 @@ export const appSettings = {
     resizable: true,
     minimized: false,
     maximized: window.innerWidth < 800,
+    multiInstance: false,
   },
   Notepad: {
     header: {
       icon: notepad,
       title: 'Untitled - Notepad',
+      disable: false,
     },
     component: Notepad,
     defaultSize: {
@@ -214,12 +234,13 @@ export const appSettings = {
     resizable: true,
     minimized: false,
     maximized: window.innerWidth < 800,
+    multiInstance: true,
   },
   Winamp: {
     header: {
-      disable: true,
+      icon: winamp,
       title: 'Winamp',
-      icon: notepad,
+      disable: true,
     },
     component: Winamp,
     defaultSize: {
@@ -233,6 +254,7 @@ export const appSettings = {
     resizable: false,
     minimized: false,
     maximized: false,
+    multiInstance: false,
   },
 };
 

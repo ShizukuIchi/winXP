@@ -3,9 +3,9 @@ import styled from 'styled-components';
 
 import error from 'src/assets/windowsIcons/897(32x32).png';
 
-function Error({ onClose, className }) {
+function Error({ onClose }) {
   return (
-    <div className={className}>
+    <Div>
       <div className="error__top">
         <img src={error} alt="error" className="error__img" />
         <div className="error__messages">
@@ -18,11 +18,11 @@ function Error({ onClose, className }) {
           <span>OK</span>
         </div>
       </div>
-    </div>
+    </Div>
   );
 }
 
-export default styled(Error)`
+const Div = styled.div`
   background-color: #f5f5f5;
   width: 100%;
   height: 100%;
@@ -64,3 +64,5 @@ export default styled(Error)`
     }
   }
 `;
+
+export default Error;
