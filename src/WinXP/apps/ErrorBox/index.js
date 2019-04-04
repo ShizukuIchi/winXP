@@ -3,12 +3,13 @@ import styled from 'styled-components';
 
 import error from 'src/assets/windowsIcons/897(32x32).png';
 
+<audio autoplay preload="auto" style="width:300px;">
+<source src="/winXP/src/assets/sounds/Windows XP Error.wav" type="audio/wav">
+Your browser does not support the audio element.
+</audio>
+
 function Error({ onClose, className }) {
   return (
-  <audio autoplay preload="auto" style="width:300px;">
-	<source src="/winXP/src/assets/sounds/Windows XP Error.wav" type="audio/wav">
-	Your browser does not support the audio element.
-   </audio>
     <div className={className}>
       <div className="error__top">
         <img src={error} alt="error" className="error__img" />
