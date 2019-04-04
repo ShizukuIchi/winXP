@@ -12,14 +12,18 @@ function Winamp({ onClose, onMinimize }) {
     const webamp = new Webamp({
       initialTracks,
     });
-    webamp.renderWhenReady(target);
+    webamp.renderWhenReady(target).then(() => {
+      target.appendChild(document.querySelector('#webamp'));
+    });
     webamp.onClose(onClose);
     webamp.onMinimize(onMinimize);
-    return () => {
-      webamp.dispose();
-    };
   }, []);
-  return <div ref={ref} />;
+  return (
+    <div
+      style={{ position: 'fixed', left: 0, top: 0, right: 0, bottom: 0 }}
+      ref={ref}
+    />
+  );
 }
 
 export default Winamp;
