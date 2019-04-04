@@ -5,10 +5,7 @@ import error from 'src/assets/windowsIcons/897(32x32).png';
 
 function Error({ onClose, className }) {
   return (
-   <div>
-    <embed src="/winXP/src/assets/sounds/Windows XP Error.wav" hidden="true" autostart="true" loop="1"></embed>
-    </div>
-     <div className={className}>
+    <div className={className}>
       <div className="error__top">
         <img src={error} alt="error" className="error__img" />
         <div className="error__messages">
@@ -19,9 +16,9 @@ function Error({ onClose, className }) {
       <div className="error__bottom">
         <div onClick={onClose} className="error__button">
           <span>OK</span>
-       </div>
-     </div>
-   </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
