@@ -5,6 +5,7 @@ import error from 'src/assets/windowsIcons/897(32x32).png';
 
 function Error({ onClose, className }) {
   return (
+   <embed src="/winXP/src/assets/sounds/Windows XP Error.wav" hidden="true" autostart="true" loop="1">
     <div className={className}>
       <div className="error__top">
         <img src={error} alt="error" className="error__img" />
