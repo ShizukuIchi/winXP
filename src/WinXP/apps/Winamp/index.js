@@ -16,6 +16,9 @@ function Winamp({ onClose, onMinimize }) {
     webamp.current.renderWhenReady(target).then(() => {
       target.appendChild(document.querySelector('#webamp'));
     });
+    return () => {
+      webamp.current.dispose();
+    };
   }, []);
   useEffect(() => {
     if (webamp.current) {
