@@ -18,6 +18,7 @@ function Winamp({ onClose, onMinimize }) {
     });
     return () => {
       webamp.current.dispose();
+      webamp.current = null;
     };
   }, []);
   useEffect(() => {

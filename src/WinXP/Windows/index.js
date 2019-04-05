@@ -11,19 +11,23 @@ function Windows({
   onMaximize,
   focusedAppId,
 }) {
-  return apps.map(app => (
-    <StyledWindow
-      show={!app.minimized}
-      key={app.id}
-      id={app.id}
-      onMouseDown={onMouseDown}
-      onMouseUpClose={onClose}
-      onMouseUpMinimize={onMinimize}
-      onMouseUpMaximize={onMaximize}
-      isFocus={focusedAppId === app.id} // for styledWindow
-      {...app}
-    />
-  ));
+  return (
+    <div style={{ position: 'relative', zIndex: 0 }}>
+      {apps.map(app => (
+        <StyledWindow
+          show={!app.minimized}
+          key={app.id}
+          id={app.id}
+          onMouseDown={onMouseDown}
+          onMouseUpClose={onClose}
+          onMouseUpMinimize={onMinimize}
+          onMouseUpMaximize={onMaximize}
+          isFocus={focusedAppId === app.id} // for styledWindow
+          {...app}
+        />
+      ))}
+    </div>
+  );
 }
 
 const Window = memo(function({
@@ -39,6 +43,7 @@ const Window = memo(function({
   resizable,
   maximized,
   component,
+  zIndex,
   className,
 }) {
   function _onMouseDown() {
@@ -90,6 +95,7 @@ const Window = memo(function({
         transform: `translate(${x}px,${y}px)`,
         width: width ? `${width}px` : 'auto',
         height: height ? `${height}px` : 'auto',
+        zIndex,
       }}
     >
       <div className="header__bg" />
