@@ -6,7 +6,7 @@ Features:
 
 - Drag and resize, minimize, maximize windows
 - Open applications from desktop icons or start menu
-- Minesweeper, Internet Explorer, My Computer, Notepad, Winamp
+- Minesweeper, Internet Explorer, My Computer, Notepad, Winamp, Paint
 - Power off menu
 
 ## [Try it!](https://winxp.now.sh)
