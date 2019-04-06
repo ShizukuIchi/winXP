@@ -60,7 +60,17 @@ const reducer = (state, action = { type: '' }) => {
           focusing: FOCUSING.WINDOW,
         };
       }
-      return console.log('app existed');
+      const apps = state.apps.map(app =>
+        app.component === action.payload.component
+          ? { ...app, zIndex: state.nextZIndex, minimized: false }
+          : app,
+      );
+      return {
+        ...state,
+        apps,
+        nextZIndex: state.nextZIndex + 1,
+        focusing: FOCUSING.WINDOW,
+      };
     case DEL_APP:
       return {
         ...state,
@@ -225,14 +235,10 @@ function WinXP() {
     dispatch({ type: ADD_APP, payload: appSetting });
   }
   function getFocusedAppId() {
-    const lastIndex = [...state.apps]
+    const focusedApp = [...state.apps]
       .sort((a, b) => b.zIndex - a.zIndex)
-      // .map(app => app.minimized)
       .find(app => !app.minimized);
-    return lastIndex ? lastIndex.id : -1;
-    return lastIndex >= 0 && state.focusing === FOCUSING.WINDOW
-      ? state.apps[lastIndex].id
-      : -1;
+    return focusedApp ? focusedApp.id : -1;
   }
   function onMouseDownFooter() {
     dispatch({ type: FOCUS_DESKTOP });
@@ -248,6 +254,8 @@ function WinXP() {
       dispatch({ type: ADD_APP, payload: appSettings.Notepad });
     else if (o === 'Winamp')
       dispatch({ type: ADD_APP, payload: appSettings.Winamp });
+    else if (o === 'Paint')
+      dispatch({ type: ADD_APP, payload: appSettings.Paint });
     else if (o === 'Log Off')
       dispatch({ type: POWER_OFF, payload: POWER_STATE.LOG_OFF });
     else if (o === 'Turn Off Computer')

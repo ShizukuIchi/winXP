@@ -6,7 +6,6 @@ import setAccess from 'src/assets/windowsIcons/227(32x32).png';
 import outlook from 'src/assets/windowsIcons/887(32x32).png';
 import mediaPlayer from 'src/assets/windowsIcons/846(32x32).png';
 import messenger from 'src/assets/windowsIcons/msn.png';
-import tour from 'src/assets/windowsIcons/853(32x32).png';
 import documents from 'src/assets/windowsIcons/308(32x32).png';
 import recentDocuments from 'src/assets/windowsIcons/301(32x32).png';
 import pictures from 'src/assets/windowsIcons/307(32x32).png';
@@ -15,6 +14,7 @@ import computer from 'src/assets/windowsIcons/676(32x32).png';
 import controlPanel from 'src/assets/windowsIcons/300(32x32).png';
 import connect from 'src/assets/windowsIcons/309(32x32).png';
 import printer from 'src/assets/windowsIcons/549(32x32).png';
+import paint from 'src/assets/windowsIcons/680(32x32).png';
 import help from 'src/assets/windowsIcons/747(32x32).png';
 import search from 'src/assets/windowsIcons/299(32x32).png';
 import run from 'src/assets/windowsIcons/743(32x32).png';
@@ -60,9 +60,9 @@ function FooterMenu({ className, onClick }) {
               { icon: mine, text: 'Minesweeper' },
               { icon: notepad, text: 'Notepad' },
               { icon: winamp, text: 'Winamp' },
+              { icon: paint, text: 'Paint' },
               { icon: mediaPlayer, text: 'Windows Media Player' },
               { icon: messenger, text: 'Windows Messenger' },
-              { icon: tour, text: 'Tour Windows XP' },
             ]}
           />
           <div style={{ flex: 1 }} />

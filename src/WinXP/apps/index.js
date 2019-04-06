@@ -14,6 +14,9 @@ import computerLarge from 'src/assets/windowsIcons/676(32x32).png';
 import notepad from 'src/assets/windowsIcons/327(16x16).png';
 import notepadLarge from 'src/assets/windowsIcons/327(32x32).png';
 import winamp from 'src/assets/windowsIcons/winamp.png';
+import paintLarge from 'src/assets/windowsIcons/680(32x32).png';
+import paint from 'src/assets/windowsIcons/680(16x16).png';
+
 const gen = () => {
   let id = -1;
   return () => {
@@ -108,27 +111,6 @@ export const defaultAppState = [
     id: genId(),
     zIndex: genIndex(),
   },
-  {
-    component: Paint,
-    header: {
-      title: 'Paint',
-      icon: computer,
-      disable: false,
-    },
-    defaultSize: {
-      width: 660,
-      height: 500,
-    },
-    defaultOffset: {
-      x: 250,
-      y: 40,
-    },
-    resizable: true,
-    minimized: false,
-    maximized: window.innerWidth < 800,
-    id: genId(),
-    zIndex: genIndex(),
-  },
 ];
 
 export const defaultIconState = [
@@ -165,6 +147,13 @@ export const defaultIconState = [
     icon: winamp,
     title: 'Winamp',
     component: Winamp,
+    isFocus: false,
+  },
+  {
+    id: 5,
+    icon: paintLarge,
+    title: 'Paint',
+    component: Paint,
     isFocus: false,
   },
 ];
@@ -262,8 +251,8 @@ export const appSettings = {
       height: 500,
     },
     defaultOffset: {
-      x: 300,
-      y: 100,
+      x: 270,
+      y: 60,
     },
     resizable: true,
     minimized: false,
@@ -289,6 +278,26 @@ export const appSettings = {
     minimized: false,
     maximized: false,
     multiInstance: false,
+  },
+  Paint: {
+    header: {
+      icon: paint,
+      title: 'Untitled - Paint',
+      disable: false,
+    },
+    component: Paint,
+    defaultSize: {
+      width: 660,
+      height: 500,
+    },
+    defaultOffset: {
+      x: 280,
+      y: 70,
+    },
+    resizable: true,
+    minimized: false,
+    maximized: window.innerWidth < 800,
+    multiInstance: true,
   },
 };
 

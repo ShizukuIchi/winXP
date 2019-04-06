@@ -44,6 +44,7 @@ const Window = memo(function({
   maximized,
   component,
   zIndex,
+  isFocus,
   className,
 }) {
   function _onMouseDown() {
@@ -124,6 +125,7 @@ const Window = memo(function({
         {component({
           onClose: _onMouseUpClose,
           onMinimize: _onMouseUpMinimize,
+          isFocus,
           ...insertProps,
         })}
       </div>
