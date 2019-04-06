@@ -4,6 +4,7 @@ import ErrorBox from './ErrorBox';
 import MyComputer from './MyComputer';
 import Notepad from './Notepad';
 import Winamp from './Winamp';
+import Paint from './Paint';
 import iePaper from 'src/assets/windowsIcons/ie-paper.png';
 import ie from 'src/assets/windowsIcons/ie.png';
 import mine from 'src/assets/minesweeper/mine-icon.png';
@@ -13,7 +14,18 @@ import computerLarge from 'src/assets/windowsIcons/676(32x32).png';
 import notepad from 'src/assets/windowsIcons/327(16x16).png';
 import notepadLarge from 'src/assets/windowsIcons/327(32x32).png';
 import winamp from 'src/assets/windowsIcons/winamp.png';
+import paintLarge from 'src/assets/windowsIcons/680(32x32).png';
+import paint from 'src/assets/windowsIcons/680(16x16).png';
 
+const gen = () => {
+  let id = -1;
+  return () => {
+    id += 1;
+    return id;
+  };
+};
+const genId = gen();
+const genIndex = gen();
 export const defaultAppState = [
   {
     component: InternetExplorer,
@@ -33,7 +45,8 @@ export const defaultAppState = [
     resizable: true,
     minimized: false,
     maximized: window.innerWidth < 800,
-    id: 0,
+    id: genId(),
+    zIndex: genIndex(),
   },
   {
     component: Minesweeper,
@@ -53,7 +66,8 @@ export const defaultAppState = [
     resizable: false,
     minimized: false,
     maximized: false,
-    id: 1,
+    id: genId(),
+    zIndex: genIndex(),
   },
   {
     component: Winamp,
@@ -73,7 +87,8 @@ export const defaultAppState = [
     resizable: false,
     minimized: false,
     maximized: false,
-    id: 2,
+    id: genId(),
+    zIndex: genIndex(),
   },
   {
     component: MyComputer,
@@ -93,7 +108,8 @@ export const defaultAppState = [
     resizable: true,
     minimized: false,
     maximized: window.innerWidth < 800,
-    id: 3,
+    id: genId(),
+    zIndex: genIndex(),
   },
 ];
 
@@ -131,6 +147,13 @@ export const defaultIconState = [
     icon: winamp,
     title: 'Winamp',
     component: Winamp,
+    isFocus: false,
+  },
+  {
+    id: 5,
+    icon: paintLarge,
+    title: 'Paint',
+    component: Paint,
     isFocus: false,
   },
 ];
@@ -228,8 +251,8 @@ export const appSettings = {
       height: 500,
     },
     defaultOffset: {
-      x: 300,
-      y: 100,
+      x: 270,
+      y: 60,
     },
     resizable: true,
     minimized: false,
@@ -255,6 +278,26 @@ export const appSettings = {
     minimized: false,
     maximized: false,
     multiInstance: false,
+  },
+  Paint: {
+    header: {
+      icon: paint,
+      title: 'Untitled - Paint',
+      disable: false,
+    },
+    component: Paint,
+    defaultSize: {
+      width: 660,
+      height: 500,
+    },
+    defaultOffset: {
+      x: 280,
+      y: 70,
+    },
+    resizable: true,
+    minimized: false,
+    maximized: window.innerWidth < 800,
+    multiInstance: true,
   },
 };
 

@@ -77,7 +77,7 @@ function Footer({
           onMouseDown={toggleMenu}
         />
         {[...apps]
-          .sort((a, b) => a.id - b.id)
+          // .sort((a, b) => a.id - b.id)
           .map(app => (
             <FooterWindow
               key={app.id}
