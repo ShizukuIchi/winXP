@@ -7,6 +7,7 @@
   "dependencies": {
     "lodash.samplesize": "^4.2.0",
     "react": "^16.8.6",
+    "react-audio-player": "^0.11.0",
     "react-dom": "^16.8.6",
     "react-ga": "^2.5.7",
     "react-scripts": "2.1.8",
