@@ -2,18 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 import error from 'src/assets/windowsIcons/897(32x32).png';
+import ReactAudioPlayer from 'react-audio-player';
 
-class AudioPlayer extends React.Component {
-  render() {
-    return (
-      <div>
-        <audio ref="audio_tag" src="../winXP/src/assets/sounds/Windows XP Error.wav" autoPlay/>
-      </div>
-    );
-  }
-}
-
-export default AudioPlayer;
+//Error sound
+<ReactAudioPlayer
+src="/winXP/src/assets/sounds/Windows XP Error.wav"
+autoPlay
+/>
 
 function Error({ onClose }) {
   return (
