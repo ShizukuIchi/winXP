@@ -3,13 +3,21 @@ import styled from 'styled-components';
 
 import error from 'src/assets/windowsIcons/897(32x32).png';
 
+class AudioPlayer extends React.Component {
+  render() {
+    return (
+      <div>
+        <audio ref="audio_tag" src="../winXP/src/assets/sounds/Windows XP Error.wav" autoPlay/>
+      </div>
+    );
+  }
+}
+
+export default AudioPlayer;
+
 function Error({ onClose }) {
   return (
     <Div>
-     <audio autoplay>
-     <source src="../winXP/src/assets/sounds/Windows XP Error.wav" type="audio/wav">
-     Your browser does not support the audio element.
-    </audio>
       <div className="error__top">
         <img src={error} alt="error" className="error__img" />
         <div className="error__messages">
