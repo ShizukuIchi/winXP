@@ -204,11 +204,12 @@ export const appSettings = {
       icon: error,
       title: 'C:\\',
       disable: false,
+      buttons: ['close'],
     },
     component: ErrorBox,
     defaultSize: {
       width: 380,
-      height: 120,
+      height: 0,
     },
     defaultOffset: {
       x: window.innerWidth / 2 - 190,
