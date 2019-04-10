@@ -118,19 +118,6 @@ const Window = memo(function({
           resizable={resizable}
           isFocus={isFocus}
         />
-        {/* <div className="app__header__buttons">
-          <button
-            className="app__header__minimize"
-            onMouseUp={_onMouseUpMinimize}
-          />
-          <button
-            className={`app__header__maximize ${maximized ? 'maximized' : ''} ${
-              resizable ? '' : 'disable'
-            }`}
-            onMouseUp={_onMouseUpMaximize}
-          />
-          <button className="app__header__close" onMouseUp={_onMouseUpClose} />
-        </div> */}
       </header>
       <div className="app__content">
         {component({
@@ -148,7 +135,7 @@ const StyledWindow = styled(Window)`
   display: ${({ show }) => (show ? 'flex' : 'none')};
   position: absolute;
   padding: 3px;
-  padding: ${({ header }) => (header.disable ? 0 : 3)}px;
+  padding: ${({ header }) => (header.invisible ? 0 : 3)}px;
   background-color: ${({ isFocus }) => (isFocus ? '#0831d9' : '#6582f5')};
   flex-direction: column;
   border-top-left-radius: 8px;
@@ -191,7 +178,7 @@ const StyledWindow = styled(Window)`
     width: 15px;
   }
   .app__header {
-    display: ${({ header }) => (header.disable ? 'none' : 'flex')};
+    display: ${({ header }) => (header.invisible ? 'none' : 'flex')};
     height: 25px;
     line-height: 25px;
     font-weight: 700;

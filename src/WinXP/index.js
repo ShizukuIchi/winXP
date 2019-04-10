@@ -286,10 +286,7 @@ function WinXP() {
     dispatch({ type: CANCEL_POWER_OFF });
     dispatch({
       type: ADD_APP,
-      payload: {
-        ...appSettings.Error,
-        injectProps: { message: 'Something wrong!' },
-      },
+      payload: appSettings.Error,
     });
   }
   function onModalClose() {

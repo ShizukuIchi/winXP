@@ -32,7 +32,6 @@ export const defaultAppState = [
     header: {
       title: 'Internet Explorer',
       icon: iePaper,
-      disable: false,
     },
     defaultSize: {
       width: 700,
@@ -53,7 +52,6 @@ export const defaultAppState = [
     header: {
       title: 'Minesweeper',
       icon: mine,
-      disable: false,
     },
     defaultSize: {
       width: 0,
@@ -74,7 +72,7 @@ export const defaultAppState = [
     header: {
       title: 'Winamp',
       icon: winamp,
-      disable: true,
+      invisible: true,
     },
     defaultSize: {
       width: 0,
@@ -95,7 +93,6 @@ export const defaultAppState = [
     header: {
       title: 'My Computer',
       icon: computer,
-      disable: false,
     },
     defaultSize: {
       width: 660,
@@ -163,7 +160,6 @@ export const appSettings = {
     header: {
       icon: iePaper,
       title: 'InternetExplorer',
-      disable: false,
     },
     component: InternetExplorer,
     defaultSize: {
@@ -183,7 +179,6 @@ export const appSettings = {
     header: {
       icon: mine,
       title: 'Minesweeper',
-      disable: false,
     },
     component: Minesweeper,
     defaultSize: {
@@ -203,8 +198,8 @@ export const appSettings = {
     header: {
       icon: error,
       title: 'C:\\',
-      disable: false,
       buttons: ['close'],
+      noFooterWindow: true,
     },
     component: ErrorBox,
     defaultSize: {
@@ -224,7 +219,6 @@ export const appSettings = {
     header: {
       icon: computer,
       title: 'My Computer',
-      disable: false,
     },
     component: MyComputer,
     defaultSize: {
@@ -244,7 +238,6 @@ export const appSettings = {
     header: {
       icon: notepad,
       title: 'Untitled - Notepad',
-      disable: false,
     },
     component: Notepad,
     defaultSize: {
@@ -264,7 +257,7 @@ export const appSettings = {
     header: {
       icon: winamp,
       title: 'Winamp',
-      disable: true,
+      invisible: true,
     },
     component: Winamp,
     defaultSize: {
@@ -284,7 +277,6 @@ export const appSettings = {
     header: {
       icon: paint,
       title: 'Untitled - Paint',
-      disable: false,
     },
     component: Paint,
     defaultSize: {

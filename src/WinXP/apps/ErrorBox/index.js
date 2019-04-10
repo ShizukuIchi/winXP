@@ -11,7 +11,7 @@ function lineBreak(str) {
   ));
 }
 
-function Error({ onClose, message = 'C:\\\nApplication not found' }) {
+function Error({ onClose, message = "Something's wrong!" }) {
   return (
     <Div>
       <div className="error__top">
