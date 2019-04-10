@@ -260,7 +260,14 @@ function WinXP() {
       dispatch({ type: POWER_OFF, payload: POWER_STATE.LOG_OFF });
     else if (o === 'Turn Off Computer')
       dispatch({ type: POWER_OFF, payload: POWER_STATE.TURN_OFF });
-    else dispatch({ type: ADD_APP, payload: appSettings.Error });
+    else
+      dispatch({
+        type: ADD_APP,
+        payload: {
+          ...appSettings.Error,
+          injectProps: { message: 'C:\\\nApplication not found' },
+        },
+      });
   }
   function onMouseDownDesktop(e) {
     if (e.target === e.currentTarget)
@@ -277,7 +284,10 @@ function WinXP() {
   }
   function onClickModalButton(text) {
     dispatch({ type: CANCEL_POWER_OFF });
-    dispatch({ type: ADD_APP, payload: appSettings.Error });
+    dispatch({
+      type: ADD_APP,
+      payload: appSettings.Error,
+    });
   }
   function onModalClose() {
     dispatch({ type: CANCEL_POWER_OFF });

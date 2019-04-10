@@ -76,18 +76,19 @@ function Footer({
           className="footer__start"
           onMouseDown={toggleMenu}
         />
-        {[...apps]
-          // .sort((a, b) => a.id - b.id)
-          .map(app => (
-            <FooterWindow
-              key={app.id}
-              id={app.id}
-              icon={app.header.icon}
-              title={app.header.title}
-              onMouseDown={onMouseDownApp}
-              isFocus={focusedAppId === app.id}
-            />
-          ))}
+        {[...apps].map(
+          app =>
+            !app.header.noFooterWindow && (
+              <FooterWindow
+                key={app.id}
+                id={app.id}
+                icon={app.header.icon}
+                title={app.header.title}
+                onMouseDown={onMouseDownApp}
+                isFocus={focusedAppId === app.id}
+              />
+            ),
+        )}
       </div>
 
       <div className="footer__items right">

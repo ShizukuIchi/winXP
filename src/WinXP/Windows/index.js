@@ -3,6 +3,8 @@ import useWindowSize from 'react-use/lib/useWindowSize';
 import { useElementResize } from 'src/hooks';
 import styled from 'styled-components';
 
+import HeaderButtons from './HeaderButtons';
+
 function Windows({
   apps,
   onMouseDown,
@@ -31,7 +33,7 @@ function Windows({
 }
 
 const Window = memo(function({
-  insertProps,
+  injectProps,
   id,
   onMouseDown,
   onMouseUpClose,
@@ -107,26 +109,22 @@ const Window = memo(function({
           className="app__header__icon"
         />
         <div className="app__header__title">{header.title}</div>
-        <div className="app__header__buttons">
-          <button
-            className="app__header__minimize"
-            onMouseUp={_onMouseUpMinimize}
-          />
-          <button
-            className={`app__header__maximize ${maximized ? 'maximized' : ''} ${
-              resizable ? '' : 'disable'
-            }`}
-            onMouseUp={_onMouseUpMaximize}
-          />
-          <button className="app__header__close" onMouseUp={_onMouseUpClose} />
-        </div>
+        <HeaderButtons
+          buttons={header.buttons}
+          onMaximize={_onMouseUpMaximize}
+          onMinimize={_onMouseUpMinimize}
+          onClose={_onMouseUpClose}
+          maximized={maximized}
+          resizable={resizable}
+          isFocus={isFocus}
+        />
       </header>
       <div className="app__content">
         {component({
           onClose: _onMouseUpClose,
           onMinimize: _onMouseUpMinimize,
           isFocus,
-          ...insertProps,
+          ...injectProps,
         })}
       </div>
     </div>
@@ -137,7 +135,7 @@ const StyledWindow = styled(Window)`
   display: ${({ show }) => (show ? 'flex' : 'none')};
   position: absolute;
   padding: 3px;
-  padding: ${({ header }) => (header.disable ? 0 : 3)}px;
+  padding: ${({ header }) => (header.invisible ? 0 : 3)}px;
   background-color: ${({ isFocus }) => (isFocus ? '#0831d9' : '#6582f5')};
   flex-direction: column;
   border-top-left-radius: 8px;
@@ -180,7 +178,7 @@ const StyledWindow = styled(Window)`
     width: 15px;
   }
   .app__header {
-    display: ${({ header }) => (header.disable ? 'none' : 'flex')};
+    display: ${({ header }) => (header.invisible ? 'none' : 'flex')};
     height: 25px;
     line-height: 25px;
     font-weight: 700;
@@ -208,130 +206,6 @@ const StyledWindow = styled(Window)`
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-  }
-  .app__header__buttons {
-    opacity: ${({ isFocus }) => (isFocus ? 1 : 0.6)};
-    height: 22px;
-    display: flex;
-    align-items: center;
-    margin-top: -1px;
-    margin-right: 1px;
-    button {
-      margin-right: 1px;
-      position: relative;
-      width: 22px;
-      height: 22px;
-      border: 1px solid #fff;
-      border-radius: 3px;
-      &:hover {
-        filter: brightness(120%);
-      }
-      &:hover:active {
-        filter: brightness(90%);
-      }
-    }
-  }
-  .app__header__minimize {
-    box-shadow: inset 0 -1px 2px 1px #4646ff;
-    background-image: radial-gradient(
-      circle at 90% 90%,
-      #0054e9 0%,
-      #2263d5 55%,
-      #4479e4 70%,
-      #a3bbec 90%,
-      white 100%
-    );
-    &:before {
-      content: '';
-      position: absolute;
-      left: 4px;
-      top: 13px;
-      height: 3px;
-      width: 8px;
-      background-color: white;
-    }
-  }
-  .app__header__maximize {
-    box-shadow: inset 0 -1px 2px 1px #4646ff;
-    background-image: radial-gradient(
-      circle at 90% 90%,
-      #0054e9 0%,
-      #2263d5 55%,
-      #4479e4 70%,
-      #a3bbec 90%,
-      white 100%
-    );
-    &:before {
-      content: '';
-      position: absolute;
-      display: block;
-      left: 4px;
-      top: 4px;
-      box-shadow: inset 0 3px white, inset 0 0 0 1px white;
-      height: 12px;
-      width: 12px;
-    }
-  }
-  .app__header__maximize.disable {
-    outline: none;
-    opacity: 0.5;
-    &:hover {
-      filter: brightness(100%);
-    }
-  }
-  .app__header__maximize.maximized {
-    &:before {
-      content: '';
-      position: absolute;
-      display: block;
-      left: 7px;
-      top: 4px;
-      box-shadow: inset 0 2px white, inset 0 0 0 1px white;
-      height: 8px;
-      width: 8px;
-    }
-    &:after {
-      content: '';
-      position: absolute;
-      display: block;
-      left: 4px;
-      top: 7px;
-      box-shadow: inset 0 2px white, inset 0 0 0 1px white, 1px -1px #136dff;
-      height: 8px;
-      width: 8px;
-      background-color: #136dff;
-    }
-  }
-  .app__header__close {
-    box-shadow: inset 0 -1px 2px 1px #da4600;
-    background-image: radial-gradient(
-      circle at 90% 90%,
-      #cc4600 0%,
-      #dc6527 55%,
-      #cd7546 70%,
-      #ffccb2 90%,
-      white 100%
-    );
-    &:before {
-      content: '';
-      position: absolute;
-      left: 9px;
-      top: 2px;
-      transform: rotate(45deg);
-      height: 16px;
-      width: 2px;
-      background-color: white;
-    }
-    &:after {
-      content: '';
-      position: absolute;
-      left: 9px;
-      top: 2px;
-      transform: rotate(-45deg);
-      height: 16px;
-      width: 2px;
-      background-color: white;
-    }
   }
   .app__content {
     flex: 1;
