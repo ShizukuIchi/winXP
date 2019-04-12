@@ -16,7 +16,6 @@ function lineBreak(str) {
 function Error({ onClose, message = "Something's wrong!" }) {
   return (
     <Div>
-     // //Error sound
      <Sound
       url={beep}
       playStatus={Sound.status.PLAYING}
