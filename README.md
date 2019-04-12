@@ -6,7 +6,7 @@ Features:
 
 - Drag and resize, minimize, maximize windows
 - Open applications from desktop icons or start menu
-- Minesweeper, Internet Explorer, My Computer, Notepad, Winamp
+- Minesweeper, Internet Explorer, My Computer, Notepad, Winamp, Paint
 - Power off menu
 
 ## [Try it!](https://winxp.now.sh)
@@ -25,3 +25,4 @@ The Windows XP name, artwork, trademark are surely property of Microsoft. This p
 
 ## Thanks
 - [Webamp](https://github.com/captbaritone/webamp), Winamp 2 reimplementation by: [captbaritone](https://github.com/captbaritone)
+- [JS Paint](https://github.com/1j01/jspaint), Paint reimplementation by: [1j01](https://github.com/1j01)
