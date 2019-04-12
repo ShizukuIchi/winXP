@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import error from 'src/assets/windowsIcons/897(32x32).png';
 import Sound from 'react-sound';
-import beep from "../../../assets/sounds/Windows XP Error.wav";
+import errorsound from "../../../assets/sounds/Windows XP Error.wav";
 
 
 function lineBreak(str) {
@@ -17,7 +17,7 @@ function Error({ onClose, message = "Something's wrong!" }) {
   return (
     <Div>
      <Sound
-      url={beep}
+      url={errorsound}
       playStatus={Sound.status.PLAYING}
       playFromPosition={0 /* in milliseconds */}
       // onLoading={this.handleSongLoading}
