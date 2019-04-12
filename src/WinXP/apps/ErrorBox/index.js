@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import error from 'src/assets/windowsIcons/897(32x32).png';
 import Sound from 'react-sound';
-import errorsound from "../../../assets/sounds/Windows XP Error.wav";
+import errorsound from "../../../assets/sounds/System Notification.wav";
 
 
 function lineBreak(str) {
