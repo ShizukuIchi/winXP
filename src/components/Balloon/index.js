@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import risk from 'src/assets/windowsIcons/229(16x16).png';
+import Sound from 'react-sound';
+import notifysound from "../../../assets/sounds/System Notification.wav";
 function Balloon({ startAfter = 3000, duration = 15000 }) {
   const [show, setShow] = useState(true);
   const [start, setStart] = useState(false);
@@ -19,6 +21,14 @@ function Balloon({ startAfter = 3000, duration = 15000 }) {
   }, []);
   return (
     start && (
+      <Sound
+      url={notifysound}
+      playStatus={Sound.status.PLAYING}
+      playFromPosition={0 /* in milliseconds */}
+      // onLoading={this.handleSongLoading}
+      // onPlaying={this.handleSongPlaying}
+      // onFinishedPlaying={this.handleSongFinishedPlaying}
+      />
       <Div show={show}>
         <div className="balloon__container">
           <button onClick={() => setShow(false)} className="balloon__close" />
