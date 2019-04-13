@@ -12,6 +12,7 @@ export default function Calculator({ onClose }) {
   const [auxValue, setAuxValue] = useState(emptyValue);
   const [currentOperation, setCurrentOperation] = useState(null);
   const [operationClicked, setOperationClicked] = useState(false);
+  const [memoryValue, setMemoryValue] = useState(emptyValue);
   const [divisionByZeroCounter, setDivisionByZeroCounter] = useState(0);
   const divisionByZeroMessages = [
     'Cannot divide by zero',
@@ -56,11 +57,38 @@ export default function Calculator({ onClose }) {
     setOperationClicked(clicked);
   }
   function onClickOperation(e) {
+    let operation = e.target.innerText;
+
+    // Memory operations
+    switch (operation) {
+      case 'MC':
+        // Memory Clear (CTRL+L)
+        setMemoryValue(emptyValue);
+        setOperationClicked(true);
+        return;
+      case 'MR':
+        // Memory Restore (CTRL+R)
+        setCurrentValue(memoryValue);
+        setOperationClicked(true);
+        return;
+      case 'MS':
+        // Memory Set (CTRL+M)
+        setMemoryValue(currentValue);
+        setOperationClicked(true);
+        return;
+      case 'M+':
+        // Memory SUM (CTRL+P)
+        setMemoryValue(parseFloat(memoryValue) + parseFloat(currentValue));
+        setOperationClicked(true);
+        return;
+      default:
+    }
+
     if (currentOperation !== null && auxValue !== emptyValue) {
       performOperation(currentOperation);
     }
     setAuxValue(emptyValue);
-    setCurrentOperation(e.target.innerText);
+    setCurrentOperation(operation);
     setOperationClicked(true);
   }
   function performOperation(operation) {
@@ -146,11 +174,11 @@ export default function Calculator({ onClose }) {
           <input className="cl__input" type="text" value={currentValue} onChange={onInputChange} />
         </div>
         <div className="cl__mem_buttons">
-          <button className="cl__mem__status_button" disabled>{operationClicked ? 'ON' : 'OFF'}</button>
-          <button className="cl__red">MC</button>
-          <button className="cl__red">MR</button>
-          <button className="cl__red">MS</button>
-          <button className="cl__red">M+</button>
+          <button className="cl__mem__status_button" disabled>{memoryValue !== emptyValue ? 'M' : ''}</button>
+          <button className="cl__red" onClick={onClickOperation}>MC</button>
+          <button className="cl__red" onClick={onClickOperation}>MR</button>
+          <button className="cl__red" onClick={onClickOperation}>MS</button>
+          <button className="cl__red" onClick={onClickOperation}>M+</button>
         </div>
         <div className="cl__control_buttons">
           <div className="cl__buttons__top">
