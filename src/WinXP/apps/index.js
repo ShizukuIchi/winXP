@@ -329,8 +329,8 @@ export const appSettings = {
     },
     component: Calculator,
     defaultSize: {
-      width: 255,
-      height: 228,
+      width: 260,
+      height: 260,
     },
     defaultOffset: {
       x: 280,
