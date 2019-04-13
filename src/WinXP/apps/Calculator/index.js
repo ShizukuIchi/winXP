@@ -12,6 +12,14 @@ export default function Calculator({ onClose }) {
   const [auxValue, setAuxValue] = useState(emptyValue);
   const [currentOperation, setCurrentOperation] = useState(null);
   const [operationClicked, setOperationClicked] = useState(false);
+  const [divisionByZeroCounter, setDivisionByZeroCounter] = useState(0);
+  const divisionByZeroMessages = [
+    'Cannot divide by zero',
+    'I still cannot divide by zero',
+    'Repeteadly trying won\'t change this!',
+    'Stop already! You\'re scaring the ALU.',
+    'Alright, do whatever you want.'
+  ];
 
   function hoverOption(option) {
     if (openOption) setOpenOption(option);
@@ -72,7 +80,12 @@ export default function Calculator({ onClose }) {
       case '/':
         if (b === 0) {
           // Division by zero
-          setCurrentValue('Cannot divide by zero.');
+          if (divisionByZeroCounter < divisionByZeroMessages.length) {
+            setCurrentValue(divisionByZeroMessages[divisionByZeroCounter]);
+            setDivisionByZeroCounter(divisionByZeroCounter + 1);
+            break;
+          }
+          setCurrentValue(divisionByZeroMessages[0]);
           break;
         }
         setCurrentValue(a / b);
