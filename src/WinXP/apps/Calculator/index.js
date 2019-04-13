@@ -6,8 +6,12 @@ import dropDownData from './dropDownData';
 
 export default function Calculator({ onClose }) {
   const dropDown = useRef(null);
+  const emptyValue = '0';
   const [openOption, setOpenOption] = useState('');
-  const [currentValue, setCurrentValue] = useState('0');
+  const [currentValue, setCurrentValue] = useState(emptyValue);
+  const [auxValue, setAuxValue] = useState(emptyValue);
+  const [currentOperation, setCurrentOperation] = useState(null);
+  const [operationClicked, setOperationClicked] = useState(false);
 
   function hoverOption(option) {
     if (openOption) setOpenOption(option);
@@ -21,15 +25,56 @@ export default function Calculator({ onClose }) {
     }
     setOpenOption('');
   }
+  function onInputChange(e) {
+
+  }
   function onReset(e) {
-    setCurrentValue('0');
+    setCurrentValue(emptyValue);
   }
   function onClickNumber(e) {
-    if (currentValue === '0') {
-      setCurrentValue(`${e.target.innerText}`);
-      return;
+    let clicked = operationClicked;
+    let value = currentValue;
+    if (clicked) {
+      setAuxValue(value);
+      value = emptyValue;
+      clicked = false;
     }
-    setCurrentValue(`${currentValue}${e.target.innerText}`);
+    if (value === emptyValue) {
+      value = `${e.target.innerText}`;
+    } else {
+      value = `${currentValue}${e.target.innerText}`;
+    }
+    setCurrentValue(value);
+    setOperationClicked(clicked);
+  }
+  function onClickOperation(e) {
+    if (currentOperation !== null && auxValue !== emptyValue) {
+      performOperation(currentOperation);
+    }
+    setAuxValue(emptyValue);
+    setCurrentOperation(e.target.innerText);
+    setOperationClicked(true);
+  }
+  function performOperation(operation) {
+    let a = parseFloat(auxValue);
+    let b = parseFloat(currentValue);
+
+    switch (operation) {
+      case '+':
+        setCurrentValue(a + b);
+        break;
+      case '-':
+        setCurrentValue(a - b);
+        break;
+      case '*':
+        setCurrentValue(a * b);
+        break;
+      default:
+
+    }
+    setCurrentOperation(null);
+    setOperationClicked(false);
+    setAuxValue(emptyValue);
   }
   useEffect(() => {
     window.addEventListener('mouseup', onMouseUp);
@@ -77,42 +122,42 @@ export default function Calculator({ onClose }) {
       </section>
       <section>
         <div>
-          <input class="cl__input" type="text" value={currentValue} />
+          <input className="cl__input" type="text" value={currentValue} onChange={onInputChange} />
         </div>
-        <div class="cl__mem_buttons">
-          <button class="cl__mem__status_button" disabled></button>
-          <button class="cl__red">MC</button>
-          <button class="cl__red">MR</button>
-          <button class="cl__red">MS</button>
-          <button class="cl__red">M+</button>
+        <div className="cl__mem_buttons">
+          <button className="cl__mem__status_button" disabled>{operationClicked ? 'ON' : 'OFF'}</button>
+          <button className="cl__red">MC</button>
+          <button className="cl__red">MR</button>
+          <button className="cl__red">MS</button>
+          <button className="cl__red">M+</button>
         </div>
-        <div class="cl__control_buttons">
-          <div class="cl__buttons__top">
-            <button class="cl__red">Backspace</button>
-            <button class="cl__red">CE</button>
-            <button class="cl__red" onClick={onReset}>C</button>
+        <div className="cl__control_buttons">
+          <div className="cl__buttons__top">
+            <button className="cl__red">Backspace</button>
+            <button className="cl__red">CE</button>
+            <button className="cl__red" onClick={onReset}>C</button>
           </div>
-          <div class="cl__buttons__bottom">
-            <button class="cl__blue" onClick={onClickNumber}>7</button>
-            <button class="cl__blue" onClick={onClickNumber}>8</button>
-            <button class="cl__blue" onClick={onClickNumber}>9</button>
-            <button class="cl__red">/</button>
-            <button class="cl__blue">srqt</button>
-            <button class="cl__blue" onClick={onClickNumber}>4</button>
-            <button class="cl__blue" onClick={onClickNumber}>5</button>
-            <button class="cl__blue" onClick={onClickNumber}>6</button>
-            <button class="cl__red">*</button>
-            <button class="cl__blue">%</button>
-            <button class="cl__blue" onClick={onClickNumber}>1</button>
-            <button class="cl__blue" onClick={onClickNumber}>2</button>
-            <button class="cl__blue" onClick={onClickNumber}>3</button>
-            <button class="cl__red">-</button>
-            <button class="cl__blue">1/x</button>
-            <button class="cl__blue" onClick={onClickNumber}>0</button>
-            <button class="cl__blue">+/-</button>
-            <button class="cl__blue">.</button>
-            <button class="cl__red">+</button>
-            <button class="cl__red">=</button>
+          <div className="cl__buttons__bottom">
+            <button className="cl__blue" onClick={onClickNumber}>7</button>
+            <button className="cl__blue" onClick={onClickNumber}>8</button>
+            <button className="cl__blue" onClick={onClickNumber}>9</button>
+            <button className="cl__red" onClick={onClickOperation}>/</button>
+            <button className="cl__blue">srqt</button>
+            <button className="cl__blue" onClick={onClickNumber}>4</button>
+            <button className="cl__blue" onClick={onClickNumber}>5</button>
+            <button className="cl__blue" onClick={onClickNumber}>6</button>
+            <button className="cl__red" onClick={onClickOperation}>*</button>
+            <button className="cl__blue" onClick={onClickOperation}>%</button>
+            <button className="cl__blue" onClick={onClickNumber}>1</button>
+            <button className="cl__blue" onClick={onClickNumber}>2</button>
+            <button className="cl__blue" onClick={onClickNumber}>3</button>
+            <button className="cl__red" onClick={onClickOperation}>-</button>
+            <button className="cl__blue">1/x</button>
+            <button className="cl__blue" onClick={onClickNumber}>0</button>
+            <button className="cl__blue">+/-</button>
+            <button className="cl__blue">.</button>
+            <button className="cl__red" onClick={onClickOperation}>+</button>
+            <button className="cl__red" onClick={onClickOperation}>=</button>
           </div>
         </div>
       </section>
