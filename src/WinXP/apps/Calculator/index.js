@@ -83,7 +83,14 @@ export default function Calculator({ onClose }) {
         return;
       default:
     }
-
+    // Single argument operations (currentValue)
+    switch (operation) {
+      case 'sqrt':
+        setCurrentValue(Math.sqrt(parseFloat(currentValue)));
+        break;
+      default:
+    }
+    // Operations between auxValue and currentValue
     if (currentOperation !== null && auxValue !== emptyValue) {
       performOperation(currentOperation);
     }
@@ -191,7 +198,7 @@ export default function Calculator({ onClose }) {
             <button className="cl__blue" onClick={onClickNumber}>8</button>
             <button className="cl__blue" onClick={onClickNumber}>9</button>
             <button className="cl__red" onClick={onClickOperation}>/</button>
-            <button className="cl__blue">srqt</button>
+            <button className="cl__blue" onClick={onClickOperation}>sqrt</button>
             <button className="cl__blue" onClick={onClickNumber}>4</button>
             <button className="cl__blue" onClick={onClickNumber}>5</button>
             <button className="cl__blue" onClick={onClickNumber}>6</button>
