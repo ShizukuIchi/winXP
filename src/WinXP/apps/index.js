@@ -5,6 +5,7 @@ import MyComputer from './MyComputer';
 import Notepad from './Notepad';
 import Winamp from './Winamp';
 import Paint from './Paint';
+import Calculator from './Calculator';
 import iePaper from 'src/assets/windowsIcons/ie-paper.png';
 import ie from 'src/assets/windowsIcons/ie.png';
 import mine from 'src/assets/minesweeper/mine-icon.png';
@@ -16,6 +17,8 @@ import notepadLarge from 'src/assets/windowsIcons/327(32x32).png';
 import winamp from 'src/assets/windowsIcons/winamp.png';
 import paintLarge from 'src/assets/windowsIcons/680(32x32).png';
 import paint from 'src/assets/windowsIcons/680(16x16).png';
+import calculatorLarge from 'src/assets/windowsIcons/74(32x32).png';
+import calculator from 'src/assets/windowsIcons/74(16x16).png';
 
 const gen = () => {
   let id = -1;
@@ -108,6 +111,26 @@ export const defaultAppState = [
     id: genId(),
     zIndex: genIndex(),
   },
+  {
+    component: Calculator,
+    header: {
+      title: 'Calculator',
+      icon: calculator,
+    },
+    defaultSize: {
+      width: 260,
+      height: 260,
+    },
+    defaultOffset: {
+      x: 250,
+      y: 40,
+    },
+    resizable: false,
+    minimized: false,
+    maximized: window.innerWidth < 800,
+    id: genId(),
+    zIndex: genIndex(),
+  },
 ];
 
 export const defaultIconState = [
@@ -151,6 +174,13 @@ export const defaultIconState = [
     icon: paintLarge,
     title: 'Paint',
     component: Paint,
+    isFocus: false,
+  },
+  {
+    id: 6,
+    icon: calculatorLarge,
+    title: 'Calculator',
+    component: Calculator,
     isFocus: false,
   },
 ];
@@ -291,6 +321,25 @@ export const appSettings = {
     minimized: false,
     maximized: window.innerWidth < 800,
     multiInstance: true,
+  },
+  Calculator: {
+    header: {
+      icon: calculator,
+      title: 'Calculator',
+    },
+    component: Calculator,
+    defaultSize: {
+      width: 255,
+      height: 228,
+    },
+    defaultOffset: {
+      x: 280,
+      y: 70,
+    },
+    resizable: false,
+    minimized: false,
+    maximized: window.innerWidth < 800,
+    multiInstance: false,
   },
 };
 
