@@ -14,7 +14,8 @@ export const Edit = [
 const View = [
   {
     type: 'item',
-    text: 'Help topics',
+    text: 'Standard',
+    symbol: 'check',
   },
   {
     type: 'item',
@@ -25,7 +26,7 @@ const View = [
 const Help = [
   {
     type: 'item',
-    text: 'Standard',
+    text: 'Help topics',
   },
   {
     type: 'separator',

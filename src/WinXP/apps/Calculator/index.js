@@ -7,6 +7,7 @@ import dropDownData from './dropDownData';
 export default function Calculator({ onClose }) {
   const dropDown = useRef(null);
   const [openOption, setOpenOption] = useState('');
+  const [currentValue, setCurrentValue] = useState('0');
 
   function hoverOption(option) {
     if (openOption) setOpenOption(option);
@@ -19,6 +20,16 @@ export default function Calculator({ onClose }) {
       default:
     }
     setOpenOption('');
+  }
+  function onReset(e) {
+    setCurrentValue('0');
+  }
+  function onClickNumber(e) {
+    if (currentValue === '0') {
+      setCurrentValue(`${e.target.innerText}`);
+      return;
+    }
+    setCurrentValue(`${currentValue}${e.target.innerText}`);
   }
   useEffect(() => {
     window.addEventListener('mouseup', onMouseUp);
@@ -66,7 +77,7 @@ export default function Calculator({ onClose }) {
       </section>
       <section>
         <div>
-          <input class="cl__input" type="text" />
+          <input class="cl__input" type="text" value={currentValue} />
         </div>
         <div class="cl__mem_buttons">
           <button class="cl__mem__status_button" disabled></button>
@@ -79,25 +90,25 @@ export default function Calculator({ onClose }) {
           <div class="cl__buttons__top">
             <button class="cl__red">Backspace</button>
             <button class="cl__red">CE</button>
-            <button class="cl__red">C</button>
+            <button class="cl__red" onClick={onReset}>C</button>
           </div>
           <div class="cl__buttons__bottom">
-            <button class="cl__blue">7</button>
-            <button class="cl__blue">8</button>
-            <button class="cl__blue">9</button>
+            <button class="cl__blue" onClick={onClickNumber}>7</button>
+            <button class="cl__blue" onClick={onClickNumber}>8</button>
+            <button class="cl__blue" onClick={onClickNumber}>9</button>
             <button class="cl__red">/</button>
             <button class="cl__blue">srqt</button>
-            <button class="cl__blue">4</button>
-            <button class="cl__blue">5</button>
-            <button class="cl__blue">6</button>
+            <button class="cl__blue" onClick={onClickNumber}>4</button>
+            <button class="cl__blue" onClick={onClickNumber}>5</button>
+            <button class="cl__blue" onClick={onClickNumber}>6</button>
             <button class="cl__red">*</button>
             <button class="cl__blue">%</button>
-            <button class="cl__blue">1</button>
-            <button class="cl__blue">2</button>
-            <button class="cl__blue">3</button>
+            <button class="cl__blue" onClick={onClickNumber}>1</button>
+            <button class="cl__blue" onClick={onClickNumber}>2</button>
+            <button class="cl__blue" onClick={onClickNumber}>3</button>
             <button class="cl__red">-</button>
             <button class="cl__blue">1/x</button>
-            <button class="cl__blue">0</button>
+            <button class="cl__blue" onClick={onClickNumber}>0</button>
             <button class="cl__blue">+/-</button>
             <button class="cl__blue">.</button>
             <button class="cl__red">+</button>
