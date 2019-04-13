@@ -69,6 +69,14 @@ export default function Calculator({ onClose }) {
       case '*':
         setCurrentValue(a * b);
         break;
+      case '/':
+        if (b === 0) {
+          // Division by zero
+          setCurrentValue('Cannot divide by zero.');
+          break;
+        }
+        setCurrentValue(a / b);
+        break;
       default:
 
     }
