@@ -38,5 +38,3 @@ class Card extends Component {
 }
 
 export default Card;
-
-//Properties aren't loading?
