@@ -1,30 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-
 import error from 'src/assets/windowsIcons/897(32x32).png';
+import Sound from 'react-sound';
+import ErrorSound from "../../../assets/sounds/Windows_XP_Error.wav";
 
 function lineBreak(str) {
-  return str.split('\n').map((s, i) => (
-    <p key={i} className="error__message">
-      {s}
-    </p>
-  ));
+    return str.split('\n').map((s, i) => (
+        <p key={i} className="error__message">
+            {s}
+        </p>
+    ));
 }
 
 function Error({ onClose, message = "Something's wrong!" }) {
-  return (
-    <Div>
-      <div className="error__top">
-        <img src={error} alt="error" className="error__img" />
-        <div className="error__messages">{lineBreak(message)}</div>
-      </div>
-      <div className="error__bottom">
-        <div onClick={onClose} className="error__button">
-          <span className="error__confirm">OK</span>
-        </div>
-      </div>
-    </Div>
-  );
+    const [wasSoundAlreadyPlayed, setWasSoundAlreadyPlayed] = useState(false);
+
+    return (
+        <Div>
+            {!wasSoundAlreadyPlayed &&
+            <Sound
+                url={ErrorSound}
+                playStatus={Sound.status.PLAYING}
+                playFromPosition={0}
+                onFinishedPlaying={() => setWasSoundAlreadyPlayed(true)}
+            />
+            }
+            <div className="error__top">
+                <img src={error} alt="error" className="error__img" />
+                <div className="error__messages">{lineBreak(message)}</div>
+            </div>
+            <div className="error__bottom">
+                <div onClick={onClose} className="error__button">
+                    <span className="error__confirm">OK</span>
+                </div>
+            </div>
+        </Div>
+    );
 }
 
 const Div = styled.div`
