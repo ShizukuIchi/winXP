@@ -13,16 +13,16 @@ function lineBreak(str) {
 }
 
 function Error({ onClose, message = "Something's wrong!" }) {
-    const [wasSoundAlreadyPlayed, setWasSoundAlreadyPlayed] = useState(false);
+    const [didSoundPlay, setDidSoundPlay] = useState(false);
 
     return (
         <Div>
-            {!wasSoundAlreadyPlayed &&
+            {!didSoundPlay &&
             <Sound
                 url={errorsound}
                 playStatus={Sound.status.PLAYING}
                 playFromPosition={0}
-                onFinishedPlaying={() => setWasSoundAlreadyPlayed(true)}
+                onFinishedPlaying={() => setDidSoundPlay(true)}
             />
             }
             <div className="error__top">
