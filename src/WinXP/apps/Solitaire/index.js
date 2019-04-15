@@ -24,7 +24,6 @@ class Solitaire extends Component {
       slots: [],
       stacks: []
     };
-    this.checkWin = this.checkWin.bind(this);
     this.restart = this.restart.bind(this);
     this.restart();
   }
