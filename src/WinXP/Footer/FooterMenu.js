@@ -24,6 +24,7 @@ import lock from 'src/assets/windowsIcons/546(32x32).png';
 import user from 'src/assets/windowsIcons/user.png';
 import shut from 'src/assets/windowsIcons/310(32x32).png';
 import allProgramsIcon from 'src/assets/windowsIcons/all-programs.ico';
+import solitaire from 'src/assets/windowsIcons/solitaire.png'
 
 import empty from 'src/assets/empty.png';
 
@@ -63,6 +64,7 @@ function FooterMenu({ className, onClick }) {
               { icon: tour, text: 'Tour Windows XP' },
               { icon: transfer, text: 'Files and Settings Transfer Wizard' },
               { icon: calculator, text: 'Calculator' },
+              { icon: solitaire, text: 'Solitaire'}
             ]}
           />
           <div style={{ flex: 1 }} />
