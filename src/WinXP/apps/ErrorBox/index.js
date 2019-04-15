@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import error from 'src/assets/windowsIcons/897(32x32).png';
 import Sound from 'react-sound';
-import ErrorSound from "../../../assets/sounds/Windows_XP_Error.wav";
+import error from 'src/assets/windowsIcons/897(32x32).png';
+import errorsound from "../../../assets/sounds/Windows_XP_Error.wav";
 
 function lineBreak(str) {
     return str.split('\n').map((s, i) => (
@@ -19,7 +19,7 @@ function Error({ onClose, message = "Something's wrong!" }) {
         <Div>
             {!wasSoundAlreadyPlayed &&
             <Sound
-                url={ErrorSound}
+                url={errorsound}
                 playStatus={Sound.status.PLAYING}
                 playFromPosition={0}
                 onFinishedPlaying={() => setWasSoundAlreadyPlayed(true)}
