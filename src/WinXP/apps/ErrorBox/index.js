@@ -22,7 +22,7 @@ function Error({ onClose, message = "Something's wrong!" }) {
                 url={errorsound}
                 playStatus={Sound.status.PLAYING}
                 playFromPosition={0}
-                onLoad={() => setDidSoundPlay(true)}
+                onPlaying={(param) => setDidSoundPlay(true)}
             />
             }
             <div className="error__top">
