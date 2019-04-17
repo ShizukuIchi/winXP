@@ -1,4 +1,4 @@
-import React, { useReducer, useRef } from 'react';
+import React, { useReducer, useRef, useCallback } from 'react';
 import styled, { keyframes } from 'styled-components';
 import useMouse from 'react-use/lib/useMouse';
 import ga from 'react-ga';
@@ -28,6 +28,7 @@ import { DashedBox } from 'src/components';
 const initState = {
   apps: defaultAppState,
   nextAppID: defaultAppState.length,
+  nextZIndex: defaultAppState.length,
   focusing: FOCUSING.WINDOW,
   icons: defaultIconState,
   selecting: false,
@@ -40,10 +41,34 @@ const reducer = (state, action = { type: '' }) => {
   });
   switch (action.type) {
     case ADD_APP:
+      const app = state.apps.find(
+        _app => _app.component === action.payload.component,
+      );
+      if (action.payload.multiInstance || !app) {
+        return {
+          ...state,
+          apps: [
+            ...state.apps,
+            {
+              ...action.payload,
+              id: state.nextAppID,
+              zIndex: state.nextZIndex,
+            },
+          ],
+          nextAppID: state.nextAppID + 1,
+          nextZIndex: state.nextZIndex + 1,
+          focusing: FOCUSING.WINDOW,
+        };
+      }
+      const apps = state.apps.map(app =>
+        app.component === action.payload.component
+          ? { ...app, zIndex: state.nextZIndex, minimized: false }
+          : app,
+      );
       return {
         ...state,
-        apps: [...state.apps, { ...action.payload, id: state.nextAppID }],
-        nextAppID: state.nextAppID + 1,
+        apps,
+        nextZIndex: state.nextZIndex + 1,
         focusing: FOCUSING.WINDOW,
       };
     case DEL_APP:
@@ -58,31 +83,35 @@ const reducer = (state, action = { type: '' }) => {
             : FOCUSING.DESKTOP,
       };
     case FOCUS_APP: {
-      const app = state.apps.find(app => app.id === action.payload);
-      const restApps = [...state.apps.filter(app => app.id !== action.payload)];
+      const apps = state.apps.map(app =>
+        app.id === action.payload
+          ? { ...app, zIndex: state.nextZIndex, minimized: false }
+          : app,
+      );
       return {
         ...state,
-        apps: app ? [...restApps, { ...app, minimized: false }] : restApps,
+        apps,
+        nextZIndex: state.nextZIndex + 1,
         focusing: FOCUSING.WINDOW,
       };
     }
     case MINIMIZE_APP: {
-      const app = state.apps.find(app => app.id === action.payload);
-      const restApps = state.apps.filter(app => app.id !== action.payload);
+      const apps = state.apps.map(app =>
+        app.id === action.payload ? { ...app, minimized: true } : app,
+      );
       return {
         ...state,
-        apps: app ? [...restApps, { ...app, minimized: true }] : restApps,
+        apps,
         focusing: FOCUSING.WINDOW,
       };
     }
     case TOGGLE_MAXIMIZE_APP: {
-      const app = state.apps.find(app => app.id === action.payload);
-      const restApps = state.apps.filter(app => app.id !== action.payload);
+      const apps = state.apps.map(app =>
+        app.id === action.payload ? { ...app, maximized: !app.maximized } : app,
+      );
       return {
         ...state,
-        apps: app
-          ? [...restApps, { ...app, maximized: !app.maximized }]
-          : restApps,
+        apps,
         focusing: FOCUSING.WINDOW,
       };
     }
@@ -158,29 +187,42 @@ function WinXP() {
   const [state, dispatch] = useReducer(reducer, initState);
   const ref = useRef(null);
   const mouse = useMouse(ref);
-  function onFocusApp(id) {
-    dispatch({ type: FOCUS_APP, payload: id });
-  }
-  function onMaximizeWindow(id) {
-    if (getFocusedAppId() === id && state.focusing === FOCUSING.WINDOW) {
-      dispatch({ type: TOGGLE_MAXIMIZE_APP, payload: id });
-    }
-  }
-  function onMinimizeWindow(id) {
-    if (getFocusedAppId() === id && state.focusing === FOCUSING.WINDOW) {
-      dispatch({ type: MINIMIZE_APP, payload: id });
-    }
-  }
+  const focusedAppId = getFocusedAppId();
+  const onFocusApp = useCallback(
+    id => {
+      dispatch({ type: FOCUS_APP, payload: id });
+    },
+    [focusedAppId],
+  );
+  const onMaximizeWindow = useCallback(
+    id => {
+      if (focusedAppId === id && state.focusing === FOCUSING.WINDOW) {
+        dispatch({ type: TOGGLE_MAXIMIZE_APP, payload: id });
+      }
+    },
+    [focusedAppId],
+  );
+  const onMinimizeWindow = useCallback(
+    id => {
+      if (focusedAppId === id && state.focusing === FOCUSING.WINDOW) {
+        dispatch({ type: MINIMIZE_APP, payload: id });
+      }
+    },
+    [focusedAppId],
+  );
+  const onCloseApp = useCallback(
+    id => {
+      if (focusedAppId === id && state.focusing === FOCUSING.WINDOW) {
+        dispatch({ type: DEL_APP, payload: id });
+      }
+    },
+    [focusedAppId],
+  );
   function onMouseDownFooterApp(id) {
-    if (getFocusedAppId() === id) {
+    if (focusedAppId === id) {
       dispatch({ type: MINIMIZE_APP, payload: id });
     } else {
       dispatch({ type: FOCUS_APP, payload: id });
-    }
-  }
-  function onCloseApp(id) {
-    if (getFocusedAppId() === id && state.focusing === FOCUSING.WINDOW) {
-      dispatch({ type: DEL_APP, payload: id });
     }
   }
   function onMouseDownIcon(id) {
@@ -193,10 +235,10 @@ function WinXP() {
     dispatch({ type: ADD_APP, payload: appSetting });
   }
   function getFocusedAppId() {
-    const lastIndex = state.apps.map(app => app.minimized).lastIndexOf(false);
-    return lastIndex >= 0 && state.focusing === FOCUSING.WINDOW
-      ? state.apps[lastIndex].id
-      : -1;
+    const focusedApp = [...state.apps]
+      .sort((a, b) => b.zIndex - a.zIndex)
+      .find(app => !app.minimized);
+    return focusedApp ? focusedApp.id : -1;
   }
   function onMouseDownFooter() {
     dispatch({ type: FOCUS_DESKTOP });
@@ -208,11 +250,24 @@ function WinXP() {
       dispatch({ type: ADD_APP, payload: appSettings.Minesweeper });
     else if (o === 'My Computer')
       dispatch({ type: ADD_APP, payload: appSettings['My Computer'] });
+    else if (o === 'Notepad')
+      dispatch({ type: ADD_APP, payload: appSettings.Notepad });
+    else if (o === 'Winamp')
+      dispatch({ type: ADD_APP, payload: appSettings.Winamp });
+    else if (o === 'Paint')
+      dispatch({ type: ADD_APP, payload: appSettings.Paint });
     else if (o === 'Log Off')
       dispatch({ type: POWER_OFF, payload: POWER_STATE.LOG_OFF });
     else if (o === 'Turn Off Computer')
       dispatch({ type: POWER_OFF, payload: POWER_STATE.TURN_OFF });
-    else dispatch({ type: ADD_APP, payload: appSettings.Error });
+    else
+      dispatch({
+        type: ADD_APP,
+        payload: {
+          ...appSettings.Error,
+          injectProps: { message: 'C:\\\nApplication not found' },
+        },
+      });
   }
   function onMouseDownDesktop(e) {
     if (e.target === e.currentTarget)
@@ -229,12 +284,14 @@ function WinXP() {
   }
   function onClickModalButton(text) {
     dispatch({ type: CANCEL_POWER_OFF });
-    dispatch({ type: ADD_APP, payload: appSettings.Error });
+    dispatch({
+      type: ADD_APP,
+      payload: appSettings.Error,
+    });
   }
   function onModalClose() {
     dispatch({ type: CANCEL_POWER_OFF });
   }
-  const focusedAppId = getFocusedAppId();
   return (
     <Container
       ref={ref}

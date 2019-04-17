@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Card from "./Card";
 import Slot from "./Slot";
 
@@ -15,27 +15,14 @@ const gameStyle = {
   paddingTop: "3px"
 };
 
-class Solitaire extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+function Solitaire(props) {
+  function initGame() {
+    let myGame = {
       cards: [],
       deck: [],
       slots: [],
       stacks: []
     };
-    this.checkWin = this.checkWin.bind(this);
-    this.restart = this.restart.bind(this);
-    this.restart();
-  }
-
-  restart() {
-    this.setState({
-      cards: [],
-      deck: [],
-      slots: [],
-      stacks: []
-    });
 
     // Create the full game (52 cards) in state.cards
     const suites = ["clubs", "diamonds", "hearts", "spades"];
@@ -43,6 +30,8 @@ class Solitaire extends Component {
 
     let comparisons = {};
     let i = -1;
+    let cardNum = 0,
+      slotNum = 0;
     comparisons["ace"] = ++i;
     for (let j = 2; j <= 10; j++) {
       comparisons[j] = ++i;
@@ -60,87 +49,101 @@ class Solitaire extends Component {
 
     for (let suite in suites) {
       for (let i = 2; i <= 10; i++) {
-        let newCards = this.state.cards;
-        newCards.push(
-          <Card
-            suite={suites[suite]}
-            type={i}
-            weight={comparisons[i]}
-            color={colors[suites[suite]]}
-          />
-        );
-        this.setState({ cards: newCards });
+        myGame.cards.push({
+          suite: suites[suite],
+          type: i,
+          weight: comparisons[i],
+          color: colors[suites[suite]],
+          key: cardNum++
+        });
       }
 
       for (let type in types) {
-        let newCards = this.state.cards;
-        newCards.push(
-          <Card
-            suite={suites[suite]}
-            type={types[type]}
-            weight={comparisons[types[type]]}
-            color={colors[suites[suite]]}
-          />
-        );
-        this.setState({ cards: newCards });
+        myGame.cards.push({
+          suite: suites[suite],
+          type: types[type],
+          weight: comparisons[types[type]],
+          color: colors[suites[suite]],
+          key: cardNum++
+        });
       }
     }
 
     // Shuffle cards
-    const newCards = this.state.cards;
-    for (let i = newCards.length - 1; i > 0; i--) {
+    for (let i = myGame.cards.length - 1; i > 0; i--) {
       const rand = Math.floor(Math.random() * (i + 1));
-      [newCards[i], newCards[rand]] = [newCards[rand], newCards[i]];
+      [myGame.cards[i], myGame.cards[rand]] = [
+        myGame.cards[rand],
+        myGame.cards[i]
+      ];
     }
-    this.setState({ cards: newCards });
 
     //Create the 7 stacks where the cards are (key is necessary to remove a warning error)
     for (let i = 0; i < 7; i++) {
       let stackCards = [];
       for (let j = 0; j < i + 1; j++) {
-        let myCard = React.cloneElement(this.state.cards.shift(), {
-          lastCard: i === j,
-          num: j
-        });
-        stackCards.push(myCard);
+        let cardProps = myGame.cards.shift();
+        stackCards.push(
+          <Card
+            suite={cardProps.suite}
+            type={cardProps.type}
+            weight={cardProps.weight}
+            color={cardProps.color}
+            key={cardProps.key}
+            num={j}
+            visible={i === j}
+            slotType={"stack"}
+          />
+        );
       }
-      let newStacks = this.state.stacks;
-      newStacks.push(<Slot type='stack' cards={stackCards} key={i} />);
-      this.setState({ stacks: newStacks });
+      myGame.stacks.push(
+        <Slot type='stack' cards={stackCards} key={slotNum++} />
+      );
     }
 
     //Create the 4 top slots to complete (key is necessary to remove a warning error)
     for (let i = 0; i < 4; i++) {
-      let newSlot = this.state.slots;
-      newSlot.push(<Slot type='topslot' cards={[]} key={i} />);
-      this.setState({ slots: newSlot });
+      myGame.slots.push(<Slot type='topslot' cards={[]} key={slotNum} />);
     }
 
     // Stuff remaining ones into front deck
     let remainingCards = [];
-    while (this.state.cards.length > 0) {
-      remainingCards.push(this.state.cards.shift());
+    while (myGame.cards.length > 0) {
+      let cardProps = myGame.cards.shift();
+      remainingCards.push(
+        <Card
+          suite={cardProps.suite}
+          type={cardProps.type}
+          weight={cardProps.weight}
+          color={cardProps.color}
+          key={cardProps.key}
+          slotType={"deck"}
+        />
+      );
     }
-    let newDeck = this.state.deck;
-    newDeck.push(<Slot type='deck' cards={remainingCards} />);
-    this.setState({ deck: newDeck });
+    myGame.deck.push(<Slot type='deck' cards={remainingCards} />);
 
-    console.log(this.state);
+    return myGame;
   }
 
-  render() {
-    return (
-      <div id='solitaire-game' style={gameStyle}>
-        {this.state.deck[0]}
-        {this.state.slots.map((item, index) => {
-          return item;
-        })}
-        {this.state.stacks.map((item, index) => {
-          return item;
-        })}
-      </div>
-    );
-  }
+  let newGame = initGame();
+
+  const [cards, setCard] = useState(newGame.cards);
+  const [deck, setDeck] = useState(newGame.deck);
+  const [slots, setSlots] = useState(newGame.slots);
+  const [stacks, setStacks] = useState(newGame.stacks);
+
+  return (
+    <div id='solitaire-game' style={gameStyle}>
+      {deck[0]}
+      {slots.map((item, index) => {
+        return item;
+      })}
+      {stacks.map((item, index) => {
+        return item;
+      })}
+    </div>
+  );
 }
 
 export default Solitaire;
