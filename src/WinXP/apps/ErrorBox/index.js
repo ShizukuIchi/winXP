@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-
+import errorSoundSrc from 'src/assets/sounds/error.wav';
 import error from 'src/assets/windowsIcons/897(32x32).png';
 
 function lineBreak(str) {
@@ -12,6 +12,13 @@ function lineBreak(str) {
 }
 
 function Error({ onClose, message = "Something's wrong!" }) {
+  useEffect(() => {
+    try {
+      new Audio(errorSoundSrc).play();
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
   return (
     <Div>
       <div className="error__top">
