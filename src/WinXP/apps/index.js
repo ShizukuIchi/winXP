@@ -97,14 +97,13 @@ export const defaultAppState = [
       icon: computer
     },
     defaultSize: {
-      width: 660,
       height: 500
     },
     defaultOffset: {
       x: 250,
       y: 40
     },
-    resizable: false,
+    resizable: true,
     minimized: false,
     maximized: window.innerWidth < 800,
     id: genId(),
@@ -341,12 +340,4 @@ export const appSettings = {
   }
 };
 
-export {
-  InternetExplorer,
-  Minesweeper,
-  ErrorBox,
-  MyComputer,
-  Notepad,
-  Winamp,
-  Solitaire
-};
+export { InternetExplorer, Minesweeper, ErrorBox, MyComputer, Notepad, Winamp };

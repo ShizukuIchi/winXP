@@ -103,7 +103,7 @@ function Solitaire(props) {
 
     //Create the 4 top slots to complete (key is necessary to remove a warning error)
     for (let i = 0; i < 4; i++) {
-      myGame.slots.push(<Slot type='topslot' cards={[]} key={slotNum} />);
+      myGame.slots.push(<Slot type='topslot' cards={[]} key={slotNum++} />);
     }
 
     // Stuff remaining ones into front deck
