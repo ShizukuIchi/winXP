@@ -3,12 +3,9 @@ import Minesweeper from './Minesweeper';
 import ErrorBox from './ErrorBox';
 import MyComputer from './MyComputer';
 import Notepad from './Notepad';
-<<<<<<< HEAD
 import RunBox from './RunBox'
-=======
 import Winamp from './Winamp';
 import Paint from './Paint';
->>>>>>> master
 import iePaper from 'src/assets/windowsIcons/ie-paper.png';
 import ie from 'src/assets/windowsIcons/ie.png';
 import mine from 'src/assets/minesweeper/mine-icon.png';
@@ -17,15 +14,12 @@ import computer from 'src/assets/windowsIcons/676(16x16).png';
 import computerLarge from 'src/assets/windowsIcons/676(32x32).png';
 import notepad from 'src/assets/windowsIcons/327(16x16).png';
 import notepadLarge from 'src/assets/windowsIcons/327(32x32).png';
-<<<<<<< HEAD
 import run from 'src/assets/windowsIcons/743(32x32).png';
 
 
-=======
 import winamp from 'src/assets/windowsIcons/winamp.png';
 import paintLarge from 'src/assets/windowsIcons/680(32x32).png';
 import paint from 'src/assets/windowsIcons/680(16x16).png';
->>>>>>> master
 
 const gen = () => {
   let id = -1;
@@ -151,13 +145,6 @@ export const defaultIconState = [
   },
   {
     id: 4,
-<<<<<<< HEAD
-    icon: run,
-    title: 'Run',
-    component: RunBox,
-    isFocus: true,
-  }
-=======
     icon: winamp,
     title: 'Winamp',
     component: Winamp,
@@ -170,7 +157,6 @@ export const defaultIconState = [
     component: Paint,
     isFocus: false,
   },
->>>>>>> master
 ];
 
 export const appSettings = {
@@ -311,16 +297,20 @@ export const appSettings = {
     multiInstance: true,
   },
   RunBox: {
-    headerIcon: run,
-    title: 'Run',
+    header: {
+      icon: run,
+      title: 'Run',
+      buttons: ['close'],
+      noFooterWindow: true,
+    },
     component: RunBox,
     defaultSize: {
       width: 380,
       height: 160,
     },
     defaultOffset: {
-      x: window.innerWidth / 2 - 300,
-      y: window.innerHeight / 2,
+      x: window.innerWidth / 2 - 400,
+      y: window.innerHeight / 2 + 100,
     },
     resizable: false,
     minimized: false,
@@ -328,8 +318,4 @@ export const appSettings = {
   }
 };
 
-<<<<<<< HEAD
-export { InternetExplorer, Minesweeper, ErrorBox, MyComputer, Notepad, RunBox };
-=======
-export { InternetExplorer, Minesweeper, ErrorBox, MyComputer, Notepad, Winamp };
->>>>>>> master
+export { InternetExplorer, Minesweeper, ErrorBox, MyComputer, Notepad, Winamp, RunBox };

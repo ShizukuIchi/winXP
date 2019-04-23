@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import dropDown from 'src/assets/windowsIcons/dropdown.png';
 import run from 'src/assets/windowsIcons/743(32x32).png';
+//import question from 'src/assets/windowsIcons/747(16x16).png'
 
-export default function RunBox({ onClose }) {
 
-  hnadleChange = (e) => {
-    console.log(e.target)
+export default function RunBox() {
+  const [inputValue, setInputValue] = useState('');
+
+  const handleChange = (e) => {
+
+    setInputValue(e.currentTarget.value)
+    console.log(inputValue)
+
   }
 
 
@@ -17,11 +23,11 @@ export default function RunBox({ onClose }) {
       </div>
       <div className="run__input">
         <span>Open:</span>
-        <div><input type="text" className="input__box" onChange={this.handleChange} /></div>
+        <div><input type="text" className="input__box" value={inputValue} onChange={handleChange} /></div>
         <div className="run__imag"><img src={dropDown} alt="error" className="run__img" height="23px" /></div>
       </div>
       <div className="run__buttonbox">
-        <button className="run__button" onClick="">Ok</button>
+        <button className="run__button" >Ok</button>
         <button className="run__button">Cancel</button>
         <button className="run__button">Browse</button>
 

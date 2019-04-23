@@ -2,7 +2,6 @@ import React, { useRef, memo } from 'react';
 import useWindowSize from 'react-use/lib/useWindowSize';
 import { useElementResize } from 'src/hooks';
 import styled from 'styled-components';
-import question from 'src/assets/windowsIcons/747(16x16).png'
 
 import HeaderButtons from './HeaderButtons';
 
