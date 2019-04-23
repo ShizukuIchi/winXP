@@ -11,11 +11,17 @@ function useElementResize(ref, options) {
   } = options;
   const [offset, setOffset] = useState(defaultOffset);
   const [size, setSize] = useState(defaultSize);
-  useCursor(ref, resizeThreshold, resizable);
+  const cursorPos = useCursor(ref, resizeThreshold, resizable);
   useEffect(() => {
     const target = ref.current;
     if (!target) return;
     const dragTarget = options.dragRef && options.dragRef.current;
+    const cover = document.createElement('div');
+    cover.style.position = 'fixed';
+    cover.style.top = 0;
+    cover.style.left = 0;
+    cover.style.right = 0;
+    cover.style.bottom = 0;
     const previousOffset = { ...offset };
     const previousSize = { ...size };
     let _boundary;
@@ -29,6 +35,7 @@ function useElementResize(ref, options) {
       setOffset({ x, y });
     }
     function onDragEnd(e) {
+      cover.remove();
       const { pageX, pageY } = getComputedPagePosition(e, _boundary);
       previousOffset.x += pageX - originMouseX;
       previousOffset.y += pageY - originMouseY;
@@ -207,50 +214,59 @@ function useElementResize(ref, options) {
       originMouseX = e.pageX;
       originMouseY = e.pageY;
       _boundary = { ...boundary };
-      if (dragTarget && e.target === dragTarget) return onDragStart(e);
+      if (dragTarget && e.target === dragTarget) {
+        document.body.appendChild(cover);
+        return onDragStart(e);
+      }
       if (e.target !== target || !resizable) return;
-      const { offsetX, offsetY } = e;
-      // const { width, height } = target.getBoundingClientRect();
-      const { width, height } = previousSize;
-      if (offsetX < resizeThreshold) {
-        _boundary.right = originMouseX + previousSize.width - constraintSize;
-        if (offsetY < resizeThreshold) {
+      switch (cursorPos) {
+        case 'topLeft':
+          _boundary.right = originMouseX + previousSize.width - constraintSize;
           _boundary.bottom =
             originMouseY + previousSize.height - constraintSize;
           onResizeStartTopLeft(e);
           onDragStart(e);
-        } else if (height - offsetY < resizeThreshold) {
+          break;
+        case 'left':
+          _boundary.right = originMouseX + previousSize.width - constraintSize;
+          onResizeStartLeft(e);
+          onDragStartLeft(e);
+          break;
+        case 'bottomLeft':
+          _boundary.right = originMouseX + previousSize.width - constraintSize;
           _boundary.top = originMouseY - previousSize.height + constraintSize;
           onResizeStartBottomLeft(e);
           onDragStartLeft(e);
-        } else {
-          onResizeStartLeft(e);
-          onDragStartLeft(e);
-        }
-      } else if (offsetY < resizeThreshold) {
-        _boundary.bottom = originMouseY + previousSize.height - constraintSize;
-        if (width - offsetX < resizeThreshold) {
+          break;
+        case 'top':
+          _boundary.bottom =
+            originMouseY + previousSize.height - constraintSize;
+          onResizeStartTop(e);
+          onDragStartTop(e);
+          break;
+        case 'topRight':
+          _boundary.bottom =
+            originMouseY + previousSize.height - constraintSize;
           _boundary.left = originMouseX - previousSize.width + constraintSize;
           onDragStartTop(e);
           onResizeStartTopRight(e);
-        } else {
-          onResizeStartTop(e);
-          onDragStartTop(e);
-        }
-      } else if (width - offsetX < resizeThreshold) {
-        _boundary.left = originMouseX - previousSize.width + constraintSize;
-        if (height - offsetY < resizeThreshold) {
-          _boundary.top = originMouseY - previousSize.height + constraintSize;
-          onResizeStartBottomRight(e);
-        } else {
+          break;
+        case 'right':
+          _boundary.left = originMouseX - previousSize.width + constraintSize;
           onResizeStartRight(e);
-        }
-      } else if (height - offsetY < resizeThreshold) {
-        _boundary.top = originMouseY - previousSize.height + constraintSize;
-        onResizeStartBottom(e);
+          break;
+        case 'bottomRight':
+          _boundary.top = originMouseY - previousSize.height + constraintSize;
+          _boundary.left = originMouseX - previousSize.width + constraintSize;
+          onResizeStartBottomRight(e);
+          break;
+        case 'bottom':
+          _boundary.top = originMouseY - previousSize.height + constraintSize;
+          onResizeStartBottom(e);
+          break;
+        default:
       }
     }
-
     target.addEventListener('mousedown', onMouseDown);
     return () => {
       target.removeEventListener('mousedown', onMouseDown);
@@ -276,12 +292,13 @@ function useElementResize(ref, options) {
       window.removeEventListener('mouseup', onResizeEndTopLeft);
       window.removeEventListener('mouseup', onResizeEndTopRight);
       window.removeEventListener('mouseup', onResizeEndBottomRight);
+      cover.remove();
     };
-  }, [boundary.top, boundary.right, boundary.bottom, boundary.left]);
+  }, [boundary.top, boundary.right, boundary.bottom, boundary.left, cursorPos]);
   return { offset, size };
 }
-
 function useCursor(ref, threshold, resizable) {
+  const [position, setPosition] = useState('');
   useEffect(() => {
     const target = ref.current;
     if (!target || !resizable) return;
@@ -291,57 +308,54 @@ function useCursor(ref, threshold, resizable) {
     cover.style.left = 0;
     cover.style.right = 0;
     cover.style.bottom = 0;
-    cover.style.display = 'none';
-    document.body.appendChild(cover);
     let lock = false;
-    let position = '';
-    function setPosition(p) {
-      position = p;
-      target.style.cursor = getCursorStyle(position);
-      cover.style.cursor = getCursorStyle(position);
+    function _setPosition(p) {
+      setPosition(p);
+      target.style.cursor = getCursorStyle(p);
+      cover.style.cursor = getCursorStyle(p);
     }
     function onMouseDown(e) {
       if (e.target !== target) return;
       onHover(e);
       lock = true;
-      cover.style.display = 'block';
+      document.body.appendChild(cover);
       window.addEventListener('mouseup', onMouseUp);
     }
     function onMouseUp(e) {
       lock = false;
-      cover.style.display = 'none';
+      cover.remove();
       window.removeEventListener('mouseup', onMouseUp);
     }
     function onHoverEnd(e) {
       if (lock) return;
-      setPosition('');
+      _setPosition('');
     }
     function onHover(e) {
       if (lock) return;
-      if (e.target !== target) return setPosition('');
+      if (e.target !== target) return _setPosition('');
       const { offsetX, offsetY } = e;
       const { width, height } = target.getBoundingClientRect();
       if (offsetX < threshold) {
         if (offsetY < threshold) {
-          setPosition('topLeft');
+          _setPosition('topLeft');
         } else if (height - offsetY < threshold) {
-          setPosition('bottomLeft');
+          _setPosition('bottomLeft');
         } else {
-          setPosition('left');
+          _setPosition('left');
         }
       } else if (offsetY < threshold) {
         if (width - offsetX < threshold) {
-          setPosition('topRight');
+          _setPosition('topRight');
         } else {
-          setPosition('top');
+          _setPosition('top');
         }
       } else if (width - offsetX < threshold) {
-        if (height - offsetY < threshold) setPosition('bottomRight');
-        else setPosition('right');
+        if (height - offsetY < threshold) _setPosition('bottomRight');
+        else _setPosition('right');
       } else if (height - offsetY < threshold) {
-        setPosition('bottom');
+        _setPosition('bottom');
       } else {
-        setPosition('');
+        _setPosition('');
       }
     }
     target.addEventListener('mouseleave', onHoverEnd);
@@ -355,6 +369,7 @@ function useCursor(ref, threshold, resizable) {
       window.removeEventListener('mouseup', onMouseUp);
     };
   }, []);
+  return position;
 }
 
 function getComputedPagePosition(e, boundary) {
