@@ -74,6 +74,10 @@ const Div = styled.div`
         width:280px;
         padding: 3px;
       }
+      input{
+        -webkit-user-select: text;
+        outline:0;
+      }
       .run__buttonbox{
         margin-left: 110px;
         margin-top: 20px;
