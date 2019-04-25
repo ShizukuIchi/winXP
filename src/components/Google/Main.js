@@ -123,6 +123,7 @@ export default styled(Main)`
         box-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.3);
       }
       input {
+        -webkit-user-select: text;
         border: none;
         color: rgba(0, 0, 0, 0.87);
         height: 100%;
