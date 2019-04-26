@@ -33,102 +33,103 @@ export const defaultAppState = [
     component: InternetExplorer,
     header: {
       title: "Internet Explorer",
-      icon: iePaper
+      icon: iePaper,
     },
     defaultSize: {
       width: 700,
-      height: 500
+      height: 500,
     },
     defaultOffset: {
       x: 130,
-      y: 20
+      y: 20,
     },
     resizable: true,
     minimized: false,
     maximized: window.innerWidth < 800,
     id: genId(),
-    zIndex: genIndex()
+    zIndex: genIndex(),
   },
   {
     component: Minesweeper,
     header: {
       title: "Minesweeper",
-      icon: mine
+      icon: mine,
     },
     defaultSize: {
       width: 0,
-      height: 0
+      height: 0,
     },
     defaultOffset: {
       x: 180,
-      y: 170
+      y: 170,
     },
     resizable: false,
     minimized: false,
     maximized: false,
     id: genId(),
-    zIndex: genIndex()
+    zIndex: genIndex(),
   },
   {
     component: Winamp,
     header: {
       title: "Winamp",
       icon: winamp,
-      invisible: true
+      invisible: true,
     },
     defaultSize: {
       width: 0,
-      height: 0
+      height: 0,
     },
     defaultOffset: {
       x: 0,
-      y: 0
+      y: 0,
     },
     resizable: false,
     minimized: false,
     maximized: false,
     id: genId(),
-    zIndex: genIndex()
+    zIndex: genIndex(),
   },
   {
     component: MyComputer,
     header: {
       title: "My Computer",
-      icon: computer
+      icon: computer,
     },
     defaultSize: {
-      height: 500
+      width: 660,
+      height: 500,
     },
     defaultOffset: {
       x: 250,
-      y: 40
+      y: 40,
     },
     resizable: true,
     minimized: false,
     maximized: window.innerWidth < 800,
     id: genId(),
-    zIndex: genIndex()
+    zIndex: genIndex(),
   },
   {
     component: Solitaire,
     header: {
       title: "Solitaire",
       icon: solitaire,
-      invisible: false
+      invisible: false,
     },
     defaultSize: {
       width: 600,
-      height: 400
+      height: 400,
     },
     defaultOffset: {
       x: 180,
-      y: 170
+      y: 170,
     },
     resizable: false,
     minimized: false,
     maximized: false,
-    id: 3
-  }
+    id: 3,
+  },
 ];
 
 export const defaultIconState = [
@@ -137,207 +138,216 @@ export const defaultIconState = [
     icon: ie,
     title: "Internet Explorer",
     component: InternetExplorer,
-    isFocus: false
+    isFocus: false,
   },
   {
     id: 1,
     icon: mine,
     title: "Minesweeper",
     component: Minesweeper,
-    isFocus: false
+    isFocus: false,
   },
   {
     id: 2,
     icon: computerLarge,
     title: "My Computer",
     component: MyComputer,
-    isFocus: false
+    isFocus: false,
   },
   {
     id: 3,
     icon: notepadLarge,
     title: "Notepad",
     component: Notepad,
-    isFocus: false
+    isFocus: false,
   },
   {
     id: 4,
     icon: winamp,
     title: "Winamp",
     component: Winamp,
-    isFocus: false
+    isFocus: false,
   },
   {
     id: 5,
     icon: paintLarge,
     title: "Paint",
     component: Paint,
-    isFocus: false
+    isFocus: false,
   },
   {
     id: 6,
     icon: solitaire,
     title: "Solitaire",
     component: Solitaire,
-    isFocus: false
-  }
+    isFocus: false,
+  },
 ];
 
 export const appSettings = {
   "Internet Explorer": {
     header: {
       icon: iePaper,
-      title: "InternetExplorer"
+      title: "InternetExplorer",
     },
     component: InternetExplorer,
     defaultSize: {
       width: 700,
-      height: 500
+      height: 500,
     },
     defaultOffset: {
       x: 140,
-      y: 30
+      y: 30,
     },
     resizable: true,
     minimized: false,
     maximized: window.innerWidth < 800,
-    multiInstance: true
+    multiInstance: true,
   },
   Minesweeper: {
     header: {
       icon: mine,
-      title: "Minesweeper"
+      title: "Minesweeper",
     },
     component: Minesweeper,
     defaultSize: {
       width: 0,
-      height: 0
+      height: 0,
     },
     defaultOffset: {
       x: 190,
-      y: 180
+      y: 180,
     },
     resizable: false,
     minimized: false,
     maximized: false,
-    multiInstance: true
+    multiInstance: true,
   },
   Error: {
     header: {
       icon: error,
       title: "C:\\",
       buttons: ["close"],
-      noFooterWindow: true
+      noFooterWindow: true,
     },
     component: ErrorBox,
     defaultSize: {
       width: 380,
-      height: 0
+      height: 0,
     },
     defaultOffset: {
       x: window.innerWidth / 2 - 190,
-      y: window.innerHeight / 2 - 60
+      y: window.innerHeight / 2 - 60,
     },
     resizable: false,
     minimized: false,
     maximized: false,
-    multiInstance: true
+    multiInstance: true,
   },
   "My Computer": {
     header: {
       icon: computer,
-      title: "My Computer"
+      title: "My Computer",
     },
     component: MyComputer,
     defaultSize: {
       width: 660,
-      height: 500
+      height: 500,
     },
     defaultOffset: {
       x: 260,
-      y: 50
+      y: 50,
     },
     resizable: true,
     minimized: false,
     maximized: window.innerWidth < 800,
-    multiInstance: false
+    multiInstance: false,
   },
   Notepad: {
     header: {
       icon: notepad,
-      title: "Untitled - Notepad"
+      title: "Untitled - Notepad",
     },
     component: Notepad,
     defaultSize: {
       width: 660,
-      height: 500
+      height: 500,
     },
     defaultOffset: {
       x: 270,
-      y: 60
+      y: 60,
     },
     resizable: true,
     minimized: false,
     maximized: window.innerWidth < 800,
-    multiInstance: true
+    multiInstance: true,
   },
   Winamp: {
     header: {
       icon: winamp,
       title: "Winamp",
-      invisible: true
+      invisible: true,
     },
     component: Winamp,
     defaultSize: {
       width: 0,
-      height: 0
+      height: 0,
     },
     defaultOffset: {
       x: 0,
-      y: 0
+      y: 0,
     },
     resizable: false,
     minimized: false,
     maximized: false,
-    multiInstance: false
+    multiInstance: false,
   },
   Paint: {
     header: {
       icon: paint,
-      title: "Untitled - Paint"
+      title: "Untitled - Paint",
     },
     component: Paint,
     defaultSize: {
       width: 660,
-      height: 500
+      height: 500,
     },
     defaultOffset: {
       x: 280,
-      y: 70
+      y: 70,
     },
     resizable: true,
     minimized: false,
     maximized: window.innerWidth < 800,
-    multiInstance: true
+    multiInstance: true,
   },
   Solitaire: {
     header: {
       icon: solitaire,
-      title: "Solitaire"
+      title: "Solitaire",
     },
     component: Solitaire,
     defaultSize: {
       width: 600,
-      height: 400
+      height: 400,
     },
     defaultOffset: {
       x: 190,
-      y: 180
+      y: 180,
     },
     resizable: false,
     minimized: false,
-    maximized: false
-  }
+    maximized: false,
+    multiInstance: false,
+  },
 };
 
-export { InternetExplorer, Minesweeper, ErrorBox, MyComputer, Notepad, Winamp };
+export {
+  InternetExplorer,
+  Minesweeper,
+  ErrorBox,
+  MyComputer,
+  Notepad,
+  Winamp,
+  Solitaire,
+};

@@ -1,11 +1,25 @@
 import React, { useState } from "react";
 import emptyBackground from "../../../assets/solitaire/empty.png";
 
-function Slot(props) {
-  // let myCard = React.cloneElement(card, { slotType: this.state.type });
-
+function Deck(props) {
   const [cards, setCard] = useState(props.cards);
-  const slotType = props.type;
+
+  function onDrop(e) {
+    // let target = this.state[targetName];
+    // if (target[index]) return;
+    console.log("dropping");
+    const myCard = e.dataTransfer.getData("text");
+    console.log(myCard);
+    // const pieceData = this.state.pieces.find(p => p.order === +pieceOrder);
+    // const origin = this.state[pieceData.board];
+
+    // if (targetName === pieceData.board) target = origin;
+    // origin[origin.indexOf(pieceData)] = undefined;
+    // target[index] = pieceData;
+    // pieceData.board = targetName;
+
+    // this.setState({ [pieceData.board]: origin, [targetName]: target })
+  }
 
   // function getLastCard() {
   //   return this.state.cards[this.state.cards.length - 1];
@@ -68,14 +82,15 @@ function Slot(props) {
 
   return (
     <div
-      className={slotType}
+      className="deck"
       style={{
         height: "96px",
-        gridColumn: slotType === "deck" ? "auto / span 3" : "",
-        display: "flex"
+        gridColumn: "auto / span 3",
+        display: "flex",
       }}
+      onDrop={onDrop}
     >
-      {slotType !== "stack" ? <img src={emptyBackground} alt='Slot' /> : ""}
+      <img src={emptyBackground} alt="Slot" />
       {cards.map((item, index) => {
         return item;
       })}
@@ -83,4 +98,4 @@ function Slot(props) {
   );
 }
 
-export default Slot;
+export default Deck;
