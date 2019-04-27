@@ -355,7 +355,6 @@ const animation = {
 
 const Container = styled.div`
   @import url('https://fonts.googleapis.com/css?family=Noto+Sans');
- 
   font-family: Tahoma, 'Noto Sans', sans-serif;
   height: 100%;
   overflow: hidden;
@@ -364,8 +363,8 @@ const Container = styled.div`
   background-size: cover;
   animation: ${({ state }) => animation[state]} 5s forwards;
   *:not(input):not(textarea) {
-     user-select: none; 
-    }; 
+    user-select: none; 
+  }
 `;
 
 export default WinXP;
