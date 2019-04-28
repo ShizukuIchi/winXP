@@ -363,7 +363,7 @@ const Container = styled.div`
   background-size: cover;
   animation: ${({ state }) => animation[state]} 5s forwards;
   *:not(input):not(textarea) {
-    user-select: none; 
+    user-select: none;
   }
 `;
 
