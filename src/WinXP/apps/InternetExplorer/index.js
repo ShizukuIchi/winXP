@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ie from 'src/assets/windowsIcons/ie-paper.png';
 import printer from 'src/assets/windowsIcons/17(32x32).png';
@@ -19,11 +19,10 @@ import stop from 'src/assets/windowsIcons/stop.png';
 import windows from 'src/assets/windowsIcons/windows.png';
 import dropdown from 'src/assets/windowsIcons/dropdown.png';
 
-import { WindowDropdown, Google } from 'src/components';
+import { WindowDropDowns, Google } from 'src/components';
 import dropDownData from './dropDownData';
 
 function InternetExplorer({ onClose }) {
-  const dropDown = useRef(null);
   const [state, setState] = useState({
     route: 'main',
     query: '',
@@ -42,13 +41,6 @@ function InternetExplorer({ onClose }) {
       query: '',
     });
   }
-  const [openOption, setOpenOption] = useState('');
-  function hoverOption(option) {
-    if (openOption) setOpenOption(option);
-  }
-  function onMouseUp(e) {
-    if (!dropDown.current.contains(e.target)) setOpenOption('');
-  }
   function onClickOptionItem(item) {
     switch (item) {
       case 'Close':
@@ -60,51 +52,18 @@ function InternetExplorer({ onClose }) {
         break;
       default:
     }
-    setOpenOption('');
   }
-  useEffect(() => {
-    window.addEventListener('mouseup', onMouseUp);
-    return () => {
-      window.removeEventListener('mouseup', onMouseUp);
-    };
-  }, []);
   return (
     <Div>
       <section className="ie__toolbar">
-        <div className="ie__toolbar__drop-downs" ref={dropDown}>
-          {'File,Edit,View,Favorites,Tools,Help'.split(',').map(name => (
-            <div
-              className={`ie__toolbar__drop-down${
-                openOption === name ? '--active' : ''
-              }`}
-              key={name}
-            >
-              <div className="ie__toolbar__drop-down__label">{name}</div>
-              {openOption === name && (
-                <WindowDropdown
-                  onClick={onClickOptionItem}
-                  items={dropDownData[name]}
-                  position={{ top: '20px', left: '0' }}
-                />
-              )}
-            </div>
-          ))}
+        <div className="ie__options">
+          <WindowDropDowns
+            items={dropDownData}
+            onClickItem={onClickOptionItem}
+            height={21}
+          />
         </div>
-        <div className="ie__toolbar__options">
-          {'File,Edit,View,Favorites,Tools,Help'.split(',').map(name => (
-            <div
-              key={name}
-              onMouseDown={() => {
-                setOpenOption(name);
-              }}
-              onMouseEnter={() => hoverOption(name)}
-              className="ie__toolbar__option"
-            >
-              {name}
-            </div>
-          ))}
-        </div>
-        <img className="ie__toolbar__img" src={windows} alt="windows" />
+        <img className="ie__windows-logo" src={windows} alt="windows" />
       </section>
       <section className="ie__function_bar">
         <div
@@ -241,62 +200,24 @@ const Div = styled.div`
   overflow: hidden;
   flex-direction: column;
   background: linear-gradient(to right, #edede5 0%, #ede8cd 100%);
+
   .ie__toolbar {
     position: relative;
     display: flex;
     align-items: center;
     line-height: 100%;
-    height: 22px;
+    height: 24px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+    flex-shrink: 0;
   }
-  .ie__toolbar__drop-downs {
-    display: flex;
-    height: 100%;
-    position: absolute;
-    border-bottom: 1px solid transparent;
-  }
-  .ie__toolbar__drop-down {
-    font-size: 11px;
-    line-height: 20px;
-    height: 100%;
-    background-color: #1660e8;
-    position: relative;
-    visibility: hidden;
-  }
-  .ie__toolbar__drop-down--active {
-    font-size: 11px;
-    line-height: 20px;
-    height: 100%;
-    visibility: visible;
-    z-index: 1;
-    background-color: #1660e8;
-    position: relative;
-  }
-  .ie__toolbar__drop-down__label {
-    padding: 0 7px;
-    color: #fff;
-  }
-  .ie__toolbar__options {
-    position: relative;
-    flex: 1;
-    display: flex;
-    align-items: center;
-    line-height: 100%;
-    height: 100%;
+  .ie__options {
+    height: 23px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.15);
     border-right: 1px solid rgba(0, 0, 0, 0.15);
+    padding-left: 2px;
+    flex: 1;
   }
-  .ie__toolbar__option {
-    font-size: 11px;
-    line-height: 20px;
-    height: 100%;
-    padding: 0 7px;
-    &:hover {
-      background-color: #1660e8;
-      color: #fff;
-    }
-  }
-  .ie__toolbar__img {
+  .ie__windows-logo {
     height: 100%;
     border-left: 1px solid white;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
