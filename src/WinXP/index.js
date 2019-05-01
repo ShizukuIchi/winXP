@@ -252,6 +252,8 @@ function WinXP() {
       dispatch({ type: ADD_APP, payload: appSettings['My Computer'] });
     else if (o === 'Notepad')
       dispatch({ type: ADD_APP, payload: appSettings.Notepad });
+    else if (o === 'Run...')
+      dispatch({ type: ADD_APP, payload: appSettings.RunBox });
     else if (o === 'Winamp')
       dispatch({ type: ADD_APP, payload: appSettings.Winamp });
     else if (o === 'Paint')
