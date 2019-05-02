@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import emptyBackground from "../../../assets/solitaire/empty.png";
 
 function Topslot(props) {
-  const [cards, setCards] = useState(props.cards);
+  function getLastCard() {
+    return props.cards[props.cards.length - 1];
+  }
 
   function onDragOver(e) {
     e.preventDefault();
@@ -14,38 +16,23 @@ function Topslot(props) {
       type: cardProps[0],
       suite: cardProps[1],
       color: cardProps[2],
-      weight: cardProps[3]
+      weight: cardProps[3],
+      originalRow: cardProps[4]
     };
-    console.log(myCard);
     add(myCard);
   }
 
-  // function getLastCard() {
-  //   return this.state.cards[this.state.cards.length - 1];
-  // }
-
-  //NE MARCHE PAS: peut etre lié au fait qu'on ne peut pas déplacer de cartes de la droite vers la gauche ?
-
   function add(card) {
-    console.log("adding...")
-    if (cards.length === 0 && card.type === "ace") {
-      let newCards = cards;
-      newCards.push(card);
-      setCards(newCards);
-      console.log("ace added");
+    if (props.cards.length === 0 && card.type === "ace") {
+      props.cardDropping(card.originalRow, props.row);
     }
-    // else if (
-    //   cards.length > 0 &&
-    //   card.greaterThan(this.getLastCard()) &&
-    //   card.suite === this.getLastCard().suite
-    // ) {
-    //   let newCards = this.state.cards;
-    //   newCards.push(card);
-    //   this.setState({
-    //     cards: newCards
-    //   });
-    //   return true;
-    // }
+    else if (
+      props.cards.length > 0 &&
+      parseInt(card.weight) === getLastCard().props.weight + 1 &&
+      card.suite === getLastCard().props.suite
+    ) {
+      props.cardDropping(card.originalRow, props.row);
+    }
   }
 
   return (
@@ -54,12 +41,13 @@ function Topslot(props) {
       style={{
         height: "96px",
         display: "flex",
+        zIndex: 1,
       }}
       onDragOver={onDragOver}
       onDrop={onDrop}
     >
-      {cards.length === 0 ? <img src={emptyBackground} alt="Slot" /> : ""}
-      {cards.map((item, index) => {
+      {props.cards.length === 0 ? <img src={emptyBackground} alt="Slot" /> : ""}
+      {props.cards.map((item, index) => {
         return item;
       })}
     </div>

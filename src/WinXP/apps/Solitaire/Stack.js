@@ -17,14 +17,15 @@ function Stack(props) {
       suite: cardProps[1],
       color: cardProps[2],
       weight: cardProps[3],
-      originalRow: cardProps[4]
+      originalRow: cardProps[4],
+      slotType: cardProps[5]
     };
     add(myCard);
   }
 
   function add(card) {
     if (props.cards.length === 0 && card.type === "king") {
-      props.cardDropping(card.originalRow, props.row);
+      props.cardDropping(card.originalRow, props.row, card.slotType);
     }
     else if (
       props.cards.length > 0 &&
@@ -32,7 +33,7 @@ function Stack(props) {
         getLastCard().props.weight - card.weight === 1) &&
       card.color !== getLastCard().props.color
     ) {
-      props.cardDropping(card.originalRow, props.row);
+      props.cardDropping(card.originalRow, props.row, card.slotType);
     }
   }
 

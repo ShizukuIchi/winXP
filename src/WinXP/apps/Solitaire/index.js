@@ -93,17 +93,20 @@ function Solitaire(props) {
             row={i}
             slotType={"stack"}
             visible={i === j}
+            numVisible={0}
+
+            checkLastCard={checkLastCard}
 
             key={`card-${cardProps.suite}-${cardProps.type}`}
           />,
         );
       }
-      myGame.stacks.push(<Stack cards={stacksCards} key={`slot-${i}`} cardDropping={cardDropping} row={i} />)
+      myGame.stacks.push(<Stack cards={stacksCards} key={`stack-${i}`} cardDropping={cardDroppingStacks} row={i} />)
     }
 
     //Create the 4 top slots to complete
     for (let i = 0; i < 4; i++) {
-      myGame.slots.push(<Topslot cards={[]} key={`topslot-${i}`} />);
+      myGame.slots.push(<Topslot cards={[]} row={i} key={`topslot-${i}`} cardDropping={cardDroppingSlots} />);
     }
 
     // Stuff remaining ones into front deck
@@ -116,57 +119,157 @@ function Solitaire(props) {
           type={cardProps.type}
           weight={cardProps.weight}
           color={cardProps.color}
+
+          visible={false}
           slotType={"deck"}
+
           key={`card-${cardProps.suite}-${cardProps.type}`}
         />,
       );
     }
-    myGame.deck.push(<Deck cards={remainingCards} />);
+    myGame.deck.push(<Deck cards={remainingCards} onClick={clickOnDeck} />);
 
     return myGame;
   }
 
   const newGame = initGame();
 
+  const [cards, setCards] = useState(newGame.cards);
   const [deck, setDeck] = useState(newGame.deck);
   const [slots, setSlots] = useState(newGame.slots);
   const [stacks, setStacks] = useState(newGame.stacks);
 
-  //Pb: When a card is moved, last move is cancelled.... Pb with setStacks ?
+  //Allows us to make several things (do more than one move, check if a card is the last card of a stack, ...), for an unknown reason (yet)
+  let currentCards = cards.slice();
+  let currentDeck = deck.slice();
+  let currentStacks = stacks.slice();
+  let currentSlots = slots.slice();
 
-  function cardDropping(initNum, lastNum) {
-    //Select the card that is moving
-    let stacksCopy = stacks.slice();
+  function checkLastCard(row, num) {
+    return (num === currentStacks[row].props.cards.length - 1);
+  }
+
+  function cardDroppingStacks(initNum, lastNum, slotType) {
+    if (slotType === "stack") {
+      //Select the card that is moving
+      let stacksCopy = currentStacks.slice();
+      let cardProps = stacksCopy[initNum].props.cards[stacksCopy[initNum].props.cards.length - 1].props;
+
+      let lastCards = stacksCopy[lastNum].props.cards.slice();
+      lastCards.push(<Card
+        suite={cardProps.suite}
+        type={cardProps.type}
+        weight={cardProps.weight}
+        color={cardProps.color}
+
+        num={stacks[lastNum].props.cards.length}
+        row={lastNum}
+        slotType={"stack"}
+        visible={true}
+        numVisible={cardProps.numVisible + 1}
+
+        checkLastCard={checkLastCard}
+
+        key={`card-${cardProps.suite}-${cardProps.type}`}
+      />)
+      let initCards = stacksCopy[initNum].props.cards.slice();
+      initCards.pop();
+
+      stacksCopy[initNum] = <Stack cards={initCards} row={initNum} cardDropping={cardDroppingStacks} key={`stack-${initNum}`} />
+      stacksCopy[lastNum] = <Stack cards={lastCards} row={lastNum} cardDropping={cardDroppingStacks} key={`stack-${lastNum}`} />
+
+      setStacks(stacksCopy);
+      currentStacks = stacksCopy;
+    }
+    else if (slotType === "deck") {
+
+    }
+  }
+
+  function cardDroppingSlots(initNum, slotNum) {
+    //I will need to implement the drop from the three different sources : slots, stacks & deck. 
+    let stacksCopy = currentStacks.slice();
+    let slotsCopy = currentSlots.slice();
     let cardProps = stacksCopy[initNum].props.cards[stacksCopy[initNum].props.cards.length - 1].props;
 
-    let lastCards = stacksCopy[lastNum].props.cards.slice();
-    lastCards.push(<Card
+    let slotCards = slotsCopy[slotNum].props.cards.slice();
+    slotCards.push(<Card
       suite={cardProps.suite}
       type={cardProps.type}
       weight={cardProps.weight}
       color={cardProps.color}
 
-      num={stacks[lastNum].props.cards.length}
-      row={lastNum}
-      slotType={"stack"}
+      row={slotNum}
+      slotType={"topslot"}
       visible={true}
+
+      checkLastCard={checkLastCard}
 
       key={`card-${cardProps.suite}-${cardProps.type}`}
     />)
     let initCards = stacksCopy[initNum].props.cards.slice();
     initCards.pop();
 
-    stacksCopy[initNum] = <Stack cards={initCards} row={initNum} cardDropping={cardDropping} key={`slot-${initNum}`} />
-    stacksCopy[lastNum] = <Stack cards={lastCards} row={lastNum} cardDropping={cardDropping} key={`slot-${lastNum}`} />
+    stacksCopy[initNum] = <Stack cards={initCards} row={initNum} cardDropping={cardDroppingStacks} key={`slot-${initNum}`} />
+    slotsCopy[slotNum] = <Topslot cards={slotCards} row={slotNum} cardDropping={cardDroppingSlots} key={`topslot-${slotNum}`} />
 
-    console.log(stacks.map((stack) => stack.props.cards));
     setStacks(stacksCopy);
-    console.log(stacks.map((stack) => stack.props.cards));
+    currentStacks = stacksCopy;
+    setSlots(slotsCopy);
+    currentSlots = slotsCopy;
+  }
+
+  function clickOnDeck() {
+    if (currentDeck[0].props.cards.length > 0) {
+      let deckCopy = currentDeck.slice();
+      let cardsCopy = currentCards.slice();
+      let cardProps = deckCopy[0].props.cards[deckCopy[0].props.cards.length - 1].props;
+      deckCopy[0].props.cards.pop();
+      cardsCopy.push(<Card
+        suite={cardProps.suite}
+        type={cardProps.type}
+        weight={cardProps.weight}
+        color={cardProps.color}
+
+        visible={true}
+        slotType={"deck"}
+
+        key={`card-${cardProps.suite}-${cardProps.type}`}
+      />)
+      deckCopy[0] = <Deck cards={deckCopy[0].props.cards} onClick={clickOnDeck} />;
+      setDeck(deckCopy);
+      currentDeck = deckCopy;
+      setCards(cardsCopy);
+      currentCards = cardsCopy;
+    } else {
+      let cardsCopy = currentCards.slice();
+      let deckCopy = currentDeck.slice();
+      let newCards = cardsCopy.map((elt) => {
+        let cardProps = elt.props;
+        return <Card
+          suite={cardProps.suite}
+          type={cardProps.type}
+          weight={cardProps.weight}
+          color={cardProps.color}
+
+          visible={false}
+          slotType={"deck"}
+
+          key={`card-${cardProps.suite}-${cardProps.type}`}
+        />;
+      })
+      deckCopy[0] = <Deck cards={newCards} onClick={clickOnDeck} />;
+      setDeck(deckCopy);
+      currentDeck = deckCopy;
+      setCards([]);
+      currentCards = [];
+    }
   }
 
   return (
     <div id="solitaire-game" style={gameStyle}>
       {deck[0]}
+      {cards}
       {slots}
       {stacks}
     </div>
