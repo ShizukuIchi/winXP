@@ -24,6 +24,7 @@ import shut from 'src/assets/windowsIcons/310(32x32).png';
 import allProgramsIcon from 'src/assets/windowsIcons/all-programs.ico';
 import winamp from 'src/assets/windowsIcons/winamp.png';
 import notepad from 'src/assets/windowsIcons/327(32x32).png';
+import calculator from 'src/assets/windowsIcons/74(32x32).png';
 
 import empty from 'src/assets/empty.png';
 
@@ -63,6 +64,7 @@ function FooterMenu({ className, onClick }) {
               { icon: paint, text: 'Paint' },
               { icon: mediaPlayer, text: 'Windows Media Player' },
               { icon: messenger, text: 'Windows Messenger' },
+              { icon: calculator, text: 'Calculator' },
             ]}
           />
           <div style={{ flex: 1 }} />
