@@ -17,7 +17,7 @@ export default function Calculator({ onClose }) {
   const divisionByZeroMessages = [
     'Cannot divide by zero',
     'I still cannot divide by zero',
-    'Repeteadly trying won\'t change this!',
+    'Repeatedly trying won\'t change this!',
     'Stop already! You\'re scaring the ALU.',
     'Alright, do whatever you want.'
   ];
