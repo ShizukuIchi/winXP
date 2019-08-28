@@ -79,8 +79,8 @@ const reducer = (state, action = { type: '' }) => {
           state.apps.length > 1
             ? FOCUSING.WINDOW
             : state.icons.find(icon => icon.isFocus)
-            ? FOCUSING.ICON
-            : FOCUSING.DESKTOP,
+              ? FOCUSING.ICON
+              : FOCUSING.DESKTOP,
       };
     case FOCUS_APP: {
       const apps = state.apps.map(app =>

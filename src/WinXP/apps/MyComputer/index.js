@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import ga from 'react-ga';
 
@@ -23,12 +23,19 @@ import dropdown from 'src/assets/windowsIcons/dropdown.png';
 import pullup from 'src/assets/windowsIcons/pullup.png';
 import logo from 'src/assets/github-logo.png';
 import mine from 'src/assets/minesweeper/mine-icon.png';
-import windows from 'src/assets/windowsIcons/windows.png';
 
+import { WindowDropdown } from 'src/components';
 import dropDownData from './dropDownData';
-import { WindowDropDowns } from 'src/components';
 
 function MyComputer({ onClose }) {
+  const dropDown = useRef(null);
+  const [openOption, setOpenOption] = useState('');
+  function hoverOption(option) {
+    if (openOption) setOpenOption(option);
+  }
+  function onMouseUp(e) {
+    if (!dropDown.current.contains(e.target)) setOpenOption('');
+  }
   function onClickOptionItem(item) {
     switch (item) {
       case 'Close':
@@ -36,17 +43,50 @@ function MyComputer({ onClose }) {
         break;
       default:
     }
+    setOpenOption('');
   }
+  useEffect(() => {
+    window.addEventListener('mouseup', onMouseUp);
+    return () => {
+      window.removeEventListener('mouseup', onMouseUp);
+    };
+  }, []);
   return (
     <Div>
       <section className="com__toolbar">
-        <div className="com__options">
-          <WindowDropDowns
-            items={dropDownData}
-            onClickItem={onClickOptionItem}
-          />
+        <div className="com__toolbar__drop-downs" ref={dropDown}>
+          {'File,Edit,View,Favorites,Tools,Help'.split(',').map(name => (
+            <div
+              className={`com__toolbar__drop-down${
+                openOption === name ? '--active' : ''
+              }`}
+              key={name}
+            >
+              <div className="com__toolbar__drop-down__label">{name}</div>
+              {openOption === name && (
+                <WindowDropdown
+                  onClick={onClickOptionItem}
+                  items={dropDownData[name]}
+                  position={{ top: '20px', left: '0' }}
+                />
+              )}
+            </div>
+          ))}
         </div>
-        <img className="com__windows-logo" src={windows} alt="windows" />
+        <div className="com__toolbar__options">
+          {'File,Edit,View,Favorites,Tools,Help'.split(',').map(name => (
+            <div
+              key={name}
+              onMouseDown={() => {
+                setOpenOption(name);
+              }}
+              onMouseEnter={() => hoverOption(name)}
+              className="com__toolbar__option"
+            >
+              {name}
+            </div>
+          ))}
+        </div>
       </section>
       <section className="com__function_bar">
         <div className="com__function_bar__button--disable">
@@ -400,24 +440,64 @@ const Div = styled.div`
   overflow: hidden;
   flex-direction: column;
   background: linear-gradient(to right, #edede5 0%, #ede8cd 100%);
+
   .com__toolbar {
     position: relative;
     display: flex;
     align-items: center;
     line-height: 100%;
-    height: 24px;
+    height: 22px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.7);
     flex-shrink: 0;
   }
-  .com__options {
-    height: 23px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    border-right: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 1px 0 1px 2px;
-    border-left: 0;
-    flex: 1;
+  .com__toolbar__drop-downs {
+    display: flex;
+    height: 100%;
+    position: absolute;
+    border-bottom: 1px solid transparent;
   }
-  .com__windows-logo {
+  .com__toolbar__drop-down {
+    font-size: 11px;
+    line-height: 20px;
+    height: 100%;
+    background-color: #1660e8;
+    position: relative;
+    visibility: hidden;
+  }
+  .com__toolbar__drop-down--active {
+    font-size: 11px;
+    line-height: 20px;
+    height: 100%;
+    visibility: visible;
+    z-index: 1;
+    background-color: #1660e8;
+    position: relative;
+  }
+  .com__toolbar__drop-down__label {
+    padding: 0 7px;
+    color: #fff;
+  }
+  .com__toolbar__options {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    line-height: 100%;
+    height: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    border-right: 1px solid rgba(0, 0, 0, 0.15);
+  }
+  .com__toolbar__option {
+    font-size: 11px;
+    line-height: 20px;
+    height: 100%;
+    padding: 0 7px;
+    &:hover {
+      background-color: #1660e8;
+      color: #fff;
+    }
+  }
+  .com__toolbar__img {
     height: 100%;
     border-left: 1px solid white;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);

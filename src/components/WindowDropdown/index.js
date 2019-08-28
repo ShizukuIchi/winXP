@@ -5,7 +5,7 @@ import ieBook from 'src/assets/windowsIcons/ie-book.png';
 import check from 'src/assets/windowsIcons/checked.png';
 import folder from 'src/assets/windowsIcons/folder.png';
 
-export function WindowDropDown({ items, position = {}, onClick }) {
+export function DropDown({ items, position = {}, onClick }) {
   const [option, setOption] = useState('');
   return (
     <Div {...position}>
@@ -49,7 +49,7 @@ export function WindowDropDown({ items, position = {}, onClick }) {
                   <div className="drop-down__arrow" />
                   <div style={{ position: 'relative' }}>
                     {option === item.text && (
-                      <WindowDropDown
+                      <DropDown
                         position={item.position}
                         items={item.items}
                         onClick={onClick}
@@ -205,4 +205,4 @@ const Div = styled.div`
     height: 100%;
   }
 `;
-export default WindowDropDown;
+export default DropDown;
