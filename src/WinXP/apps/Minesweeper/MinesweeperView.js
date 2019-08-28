@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
-import { WindowDropDowns } from 'src/components';
+import { WindowDropdown } from 'src/components';
 import dropDownData from './dropDownData';
 
 import dead from 'src/assets/minesweeper/dead.png';
@@ -99,7 +99,9 @@ function MineSweeperView({
   openingCeils,
 }) {
   const face = useRef(null);
+  const dropDown = useRef(null);
   const [mouseDownContent, setMouseDownContent] = useState(false);
+  const [openOption, setOpenOption] = useState(null);
   const [openBehavior, setOpenBehavior] = useState({ index: -1, behavior: '' });
   function remainMines() {
     return (
@@ -178,6 +180,9 @@ function MineSweeperView({
       openCeils(index);
     }
   }
+  function hoverOption(option) {
+    if (openOption) setOpenOption(option);
+  }
   function onClickOptionItem(item) {
     switch (item) {
       case 'Exit':
@@ -193,6 +198,7 @@ function MineSweeperView({
         break;
       default:
     }
+    setOpenOption('');
   }
   useEffect(() => {
     window.addEventListener('mouseup', onMouseUp);
@@ -203,6 +209,9 @@ function MineSweeperView({
   function onMouseUp(e) {
     setOpenBehavior({ index: -1, behavior: '' });
     setMouseDownContent(false);
+    if (!dropDown.current.contains(e.target)) {
+      setOpenOption('');
+    }
   }
   useEffect(() => {
     window.addEventListener('mouseup', onMouseUp);
@@ -212,11 +221,36 @@ function MineSweeperView({
   }, []);
   return (
     <div className={className} onContextMenu={e => e.preventDefault()}>
-      <div className="mine__options">
-        <WindowDropDowns
-          items={genDropDownData(difficulty)}
-          onClickItem={onClickOptionItem}
-        />
+      <div className="mine__drop-downs" ref={dropDown}>
+        {Object.keys(genDropDownData(difficulty)).map(name => (
+          <div
+            className={`mine__drop-down ${
+              openOption === name ? 'mine__drop-down--active' : ''
+            }`}
+            key={name}
+          >
+            <div className="mine__drop-down__label">{name}</div>
+            {openOption === name && (
+              <WindowDropdown
+                onClick={onClickOptionItem}
+                items={dropDownData[name]}
+                position={{ top: '20px', left: '0' }}
+              />
+            )}
+          </div>
+        ))}
+      </div>
+      <div className="mine__top-bar">
+        {Object.keys(dropDownData).map(name => (
+          <div
+            key={name}
+            onMouseDown={() => setOpenOption(name)}
+            onMouseEnter={() => hoverOption(name)}
+            className="mine__top-bar__text"
+          >
+            {name}
+          </div>
+        ))}
       </div>
       <section className="mine__content" onMouseDown={onMouseDownContent}>
         <div className="mine__score-bar">
@@ -338,9 +372,43 @@ export default styled(MineSweeperView)`
   img {
     pointer-events: none;
   }
-  .mine__options {
+  .mine__drop-downs {
+    position: absolute;
+    display: flex;
     height: 20px;
-    background: rgb(236, 233, 216);
+  }
+  .mine__drop-down {
+    position: relative;
+    z-index: 1;
+    line-height: 20px;
+    font-size: 11px;
+    height: 100%;
+    position: relative;
+    visibility: hidden;
+    background-color: #1660e8;
+  }
+  .mine__drop-down--active {
+    visibility: visible;
+  }
+  .mine__drop-down__label {
+    padding: 0 5px;
+    color: #fff;
+  }
+  .mine__top-bar {
+    position: relative;
+    display: flex;
+    height: 20px;
+    background-color: rgb(236, 233, 216);
+  }
+  .mine__top-bar__text {
+    padding: 0 5px;
+    height: 100%;
+    line-height: 20px;
+    font-size: 11px;
+    &:hover {
+      color: white;
+      background-color: #1660e8;
+    }
   }
   .mine__content {
     border-left: rgb(245, 245, 245) solid 3px;
