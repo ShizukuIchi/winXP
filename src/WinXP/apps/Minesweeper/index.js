@@ -180,7 +180,7 @@ function MineSweeper({ defaultDifficulty, onClose }) {
         }
         break;
       default:
-        // console.log(state.status);
+      // console.log(state.status);
     }
   }
   function openCeils(index) {

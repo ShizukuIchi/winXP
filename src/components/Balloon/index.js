@@ -16,7 +16,7 @@ function Balloon({ startAfter = 3000, duration = 15000 }) {
       clearTimeout(fadeTimer);
       clearTimeout(closeTimer);
     };
-  }, []);
+  }, [startAfter, duration]);
   return (
     start && (
       <Div show={show}>

@@ -53,7 +53,7 @@ function Footer({
       newTime !== time && setTime(newTime);
     }, 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [time]);
   useEffect(() => {
     const target = menu.current;
     if (!target) return;
