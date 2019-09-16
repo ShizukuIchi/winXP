@@ -1,7 +1,7 @@
 import React from 'react';
 
-import WinXP from 'src/WinXP';
-import { useGA } from 'src/hooks';
+import WinXP from 'WinXP';
+import { useGA } from 'hooks';
 
 const App = () => {
   useGA('UA-135148027-3', 'winXP');

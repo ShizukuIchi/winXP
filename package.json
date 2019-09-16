@@ -20,7 +20,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "now-build": "react-scripts build",
-    "lint": "eslint ."
+    "lint": "eslint src"
   },
   "eslintConfig": {
     "extends": [
@@ -35,8 +35,12 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "eslint": "^6.4.0",
     "eslint-config-prettier": "^6.3.0",
     "eslint-plugin-prettier": "^3.1.0",
     "prettier": "^1.18.2"
+  },
+  "engines": {
+    "node": "10.16.3"
   }
 }

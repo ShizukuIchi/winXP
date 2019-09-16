@@ -294,6 +294,7 @@ function useElementResize(ref, options) {
       window.removeEventListener('mouseup', onResizeEndBottomRight);
       cover.remove();
     };
+    // eslint-disable-next-line
   }, [boundary.top, boundary.right, boundary.bottom, boundary.left, cursorPos]);
   return { offset, size };
 }
@@ -368,6 +369,7 @@ function useCursor(ref, threshold, resizable) {
       target.removeEventListener('mousedown', onMouseDown);
       window.removeEventListener('mouseup', onMouseUp);
     };
+    // eslint-disable-next-line
   }, []);
   return position;
 }

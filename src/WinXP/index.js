@@ -23,7 +23,7 @@ import Modal from './Modal';
 import Footer from './Footer';
 import Windows from './Windows';
 import Icons from './Icons';
-import { DashedBox } from 'src/components';
+import { DashedBox } from 'components';
 
 const initState = {
   apps: defaultAppState,
@@ -119,18 +119,10 @@ const reducer = (state, action = { type: '' }) => {
       };
     }
     case FOCUS_ICON: {
-      const icons = state.icons.map(icon => {
-        if (icon.id === action.payload)
-          return {
-            ...icon,
-            isFocus: true,
-          };
-        else
-          return {
-            ...icon,
-            isFocus: false,
-          };
-      });
+      const icons = state.icons.map(icon => ({
+        ...icon,
+        isFocus: icon.id === action.payload,
+      }));
       return {
         ...state,
         focusing: FOCUSING.ICON,

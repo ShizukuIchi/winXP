@@ -1,11 +1,6 @@
 {
   "version": 2,
   "name": "winXP",
-  "build": {
-    "env": {
-      "NODE_PATH": "./"
-    }
-  },
   "builds": [
     {
       "src": "package.json",
@@ -34,8 +29,5 @@
       "dest": "/index.html"
     }
   ],
-  "alias": [
-    "windowsxp.now.sh",
-    "winxp.now.sh"
-  ]
+  "alias": ["windowsxp.now.sh", "winxp.now.sh"]
 }

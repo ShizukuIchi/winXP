@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import FooterMenu from './FooterMenu';
-import Balloon from 'src/components/Balloon';
 
-import startButton from 'src/assets/windowsIcons/start.png';
-import sound from 'src/assets/windowsIcons/690(16x16).png';
-import usb from 'src/assets/windowsIcons/394(16x16).png';
-import risk from 'src/assets/windowsIcons/229(16x16).png';
+import FooterMenu from './FooterMenu';
+import Balloon from 'components/Balloon';
+import startButton from 'assets/windowsIcons/start.png';
+import sound from 'assets/windowsIcons/690(16x16).png';
+import usb from 'assets/windowsIcons/394(16x16).png';
+import risk from 'assets/windowsIcons/229(16x16).png';
 
 const getTime = () => {
   const date = new Date();
