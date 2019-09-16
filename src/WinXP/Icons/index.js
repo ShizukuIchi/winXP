@@ -28,7 +28,7 @@ function Icons({
       })
       .map(icon => icon.id);
     setSelectedIcons(selectedIds);
-  });
+  }, [iconsRect, setSelectedIcons, selecting, mouse.docX, mouse.docY]);
   return (
     <IconsContainer>
       {icons.map(icon => (
@@ -69,7 +69,7 @@ function Icon({
     const posX = left + window.scrollX;
     const posY = top + window.scrollY;
     measure({ id, x: posX, y: posY, w: width, h: height });
-  }, []);
+  }, [id, measure]);
   return (
     <div
       className={className}

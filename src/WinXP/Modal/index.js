@@ -2,13 +2,12 @@ import React from 'react';
 import { createPortal } from 'react-dom';
 import styled from 'styled-components';
 
-import { POWER_STATE } from 'src/WinXP/constants';
-
-import windowLogo from 'src/assets/windowsIcons/windows-off.png';
-import off from 'src/assets/windowsIcons/310(32x32).png';
-import lock from 'src/assets/windowsIcons/546(32x32).png';
-import restart from 'src/assets/windowsIcons/restart.ico';
-import switcher from 'src/assets/windowsIcons/290.png';
+import { POWER_STATE } from 'WinXP/constants';
+import windowsLogo from 'assets/windowsIcons/windows-off.png';
+import off from 'assets/windowsIcons/310(32x32).png';
+import lock from 'assets/windowsIcons/546(32x32).png';
+import restart from 'assets/windowsIcons/restart.ico';
+import switcher from 'assets/windowsIcons/290.png';
 
 function Modal(props) {
   return createPortal(
@@ -68,7 +67,7 @@ const Menu = ({ mode, onClose, onClickButton }) => {
     <div className="modal">
       <header className="header">
         <span className="header__text">Log Off Windows</span>
-        <img src={windowLogo} alt="" className="header__img" />
+        <img src={windowsLogo} alt="" className="header__img" />
       </header>
       <div className="content">{renderButtons()}</div>
       <footer className="footer">

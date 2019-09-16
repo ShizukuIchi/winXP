@@ -23,7 +23,7 @@ import Modal from './Modal';
 import Footer from './Footer';
 import Windows from './Windows';
 import Icons from './Icons';
-import { DashedBox } from 'src/components';
+import { DashedBox } from 'components';
 
 const initState = {
   apps: defaultAppState,
@@ -72,6 +72,7 @@ const reducer = (state, action = { type: '' }) => {
         focusing: FOCUSING.WINDOW,
       };
     case DEL_APP:
+      if (state.focusing !== FOCUSING.WINDOW) return state;
       return {
         ...state,
         apps: state.apps.filter(app => app.id !== action.payload),
@@ -96,6 +97,7 @@ const reducer = (state, action = { type: '' }) => {
       };
     }
     case MINIMIZE_APP: {
+      if (state.focusing !== FOCUSING.WINDOW) return state;
       const apps = state.apps.map(app =>
         app.id === action.payload ? { ...app, minimized: true } : app,
       );
@@ -106,6 +108,7 @@ const reducer = (state, action = { type: '' }) => {
       };
     }
     case TOGGLE_MAXIMIZE_APP: {
+      if (state.focusing !== FOCUSING.WINDOW) return state;
       const apps = state.apps.map(app =>
         app.id === action.payload ? { ...app, maximized: !app.maximized } : app,
       );
@@ -116,18 +119,10 @@ const reducer = (state, action = { type: '' }) => {
       };
     }
     case FOCUS_ICON: {
-      const icons = state.icons.map(icon => {
-        if (icon.id === action.payload)
-          return {
-            ...icon,
-            isFocus: true,
-          };
-        else
-          return {
-            ...icon,
-            isFocus: false,
-          };
-      });
+      const icons = state.icons.map(icon => ({
+        ...icon,
+        isFocus: icon.id === action.payload,
+      }));
       return {
         ...state,
         focusing: FOCUSING.ICON,
@@ -188,15 +183,12 @@ function WinXP() {
   const ref = useRef(null);
   const mouse = useMouse(ref);
   const focusedAppId = getFocusedAppId();
-  const onFocusApp = useCallback(
-    id => {
-      dispatch({ type: FOCUS_APP, payload: id });
-    },
-    [focusedAppId],
-  );
+  const onFocusApp = useCallback(id => {
+    dispatch({ type: FOCUS_APP, payload: id });
+  }, []);
   const onMaximizeWindow = useCallback(
     id => {
-      if (focusedAppId === id && state.focusing === FOCUSING.WINDOW) {
+      if (focusedAppId === id) {
         dispatch({ type: TOGGLE_MAXIMIZE_APP, payload: id });
       }
     },
@@ -204,7 +196,7 @@ function WinXP() {
   );
   const onMinimizeWindow = useCallback(
     id => {
-      if (focusedAppId === id && state.focusing === FOCUSING.WINDOW) {
+      if (focusedAppId === id) {
         dispatch({ type: MINIMIZE_APP, payload: id });
       }
     },
@@ -212,7 +204,7 @@ function WinXP() {
   );
   const onCloseApp = useCallback(
     id => {
-      if (focusedAppId === id && state.focusing === FOCUSING.WINDOW) {
+      if (focusedAppId === id) {
         dispatch({ type: DEL_APP, payload: id });
       }
     },
@@ -235,6 +227,7 @@ function WinXP() {
     dispatch({ type: ADD_APP, payload: appSetting });
   }
   function getFocusedAppId() {
+    if (state.focusing !== FOCUSING.WINDOW) return -1;
     const focusedApp = [...state.apps]
       .sort((a, b) => b.zIndex - a.zIndex)
       .find(app => !app.minimized);
