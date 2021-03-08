@@ -14,6 +14,7 @@ import {
   FOCUS_DESKTOP,
   START_SELECT,
   END_SELECT,
+  CONTEXT_MENU,
   POWER_OFF,
   CANCEL_POWER_OFF,
 } from './constants/actions';
@@ -23,6 +24,9 @@ import Modal from './Modal';
 import Footer from './Footer';
 import Windows from './Windows';
 import Icons from './Icons';
+import StyledContextMenu from './ContextMenu';
+import { contextMenuData } from './ContextMenu/ContextMenuData';
+
 import { DashedBox } from 'components';
 
 const initState = {
@@ -32,6 +36,8 @@ const initState = {
   focusing: FOCUSING.WINDOW,
   icons: defaultIconState,
   selecting: false,
+  contextMenu: false,
+  contextPos: null,
   powerState: POWER_STATE.START,
 };
 const reducer = (state, action = { type: '' }) => {
@@ -158,11 +164,18 @@ const reducer = (state, action = { type: '' }) => {
           isFocus: false,
         })),
         selecting: action.payload,
+        contextMenu: false,
       };
     case END_SELECT:
       return {
         ...state,
         selecting: null,
+      };
+    case CONTEXT_MENU:
+      return {
+        ...state,
+        contextPos: action.payload,
+        contextMenu: true,
       };
     case POWER_OFF:
       return {
@@ -272,6 +285,13 @@ function WinXP() {
   function onMouseUpDesktop(e) {
     dispatch({ type: END_SELECT });
   }
+  function onContextMenu(e) {
+    e.preventDefault();
+    dispatch({
+      type: CONTEXT_MENU,
+      payload: { x: mouse.docX, y: mouse.docY },
+    });
+  }
   function onIconsSelected(iconIds) {
     dispatch({ type: SELECT_ICONS, payload: iconIds });
   }
@@ -290,8 +310,16 @@ function WinXP() {
       ref={ref}
       onMouseUp={onMouseUpDesktop}
       onMouseDown={onMouseDownDesktop}
+      onContextMenu={onContextMenu}
       state={state.powerState}
     >
+      {state.contextMenu && (
+        <StyledContextMenu
+          data={contextMenuData}
+          contextMenu={state.contextMenu}
+          pos={state.contextPos}
+        />
+      )}
       <Icons
         icons={state.icons}
         onMouseDown={onMouseDownIcon}
