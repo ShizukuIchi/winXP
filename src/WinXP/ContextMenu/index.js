@@ -1,8 +1,18 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-function ContextMenu({ data, pos, style, className }) {
-  const [hoverIndex, setHoverIndex] = useState(-1);
+function calculatePositionX(pos) {
+  const windowWidth = window.innerWidth;
+  return pos.x > windowWidth - 150 ? pos.x - 150 : pos.x;
+}
+
+function calculatePositionY(pos) {
+  const WindowHeight = window.innerHeight;
+  return pos.y > WindowHeight - 150 ? pos.y - 150 : pos.y;
+}
+
+const ContextMenu = ({ data, pos, style, className }) => {
+  const [hoverIndex, setHoverIndex] = useState(null);
 
   return (
     <div style={{ ...style }} className={className}>
@@ -19,7 +29,7 @@ function ContextMenu({ data, pos, style, className }) {
       ))}
     </div>
   );
-}
+};
 
 function ContextMenuItem({ item, index, pos, onHover, hover, className }) {
   function handleMouseEnter() {
@@ -27,7 +37,11 @@ function ContextMenuItem({ item, index, pos, onHover, hover, className }) {
   }
   switch (item.type) {
     case 'item':
-      return <div className={`${className}-item`}>{item.text}</div>;
+      return (
+        <div className={`${className}-item ${item.inactive ? 'inactive' : ''}`}>
+          {item.text}
+        </div>
+      );
     case 'menu':
       return (
         <div
@@ -36,7 +50,8 @@ function ContextMenuItem({ item, index, pos, onHover, hover, className }) {
         >
           {item.text}
           <div className={`${className}-arrow`}>
-            {hover && <StyledContextMenu data={item.items} pos={pos} />}
+            {/* TODO: add positioning after finishing main component position */}
+            {/* {hover && <StyledContextMenu data={item.items} pos={pos} />} */}
           </div>
         </div>
       );
@@ -49,8 +64,8 @@ function ContextMenuItem({ item, index, pos, onHover, hover, className }) {
 
 const StyledContextMenu = styled(ContextMenu)`
   position: absolute;
-  left: ${({ pos }) => `${pos.x}px`};
-  top: ${({ pos }) => `${pos.y}px`};
+  left: ${({ pos }) => `${calculatePositionX(pos)}px`};
+  top: ${({ pos }) => `${calculatePositionY(pos)}px`};
   z-index: 1;
   border: 1px solid darkgray;
   background: #fff;
@@ -58,13 +73,27 @@ const StyledContextMenu = styled(ContextMenu)`
 
   &-item {
     position: relative;
-    width: 100%;
+    min-width: 150px;
     height: 20px;
     background-color: #fff;
     padding: 0 30px 0 20px;
   }
 
-  &-arrow.hover {
+  &-item:hover {
+    color: #fff;
+    background-color: #2f71cd;
+  }
+
+  &-item.inactive {
+    color: grey;
+  }
+
+  &-item.inactive:hover {
+    background-color: initial;
+  }
+
+  &-item.hover > &-arrow {
+    color: inherit;
     position: absolute;
     top: 0px;
     left: 200px;
@@ -74,21 +103,13 @@ const StyledContextMenu = styled(ContextMenu)`
     border: 1px solid darkgray;
   }
 
-  &-item:hover {
-    background-color: #2f71cd;
-  }
-
-  &-item:hover > &-arrow:before {
-    border-left-color: #fff;
-  }
-
   &-arrow:before {
     content: '';
     position: absolute;
     top: 6px;
     right: 5px;
     border: 4px solid transparent;
-    border-left-color: #000;
+    border-left-color: currentColor;
   }
 
   &-separator {
@@ -99,4 +120,4 @@ const StyledContextMenu = styled(ContextMenu)`
   }
 `;
 
-export default StyledContextMenu;
+export default React.memo(StyledContextMenu);

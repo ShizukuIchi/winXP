@@ -67,6 +67,7 @@ export const contextMenuData = [
     type: 'item',
     icon: empty,
     text: 'Paste Here',
+    inactive: true,
   },
   {
     type: 'separator',
