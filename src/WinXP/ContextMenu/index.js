@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 
 function calculatePositionX(pos) {
@@ -11,11 +11,12 @@ function calculatePositionY(pos) {
   return pos.y > WindowHeight - 150 ? pos.y - 150 : pos.y;
 }
 
-const ContextMenu = ({ data, pos, style, className }) => {
+function ContextMenu({ data, pos, style, className }) {
   const [hoverIndex, setHoverIndex] = useState(null);
+  const elementRef = useRef(null);
 
   return (
-    <div style={{ ...style }} className={className}>
+    <div style={{ ...style }} ref={elementRef} className={className}>
       {data.map((item, index) => (
         <ContextMenuItem
           key={index}
@@ -29,7 +30,7 @@ const ContextMenu = ({ data, pos, style, className }) => {
       ))}
     </div>
   );
-};
+}
 
 function ContextMenuItem({ item, index, pos, onHover, hover, className }) {
   function handleMouseEnter() {
