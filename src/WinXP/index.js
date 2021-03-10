@@ -24,7 +24,7 @@ import Modal from './Modal';
 import Footer from './Footer';
 import Windows from './Windows';
 import Icons from './Icons';
-import StyledContextMenu from './ContextMenu';
+import ContextMenu from './ContextMenu';
 import { contextMenuData } from './ContextMenu/utils';
 
 import { DashedBox } from 'components';
@@ -314,11 +314,7 @@ function WinXP() {
       state={state.powerState}
     >
       {state.contextMenu && (
-        <StyledContextMenu
-          data={contextMenuData}
-          contextMenu={state.contextMenu}
-          pos={state.contextPos}
-        />
+        <ContextMenu items={contextMenuData} mousePos={state.contextPos} />
       )}
       <Icons
         icons={state.icons}
