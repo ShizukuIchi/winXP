@@ -25,7 +25,7 @@ import Footer from './Footer';
 import Windows from './Windows';
 import Icons from './Icons';
 import StyledContextMenu from './ContextMenu';
-import { contextMenuData } from './ContextMenu/ContextMenuData';
+import { contextMenuData } from './ContextMenu/utils';
 
 import { DashedBox } from 'components';
 

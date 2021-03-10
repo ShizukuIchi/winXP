@@ -1,5 +1,15 @@
 import empty from '../../assets/empty.png';
 
+export function calculatePositionX(pos) {
+  const windowWidth = window.innerWidth;
+  return pos.x > windowWidth - 150 ? pos.x - 150 : pos.x;
+}
+
+export function calculatePositionY(pos) {
+  const WindowHeight = window.innerHeight;
+  return pos.y > WindowHeight - 150 ? pos.y - 150 : pos.y;
+}
+
 export const contextMenuData = [
   {
     type: 'menu',

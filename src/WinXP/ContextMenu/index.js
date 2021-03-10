@@ -1,15 +1,7 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 
-function calculatePositionX(pos) {
-  const windowWidth = window.innerWidth;
-  return pos.x > windowWidth - 150 ? pos.x - 150 : pos.x;
-}
-
-function calculatePositionY(pos) {
-  const WindowHeight = window.innerHeight;
-  return pos.y > WindowHeight - 150 ? pos.y - 150 : pos.y;
-}
+import { calculatePositionX, calculatePositionY } from './utils';
 
 function ContextMenu({ data, pos, style, className }) {
   const [hoverIndex, setHoverIndex] = useState(null);
