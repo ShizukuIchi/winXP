@@ -313,9 +313,6 @@ function WinXP() {
       onContextMenu={onContextMenu}
       state={state.powerState}
     >
-      {state.contextMenu && (
-        <ContextMenu items={contextMenuData} mousePos={state.contextPos} />
-      )}
       <Icons
         icons={state.icons}
         onMouseDown={onMouseDownIcon}
@@ -347,6 +344,13 @@ function WinXP() {
           onClose={onModalClose}
           onClickButton={onClickModalButton}
           mode={state.powerState}
+        />
+      )}
+      {state.contextMenu && (
+        <ContextMenu
+          items={contextMenuData}
+          mousePos={state.contextPos}
+          displayFocus={state.focusing === FOCUSING.ICON}
         />
       )}
     </Container>

@@ -3,15 +3,18 @@ import styled from 'styled-components';
 
 import ContextMenu from './';
 
-function ContextMenuItem({ item, index }) {
+function ContextMenuItem({ item, index, parentRef, isToLeft }) {
   const [hoverIndex, setHoverIndex] = useState(null);
+  const [renderMenu, setRenderMenu] = useState(false);
 
   function handleMouseEnter() {
     setHoverIndex(index);
+    setRenderMenu(true);
   }
 
   function handleMouseLeave() {
     setHoverIndex(null);
+    setRenderMenu(false);
   }
 
   switch (item.type) {
@@ -29,7 +32,13 @@ function ContextMenuItem({ item, index }) {
           onMouseLeave={handleMouseLeave}
         >
           {item.text}
-          {hoverIndex && <ContextMenu items={item.items} />}
+          {renderMenu && (
+            <ContextMenu
+              items={item.items}
+              parentRef={parentRef}
+              isToLeft={isToLeft}
+            />
+          )}
         </StyledItem>
       );
     case 'separator':
