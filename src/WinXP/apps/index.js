@@ -5,6 +5,7 @@ import MyComputer from './MyComputer';
 import Notepad from './Notepad';
 import Winamp from './Winamp';
 import Paint from './Paint';
+import Properties from './Properties';
 import iePaper from 'assets/windowsIcons/ie-paper.png';
 import ie from 'assets/windowsIcons/ie.png';
 import mine from 'assets/minesweeper/mine-icon.png';
@@ -42,7 +43,7 @@ export const defaultAppState = [
       y: 20,
     },
     resizable: true,
-    minimized: false,
+    minimized: true,
     maximized: window.innerWidth < 800,
     id: genId(),
     zIndex: genIndex(),
@@ -62,7 +63,7 @@ export const defaultAppState = [
       y: 170,
     },
     resizable: false,
-    minimized: false,
+    minimized: true,
     maximized: false,
     id: genId(),
     zIndex: genIndex(),
@@ -83,7 +84,7 @@ export const defaultAppState = [
       y: 0,
     },
     resizable: false,
-    minimized: false,
+    minimized: true,
     maximized: false,
     id: genId(),
     zIndex: genIndex(),
@@ -100,6 +101,26 @@ export const defaultAppState = [
     },
     defaultOffset: {
       x: 250,
+      y: 40,
+    },
+    resizable: true,
+    minimized: true,
+    maximized: window.innerWidth < 800,
+    id: genId(),
+    zIndex: genIndex(),
+  },
+  {
+    component: Properties,
+    header: {
+      title: 'Display Properties',
+      icon: computer,
+    },
+    defaultSize: {
+      width: 400,
+      height: 500,
+    },
+    defaultOffset: {
+      x: 300,
       y: 40,
     },
     resizable: true,
@@ -292,6 +313,33 @@ export const appSettings = {
     maximized: window.innerWidth < 800,
     multiInstance: true,
   },
+  Properties: {
+    header: {
+      icon: computer,
+      title: 'Display Properties',
+    },
+    component: Properties,
+    defaultSize: {
+      width: 660,
+      height: 500,
+    },
+    defaultOffset: {
+      x: 260,
+      y: 50,
+    },
+    resizable: true,
+    minimized: false,
+    maximized: window.innerWidth < 800,
+    multiInstance: false,
+  },
 };
 
-export { InternetExplorer, Minesweeper, ErrorBox, MyComputer, Notepad, Winamp };
+export {
+  InternetExplorer,
+  Minesweeper,
+  ErrorBox,
+  MyComputer,
+  Notepad,
+  Winamp,
+  Properties,
+};
