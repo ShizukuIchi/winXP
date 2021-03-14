@@ -69,27 +69,6 @@ export const defaultAppState = [
     zIndex: genIndex(),
   },
   {
-    component: Winamp,
-    header: {
-      title: 'Winamp',
-      icon: winamp,
-      invisible: true,
-    },
-    defaultSize: {
-      width: 0,
-      height: 0,
-    },
-    defaultOffset: {
-      x: 0,
-      y: 0,
-    },
-    resizable: false,
-    minimized: true,
-    maximized: false,
-    id: genId(),
-    zIndex: genIndex(),
-  },
-  {
     component: MyComputer,
     header: {
       title: 'My Computer',
@@ -121,11 +100,11 @@ export const defaultAppState = [
     },
     defaultOffset: {
       x: 300,
-      y: 40,
+      y: 50,
     },
-    resizable: true,
+    resizable: false,
     minimized: false,
-    maximized: window.innerWidth < 800,
+    maximized: false,
     id: genId(),
     zIndex: genIndex(),
   },
@@ -320,16 +299,16 @@ export const appSettings = {
     },
     component: Properties,
     defaultSize: {
-      width: 660,
+      width: 400,
       height: 500,
     },
     defaultOffset: {
-      x: 260,
+      x: 300,
       y: 50,
     },
     resizable: true,
     minimized: false,
-    maximized: window.innerWidth < 800,
+    maximized: false,
     multiInstance: false,
   },
 };

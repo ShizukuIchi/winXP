@@ -64,6 +64,7 @@ const reducer = (state, action = { type: '' }) => {
           nextAppID: state.nextAppID + 1,
           nextZIndex: state.nextZIndex + 1,
           focusing: FOCUSING.WINDOW,
+          contextMenu: false,
         };
       }
       const apps = state.apps.map(app =>
@@ -76,6 +77,7 @@ const reducer = (state, action = { type: '' }) => {
         apps,
         nextZIndex: state.nextZIndex + 1,
         focusing: FOCUSING.WINDOW,
+        contextMenu: false,
       };
     case DEL_APP:
       if (state.focusing !== FOCUSING.WINDOW) return state;
@@ -351,6 +353,7 @@ function WinXP() {
           items={contextMenuData}
           mousePos={state.contextPos}
           displayFocus={state.focusing === FOCUSING.ICON}
+          onClick={onDoubleClickIcon}
         />
       )}
     </Container>

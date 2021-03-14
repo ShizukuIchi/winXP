@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import Properties from '../../WinXP/apps/Properties';
 
 import ContextMenu from '.';
 
-function ContextMenuItem({ item, parentRef, isToLeft }) {
+function ContextMenuItem({ item, parentRef, isToLeft, onClick }) {
   const [renderMenu, setRenderMenu] = useState(false);
 
   function handleMouseEnter() {
@@ -15,7 +16,9 @@ function ContextMenuItem({ item, parentRef, isToLeft }) {
   }
 
   function handleClick(action) {
-    if (action) console.log('clicked: ', action);
+    if (action) {
+      onClick(Properties);
+    }
   }
 
   switch (item.type) {
