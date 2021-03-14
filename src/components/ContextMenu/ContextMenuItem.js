@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import ContextMenu from './';
+import ContextMenu from '.';
 
 function ContextMenuItem({ item, parentRef, isToLeft }) {
   const [renderMenu, setRenderMenu] = useState(false);
