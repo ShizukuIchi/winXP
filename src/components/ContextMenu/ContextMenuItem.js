@@ -14,10 +14,19 @@ function ContextMenuItem({ item, parentRef, isToLeft }) {
     setRenderMenu(false);
   }
 
+  function handleClick(action) {
+    if (action) console.log('clicked: ', action);
+  }
+
   switch (item.type) {
     case 'item':
       return (
-        <StyledItem className={`${item.inactive ? 'inactive' : ''}`}>
+        <StyledItem
+          className={`${item.inactive ? 'inactive' : ''}`}
+          onClick={() => {
+            handleClick(item.action);
+          }}
+        >
           {item.text}
         </StyledItem>
       );

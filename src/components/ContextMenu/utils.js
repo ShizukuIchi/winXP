@@ -123,5 +123,6 @@ export const contextMenuData = [
     type: 'item',
     icon: empty,
     text: 'Properties',
+    action: 'I am properties!',
   },
 ];
