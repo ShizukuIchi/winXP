@@ -50,13 +50,15 @@ function ContextMenu({ items, mousePos, parentRef, isToLeft, displayFocus }) {
     }
 
     if (menuRef && parentRef) {
-      if (isToLeft) setOpenToLeft(true);
-      newMenuPos.left = isToLeft ? -menuRef.width : menuRef.width - 10;
-
-      // calculate right edge
-      if (menuRef.x + menuRef.width + parentRef.width > windowWidth) {
+      // recalculate position for sub-menu
+      if (isToLeft) {
         newMenuPos.left = -menuRef.width;
         setOpenToLeft(true);
+      } else if (menuRef.x + menuRef.width + parentRef.width > windowWidth) {
+        newMenuPos.left = -menuRef.width;
+        setOpenToLeft(true);
+      } else {
+        newMenuPos.left = parentRef.width - 10;
       }
 
       //calculate bottom edge
@@ -101,6 +103,7 @@ const StyledContextList = styled.div`
   padding: 2px;
   color: black;
   visibility: ${({ isVisible }) => (isVisible ? 'visible' : 'hidden')};
+  width: max-content;
 `;
 
 export default React.memo(ContextMenu);

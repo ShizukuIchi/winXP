@@ -3,17 +3,14 @@ import styled from 'styled-components';
 
 import ContextMenu from './';
 
-function ContextMenuItem({ item, index, parentRef, isToLeft }) {
-  const [hoverIndex, setHoverIndex] = useState(null);
+function ContextMenuItem({ item, parentRef, isToLeft }) {
   const [renderMenu, setRenderMenu] = useState(false);
 
   function handleMouseEnter() {
-    setHoverIndex(index);
     setRenderMenu(true);
   }
 
   function handleMouseLeave() {
-    setHoverIndex(null);
     setRenderMenu(false);
   }
 
@@ -27,7 +24,7 @@ function ContextMenuItem({ item, index, parentRef, isToLeft }) {
     case 'menu':
       return (
         <StyledItem
-          className={`arrow ${hoverIndex === index ? 'reveal-sub-menu' : ''}`}
+          className={`arrow`}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
@@ -54,6 +51,7 @@ const StyledItem = styled.div`
   height: 20px;
   background-color: inherit;
   padding: 0 30px 0 20px;
+  text-overflow: ellipsis;
 
   &:hover {
     color: #fff;

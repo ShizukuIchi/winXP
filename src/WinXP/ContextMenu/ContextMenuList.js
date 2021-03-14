@@ -8,12 +8,7 @@ function ContextMenuList({ parentRef, items }) {
     <StyledContextList>
       {items &&
         items.map((item, index) => (
-          <ContextMenuItem
-            key={index}
-            item={item}
-            index={index}
-            parentRef={parentRef}
-          />
+          <ContextMenuItem key={index} item={item} parentRef={parentRef} />
         ))}
     </StyledContextList>
   );

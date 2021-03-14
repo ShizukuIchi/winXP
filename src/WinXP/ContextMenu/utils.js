@@ -4,61 +4,44 @@ export const contextMenuData = [
   {
     type: 'menu',
     icon: empty,
-    text: 'View',
-    items: [
-      {
-        type: 'item',
-        icon: empty,
-        text: 'Thumbnails',
-        checked: true,
-      },
-      {
-        type: 'item',
-        icon: empty,
-        text: 'Tiles',
-        checked: false,
-      },
-      {
-        type: 'item',
-        icon: empty,
-        text: 'Icons',
-        checked: false,
-      },
-      {
-        type: 'item',
-        icon: empty,
-        text: 'List',
-        checked: false,
-      },
-      {
-        type: 'item',
-        icon: empty,
-        text: 'Details',
-        checked: false,
-      },
-    ],
-  },
-  {
-    type: 'menu',
-    icon: empty,
-    text: 'Sort By',
+    text: 'Arrange Icon By',
     items: [
       {
         type: 'item',
         icon: empty,
         text: 'Name',
+        checked: true,
       },
       {
         type: 'item',
         icon: empty,
         text: 'Date',
+        checked: false,
+      },
+      {
+        type: 'item',
+        icon: empty,
+        text: 'Size',
+        checked: false,
+      },
+      {
+        type: 'item',
+        icon: empty,
+        text: 'Created',
+        checked: false,
+      },
+      {
+        type: 'item',
+        icon: empty,
+        text: 'Modified',
+        checked: false,
       },
     ],
   },
   {
     type: 'item',
     icon: empty,
-    text: 'Refresh Icons',
+    text: 'Refresh',
   },
   {
     type: 'separator',
@@ -66,7 +49,13 @@ export const contextMenuData = [
   {
     type: 'item',
     icon: empty,
-    text: 'Paste Here',
+    text: 'Paste',
+    inactive: true,
+  },
+  {
+    type: 'item',
+    icon: empty,
+    text: 'Paste Shortcut',
     inactive: true,
   },
   {
@@ -80,12 +69,50 @@ export const contextMenuData = [
       {
         type: 'item',
         icon: empty,
-        text: 'File',
+        text: 'Folder',
       },
       {
         type: 'item',
         icon: empty,
-        text: 'Folder',
+        text: 'Shortcut',
+      },
+      {
+        type: 'separator',
+      },
+      {
+        type: 'item',
+        icon: empty,
+        text: 'AutoHotkey Script',
+      },
+      {
+        type: 'item',
+        icon: empty,
+        text: 'Contact',
+      },
+      {
+        type: 'item',
+        icon: empty,
+        text: 'Microsoft Word Document',
+      },
+      {
+        type: 'item',
+        icon: empty,
+        text: 'Journal Document',
+      },
+      {
+        type: 'item',
+        icon: empty,
+        text: 'Microsoft PowerPoint Presentation',
+      },
+      {
+        type: 'item',
+        icon: empty,
+        text: 'WinRAR Archive',
+      },
+      {
+        type: 'item',
+        icon: empty,
+        text: 'Text Document',
       },
     ],
   },
@@ -95,6 +122,6 @@ export const contextMenuData = [
   {
     type: 'item',
     icon: empty,
-    text: 'Personalize',
+    text: 'Properties',
   },
 ];
