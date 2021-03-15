@@ -36,8 +36,7 @@ const initState = {
   focusing: FOCUSING.WINDOW,
   icons: defaultIconState,
   selecting: false,
-  contextMenu: false,
-  contextPos: null,
+  contextMenuPosition: null,
   powerState: POWER_STATE.START,
 };
 const reducer = (state, action = { type: '' }) => {
@@ -164,7 +163,7 @@ const reducer = (state, action = { type: '' }) => {
           isFocus: false,
         })),
         selecting: action.payload,
-        contextMenu: false,
+        contextMenuPosition: null,
       };
     case END_SELECT:
       return {
@@ -174,8 +173,7 @@ const reducer = (state, action = { type: '' }) => {
     case CONTEXT_MENU:
       return {
         ...state,
-        contextPos: action.payload,
-        contextMenu: true,
+        contextMenuPosition: action.payload,
       };
     case POWER_OFF:
       return {
@@ -346,10 +344,10 @@ function WinXP() {
           mode={state.powerState}
         />
       )}
-      {state.contextMenu && (
+      {state.contextMenuPosition && (
         <ContextMenu
           items={contextMenuData}
-          mousePos={state.contextPos}
+          mousePos={state.contextMenuPosition}
           displayFocus={state.focusing === FOCUSING.ICON}
         />
       )}
