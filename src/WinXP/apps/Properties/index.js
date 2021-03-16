@@ -35,7 +35,7 @@ function Properties() {
 
 function GenerateContentTab(props) {
   const Content = TabContents[props.type];
-  return <Content {...props} />;
+  return TabContents[props.type] ? <Content {...props} /> : null;
 }
 
 const TabMenu = styled.div`
