@@ -4,7 +4,7 @@ import DesktopTab from './DesktopTab';
 import ScreenSaverTab from './ScreenSaverTab';
 import SettingsTab from './SettingsTab';
 
-const TabContent = {
+const TabContents = {
   Themes: ThemeTab,
   Desktop: DesktopTab,
   'Screen Saver': ScreenSaverTab,
@@ -12,4 +12,4 @@ const TabContent = {
   Settings: SettingsTab,
 };
 
-export default TabContent;
+export default TabContents;
