@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Properties from '../../WinXP/apps/Properties';
+import Properties from '../../WinXP/apps/DisplayProperties';
 
 import ContextMenu from '.';
 

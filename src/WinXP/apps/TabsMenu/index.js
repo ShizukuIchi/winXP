@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-// Tabs = {
-//   title,
-//   content,
-//   defaultTab,
-//   disabled?,
-//   skip?,
-// }
-
 function TabsMenu({ tabs }) {
   const [activeTab, setActiveTab] = useState(-1);
 
@@ -40,6 +32,11 @@ function TabsMenu({ tabs }) {
     <TabMenu>
       <Tabs>
         {tabs.map((item, index) => {
+          const classes = {
+            active: activeTab === index ? 'active' : '',
+            disabled: item.disabled ? 'disabled' : '',
+          };
+
           if (item.skip) {
             return null;
           } else {
@@ -47,8 +44,7 @@ function TabsMenu({ tabs }) {
               <Tab
                 key={index}
                 onClick={() => handleClick(item, index)}
-                className={`${activeTab === index ? 'active' : ''}
-              ${item.disabled ? 'disabled' : ''}`}
+                className={`${classes.active} ${classes.disabled}`}
               >
                 {item.title}
               </Tab>
@@ -64,17 +60,12 @@ function TabsMenu({ tabs }) {
           return null;
         })}
       </Content>
-      <Buttons />
     </TabMenu>
   );
 }
 
 const TabMenu = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  background-color: rgb(236, 233, 218);
-  padding: 10px;
+  visibility: visible;
 `;
 
 const Tabs = styled.div`

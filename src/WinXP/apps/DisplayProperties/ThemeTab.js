@@ -4,30 +4,30 @@ import styled from 'styled-components';
 function ThemeTab() {
   return (
     <ThemesPage>
-      <div className={'description'}>
+      <div className="description">
         <p>
           A theme is a background plus a set of sounds, icons and other elements
         </p>
         <p> to help you personalize your computer with one click.</p>
       </div>
-      <div className={'theme'}>
-        <div className={'options'}>
-          <label className={'label'} for="theme">
+      <div className="theme">
+        <div className="options">
+          <label className="label" htmlFor="theme">
             Theme:
           </label>
-          <select className={'select'} id="theme">
+          <select className="select" id="theme">
             <option value="Windows-xp">Windows XP</option>
             <option value="pink">Pink</option>
           </select>
         </div>
-        <div className={'buttons'}>
+        <div className="buttons">
           <button>Save As...</button>
           <button>Delete</button>
         </div>
       </div>
-      <div className={'sample'}>
+      <div className="sample">
         <p>Sample:</p>
-        <div className={'preview'}></div>
+        <div className="preview"></div>
       </div>
     </ThemesPage>
   );
@@ -68,7 +68,7 @@ const ThemesPage = styled.div`
 
     .preview {
       width: 100%;
-      height: 300px;
+      height: 250px;
       background-color: red;
     }
   }

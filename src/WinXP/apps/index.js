@@ -5,7 +5,7 @@ import MyComputer from './MyComputer';
 import Notepad from './Notepad';
 import Winamp from './Winamp';
 import Paint from './Paint';
-import Properties from './Properties';
+import DisplayProperties from './DisplayProperties';
 import iePaper from 'assets/windowsIcons/ie-paper.png';
 import ie from 'assets/windowsIcons/ie.png';
 import mine from 'assets/minesweeper/mine-icon.png';
@@ -89,7 +89,7 @@ export const defaultAppState = [
     zIndex: genIndex(),
   },
   {
-    component: Properties,
+    component: DisplayProperties,
     header: {
       title: 'Display Properties',
       icon: computer,
@@ -297,7 +297,7 @@ export const appSettings = {
       icon: computer,
       title: 'Display Properties',
     },
-    component: Properties,
+    component: DisplayProperties,
     defaultSize: {
       width: 400,
       height: 500,
@@ -320,5 +320,5 @@ export {
   MyComputer,
   Notepad,
   Winamp,
-  Properties,
+  DisplayProperties,
 };
