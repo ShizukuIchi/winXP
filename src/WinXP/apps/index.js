@@ -96,7 +96,7 @@ export const defaultAppState = [
     },
     defaultSize: {
       width: 400,
-      height: 500,
+      height: 470,
     },
     defaultOffset: {
       x: 300,
@@ -300,7 +300,7 @@ export const appSettings = {
     component: DisplayProperties,
     defaultSize: {
       width: 400,
-      height: 500,
+      height: 470,
     },
     defaultOffset: {
       x: 300,

@@ -111,7 +111,7 @@ const Tab = styled.div`
 `;
 
 const Content = styled.div`
-  height: 94%;
+  height: 93%;
   background-color: #fff;
   border: 0.5px solid gray;
   box-shadow: 2px 2px 4px rgb(180, 180, 180);

@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import preview from '../../../assets/properties/displayProperties/preview.png';
+
 function ThemeTab() {
   return (
     <ThemesPage>
@@ -27,7 +29,9 @@ function ThemeTab() {
       </div>
       <div className="sample">
         <p>Sample:</p>
-        <div className="preview"></div>
+        <div className="preview">
+          <img src={preview} alt="preview" />
+        </div>
       </div>
     </ThemesPage>
   );
@@ -37,7 +41,7 @@ const ThemesPage = styled.div`
   font-size: 10px;
 
   .theme {
-    margin-top: 10px;
+    margin-top: 15px;
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
@@ -63,12 +67,18 @@ const ThemesPage = styled.div`
   }
 
   .sample {
-    margin-top: 10px;
-    height: 100%;
+    margin-top: 15px;
 
     .preview {
-      height: 284px;
-      background-color: red;
+      margin-top: 5px;
+      height: 2px;
+      height: 235px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+      }
     }
   }
 `;
