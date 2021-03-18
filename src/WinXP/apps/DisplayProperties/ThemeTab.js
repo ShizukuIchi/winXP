@@ -52,8 +52,8 @@ const ThemesPage = styled.div`
     width: 180px;
   }
 
-  .buttons {
-    & button {
+  & .buttons {
+    button {
       width: 80px;
     }
 
@@ -67,8 +67,7 @@ const ThemesPage = styled.div`
     height: 100%;
 
     .preview {
-      width: 100%;
-      height: 250px;
+      height: 284px;
       background-color: red;
     }
   }

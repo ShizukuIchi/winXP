@@ -20,24 +20,36 @@ function DisplayProperties() {
   return (
     <Properties>
       <TabsMenu tabs={tabs} />
-      <div className="buttons">
+      <Buttons>
         <button>OK</button>
         <button>Cancel</button>
         <button>Apply</button>
-      </div>
+      </Buttons>
     </Properties>
   );
 }
 
 const Properties = styled.div`
   display: flex;
-  height: 100%;
   flex-direction: column;
+  height: 100%;
   background-color: rgb(236, 233, 218);
   padding: 10px;
+`;
 
-  & .buttons {
-    height: 80px;
+const Buttons = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  height: 20px;
+  width: 100%;
+
+  button {
+    width: 70px;
+    margin-left: 5px;
+  }
+
+  button:first-child {
+    margin-left: 0;
   }
 `;
 

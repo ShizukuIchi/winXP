@@ -65,7 +65,7 @@ function TabsMenu({ tabs }) {
 }
 
 const TabMenu = styled.div`
-  visibility: visible;
+  flex-grow: 1;
 `;
 
 const Tabs = styled.div`
@@ -111,16 +111,11 @@ const Tab = styled.div`
 `;
 
 const Content = styled.div`
-  height: 100%;
+  height: 94%;
   background-color: #fff;
   border: 0.5px solid gray;
   box-shadow: 2px 2px 4px rgb(180, 180, 180);
   padding: 12px;
-`;
-
-const Buttons = styled.div`
-  width: 100%;
-  height: 50px;
 `;
 
 export default TabsMenu;
