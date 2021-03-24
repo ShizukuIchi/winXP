@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+import arrowDown from '../../../assets/properties/displayProperties/icons/arrowDown.png';
 import iconNone from '../../../assets/properties/displayProperties/icons/none.png';
 import iconImage from '../../../assets/properties/displayProperties/icons/image.png';
 import display from '../../../assets/properties/displayProperties/display.png';
@@ -97,6 +98,7 @@ function DesktopTab() {
           <div className="options">
             <button>Browse...</button>
             <div>
+              <img className="arrow-down" src={arrowDown} alt="arrow down" />
               <label htmlFor="position">Position:</label>
               <select
                 disabled={disablePosition}
@@ -181,6 +183,7 @@ const Desktop = styled.div`
     }
   }
   .options {
+    position: relative;
     display: flex;
     flex-grow: 1;
     flex-direction: column;
@@ -192,6 +195,45 @@ const Desktop = styled.div`
     & select,
     & input {
       width: 80px;
+    }
+
+    .arrow-down {
+      position: absolute;
+      left: 70px;
+      top: 48px;
+      width: 16px;
+      pointer-events: none;
+    }
+
+    & #position {
+      border-radius: 0;
+      border-color: grey;
+    }
+
+    & #color {
+      position: relative;
+      padding: 0 16px 0 2px;
+      border-radius: 4px;
+      height: 22px;
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: 3px;
+        right: 13px;
+        width: 1px;
+        height: 15px;
+        background-color: darkgray;
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: 8px;
+        right: 3px;
+        border: 3.5px solid transparent;
+        border-top-color: currentColor;
+      }
     }
 
     & label {
