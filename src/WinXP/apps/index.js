@@ -17,6 +17,7 @@ import notepadLarge from 'assets/windowsIcons/327(32x32).png';
 import winamp from 'assets/windowsIcons/winamp.png';
 import paintLarge from 'assets/windowsIcons/680(32x32).png';
 import paint from 'assets/windowsIcons/680(16x16).png';
+import empty from 'assets/empty.png';
 
 const gen = () => {
   let id = -1;
@@ -91,8 +92,9 @@ export const defaultAppState = [
   {
     component: DisplayProperties,
     header: {
+      icon: empty,
       title: 'Display Properties',
-      icon: computer,
+      buttons: ['help', 'close'],
     },
     defaultSize: {
       width: 400,
@@ -294,8 +296,9 @@ export const appSettings = {
   },
   Properties: {
     header: {
-      icon: computer,
+      icon: empty,
       title: 'Display Properties',
+      buttons: ['help', 'close'],
     },
     component: DisplayProperties,
     defaultSize: {
@@ -306,7 +309,7 @@ export const appSettings = {
       x: 300,
       y: 50,
     },
-    resizable: true,
+    resizable: false,
     minimized: false,
     maximized: false,
     multiInstance: false,

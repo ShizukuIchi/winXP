@@ -6,6 +6,7 @@ function HeaderButtons({
   onMaximize,
   onMinimize,
   onClose,
+  onHelp,
   maximized,
   resizable,
   className,
@@ -34,6 +35,13 @@ function HeaderButtons({
         onMouseUp={onClose}
       />
     ),
+    help: (
+      <button
+        key="help"
+        className="header__button header__button--help"
+        onMouseUp={onHelp}
+      />
+    ),
   };
 
   return (
@@ -44,6 +52,7 @@ function HeaderButtons({
         <>
           {buttonElements.minimize}
           {buttonElements.maximize}
+          {buttonElements.help}
           {buttonElements.close}
         </>
       )}
@@ -174,6 +183,26 @@ export default styled(HeaderButtons)`
       height: 16px;
       width: 2px;
       background-color: white;
+    }
+  }
+  .header__button--help {
+    box-shadow: inset 0 -1px 2px 1px #4646ff;
+    background-image: radial-gradient(
+      circle at 90% 90%,
+      #0054e9 0%,
+      #2263d5 55%,
+      #4479e4 70%,
+      #a3bbec 90%,
+      white 100%
+    );
+    &:before {
+      content: '?';
+      position: absolute;
+      left: 5px;
+      top: -3px;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
     }
   }
   .header__button--disable {

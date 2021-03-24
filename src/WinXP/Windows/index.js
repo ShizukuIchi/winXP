@@ -61,6 +61,9 @@ const Window = memo(function({
   function _onMouseUpMaximize() {
     if (resizable) onMouseUpMaximize(id);
   }
+  function _onMouseUpHelp() {
+    return;
+  }
   const dragRef = useRef(null);
   const ref = useRef(null);
   const { width: windowWidth, height: windowHeight } = useWindowSize();
@@ -114,6 +117,7 @@ const Window = memo(function({
           onMaximize={_onMouseUpMaximize}
           onMinimize={_onMouseUpMinimize}
           onClose={_onMouseUpClose}
+          onHelp={_onMouseUpHelp}
           maximized={maximized}
           resizable={resizable}
           isFocus={isFocus}
