@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import iconNone from '../../../assets/properties/displayProperties/icons/none.png';
 import iconImage from '../../../assets/properties/displayProperties/icons/image.png';
 import display from '../../../assets/properties/displayProperties/display.png';
-import defaultBackfround from '../../../assets/properties/displayProperties/backgrounds/default.jpg';
+import defaultBackground from '../../../assets/properties/displayProperties/backgrounds/default.jpg';
 import reallyGood from '../../../assets/properties/displayProperties/backgrounds/really-good.png';
 
 const backgrounds = [
   { id: 1, title: '(None)' },
-  { id: 2, title: 'Ascent', background: defaultBackfround },
+  { id: 2, title: 'Ascent', background: defaultBackground },
   { id: 3, title: 'Really Good', background: reallyGood },
   { id: 4, title: 'Azul' },
   { id: 5, title: 'Bliss' },
