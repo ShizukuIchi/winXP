@@ -31,14 +31,14 @@ function DesktopTab() {
           <div className="options">
             <button>Browse...</button>
             <div>
-              <label for="position">Position:</label>
+              <label htmlFor="position">Position:</label>
               <select id="position">
                 <option value="Strech">Strech</option>
-                <option value="Not Strech">Not Strech</option>
+                <option value="Not Strech">No Strech :)</option>
               </select>
             </div>
             <div>
-              <label for="color">Position:</label>
+              <label htmlFor="color">Color:</label>
               <input id="color" type="color" />
             </div>
           </div>
