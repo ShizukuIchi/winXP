@@ -190,6 +190,7 @@ const Desktop = styled.div`
     justify-content: space-between;
     align-items: center;
     height: 115px;
+    font-size: 13px;
 
     & button,
     & select,
