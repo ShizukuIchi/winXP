@@ -43,7 +43,7 @@ function DesktopTab() {
             </div>
           </div>
         </div>
-        <button>Customize Desktop...</button>
+        <button className="customize-button">Customize Desktop...</button>
       </div>
     </Desktop>
   );
@@ -59,12 +59,12 @@ const Desktop = styled.div`
   .preferences {
     display: flex;
     flex-direction: row;
-    margin: 5px 0;
+    margin: 4px 0;
   }
 
   .List {
     flex-grow: 10;
-    height: 130px;
+    height: 110px;
     border: 1px solid blue;
     overflow-y: scroll;
     padding-left: 5px;
@@ -75,17 +75,19 @@ const Desktop = styled.div`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    height: 135px;
+    height: 115px;
 
     & button,
     & input {
-      display: block;
       width: 80px;
     }
 
     & label {
       display: block;
     }
+  }
+  .customize-button {
+    padding: 2px 9px;
   }
 `;
 

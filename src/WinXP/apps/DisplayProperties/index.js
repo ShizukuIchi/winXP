@@ -10,7 +10,7 @@ import styled from 'styled-components';
 
 const tabs = [
   { title: 'Themes', content: ThemeTab },
-  { title: 'Desktop', content: DesktopTab },
+  { title: 'Desktop', content: DesktopTab, defaultTab: true },
   { title: 'Screen Saver', content: ScreenSaverTab },
   { title: 'Appearance', content: AppearanceTab },
   { title: 'Settings', content: SettingsTab },
