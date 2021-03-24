@@ -9,11 +9,11 @@ import SettingsTab from './SettingsTab';
 import styled from 'styled-components';
 
 const tabs = [
-  { title: 'Themes', content: ThemeTab },
-  { title: 'Desktop', content: DesktopTab, defaultTab: true },
-  { title: 'Screen Saver', content: ScreenSaverTab },
-  { title: 'Appearance', content: AppearanceTab },
-  { title: 'Settings', content: SettingsTab },
+  { id: 1, title: 'Themes', content: ThemeTab },
+  { id: 2, title: 'Desktop', content: DesktopTab, defaultTab: true },
+  { id: 3, title: 'Screen Saver', content: ScreenSaverTab },
+  { id: 4, title: 'Appearance', content: AppearanceTab },
+  { id: 5, title: 'Settings', content: SettingsTab },
 ];
 
 function DisplayProperties() {
