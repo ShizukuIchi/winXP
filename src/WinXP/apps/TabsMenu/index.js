@@ -23,11 +23,6 @@ function TabsMenu({ tabs }) {
     setActiveTab(index);
   }
 
-  function GenerateContentTab(props) {
-    const Content = props.content;
-    return props.content ? <Content {...props} /> : null;
-  }
-
   return (
     <TabMenu>
       <Tabs>
@@ -37,27 +32,24 @@ function TabsMenu({ tabs }) {
             disabled: item.disabled ? 'disabled' : '',
           };
 
-          if (item.skip) {
-            return null;
-          } else {
-            return (
-              <Tab
-                key={index}
-                onClick={() => handleClick(item, index)}
-                className={`${classes.active} ${classes.disabled}`}
-              >
-                {item.title}
-              </Tab>
-            );
-          }
+          if (item.skip) return null;
+
+          return (
+            <Tab
+              key={item.id}
+              onClick={() => handleClick(item, index)}
+              className={`${classes.active} ${classes.disabled}`}
+            >
+              {item.title}
+            </Tab>
+          );
         })}
       </Tabs>
       <Content>
-        {tabs.map((item, index) => {
-          if (index === activeTab) {
-            return <GenerateContentTab content={item.content} index={index} />;
-          }
-          return null;
+        {tabs.map(({ content: Content, id }, index) => {
+          if (index !== activeTab) return null;
+
+          return <Content key={id} />;
         })}
       </Content>
     </TabMenu>
