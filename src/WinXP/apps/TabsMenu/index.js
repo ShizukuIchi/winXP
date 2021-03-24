@@ -104,7 +104,7 @@ const Tab = styled.div`
 
 const Content = styled.div`
   height: 93%;
-  background-color: #fff;
+  background: linear-gradient(#fff, #f4f3ee);
   border: 0.5px solid gray;
   box-shadow: 2px 2px 4px rgb(180, 180, 180);
   padding: 12px;
