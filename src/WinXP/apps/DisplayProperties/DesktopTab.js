@@ -4,26 +4,36 @@ import styled from 'styled-components';
 import iconNone from '../../../assets/properties/displayProperties/icons/none.png';
 import iconImage from '../../../assets/properties/displayProperties/icons/image.png';
 import display from '../../../assets/properties/displayProperties/display.png';
-import defaultBackground from '../../../assets/properties/displayProperties/backgrounds/default.jpg';
+import bliss from '../../../assets/properties/displayProperties/backgrounds/bliss.jpeg';
 import reallyGood from '../../../assets/properties/displayProperties/backgrounds/really-good.png';
+import autumn from '../../../assets/properties/displayProperties/backgrounds/autumn.jpeg';
+import azul from '../../../assets/properties/displayProperties/backgrounds/azul.jpeg';
+import ascent from '../../../assets/properties/displayProperties/backgrounds/ascent.jpeg';
+import blueLace from '../../../assets/properties/displayProperties/backgrounds/blue-lace-16.jpeg';
+import crystal from '../../../assets/properties/displayProperties/backgrounds/crystal.jpeg';
+import follow from '../../../assets/properties/displayProperties/backgrounds/follow.jpeg';
+import coffeeBean from '../../../assets/properties/displayProperties/backgrounds/coffee-bean.jpeg';
 
 const backgrounds = [
   { id: 1, title: '(None)' },
-  { id: 2, title: 'Ascent', background: defaultBackground },
-  { id: 3, title: 'Really Good', background: reallyGood },
-  { id: 4, title: 'Azul' },
-  { id: 5, title: 'Bliss' },
-  { id: 6, title: 'Blue Lace 16' },
-  { id: 7, title: 'Coffee Day' },
+  { id: 2, title: 'Really Good', background: reallyGood },
+  { id: 3, title: 'Ascent', background: ascent },
+  { id: 4, title: 'Autumn', background: autumn },
+  { id: 5, title: 'Azul', background: azul },
+  { id: 6, title: 'Bliss', background: bliss },
+  { id: 7, title: 'Blue Lace 16', background: blueLace },
+  { id: 8, title: 'Coffee Bean', background: coffeeBean },
+  { id: 9, title: 'Follow', background: follow },
+  { id: 10, title: 'Crystal', background: crystal },
 ];
 
 function DesktopTab() {
-  const [activeLi, setActiveLi] = useState(1);
-  const [showColor, setShowColor] = useState(true);
+  const [activeLi, setActiveLi] = useState(5);
+  const [showColor, setShowColor] = useState(false);
   const [overlayColor, setOverlayColor] = useState('#2f71cd');
-  const [overlayImage, setOverlayImage] = useState(null);
+  const [overlayImage, setOverlayImage] = useState(bliss);
   const [imagePosition, setImagePosition] = useState('fill');
-  const [disablePosition, setDisablePosition] = useState(true);
+  const [disablePosition, setDisablePosition] = useState(false);
 
   const handleClick = (e, id, background) => {
     setActiveLi(id);
@@ -93,8 +103,8 @@ function DesktopTab() {
                 id="position"
                 onChange={e => setImagePosition(e.target.value)}
               >
-                <option value="fill">Fill</option>
-                <option value="cover">Cover</option>
+                <option value="fill">Stretch</option>
+                <option value="cover">Fill</option>
                 <option value="contain">Fit</option>
               </select>
             </div>
@@ -145,9 +155,10 @@ const Desktop = styled.div`
   .List {
     flex-grow: 10;
     height: 111px;
-    border: 1px solid blue;
+    border: 1px solid #9b9b9b;
     overflow-y: scroll;
     padding-left: 5px;
+    background-color: #fff;
 
     & li {
       display: flex;
