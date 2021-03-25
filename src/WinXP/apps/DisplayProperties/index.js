@@ -21,9 +21,9 @@ function DisplayProperties() {
     <Properties>
       <TabsMenu tabs={tabs} />
       <Buttons>
-        <button>OK</button>
-        <button>Cancel</button>
-        <button>Apply</button>
+        <button onClick={handleOk}>OK</button>
+        <button onClick={handleCancel}>Cancel</button>
+        <button onClick={handleApply}>Apply</button>
       </Buttons>
     </Properties>
   );
