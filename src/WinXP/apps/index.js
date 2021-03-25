@@ -34,6 +34,7 @@ export const defaultAppState = [
     header: {
       title: 'Internet Explorer',
       icon: iePaper,
+      buttons: ['minimize', 'maximize', 'close'],
     },
     defaultSize: {
       width: 700,
@@ -54,6 +55,7 @@ export const defaultAppState = [
     header: {
       title: 'Minesweeper',
       icon: mine,
+      buttons: ['minimize', 'maximize', 'close'],
     },
     defaultSize: {
       width: 0,
@@ -74,6 +76,7 @@ export const defaultAppState = [
     header: {
       title: 'My Computer',
       icon: computer,
+      buttons: ['minimize', 'maximize', 'close'],
     },
     defaultSize: {
       width: 660,
@@ -162,6 +165,7 @@ export const appSettings = {
     header: {
       icon: iePaper,
       title: 'InternetExplorer',
+      buttons: ['minimize', 'maximize', 'close'],
     },
     component: InternetExplorer,
     defaultSize: {
@@ -181,6 +185,7 @@ export const appSettings = {
     header: {
       icon: mine,
       title: 'Minesweeper',
+      buttons: ['minimize', 'maximize', 'close'],
     },
     component: Minesweeper,
     defaultSize: {
@@ -221,6 +226,7 @@ export const appSettings = {
     header: {
       icon: computer,
       title: 'My Computer',
+      buttons: ['minimize', 'maximize', 'close'],
     },
     component: MyComputer,
     defaultSize: {
@@ -240,6 +246,7 @@ export const appSettings = {
     header: {
       icon: notepad,
       title: 'Untitled - Notepad',
+      buttons: ['minimize', 'maximize', 'close'],
     },
     component: Notepad,
     defaultSize: {
@@ -279,6 +286,7 @@ export const appSettings = {
     header: {
       icon: paint,
       title: 'Untitled - Paint',
+      buttons: ['minimize', 'maximize', 'close'],
     },
     component: Paint,
     defaultSize: {
