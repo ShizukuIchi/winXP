@@ -28,7 +28,7 @@ const backgrounds = [
   { id: 10, title: 'Crystal', background: crystal },
 ];
 
-function DesktopTab() {
+function DesktopTab({ state, dispatch }) {
   const [activeLi, setActiveLi] = useState(5);
   const [showColor, setShowColor] = useState(false);
   const [overlayColor, setOverlayColor] = useState('#2f71cd');
@@ -40,13 +40,23 @@ function DesktopTab() {
     setActiveLi(id);
 
     if (e.target.innerText === '(None)') {
-      setShowColor(true);
       setDisablePosition(true);
-    } else {
-      setDisablePosition(false);
-      setShowColor(false);
-      setOverlayImage(background);
+      setShowColor(true);
+      setOverlayImage(null);
+      dispatch({
+        type: 'DESKTOP',
+        payload: { type: 'color', background: overlayColor },
+      });
+      return;
     }
+    setDisablePosition(false);
+    setShowColor(false);
+    setOverlayImage(background);
+
+    dispatch({
+      type: 'DESKTOP',
+      payload: { type: 'url', position: imagePosition, background: background },
+    });
   };
 
   const handleColorChange = e => {
@@ -54,6 +64,10 @@ function DesktopTab() {
     setOverlayColor(e.target.value);
     setActiveLi(1);
     setDisablePosition(true);
+    dispatch({
+      type: 'DESKTOP',
+      payload: { type: 'color', background: overlayColor },
+    });
   };
 
   return (

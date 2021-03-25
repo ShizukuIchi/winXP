@@ -18,19 +18,22 @@ const tabs = [
 
 const initialState = {
   desktop: {
-    type: 'url', //'url' || 'color'
-    background: '../../../assets/properties/displayProperties/preview.png', //'url string' / color (rgb || hex)
+    type: null, // TODO: get type from future context
+    position: null, // TODO: get position from future context
+    background: null, // TODO: get background from future context
   },
 };
 
-const reducer = (state, action) => {
-  switch (action.type) {
+const reducer = (state, { type, payload }) => {
+  switch (type) {
     case 'DESKTOP':
-      return {
+      state.desktop = {
         ...state.desktop,
-        type: action.url,
-        background: action.background,
+        type: payload.type,
+        position: payload.position,
+        background: payload.background,
       };
+      return state;
     default:
       break;
   }
@@ -55,7 +58,7 @@ function DisplayProperties({ onClose }) {
 
   return (
     <Properties>
-      <TabsMenu tabs={tabs} />
+      <TabsMenu tabs={tabs} state={state} dispatch={dispatch} />
       <Buttons>
         <button onClick={handleOk}>OK</button>
         <button onClick={handleCancel}>Cancel</button>
