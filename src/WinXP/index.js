@@ -39,6 +39,7 @@ const initState = {
   contextMenu: false,
   contextPos: null,
   powerState: POWER_STATE.START,
+  background: 'https://i.imgur.com/Zk6TR5k.jpg',
 };
 const reducer = (state, action = { type: '' }) => {
   ga.event({
@@ -309,6 +310,7 @@ function WinXP() {
   }
   return (
     <Container
+      background={state.background}
       ref={ref}
       onMouseUp={onMouseUpDesktop}
       onMouseDown={onMouseDownDesktop}
@@ -383,7 +385,7 @@ const Container = styled.div`
   height: 100%;
   overflow: hidden;
   position: relative;
-  background: url(https://i.imgur.com/Zk6TR5k.jpg) no-repeat center center fixed;
+  background: url(${({ background }) => background}) no-repeat center fixed;
   background-size: cover;
   animation: ${({ state }) => animation[state]} 5s forwards;
   *:not(input):not(textarea) {
