@@ -4,7 +4,15 @@ import Properties from '../../WinXP/apps/DisplayProperties';
 
 import ContextMenu from '.';
 
-function ContextMenuItem({ item, parentRef, isToLeft, onClick }) {
+function ContextMenuItem({
+  item,
+  parentRef,
+  isToLeft,
+  index,
+  checkedItem,
+  setCheckedItem,
+  onClick,
+}) {
   const [renderMenu, setRenderMenu] = useState(false);
 
   function handleMouseEnter() {
@@ -19,24 +27,27 @@ function ContextMenuItem({ item, parentRef, isToLeft, onClick }) {
     if (action) {
       onClick(Properties);
     }
+    setCheckedItem(index);
   }
 
   switch (item.type) {
     case 'item':
       return (
         <StyledItem
-          className={`${item.inactive ? 'inactive' : ''}`}
           onClick={() => {
             handleClick(item.action);
           }}
+          className={item.inactive ? 'inactive' : ''}
+          showIcon={checkedItem === index}
         >
+          {item.icon && <img className="icon" src={item.icon} alt="icon" />}
           {item.text}
         </StyledItem>
       );
     case 'menu':
       return (
         <StyledItem
-          className={`arrow`}
+          className="arrow"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
@@ -51,7 +62,7 @@ function ContextMenuItem({ item, parentRef, isToLeft, onClick }) {
         </StyledItem>
       );
     case 'separator':
-      return <StyledItem className={`separator`}></StyledItem>;
+      return <StyledItem className="separator"></StyledItem>;
     default:
       return null;
   }
@@ -68,6 +79,10 @@ const StyledItem = styled.div`
   &:hover {
     color: #fff;
     background-color: #2f71cd;
+
+    > .icon {
+      filter: invert(100%);
+    }
   }
 
   &.inactive {
@@ -76,6 +91,13 @@ const StyledItem = styled.div`
 
   &.inactive:hover {
     background-color: initial;
+  }
+
+  .icon {
+    visibility: ${({ showIcon }) => (showIcon ? 'visible' : 'hidden')};
+    position: absolute;
+    top: 6px;
+    left: 6px;
   }
 
   &.arrow:before {

@@ -36,8 +36,7 @@ const initState = {
   focusing: FOCUSING.WINDOW,
   icons: defaultIconState,
   selecting: false,
-  contextMenu: false,
-  contextPos: null,
+  contextMenuPosition: null,
   powerState: POWER_STATE.START,
   background: 'https://i.imgur.com/Zk6TR5k.jpg',
 };
@@ -65,7 +64,7 @@ const reducer = (state, action = { type: '' }) => {
           nextAppID: state.nextAppID + 1,
           nextZIndex: state.nextZIndex + 1,
           focusing: FOCUSING.WINDOW,
-          contextMenu: false,
+          contextMenuPosition: false,
         };
       }
       const apps = state.apps.map(app =>
@@ -78,7 +77,7 @@ const reducer = (state, action = { type: '' }) => {
         apps,
         nextZIndex: state.nextZIndex + 1,
         focusing: FOCUSING.WINDOW,
-        contextMenu: false,
+        contextMenuPosition: false,
       };
     case DEL_APP:
       if (state.focusing !== FOCUSING.WINDOW) return state;
@@ -167,7 +166,7 @@ const reducer = (state, action = { type: '' }) => {
           isFocus: false,
         })),
         selecting: action.payload,
-        contextMenu: false,
+        contextMenuPosition: null,
       };
     case END_SELECT:
       return {
@@ -177,8 +176,7 @@ const reducer = (state, action = { type: '' }) => {
     case CONTEXT_MENU:
       return {
         ...state,
-        contextPos: action.payload,
-        contextMenu: true,
+        contextMenuPosition: action.payload,
       };
     case POWER_OFF:
       return {
@@ -350,10 +348,10 @@ function WinXP() {
           mode={state.powerState}
         />
       )}
-      {state.contextMenu && (
+      {state.contextMenuPosition && (
         <ContextMenu
           items={contextMenuData}
-          mousePos={state.contextPos}
+          mousePos={state.contextMenuPosition}
           displayFocus={state.focusing === FOCUSING.ICON}
           onClick={onDoubleClickIcon}
         />
