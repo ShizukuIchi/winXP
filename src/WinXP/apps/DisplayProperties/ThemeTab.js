@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import preview from '../../../assets/properties/displayProperties/preview.png';
+import arrowDown from '../../../assets/properties/displayProperties/icons/arrowDown.png';
 
 function ThemeTab() {
   return (
@@ -14,10 +15,11 @@ function ThemeTab() {
       </div>
       <div className="theme">
         <div className="options">
-          <label className="label" htmlFor="theme">
+          <img className="arrow-down" src={arrowDown} alt="arrow down" />
+          <label className="label" htmlFor="theme-picker">
             Theme:
           </label>
-          <select className="select" id="theme">
+          <select className="select" id="theme-picker">
             <option value="Windows-xp">Windows XP</option>
             <option value="pink">Pink</option>
           </select>
@@ -51,9 +53,23 @@ const ThemesPage = styled.div`
     display: block;
   }
 
-  .select {
-    margin-top: 5px;
-    width: 180px;
+  .options {
+    position: relative;
+
+    & .arrow-down {
+      position: absolute;
+      left: 163px;
+      top: 18px;
+      width: 16px;
+      pointer-events: none;
+    }
+
+    & .select {
+      margin-top: 5px;
+      width: 180px;
+      border-radius: 0;
+      border-color: grey;
+    }
   }
 
   & .buttons {
