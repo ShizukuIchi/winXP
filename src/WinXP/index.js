@@ -29,6 +29,8 @@ import { contextMenuData } from '../components/ContextMenu/utils';
 
 import { DashedBox } from 'components';
 
+export const Context = React.createContext();
+
 const initState = {
   apps: defaultAppState,
   nextAppID: defaultAppState.length,
@@ -326,14 +328,16 @@ function WinXP() {
         setSelectedIcons={onIconsSelected}
       />
       <DashedBox startPos={state.selecting} mouse={mouse} />
-      <Windows
-        apps={state.apps}
-        onMouseDown={onFocusApp}
-        onClose={onCloseApp}
-        onMinimize={onMinimizeWindow}
-        onMaximize={onMaximizeWindow}
-        focusedAppId={focusedAppId}
-      />
+      <Context.Provider value={{ state, dispatch }}>
+        <Windows
+          apps={state.apps}
+          onMouseDown={onFocusApp}
+          onClose={onCloseApp}
+          onMinimize={onMinimizeWindow}
+          onMaximize={onMaximizeWindow}
+          focusedAppId={focusedAppId}
+        />
+      </Context.Provider>
       <Footer
         apps={state.apps}
         onMouseDownApp={onMouseDownFooterApp}
