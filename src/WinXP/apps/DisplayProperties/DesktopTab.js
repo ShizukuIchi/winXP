@@ -55,7 +55,7 @@ function DesktopTab({ state, dispatch }) {
 
     dispatch({
       type: 'DESKTOP',
-      payload: { type: 'url', position: imagePosition, background: background },
+      payload: { type: 'url', size: imagePosition, background: background },
     });
   };
 

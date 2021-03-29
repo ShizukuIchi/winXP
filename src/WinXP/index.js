@@ -40,7 +40,10 @@ const initState = {
   selecting: false,
   contextMenuPosition: null,
   powerState: POWER_STATE.START,
-  background: 'https://i.imgur.com/Zk6TR5k.jpg',
+  background: {
+    size: 'cover',
+    background: '/static/media/bliss.bf876f9a.jpeg',
+  },
 };
 const reducer = (state, action = { type: '' }) => {
   ga.event({
@@ -189,6 +192,11 @@ const reducer = (state, action = { type: '' }) => {
       return {
         ...state,
         powerState: POWER_STATE.START,
+      };
+    case 'DISPLAY_PROPERTIES':
+      return {
+        ...state,
+        background: action.payload.desktop,
       };
     default:
       return state;
@@ -387,8 +395,11 @@ const Container = styled.div`
   height: 100%;
   overflow: hidden;
   position: relative;
-  background: url(${({ background }) => background}) no-repeat center fixed;
-  background-size: cover;
+  /* background: url("../assets/properties/displayProperties/backgrounds/bliss.jpeg") no-repeat center fixed; */
+  background-image: url(${({ background }) => `${background.background}`});
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: ${({ background }) => background.size};
   animation: ${({ state }) => animation[state]} 5s forwards;
   *:not(input):not(textarea) {
     user-select: none;

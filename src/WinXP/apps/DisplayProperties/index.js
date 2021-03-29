@@ -1,4 +1,5 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useContext } from 'react';
+import { Context as AppContext } from './../../../WinXP';
 
 import TabsMenu from '../TabsMenu';
 import ThemeTab from './ThemeTab';
@@ -19,7 +20,7 @@ const tabs = [
 const initialState = {
   desktop: {
     type: null, // TODO: get type from future context
-    position: null, // TODO: get position from future context
+    size: null, // TODO: get position from future context
     background: null, // TODO: get background from future context
   },
 };
@@ -30,7 +31,7 @@ const reducer = (state, { type, payload }) => {
       state.desktop = {
         ...state.desktop,
         type: payload.type,
-        position: payload.position,
+        size: payload.position,
         background: payload.background,
       };
       return state;
@@ -41,24 +42,29 @@ const reducer = (state, { type, payload }) => {
 
 function DisplayProperties({ onClose }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const appContext = useContext(AppContext);
 
   const handleCancel = () => {
-    console.log('close without applying changes');
     onClose();
   };
 
   const handleApply = () => {
-    console.log('apply changes');
+    appContext.dispatch({ type: 'DISPLAY_PROPERTIES', payload: state });
   };
 
   const handleOk = () => {
-    console.log('make changes and close');
+    appContext.dispatch({ type: 'DISPLAY_PROPERTIES', payload: state });
     onClose();
   };
 
   return (
     <Properties>
-      <TabsMenu tabs={tabs} state={state} dispatch={dispatch} />
+      <TabsMenu
+        tabs={tabs}
+        state={state}
+        dispatch={dispatch}
+        appContext={appContext}
+      />
       <Buttons>
         <button onClick={handleOk}>OK</button>
         <button onClick={handleCancel}>Cancel</button>
