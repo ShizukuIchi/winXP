@@ -41,6 +41,7 @@ const initState = {
   contextMenuPosition: null,
   powerState: POWER_STATE.START,
   background: {
+    type: 'background',
     size: 'cover',
     background: '/static/media/bliss.bf876f9a.jpeg',
   },

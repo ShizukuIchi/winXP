@@ -31,7 +31,7 @@ const reducer = (state, { type, payload }) => {
       state.desktop = {
         ...state.desktop,
         type: payload.type,
-        size: payload.position,
+        size: payload.size,
         background: payload.background,
       };
       return state;

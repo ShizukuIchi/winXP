@@ -36,6 +36,7 @@ function DesktopTab({ state, dispatch }) {
   const [imagePosition, setImagePosition] = useState('fill');
   const [disablePosition, setDisablePosition] = useState(false);
 
+  // TODO: Convert this all handle function to one function that dispaches every change to DisplayProperties state
   const handleClick = (e, id, background) => {
     setActiveLi(id);
 
