@@ -1,7 +1,8 @@
-import React, { useReducer, useRef, useCallback } from 'react';
+import React, { useReducer, useRef, useCallback, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import useMouse from 'react-use/lib/useMouse';
 import ga from 'react-ga';
+import { getLocalStorage, setLocalStorage } from './utils';
 
 import {
   ADD_APP,
@@ -41,7 +42,7 @@ const initState = {
   contextMenuPosition: null,
   powerState: POWER_STATE.START,
   background: {
-    type: 'background',
+    type: 'url',
     size: 'cover',
     background: '/static/media/bliss.bf876f9a.jpeg',
   },
@@ -195,16 +196,26 @@ const reducer = (state, action = { type: '' }) => {
         powerState: POWER_STATE.START,
       };
     case 'DISPLAY_PROPERTIES':
+      if (action.payload.desktop.background)
+        setLocalStorage('background', action.payload);
       return {
         ...state,
         background: action.payload.desktop,
       };
+
     default:
       return state;
   }
 };
+
 function WinXP() {
   const [state, dispatch] = useReducer(reducer, initState);
+
+  useEffect(() => {
+    const desktop = getLocalStorage('background');
+    if (desktop) dispatch({ type: 'DISPLAY_PROPERTIES', payload: desktop });
+  }, []);
+
   const ref = useRef(null);
   const mouse = useMouse(ref);
   const focusedAppId = getFocusedAppId();
@@ -396,8 +407,10 @@ const Container = styled.div`
   height: 100%;
   overflow: hidden;
   position: relative;
-  /* background: url("../assets/properties/displayProperties/backgrounds/bliss.jpeg") no-repeat center fixed; */
-  background-image: url(${({ background }) => `${background.background}`});
+  ${({ background }) =>
+    background.type === 'url'
+      ? `background-image: url(${background.background});`
+      : `background-color: ${background.background};`}
   background-repeat: no-repeat;
   background-position: center;
   background-size: ${({ background }) => background.size};

@@ -17,30 +17,31 @@ const tabs = [
   { id: 5, title: 'Settings', content: SettingsTab },
 ];
 
-const initialState = {
-  desktop: {
-    type: null, // TODO: get type from future context
-    size: null, // TODO: get position from future context
-    background: null, // TODO: get background from future context
-  },
-};
-
-const reducer = (state, { type, payload }) => {
-  switch (type) {
-    case 'DESKTOP':
-      state.desktop = {
-        ...state.desktop,
-        ...payload,
-      };
-      return state;
-    default:
-      break;
-  }
-};
-
 function DisplayProperties({ onClose }) {
-  const [state, dispatch] = useReducer(reducer, initialState);
   const appContext = useContext(AppContext);
+  const { background } = appContext.state;
+
+  const reducer = (state, { type, payload }) => {
+    switch (type) {
+      case 'DESKTOP':
+        state.desktop = {
+          ...state.desktop,
+          ...payload,
+        };
+        return state;
+      default:
+        break;
+    }
+  };
+
+  const initialState = {
+    desktop: {
+      type: background.type,
+      size: background.size,
+      background: background.background,
+    },
+  };
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleCancel = () => {
     onClose();
