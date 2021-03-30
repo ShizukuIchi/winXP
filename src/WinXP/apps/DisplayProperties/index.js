@@ -30,9 +30,7 @@ const reducer = (state, { type, payload }) => {
     case 'DESKTOP':
       state.desktop = {
         ...state.desktop,
-        type: payload.type,
-        size: payload.size,
-        background: payload.background,
+        ...payload,
       };
       return state;
     default:

@@ -60,6 +60,14 @@ function DesktopTab({ state, dispatch }) {
     });
   };
 
+  const handleChange = e => {
+    setImagePosition(e.target.value);
+    dispatch({
+      type: 'DESKTOP',
+      payload: { size: imagePosition },
+    });
+  };
+
   const handleColorChange = e => {
     setShowColor(true);
     setOverlayColor(e.target.value);
@@ -118,11 +126,11 @@ function DesktopTab({ state, dispatch }) {
               <select
                 disabled={disablePosition}
                 id="position"
-                onChange={e => setImagePosition(e.target.value)}
+                onChange={handleChange}
               >
                 <option value="fill">Stretch</option>
-                <option value="cover">Fill</option>
-                <option value="contain">Fit</option>
+                <option value="contain">Fill</option>
+                <option value="cover">Fit</option>
               </select>
             </div>
             <div>
