@@ -1,33 +1,34 @@
 import checked from '../../assets/windowsIcons/checked.png';
+import folder from '../../assets/windowsIcons/folder.png';
 
 export const contextMenuData = [
   {
     type: 'menu',
-    text: 'Arrange Icon By',
+    text: 'Arrange Icons By',
     items: [
       {
         type: 'item',
-        icon: checked,
+        checked: checked,
         text: 'Name',
       },
       {
         type: 'item',
-        icon: checked,
+        checked: checked,
         text: 'Date',
       },
       {
         type: 'item',
-        icon: checked,
+        checked: checked,
         text: 'Size',
       },
       {
         type: 'item',
-        icon: checked,
+        checked: checked,
         text: 'Created',
       },
       {
         type: 'item',
-        icon: checked,
+        checked: checked,
         text: 'Modified',
       },
     ],
@@ -59,6 +60,7 @@ export const contextMenuData = [
       {
         type: 'item',
         text: 'Folder',
+        icon: folder,
       },
       {
         type: 'item',

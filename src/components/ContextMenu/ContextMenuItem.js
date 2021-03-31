@@ -30,9 +30,12 @@ function ContextMenuItem({
       return (
         <StyledItem
           className={item.inactive ? 'inactive' : ''}
-          showIcon={checkedItem === index}
+          showChecked={checkedItem === index}
           onClick={handleCheckedItem}
         >
+          {item.checked && (
+            <img className="checked" src={item.checked} alt="checked" />
+          )}
           {item.icon && <img className="icon" src={item.icon} alt="icon" />}
           {item.text}
         </StyledItem>
@@ -73,7 +76,7 @@ const StyledItem = styled.div`
     color: #fff;
     background-color: #2f71cd;
 
-    > .icon {
+    > .checked {
       filter: invert(100%);
     }
   }
@@ -86,11 +89,18 @@ const StyledItem = styled.div`
     background-color: initial;
   }
 
-  .icon {
-    visibility: ${({ showIcon }) => (showIcon ? 'visible' : 'hidden')};
+  .checked {
+    visibility: ${({ showChecked }) => (showChecked ? 'visible' : 'hidden')};
     position: absolute;
     top: 6px;
     left: 6px;
+  }
+
+  .icon {
+    height: 14px;
+    position: absolute;
+    top: 2px;
+    left: 3px;
   }
 
   &.arrow:before {
