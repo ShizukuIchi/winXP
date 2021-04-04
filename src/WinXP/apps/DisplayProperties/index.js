@@ -36,9 +36,11 @@ function DisplayProperties({ onClose }) {
 
   const initialState = {
     desktop: {
+      id: background.id,
       type: background.type,
       size: background.size,
-      background: background.background,
+      image: background.image,
+      color: background.color,
     },
   };
   const [state, dispatch] = useReducer(reducer, initialState);

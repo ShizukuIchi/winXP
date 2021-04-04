@@ -42,9 +42,11 @@ const initState = {
   contextMenuPosition: null,
   powerState: POWER_STATE.START,
   background: {
+    id: 6,
     type: 'url',
     size: 'cover',
-    background: '/static/media/bliss.bf876f9a.jpeg',
+    image: '/static/media/bliss.bf876f9a.jpeg',
+    color: '#2f71cd',
   },
 };
 const reducer = (state, action = { type: '' }) => {
@@ -196,8 +198,8 @@ const reducer = (state, action = { type: '' }) => {
         powerState: POWER_STATE.START,
       };
     case 'DISPLAY_PROPERTIES':
-      if (action.payload.desktop.background)
-        setLocalStorage('background', action.payload);
+      if (action.payload.desktop) setLocalStorage('background', action.payload);
+      console.log('payload', action.payload);
       return {
         ...state,
         background: action.payload.desktop,
@@ -409,8 +411,8 @@ const Container = styled.div`
   position: relative;
   ${({ background }) =>
     background.type === 'url'
-      ? `background-image: url(${background.background});`
-      : `background-color: ${background.background};`}
+      ? `background-image: url(${background.image});`
+      : `background-color: ${background.color};`}
   background-repeat: no-repeat;
   background-position: center;
   background-size: ${({ background }) => background.size};

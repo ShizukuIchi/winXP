@@ -28,15 +28,17 @@ const backgrounds = [
   { id: 10, title: 'Crystal', background: crystal },
 ];
 
-function DesktopTab({ state, dispatch }) {
-  const [activeLi, setActiveLi] = useState(5);
+function DesktopTab({ state: { desktop }, dispatch }) {
+  const [activeLi, setActiveLi] = useState(desktop.id);
   const [showColor, setShowColor] = useState(false);
-  const [overlayColor, setOverlayColor] = useState('#2f71cd');
-  const [overlayImage, setOverlayImage] = useState(bliss);
-  const [imagePosition, setImagePosition] = useState('fill');
+  const [overlayColor, setOverlayColor] = useState(desktop.color);
+  const [overlayImage, setOverlayImage] = useState(desktop.image);
+  const [imagePosition, setImagePosition] = useState(desktop.size);
   const [disablePosition, setDisablePosition] = useState(false);
+  console.log('desktop', desktop);
 
-  // TODO: Convert this all handle function to one function that dispaches every change to DisplayProperties state
+  // Convert all these handle functions to one function that dispaches every change to DisplayProperties state
+  // or make separate function for each?
   const handleClick = (e, id, background) => {
     setActiveLi(id);
 
@@ -46,7 +48,7 @@ function DesktopTab({ state, dispatch }) {
       setOverlayImage(null);
       dispatch({
         type: 'DESKTOP',
-        payload: { type: 'color', background: overlayColor },
+        payload: { type: 'color', color: overlayColor, id: id },
       });
       return;
     }
@@ -56,7 +58,12 @@ function DesktopTab({ state, dispatch }) {
 
     dispatch({
       type: 'DESKTOP',
-      payload: { type: 'url', size: imagePosition, background: background },
+      payload: {
+        type: 'url',
+        size: imagePosition,
+        image: background,
+        id: id,
+      },
     });
   };
 
@@ -75,7 +82,7 @@ function DesktopTab({ state, dispatch }) {
     setDisablePosition(true);
     dispatch({
       type: 'DESKTOP',
-      payload: { type: 'color', background: overlayColor },
+      payload: { type: 'color', color: overlayColor },
     });
   };
 
