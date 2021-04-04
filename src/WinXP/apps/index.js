@@ -92,27 +92,6 @@ export const defaultAppState = [
     id: genId(),
     zIndex: genIndex(),
   },
-  {
-    component: DisplayProperties,
-    header: {
-      icon: empty,
-      title: 'Display Properties',
-      buttons: ['help', 'close'],
-    },
-    defaultSize: {
-      width: 400,
-      height: 475,
-    },
-    defaultOffset: {
-      x: 300,
-      y: 50,
-    },
-    resizable: false,
-    minimized: false,
-    maximized: false,
-    id: genId(),
-    zIndex: genIndex(),
-  },
 ];
 
 export const defaultIconState = [
