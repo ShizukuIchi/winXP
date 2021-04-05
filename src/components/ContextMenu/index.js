@@ -28,8 +28,8 @@ function ContextMenu({ items, mousePos, parentRef, isToLeft, displayFocus }) {
     (mousePos, menuRef, parentRef, isToLeft) => {
       const windowWidth = window.innerWidth;
       const windowHeight = window.innerHeight;
-      const offSetX = 10;
-      const offSetY = 20;
+      const offsetX = 10;
+      const offsetY = 20;
       const newMenuPos = {
         top: '',
         left: '',
@@ -57,7 +57,7 @@ function ContextMenu({ items, mousePos, parentRef, isToLeft, displayFocus }) {
       if (menuRef && parentRef) {
         // recalculate position for sub-menu
         if (menuRef.x - menuRef.width < 0) {
-          newMenuPos.left = parentRef.width - offSetX;
+          newMenuPos.left = parentRef.width - offsetX;
           setOpenToLeft(false);
         } else if (isToLeft) {
           newMenuPos.left = -menuRef.width;
@@ -66,13 +66,13 @@ function ContextMenu({ items, mousePos, parentRef, isToLeft, displayFocus }) {
           newMenuPos.left = -menuRef.width;
           setOpenToLeft(true);
         } else {
-          newMenuPos.left = parentRef.width - offSetX;
+          newMenuPos.left = parentRef.width - offsetX;
         }
 
         //calculate bottom edge
         newMenuPos.top =
           menuRef.y + menuRef.height > windowHeight
-            ? -menuRef.height + offSetY
+            ? -menuRef.height + offsetY
             : 0;
 
         setMenuPosition({
