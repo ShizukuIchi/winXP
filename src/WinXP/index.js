@@ -199,7 +199,6 @@ const reducer = (state, action = { type: '' }) => {
       };
     case 'DISPLAY_PROPERTIES':
       if (action.payload.desktop) setLocalStorage('background', action.payload);
-      console.log('payload', action.payload);
       return {
         ...state,
         background: action.payload.desktop,

@@ -30,21 +30,18 @@ const backgrounds = [
 
 function DesktopTab({ state: { desktop }, dispatch }) {
   const [activeLi, setActiveLi] = useState(desktop.id);
-  const [showColor, setShowColor] = useState(false);
   const [overlayColor, setOverlayColor] = useState(desktop.color);
   const [overlayImage, setOverlayImage] = useState(desktop.image);
   const [imagePosition, setImagePosition] = useState(desktop.size);
   const [disablePosition, setDisablePosition] = useState(false);
-  console.log('desktop', desktop);
 
   // Convert all these handle functions to one function that dispaches every change to DisplayProperties state
-  // or make separate function for each?
+  // or keep separate function for each?
   const handleClick = (e, id, background) => {
     setActiveLi(id);
 
     if (e.target.innerText === '(None)') {
       setDisablePosition(true);
-      setShowColor(true);
       setOverlayImage(null);
       dispatch({
         type: 'DESKTOP',
@@ -53,7 +50,6 @@ function DesktopTab({ state: { desktop }, dispatch }) {
       return;
     }
     setDisablePosition(false);
-    setShowColor(false);
     setOverlayImage(background);
 
     dispatch({
@@ -76,13 +72,12 @@ function DesktopTab({ state: { desktop }, dispatch }) {
   };
 
   const handleColorChange = e => {
-    setShowColor(true);
     setOverlayColor(e.target.value);
     setActiveLi(1);
     setDisablePosition(true);
     dispatch({
       type: 'DESKTOP',
-      payload: { type: 'color', color: overlayColor },
+      payload: { type: 'color', color: e.target.value, id: 1 },
     });
   };
 
@@ -90,7 +85,7 @@ function DesktopTab({ state: { desktop }, dispatch }) {
     <Desktop>
       <div className="preview">
         <img src={display} alt="display" />
-        {showColor && (
+        {activeLi === 1 && (
           <div
             className="display-overlay color"
             style={{ backgroundColor: overlayColor }}
