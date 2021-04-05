@@ -58,7 +58,7 @@ function ContextMenuItem({
         </StyledItem>
       );
     case 'separator':
-      return <StyledItem className="separator"></StyledItem>;
+      return <StyledItem className="separator" />;
     default:
       return null;
   }
