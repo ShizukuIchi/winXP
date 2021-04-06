@@ -35,8 +35,6 @@ function DesktopTab({ state: { desktop }, dispatch }) {
   const [imagePosition, setImagePosition] = useState(desktop.size);
   const [disablePosition, setDisablePosition] = useState(false);
 
-  // Convert all these handle functions to one function that dispaches every change to DisplayProperties state
-  // or keep separate function for each?
   const handleClick = (e, id, background) => {
     setActiveLi(id);
 
