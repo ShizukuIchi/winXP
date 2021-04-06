@@ -133,7 +133,7 @@ function DesktopTab({ state: { desktop }, dispatch }) {
           </div>
           <div className="options">
             <button>Browse...</button>
-            <div>
+            <div className={disablePosition ? 'disabled' : ''}>
               <img className="arrow-down" src={arrowDown} alt="arrow down" />
               <label htmlFor="position">Position:</label>
               <select
@@ -245,6 +245,12 @@ const Desktop = styled.div`
     & #position {
       border-radius: 0;
       border-color: grey;
+      &:focus {
+        color: #fff;
+        background-color: #2f71cd;
+        box-shadow: 0px 0px 0px 2px #fff inset;
+        outline: none;
+      }
     }
 
     & #color {
@@ -279,6 +285,10 @@ const Desktop = styled.div`
   }
   .customize-button {
     padding: 2px 9px;
+  }
+
+  .disabled {
+    color: #9d9d9d;
   }
 `;
 
