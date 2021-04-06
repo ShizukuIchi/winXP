@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import arrowDown from '../../../assets/properties/displayProperties/icons/arrowDown.png';
@@ -34,6 +34,19 @@ function DesktopTab({ state: { desktop }, dispatch }) {
   const [overlayImage, setOverlayImage] = useState(desktop.image);
   const [imagePosition, setImagePosition] = useState(desktop.size);
   const [disablePosition, setDisablePosition] = useState(false);
+
+  const refs = backgrounds.reduce((acc, item) => {
+    acc[item.id] = React.createRef();
+    return acc;
+  }, {});
+
+  useEffect(() => {
+    refs[desktop.id].current.scrollIntoView({
+      block: 'end',
+    });
+  }, []);
+  // When I add dependencies or remove the array.
+  // Every mouse move re-renders the list to the current background.
 
   const handleClick = (e, id, background) => {
     setActiveLi(id);
@@ -102,7 +115,7 @@ function DesktopTab({ state: { desktop }, dispatch }) {
           <div className="List">
             <ul>
               {backgrounds.map(({ title, id, background }) => (
-                <li key={id}>
+                <li key={id} ref={refs[id]}>
                   <img
                     className="icon"
                     src={id === 1 ? iconNone : iconImage}
