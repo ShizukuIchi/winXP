@@ -6,7 +6,7 @@ import arrowDown from '../../../assets/properties/displayProperties/icons/arrowD
 import iconNone from '../../../assets/properties/displayProperties/icons/none.png';
 import iconImage from '../../../assets/properties/displayProperties/icons/image.png';
 import display from '../../../assets/properties/displayProperties/display.png';
-import BackgroundView from '../../../components/BackgroundView'
+import BackgroundView from '../../../components/BackgroundView';
 
 function DesktopTab({ state: { desktop }, dispatch }) {
   const { id, position, image, color } = desktop;
@@ -142,10 +142,11 @@ const Desktop = styled.div`
       background-color: #2f71cd;
     }
 
-  .preferences {
-    display: flex;
-    flex-direction: row;
-    margin: 4px 0;
+    .preferences {
+      display: flex;
+      flex-direction: row;
+      margin: 4px 0;
+    }
   }
 
   .List {
