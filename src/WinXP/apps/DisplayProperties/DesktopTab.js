@@ -1,32 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
+import { backgrounds } from './utils';
 import arrowDown from '../../../assets/properties/displayProperties/icons/arrowDown.png';
 import iconNone from '../../../assets/properties/displayProperties/icons/none.png';
 import iconImage from '../../../assets/properties/displayProperties/icons/image.png';
 import display from '../../../assets/properties/displayProperties/display.png';
-import bliss from '../../../assets/properties/displayProperties/backgrounds/bliss.jpeg';
-import reallyGood from '../../../assets/properties/displayProperties/backgrounds/really-good.png';
-import autumn from '../../../assets/properties/displayProperties/backgrounds/autumn.jpeg';
-import azul from '../../../assets/properties/displayProperties/backgrounds/azul.jpeg';
-import ascent from '../../../assets/properties/displayProperties/backgrounds/ascent.jpeg';
-import blueLace from '../../../assets/properties/displayProperties/backgrounds/blue-lace-16.jpeg';
-import crystal from '../../../assets/properties/displayProperties/backgrounds/crystal.jpeg';
-import follow from '../../../assets/properties/displayProperties/backgrounds/follow.jpeg';
-import coffeeBean from '../../../assets/properties/displayProperties/backgrounds/coffee-bean.jpeg';
-
-const backgrounds = [
-  { id: 1, title: '(None)' },
-  { id: 2, title: 'Really Good', background: reallyGood },
-  { id: 3, title: 'Ascent', background: ascent },
-  { id: 4, title: 'Autumn', background: autumn },
-  { id: 5, title: 'Azul', background: azul },
-  { id: 6, title: 'Bliss', background: bliss },
-  { id: 7, title: 'Blue Lace 16', background: blueLace },
-  { id: 8, title: 'Coffee Bean', background: coffeeBean },
-  { id: 9, title: 'Follow', background: follow },
-  { id: 10, title: 'Crystal', background: crystal },
-];
 
 function DesktopTab({ state: { desktop }, dispatch }) {
   const { id, position, image, color } = desktop;
