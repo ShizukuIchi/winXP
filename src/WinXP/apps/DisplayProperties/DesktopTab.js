@@ -6,6 +6,7 @@ import arrowDown from '../../../assets/properties/displayProperties/icons/arrowD
 import iconNone from '../../../assets/properties/displayProperties/icons/none.png';
 import iconImage from '../../../assets/properties/displayProperties/icons/image.png';
 import display from '../../../assets/properties/displayProperties/display.png';
+import BackgroundView from '../../../components/BackgroundView'
 
 function DesktopTab({ state: { desktop }, dispatch }) {
   const { id, position, image, color } = desktop;
@@ -66,21 +67,9 @@ function DesktopTab({ state: { desktop }, dispatch }) {
     <Desktop>
       <div className="preview">
         <img src={display} alt="display" />
-        {desktopState.id === 0 && (
-          <div
-            className="display-overlay color"
-            style={{ backgroundColor: desktopState.color }}
-          />
-        )}
-        <img
-          src={desktopState.image}
-          className="display-overlay"
-          alt="background"
-          style={{
-            objectFit: desktopState.position,
-            backgroundColor: desktopState.color,
-          }}
-        />
+        <div className="display-overlay">
+          <BackgroundView background={desktopState} />
+        </div>
       </div>
       <div className="settings">
         <div>Background:</div>
@@ -152,11 +141,6 @@ const Desktop = styled.div`
       height: 118px;
       background-color: #2f71cd;
     }
-
-    & .color {
-      z-index: 1;
-    }
-  }
 
   .preferences {
     display: flex;
