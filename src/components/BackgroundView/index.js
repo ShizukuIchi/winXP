@@ -10,7 +10,7 @@ const Background = styled.div`
   width: 100%;
   height: 100%;
   pointer-events: none;
-  ${({ desktop: { image, color, position } }) => {
+  ${({ image, color, position }) => {
     return `background-image: url(${image});
       background-color: ${color}
       background-repeat: ${position === 'tile' ? 'repeat' : 'no-repeat'};
