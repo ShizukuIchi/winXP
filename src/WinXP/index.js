@@ -41,12 +41,13 @@ const initState = {
   selecting: false,
   contextMenuPosition: null,
   powerState: POWER_STATE.START,
-  background: {
-    id: 6,
-    type: 'url',
-    size: 'cover',
-    image: '/static/media/bliss.bf876f9a.jpeg',
-    color: '#2f71cd',
+  displayProperties: {
+    desktop: {
+      id: 5,
+      position: 'stretch',
+      image: '/static/media/bliss.bf876f9a.jpeg',
+      color: '#2f71cd',
+    },
   },
 };
 const reducer = (state, action = { type: '' }) => {
@@ -198,10 +199,15 @@ const reducer = (state, action = { type: '' }) => {
         powerState: POWER_STATE.START,
       };
     case 'DISPLAY_PROPERTIES':
-      if (action.payload.desktop) setLocalStorage('background', action.payload);
+      if (action.payload.desktop)
+        setLocalStorage('display properties', action.payload);
       return {
         ...state,
-        background: action.payload.desktop,
+        displayProperties: {
+          desktop: {
+            ...action.payload.desktop,
+          },
+        },
       };
 
     default:
@@ -213,8 +219,12 @@ function WinXP() {
   const [state, dispatch] = useReducer(reducer, initState);
 
   useEffect(() => {
-    const desktop = getLocalStorage('background');
-    if (desktop) dispatch({ type: 'DISPLAY_PROPERTIES', payload: desktop });
+    const desktop = getLocalStorage('display properties');
+    if (desktop)
+      dispatch({
+        type: 'DISPLAY_PROPERTIES',
+        payload: desktop,
+      });
   }, []);
 
   const ref = useRef(null);
@@ -329,9 +339,10 @@ function WinXP() {
   function onModalClose() {
     dispatch({ type: CANCEL_POWER_OFF });
   }
+
   return (
     <Container
-      background={state.background}
+      desktop={state.displayProperties.desktop}
       ref={ref}
       onMouseUp={onMouseUpDesktop}
       onMouseDown={onMouseDownDesktop}
@@ -408,13 +419,14 @@ const Container = styled.div`
   height: 100%;
   overflow: hidden;
   position: relative;
-  ${({ background }) =>
-    background.type === 'url'
-      ? `background-image: url(${background.image});`
-      : `background-color: ${background.color};`}
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: ${({ background }) => background.size};
+  ${({ desktop: { image, color, position } }) => {
+    return `background-image: url(${image});
+      background-color: ${color}
+      background-repeat: ${position === 'tile' ? 'repeat' : 'no-repeat'};
+      background-position: ${position === 'tile' ? 'top left' : 'center'};
+      background-size: ${position === 'stretch' ? '100% 100%' : ''}; 
+    `;
+  }}
   animation: ${({ state }) => animation[state]} 5s forwards;
   *:not(input):not(textarea) {
     user-select: none;
