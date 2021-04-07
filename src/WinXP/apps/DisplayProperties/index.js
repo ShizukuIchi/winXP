@@ -1,4 +1,4 @@
-import React, { useReducer, useContext } from 'react';
+import React, { useReducer, useContext, useEffect, useState } from 'react';
 import { Context as AppContext } from './../../../WinXP';
 
 import TabsMenu from '../TabsMenu';
@@ -19,7 +19,7 @@ const tabs = [
 
 function DisplayProperties({ onClose }) {
   const appContext = useContext(AppContext);
-  const { background } = appContext.state;
+  const { desktop } = appContext.state.displayProperties;
 
   const reducer = (state, { type, payload }) => {
     switch (type) {
@@ -36,14 +36,19 @@ function DisplayProperties({ onClose }) {
 
   const initialState = {
     desktop: {
-      id: background.id,
-      type: background.type,
-      size: background.size,
-      image: background.image,
-      color: background.color,
+      id: desktop.id,
+      position: desktop.position,
+      image: desktop.image,
+      color: desktop.color,
     },
   };
+
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [isObjectEqual, setIsObjectEqual] = useState(false);
+
+  useEffect(() => {
+    setIsObjectEqual(JSON.stringify(state.desktop) === JSON.stringify(desktop));
+  }, [desktop, state.desktop, setIsObjectEqual]);
 
   const handleCancel = () => {
     onClose();
@@ -69,7 +74,9 @@ function DisplayProperties({ onClose }) {
       <Buttons>
         <button onClick={handleOk}>OK</button>
         <button onClick={handleCancel}>Cancel</button>
-        <button onClick={handleApply}>Apply</button>
+        <button onClick={handleApply} disabled={isObjectEqual}>
+          Apply
+        </button>
       </Buttons>
     </Properties>
   );
