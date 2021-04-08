@@ -20,6 +20,15 @@ import wind from '../../../assets/properties/displayProperties/wallpapers/wind.j
 import windowsXp from '../../../assets/properties/displayProperties/wallpapers/windows-xp.jpg';
 import blueLace from '../../../assets/properties/displayProperties/wallpapers/tiles/blue-lace-16.bmp';
 import coffeeBean from '../../../assets/properties/displayProperties/wallpapers/tiles/coffee-bean.bmp';
+import featherTexture from '../../../assets/properties/displayProperties/wallpapers/tiles/feather-texture.bmp';
+import goneFishing from '../../../assets/properties/displayProperties/wallpapers/tiles/gone-fishing.bmp';
+import greenStone from '../../../assets/properties/displayProperties/wallpapers/tiles/greenstone.bmp';
+import prairieWind from '../../../assets/properties/displayProperties/wallpapers/tiles/prairie-wind.bmp';
+import rhododendron from '../../../assets/properties/displayProperties/wallpapers/tiles/rhododendron.bmp';
+import riverSumida from '../../../assets/properties/displayProperties/wallpapers/tiles/river-sumida.bmp';
+import santaFeStucco from '../../../assets/properties/displayProperties/wallpapers/tiles/santa-fe-stucco.bmp';
+import soapBubbles from '../../../assets/properties/displayProperties/wallpapers/tiles/soap-bubbles.bmp';
+import zapotec from '../../../assets/properties/displayProperties/wallpapers/tiles/zapotec.bmp';
 
 const backgroundsObj = [
   { title: '(None)' },
@@ -30,21 +39,30 @@ const backgroundsObj = [
   { title: 'Blue Lace 16', background: blueLace },
   { title: 'Coffee Bean', background: coffeeBean },
   { title: 'Follow', background: follow },
-  { title: 'crystal', background: crystal },
-  { title: 'friend', background: friend },
-  { title: 'home', background: home },
-  { title: 'moonFlower', background: moonFlower },
-  { title: 'peace', background: peace },
-  { title: 'power', background: power },
-  { title: 'purpleFlower', background: purpleFlower },
-  { title: 'radiance', background: radiance },
-  { title: 'redMoonDesert', background: redMoonDesert },
-  { title: 'ripple', background: ripple },
-  { title: 'stonehenge', background: stonehenge },
-  { title: 'tulips', background: tulips },
-  { title: 'vortecSpace', background: vortecSpace },
-  { title: 'wind', background: wind },
-  { title: 'WindowsXP', background: windowsXp },
+  { title: 'Crystal', background: crystal },
+  { title: 'Friend', background: friend },
+  { title: 'Home', background: home },
+  { title: 'Moon Flower', background: moonFlower },
+  { title: 'Peace', background: peace },
+  { title: 'Power', background: power },
+  { title: 'purple Flower', background: purpleFlower },
+  { title: 'Radiance', background: radiance },
+  { title: 'RedMoon Desert', background: redMoonDesert },
+  { title: 'Ripple', background: ripple },
+  { title: 'Stonehenge', background: stonehenge },
+  { title: 'Tulips', background: tulips },
+  { title: 'Vortec Space', background: vortecSpace },
+  { title: 'Wind', background: wind },
+  { title: 'Windows XP', background: windowsXp },
+  { title: 'Feather Texture', background: featherTexture },
+  { title: 'Gone Fishing', background: goneFishing },
+  { title: 'GreenStone', background: greenStone },
+  { title: 'Prairie Wind', background: prairieWind },
+  { title: 'Rhododendron', background: rhododendron },
+  { title: 'River Sumida', background: riverSumida },
+  { title: 'Santa Fe Stucco', background: santaFeStucco },
+  { title: 'Soap Bubbles', background: soapBubbles },
+  { title: 'Zapotec', background: zapotec },
 ];
 
 const initializeBackgrounds = backgroundsObj => {
