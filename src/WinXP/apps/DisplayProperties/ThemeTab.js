@@ -114,9 +114,9 @@ const ThemesPage = styled.div`
 
       .trash-image {
         position: absolute;
-        top: 190px;
+        top: 185px;
         left: 295px;
-        width: 35px;
+        width: 33px;
       }
     }
   }

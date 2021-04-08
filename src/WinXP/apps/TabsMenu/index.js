@@ -78,6 +78,19 @@ const Tab = styled.div`
   border-top-right-radius: 3px;
   background-color: #fff;
 
+  &:hover::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: orange;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-top: 0.5px solid grey;
+  }
+
   &.active {
     z-index: 100;
     height: 19px;
