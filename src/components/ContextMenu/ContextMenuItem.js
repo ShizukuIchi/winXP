@@ -97,10 +97,10 @@ const StyledItem = styled.div`
   }
 
   .icon {
-    height: 14px;
+    height: 16px;
     position: absolute;
-    top: 2px;
-    left: 3px;
+    top: 1px;
+    left: 1px;
   }
 
   &.arrow:before {
