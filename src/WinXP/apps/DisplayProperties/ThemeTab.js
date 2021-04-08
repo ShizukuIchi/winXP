@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import preview from '../../../assets/properties/displayProperties/preview.png';
 import arrowDown from '../../../assets/properties/displayProperties/icons/arrowDown.png';
+import BackgroundView from '../../../components/BackgroundView';
+import windowImage from '../../../assets/properties/displayProperties/window-image.png';
+import trashImage from '../../../assets/properties/displayProperties/trash-image.png';
 
-function ThemeTab() {
+function ThemeTab({ state: { desktop } }) {
   return (
     <ThemesPage>
       <div className="description">
@@ -32,7 +34,11 @@ function ThemeTab() {
       <div className="sample">
         <p>Sample:</p>
         <div className="preview">
-          <img src={preview} alt="preview" />
+          <div className="background">
+            <BackgroundView background={desktop} />
+          </div>
+          <img className="window-image" src={windowImage} alt="window" />
+          <img className="trash-image" src={trashImage} alt="trash" />
         </div>
       </div>
     </ThemesPage>
@@ -83,17 +89,34 @@ const ThemesPage = styled.div`
   }
 
   .sample {
-    margin-top: 15px;
+    margin-top: 20px;
 
     .preview {
+      position: relative;
       margin-top: 5px;
-      height: 2px;
-      height: 235px;
+      height: 230px;
+      box-shadow: 0px 0px 3px 1px grey inset;
 
-      img {
-        width: 100%;
+      .background {
         height: 100%;
-        object-fit: fill;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .window-image {
+        position: absolute;
+        top: 35px;
+        left: 35px;
+        width: 215px;
+      }
+
+      .trash-image {
+        position: absolute;
+        top: 190px;
+        left: 295px;
+        width: 35px;
       }
     }
   }
