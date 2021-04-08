@@ -1,12 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import arrowDown from '../../../assets/properties/displayProperties/icons/arrowDown.png';
 import BackgroundView from '../../../components/BackgroundView';
+
+import arrowDown from '../../../assets/properties/displayProperties/icons/arrowDown.png';
+import classicXP from '../../../assets/properties/displayProperties/classic-xp.png';
 import windowImage from '../../../assets/properties/displayProperties/window-image.png';
 import trashImage from '../../../assets/properties/displayProperties/trash-image.png';
 
-function ThemeTab({ state: { desktop } }) {
+import { getLocalStorage } from '../../utils';
+import { DESKTOP } from './utils';
+
+const defaultDesktop = {
+  id: 5,
+  position: 'stretch',
+  image: '/static/media/bliss.bf876f9a.jpeg',
+  color: '#2f71cd',
+};
+
+function ThemeTab({ state, dispatch }) {
+  const [preview, setpreview] = useState(null);
+
+  const handleSelectChange = e => {
+    const { value } = e.target;
+
+    switch (value) {
+      case classicXP:
+        setpreview(classicXP);
+        break;
+      case 'current':
+        setpreview(null);
+        const displayProps = getLocalStorage('display properties');
+
+        dispatch({
+          type: DESKTOP,
+          payload: displayProps ? displayProps.desktop : defaultDesktop,
+        });
+        break;
+      case 'xp':
+        setpreview(null);
+        dispatch({ type: DESKTOP, payload: defaultDesktop });
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <ThemesPage>
       <div className="description">
@@ -21,9 +60,19 @@ function ThemeTab({ state: { desktop } }) {
           <label className="label" htmlFor="theme-picker">
             Theme:
           </label>
-          <select className="select" id="theme-picker">
-            <option value="Windows-xp">Windows XP</option>
-            <option value="pink">Pink</option>
+          <select
+            className="select"
+            id="theme-picker"
+            onChange={handleSelectChange}
+          >
+            {state.hasChanges && (
+              <option value="current">Windows XP (Modified)</option>
+            )}
+            <option value="current">My Current Theme</option>
+            <option value="xp">Windows XP</option>
+            <option value={classicXP}>Windows Classic</option>
+            <option value="more">More themes online...</option>
+            <option value="browse">Browse...</option>
           </select>
         </div>
         <div className="buttons">
@@ -35,10 +84,17 @@ function ThemeTab({ state: { desktop } }) {
         <p>Sample:</p>
         <div className="preview">
           <div className="background">
-            <BackgroundView background={desktop} />
+            {preview && (
+              <img className="background" src={classicXP} alt="classic" />
+            )}
+            <BackgroundView background={state.displayProperties.desktop} />
           </div>
-          <img className="window-image" src={windowImage} alt="window" />
-          <img className="trash-image" src={trashImage} alt="trash" />
+          {!preview && (
+            <img className="window-image" src={windowImage} alt="window" />
+          )}
+          {!preview && (
+            <img className="trash-image" src={trashImage} alt="trash" />
+          )}
         </div>
       </div>
     </ThemesPage>

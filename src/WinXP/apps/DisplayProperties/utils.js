@@ -70,3 +70,7 @@ const initializeBackgrounds = backgroundsObj => {
 };
 
 export const backgrounds = initializeBackgrounds(backgroundsObj);
+
+export const DISPLAY_PROPERTIES = 'DISPLAY_PROPERTIES';
+export const DESKTOP = 'DESKTOP';
+export const CHANGE = 'CHANGE';

@@ -1,13 +1,16 @@
-import React, { useReducer, useContext, useEffect, useState } from 'react';
+import React, { useReducer, useContext, useEffect } from 'react';
+import styled from 'styled-components';
+
 import { Context as AppContext } from './../../../WinXP';
 
 import TabsMenu from '../TabsMenu';
+
 import ThemeTab from './ThemeTab';
 import AppearanceTab from './AppearanceTab';
 import DesktopTab from './DesktopTab';
 import ScreenSaverTab from './ScreenSaverTab';
 import SettingsTab from './SettingsTab';
-import styled from 'styled-components';
+import { DESKTOP, CHANGE, DISPLAY_PROPERTIES } from './utils';
 
 const tabs = [
   { id: 1, title: 'Themes', content: ThemeTab },
@@ -19,47 +22,55 @@ const tabs = [
 
 function DisplayProperties({ onClose }) {
   const appContext = useContext(AppContext);
-  const { desktop } = appContext.state.displayProperties;
+  const { displayProperties } = appContext.state;
 
   const reducer = (state, { type, payload }) => {
     switch (type) {
-      case 'DESKTOP':
-        state.desktop = {
-          ...state.desktop,
-          ...payload,
+      case CHANGE:
+        return {
+          ...state,
+          hasChanges: payload,
         };
-        return state;
+      case DESKTOP:
+        return {
+          ...state,
+          displayProperties: {
+            ...displayProperties,
+            desktop: {
+              ...state.displayProperties.desktop,
+              ...payload,
+            },
+          },
+        };
       default:
         break;
     }
   };
 
-  const initialState = {
-    desktop: {
-      id: desktop.id,
-      position: desktop.position,
-      image: desktop.image,
-      color: desktop.color,
-    },
-  };
-
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const [isObjectEqual, setIsObjectEqual] = useState(false);
+  const [state, dispatch] = useReducer(reducer, {
+    displayProperties,
+    hasChanges: false,
+  });
 
   useEffect(() => {
-    setIsObjectEqual(JSON.stringify(state.desktop) === JSON.stringify(desktop));
-  }, [desktop, state.desktop, setIsObjectEqual]);
+    dispatch({
+      type: CHANGE,
+      payload:
+        JSON.stringify(state.displayProperties) !==
+        JSON.stringify(displayProperties),
+    });
+  }, [displayProperties, state.displayProperties]);
 
-  const handleCancel = () => {
-    onClose();
-  };
+  const handleCancel = () => onClose();
 
-  const handleApply = () => {
-    appContext.dispatch({ type: 'DISPLAY_PROPERTIES', payload: state });
-  };
+  const handleApply = () =>
+    appContext.dispatch({
+      type: DISPLAY_PROPERTIES,
+      payload: { ...state.displayProperties },
+    });
 
   const handleOk = () => {
-    appContext.dispatch({ type: 'DISPLAY_PROPERTIES', payload: state });
+    handleApply();
     onClose();
   };
 
@@ -74,7 +85,7 @@ function DisplayProperties({ onClose }) {
       <Buttons>
         <button onClick={handleOk}>OK</button>
         <button onClick={handleCancel}>Cancel</button>
-        <button onClick={handleApply} disabled={isObjectEqual}>
+        <button onClick={handleApply} disabled={!state.hasChanges}>
           Apply
         </button>
       </Buttons>

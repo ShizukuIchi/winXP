@@ -200,15 +200,11 @@ const reducer = (state, action = { type: '' }) => {
         powerState: POWER_STATE.START,
       };
     case 'DISPLAY_PROPERTIES':
-      if (action.payload.desktop)
-        setLocalStorage('display properties', action.payload);
+      if (action.payload) setLocalStorage('display properties', action.payload);
+
       return {
         ...state,
-        displayProperties: {
-          desktop: {
-            ...action.payload.desktop,
-          },
-        },
+        displayProperties: action.payload,
       };
 
     default:

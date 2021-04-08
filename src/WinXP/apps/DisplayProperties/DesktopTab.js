@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import { backgrounds } from './utils';
+import BackgroundView from '../../../components/BackgroundView';
+
 import arrowDown from '../../../assets/properties/displayProperties/icons/arrowDown.png';
 import iconNone from '../../../assets/properties/displayProperties/icons/none.png';
 import iconImage from '../../../assets/properties/displayProperties/icons/image.png';
 import display from '../../../assets/properties/displayProperties/display.png';
-import BackgroundView from '../../../components/BackgroundView';
 
-function DesktopTab({ state: { desktop }, dispatch }) {
-  const { id, position, image, color } = desktop;
+import { backgrounds, DESKTOP } from './utils';
+
+function DesktopTab({ state, dispatch }) {
+  const { id, position, image, color } = state.displayProperties.desktop;
   const [disablePosition, setDisablePosition] = useState(false);
   const [desktopState, setDesktopState] = useState({
     id,
@@ -25,10 +27,10 @@ function DesktopTab({ state: { desktop }, dispatch }) {
 
   useEffect(() => {
     if (desktopState.id === 0) setDisablePosition(true);
-    dispatch({ type: 'DESKTOP', payload: desktopState });
+    dispatch({ type: DESKTOP, payload: desktopState });
   }, [desktopState, setDisablePosition, dispatch]);
 
-  //scroll to view
+  // Scroll to view.
   const [init, setInit] = useState(false);
 
   useEffect(() => {
