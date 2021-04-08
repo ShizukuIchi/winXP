@@ -15,7 +15,7 @@ const Background = styled.div`
       background-color: ${color}
       background-repeat: ${position === 'tile' ? 'repeat' : 'no-repeat'};
       background-position: ${position === 'tile' ? 'top left' : 'center'};
-      background-size: ${position === 'stretch' ? '100% 100%' : ''}; 
+      background-size: ${position === 'stretch' ? '100% 100%' : '5% 4%'}; 
     `;
   }}
 `;
