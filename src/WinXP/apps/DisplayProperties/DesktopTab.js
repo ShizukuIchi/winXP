@@ -141,12 +141,12 @@ const Desktop = styled.div`
       height: 118px;
       background-color: #2f71cd;
     }
+  }
 
-    .preferences {
-      display: flex;
-      flex-direction: row;
-      margin: 4px 0;
-    }
+  .preferences {
+    display: flex;
+    flex-direction: row;
+    margin: 4px 0;
   }
 
   .List {
