@@ -35,8 +35,8 @@ function ContextMenu({
     (mousePos, menuRef, parentRef, isToLeft) => {
       const windowWidth = window.innerWidth;
       const windowHeight = window.innerHeight;
-      const offSetX = 10;
-      const offSetY = 20;
+      const offsetX = 10;
+      const offsetY = 20;
       const newMenuPos = {
         top: '',
         left: '',
@@ -63,20 +63,23 @@ function ContextMenu({
 
       if (menuRef && parentRef) {
         // recalculate position for sub-menu
-        if (isToLeft) {
+        if (menuRef.x - menuRef.width < 0) {
+          newMenuPos.left = parentRef.width - offsetX;
+          setOpenToLeft(false);
+        } else if (isToLeft) {
           newMenuPos.left = -menuRef.width;
           setOpenToLeft(true);
         } else if (menuRef.x + menuRef.width + parentRef.width > windowWidth) {
           newMenuPos.left = -menuRef.width;
           setOpenToLeft(true);
         } else {
-          newMenuPos.left = parentRef.width - offSetX;
+          newMenuPos.left = parentRef.width - offsetX;
         }
 
         //calculate bottom edge
         newMenuPos.top =
           menuRef.y + menuRef.height > windowHeight
-            ? -menuRef.height + offSetY
+            ? -menuRef.height + offsetY
             : 0;
 
         setMenuPosition({
@@ -91,8 +94,8 @@ function ContextMenu({
   );
 
   useEffect(() => {
-    initializeMenuPosition(mousePos, menuRef, parentRef);
-  }, [mousePos, menuRef, parentRef, initializeMenuPosition]);
+    initializeMenuPosition(mousePos, menuRef, parentRef, isToLeft);
+  }, [mousePos, menuRef, parentRef, isToLeft, initializeMenuPosition]);
 
   return (
     <StyledContextList
