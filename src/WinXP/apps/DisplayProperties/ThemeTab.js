@@ -90,10 +90,10 @@ function ThemeTab({ state, dispatch }) {
             <BackgroundView background={state.displayProperties.desktop} />
           </div>
           {!preview && (
-            <img className="window-image" src={windowImage} alt="window" />
-          )}
-          {!preview && (
-            <img className="trash-image" src={trashImage} alt="trash" />
+            <>
+              <img className="window-image" src={windowImage} alt="window" />
+              <img className="trash-image" src={trashImage} alt="trash" />
+            </>
           )}
         </div>
       </div>
