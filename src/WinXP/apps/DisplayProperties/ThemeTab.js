@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import BackgroundView from '../../../components/BackgroundView';
 
+import bliss from '../../../assets/properties/displayProperties/backgrounds/bliss.bmp';
 import arrowDown from '../../../assets/properties/displayProperties/icons/arrowDown.png';
 import classicXP from '../../../assets/properties/displayProperties/classic-xp.png';
 import windowImage from '../../../assets/properties/displayProperties/window-image.png';
@@ -14,7 +15,7 @@ import { DESKTOP } from './utils';
 const defaultDesktop = {
   id: 5,
   position: 'stretch',
-  image: '/static/media/bliss.bf876f9a.jpeg',
+  image: bliss,
   color: '#2f71cd',
 };
 

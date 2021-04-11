@@ -29,7 +29,7 @@ import ContextMenu from '../components/ContextMenu';
 import { contextMenuData } from '../components/ContextMenu/utils';
 import BackgroundView from '../components/BackgroundView';
 
-import bliss from '../assets/properties/displayProperties/wallpapers/bliss.bmp';
+import bliss from '../assets/properties/displayProperties/backgrounds/bliss.bmp';
 
 import { DashedBox } from 'components';
 
