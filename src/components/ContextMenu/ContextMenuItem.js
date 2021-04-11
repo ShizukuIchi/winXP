@@ -69,7 +69,7 @@ const StyledItem = styled.div`
   min-width: 150px;
   height: 20px;
   background-color: inherit;
-  padding: 0 30px 0 20px;
+  padding: 0 30px 0 22px;
   text-overflow: ellipsis;
 
   &:hover {
