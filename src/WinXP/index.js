@@ -14,6 +14,7 @@ import {
   FOCUS_DESKTOP,
   START_SELECT,
   END_SELECT,
+  CONTEXT_MENU,
   POWER_OFF,
   CANCEL_POWER_OFF,
 } from './constants/actions';
@@ -23,6 +24,9 @@ import Modal from './Modal';
 import Footer from './Footer';
 import Windows from './Windows';
 import Icons from './Icons';
+import ContextMenu from '../components/ContextMenu';
+import { contextMenuData } from '../components/ContextMenu/utils';
+
 import { DashedBox } from 'components';
 
 export const Context = React.createContext();
@@ -34,6 +38,7 @@ const initState = {
   focusing: FOCUSING.WINDOW,
   icons: defaultIconState,
   selecting: false,
+  contextMenuPosition: null,
   powerState: POWER_STATE.START,
 };
 const reducer = (state, action = { type: '' }) => {
@@ -160,11 +165,17 @@ const reducer = (state, action = { type: '' }) => {
           isFocus: false,
         })),
         selecting: action.payload,
+        contextMenuPosition: null,
       };
     case END_SELECT:
       return {
         ...state,
         selecting: null,
+      };
+    case CONTEXT_MENU:
+      return {
+        ...state,
+        contextMenuPosition: action.payload,
       };
     case POWER_OFF:
       return {
@@ -274,6 +285,13 @@ function WinXP() {
   function onMouseUpDesktop(e) {
     dispatch({ type: END_SELECT });
   }
+  function onContextMenu(e) {
+    e.preventDefault();
+    dispatch({
+      type: CONTEXT_MENU,
+      payload: { x: mouse.docX, y: mouse.docY },
+    });
+  }
   function onIconsSelected(iconIds) {
     dispatch({ type: SELECT_ICONS, payload: iconIds });
   }
@@ -292,6 +310,7 @@ function WinXP() {
       ref={ref}
       onMouseUp={onMouseUpDesktop}
       onMouseDown={onMouseDownDesktop}
+      onContextMenu={onContextMenu}
       state={state.powerState}
     >
       <Icons
@@ -327,6 +346,13 @@ function WinXP() {
           onClose={onModalClose}
           onClickButton={onClickModalButton}
           mode={state.powerState}
+        />
+      )}
+      {state.contextMenuPosition && (
+        <ContextMenu
+          items={contextMenuData}
+          mousePos={state.contextMenuPosition}
+          displayFocus={state.focusing === FOCUSING.ICON}
         />
       )}
     </Container>
