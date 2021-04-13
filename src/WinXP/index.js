@@ -1,4 +1,4 @@
-import React, { useReducer, useRef, useCallback, useEffect } from 'react';
+import React, { useReducer, useRef, useCallback, useLayoutEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import useMouse from 'react-use/lib/useMouse';
 import ga from 'react-ga';
@@ -217,7 +217,7 @@ const reducer = (state, action = { type: '' }) => {
 function WinXP() {
   const [state, dispatch] = useReducer(reducer, initState);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const desktop = getLocalStorage('display properties');
     if (desktop)
       dispatch({
