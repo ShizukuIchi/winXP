@@ -6,9 +6,11 @@ function Button({
   children,
   disabled,
   onClick,
-  width = 70,
+  width,
+  height,
   marginRight,
   marginLeft,
+  fontSize,
 }) {
   return (
     <StyledButton
@@ -18,6 +20,8 @@ function Button({
       width={width}
       marginRight={marginRight}
       marginLeft={marginLeft}
+      fontSize={fontSize}
+      height={height}
     >
       {children}
     </StyledButton>
@@ -25,9 +29,11 @@ function Button({
 }
 
 const StyledButton = styled.button`
-  ${({ fontSize, width, marginRight, marginLeft }) => {
+  ${({ fontSize, width, height, marginRight, marginLeft }) => {
     return `
         all: unset;
+        font-size: ${fontSize}px;
+        height: ${height}px;
         width: ${width}px;
         text-align: center;
         line-height: 1.2;
