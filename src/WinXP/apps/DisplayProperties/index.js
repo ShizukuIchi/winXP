@@ -12,6 +12,8 @@ import ScreenSaverTab from './ScreenSaverTab';
 import SettingsTab from './SettingsTab';
 import { DESKTOP, CHANGE, DISPLAY_PROPERTIES } from './utils';
 
+import Button from '../../../components/Button';
+
 const tabs = [
   { id: 1, title: 'Themes', content: ThemeTab },
   { id: 2, title: 'Desktop', content: DesktopTab },
@@ -83,11 +85,15 @@ function DisplayProperties({ onClose }) {
         appContext={appContext}
       />
       <Buttons>
-        <button onClick={handleOk}>OK</button>
-        <button onClick={handleCancel}>Cancel</button>
-        <button onClick={handleApply} disabled={!state.hasChanges}>
+        <Button onClick={handleOk} width={70} marginRight={4}>
+          OK
+        </Button>
+        <Button onClick={handleCancel} width={70} marginRight={4}>
+          Cancel
+        </Button>
+        <Button onClick={handleApply} width={70} disabled={!state.hasChanges}>
           Apply
-        </button>
+        </Button>
       </Buttons>
     </Properties>
   );
@@ -106,15 +112,6 @@ const Buttons = styled.div`
   justify-content: flex-end;
   height: 20px;
   width: 100%;
-
-  button {
-    width: 70px;
-    margin-left: 5px;
-  }
-
-  button:first-child {
-    margin-left: 0;
-  }
 `;
 
 export default DisplayProperties;

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import BackgroundView from '../../../components/BackgroundView';
+import Button from '../../../components/Button';
 
 import bliss from '../../../assets/properties/displayProperties/backgrounds/bliss.bmp';
 import arrowDown from '../../../assets/properties/displayProperties/icons/arrowDown.png';
@@ -77,8 +78,12 @@ function ThemeTab({ state, dispatch }) {
           </select>
         </div>
         <div className="buttons">
-          <button>Save As...</button>
-          <button>Delete</button>
+          <Button marginLeft={4} fontSize={13} width={78} height={18}>
+            Save As...
+          </Button>
+          <Button marginLeft={4} fontSize={13} width={78} height={18}>
+            Delete
+          </Button>
         </div>
       </div>
       <div className="sample">
@@ -132,16 +137,6 @@ const ThemesPage = styled.div`
       width: 180px;
       border-radius: 0;
       border-color: grey;
-    }
-  }
-
-  & .buttons {
-    button {
-      width: 80px;
-    }
-
-    button:first-child {
-      margin-right: 4px;
     }
   }
 

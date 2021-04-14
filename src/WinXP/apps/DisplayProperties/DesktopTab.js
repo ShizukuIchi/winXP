@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
+import { backgrounds, DESKTOP } from './utils';
+
 import BackgroundView from '../../../components/BackgroundView';
 
+import display from '../../../assets/properties/displayProperties/display.png';
 import arrowDown from '../../../assets/properties/displayProperties/icons/arrowDown.png';
 import iconNone from '../../../assets/properties/displayProperties/icons/none.png';
 import iconImage from '../../../assets/properties/displayProperties/icons/image.png';
-import display from '../../../assets/properties/displayProperties/display.png';
 
-import { backgrounds, DESKTOP } from './utils';
+import Button from '../../../components/Button';
 
 function DesktopTab({ state, dispatch }) {
   const { id, position, image, color } = state.displayProperties.desktop;
@@ -96,7 +98,7 @@ function DesktopTab({ state, dispatch }) {
             </ul>
           </div>
           <div className="options">
-            <button>Browse...</button>
+            <Button height={18}>Browse...</Button>
             <div className={disablePosition ? 'disabled' : ''}>
               <img className="arrow-down" src={arrowDown} alt="arrow down" />
               <label htmlFor="position">Position:</label>
@@ -122,7 +124,9 @@ function DesktopTab({ state, dispatch }) {
             </div>
           </div>
         </div>
-        <button className="customize-button">Customize Desktop...</button>
+        <Button width={146} height={18}>
+          Customize Desktop...
+        </Button>
       </div>
     </Desktop>
   );
@@ -243,9 +247,6 @@ const Desktop = styled.div`
     & label {
       display: block;
     }
-  }
-  .customize-button {
-    padding: 2px 9px;
   }
 
   .disabled {
