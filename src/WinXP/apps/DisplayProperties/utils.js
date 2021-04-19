@@ -71,6 +71,13 @@ const initializeBackgrounds = backgroundsObj => {
 
 export const backgrounds = initializeBackgrounds(backgroundsObj);
 
+export const defaultDesktop = {
+  id: 5,
+  position: 'stretch',
+  image: bliss,
+  color: '#2f71cd',
+};
+
 export const DISPLAY_PROPERTIES = 'DISPLAY_PROPERTIES';
 export const DESKTOP = 'DESKTOP';
 export const CHANGE = 'CHANGE';

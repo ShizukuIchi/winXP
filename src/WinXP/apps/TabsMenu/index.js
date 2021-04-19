@@ -11,7 +11,7 @@ function TabsMenu({ tabs, state, dispatch }) {
       item => item.defaultTab && isValidTab(item),
     );
 
-    setActiveTab(defaultTabIndex !== -1 ? defaultTabIndex : fallbackTabIndex);
+    setActiveTab(defaultTabIndex === -1 ? fallbackTabIndex : defaultTabIndex);
   }, [tabs]);
 
   function isValidTab(tab) {
@@ -36,7 +36,7 @@ function TabsMenu({ tabs, state, dispatch }) {
 
           return (
             <Tab
-              key={item.id}
+              key={item.title}
               onClick={() => handleClick(item, index)}
               className={`${classes.active} ${classes.disabled}`}
             >
@@ -46,10 +46,10 @@ function TabsMenu({ tabs, state, dispatch }) {
         })}
       </Tabs>
       <Content>
-        {tabs.map(({ content: Content, id }, index) => {
+        {tabs.map(({ content: Content, title }, index) => {
           if (index !== activeTab) return null;
 
-          return <Content key={id} state={state} dispatch={dispatch} />;
+          return <Content key={title} state={state} dispatch={dispatch} />;
         })}
       </Content>
     </TabMenu>
@@ -92,7 +92,7 @@ const Tab = styled.div`
   }
 
   &.active {
-    z-index: 100;
+    z-index: 1;
     height: 19px;
     border-bottom: none;
 

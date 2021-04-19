@@ -4,35 +4,27 @@ import styled from 'styled-components';
 import BackgroundView from '../../../components/BackgroundView';
 import Button from '../../../components/Button';
 
-import bliss from '../../../assets/properties/displayProperties/backgrounds/bliss.bmp';
 import arrowDown from '../../../assets/properties/displayProperties/icons/arrowDown.png';
 import classicXP from '../../../assets/properties/displayProperties/classic-xp.png';
 import windowImage from '../../../assets/properties/displayProperties/window-image.png';
 import trashImage from '../../../assets/properties/displayProperties/trash-image.png';
 
 import { getLocalStorage } from '../../utils';
-import { DESKTOP } from './utils';
-
-const defaultDesktop = {
-  id: 5,
-  position: 'stretch',
-  image: bliss,
-  color: '#2f71cd',
-};
+import { DESKTOP, defaultDesktop } from './utils';
 
 function ThemeTab({ state, dispatch }) {
-  const [preview, setpreview] = useState(null);
+  const [preview, setPreview] = useState(null);
 
   const handleSelectChange = e => {
     const { value } = e.target;
 
     switch (value) {
       case classicXP:
-        setpreview(classicXP);
+        setPreview(classicXP);
         break;
       case 'current':
-        setpreview(null);
-        const displayProps = getLocalStorage('display properties');
+        setPreview(null);
+        const displayProps = getLocalStorage('displayProperties');
 
         dispatch({
           type: DESKTOP,
@@ -40,7 +32,7 @@ function ThemeTab({ state, dispatch }) {
         });
         break;
       case 'xp':
-        setpreview(null);
+        setPreview(null);
         dispatch({ type: DESKTOP, payload: defaultDesktop });
         break;
       default:
@@ -54,7 +46,7 @@ function ThemeTab({ state, dispatch }) {
         <p>
           A theme is a background plus a set of sounds, icons and other elements
         </p>
-        <p> to help you personalize your computer with one click.</p>
+        <p>to help you personalize your computer with one click.</p>
       </div>
       <div className="theme">
         <div className="options">
@@ -147,14 +139,18 @@ const ThemesPage = styled.div`
       position: relative;
       margin-top: 5px;
       height: 230px;
-      box-shadow: 0px 0px 3px 1px grey inset;
+
+      &:before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        box-shadow: -0.5px -0.5px 1.5px 1px #262626;
+      }
 
       .background {
         height: 100%;
         width: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
       }
 
       .window-image {

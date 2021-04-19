@@ -2,6 +2,7 @@ import React, { useReducer, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { Context as AppContext } from './../../../WinXP';
+import Button from '../../../components/Button';
 
 import TabsMenu from '../TabsMenu';
 
@@ -12,14 +13,12 @@ import ScreenSaverTab from './ScreenSaverTab';
 import SettingsTab from './SettingsTab';
 import { DESKTOP, CHANGE, DISPLAY_PROPERTIES } from './utils';
 
-import Button from '../../../components/Button';
-
 const tabs = [
-  { id: 1, title: 'Themes', content: ThemeTab },
-  { id: 2, title: 'Desktop', content: DesktopTab },
-  { id: 3, title: 'Screen Saver', content: ScreenSaverTab },
-  { id: 4, title: 'Appearance', content: AppearanceTab },
-  { id: 5, title: 'Settings', content: SettingsTab },
+  { title: 'Themes', content: ThemeTab },
+  { title: 'Desktop', content: DesktopTab },
+  { title: 'Screen Saver', content: ScreenSaverTab },
+  { title: 'Appearance', content: AppearanceTab },
+  { title: 'Settings', content: SettingsTab },
 ];
 
 function DisplayProperties({ onClose }) {
@@ -63,12 +62,12 @@ function DisplayProperties({ onClose }) {
     });
   }, [displayProperties, state.displayProperties]);
 
-  const handleCancel = () => onClose();
+  const handleCancel = onClose;
 
   const handleApply = () =>
     appContext.dispatch({
       type: DISPLAY_PROPERTIES,
-      payload: { ...state.displayProperties },
+      payload: state.displayProperties,
     });
 
   const handleOk = () => {

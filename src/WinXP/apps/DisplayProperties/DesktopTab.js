@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import { backgrounds, DESKTOP } from './utils';
-
 import BackgroundView from '../../../components/BackgroundView';
 
 import display from '../../../assets/properties/displayProperties/display.png';
@@ -11,10 +9,10 @@ import iconNone from '../../../assets/properties/displayProperties/icons/none.pn
 import iconImage from '../../../assets/properties/displayProperties/icons/image.png';
 
 import Button from '../../../components/Button';
+import { backgrounds, DESKTOP } from './utils';
 
 function DesktopTab({ state, dispatch }) {
   const { id, position, image, color } = state.displayProperties.desktop;
-  const [disablePosition, setDisablePosition] = useState(false);
   const [desktopState, setDesktopState] = useState({
     id,
     position,
@@ -22,15 +20,16 @@ function DesktopTab({ state, dispatch }) {
     color,
   });
 
+  const isBackgroundNone = desktopState.id === 1;
+
   const refs = backgrounds.reduce((acc, item) => {
     acc[item.id] = React.createRef();
     return acc;
   }, {});
 
   useEffect(() => {
-    if (desktopState.id === 0) setDisablePosition(true);
     dispatch({ type: DESKTOP, payload: desktopState });
-  }, [desktopState, setDisablePosition, dispatch]);
+  }, [desktopState, dispatch]);
 
   // Scroll to view.
   const [init, setInit] = useState(false);
@@ -49,12 +48,11 @@ function DesktopTab({ state, dispatch }) {
   const handleBackgroundClick = (e, id, background) => {
     setDesktopState(prev => ({ ...prev, id }));
 
-    if (e.target.innerText === '(None)') {
-      setDisablePosition(true);
+    const hasNoBackground = e.target.innerText === backgrounds[0].title;
+    if (hasNoBackground) {
       setDesktopState(prev => ({ ...prev, image: null }));
       return;
     }
-    setDisablePosition(false);
     setDesktopState(prev => ({ ...prev, image: background }));
   };
 
@@ -99,12 +97,13 @@ function DesktopTab({ state, dispatch }) {
           </div>
           <div className="options">
             <Button height={18}>Browse...</Button>
-            <div className={disablePosition ? 'disabled' : ''}>
+            <div className={isBackgroundNone ? 'disabled' : ''}>
               <img className="arrow-down" src={arrowDown} alt="arrow down" />
               <label htmlFor="position">Position:</label>
               <select
-                disabled={disablePosition}
+                disabled={isBackgroundNone}
                 id="position"
+                className="position-input"
                 onChange={handleSelectChange}
                 defaultValue={position}
               >
@@ -117,6 +116,7 @@ function DesktopTab({ state, dispatch }) {
               <label htmlFor="color">Color:</label>
               <input
                 id="color"
+                className="color-input"
                 type="color"
                 onChange={e => handleColorChange(e)}
                 value={desktopState.color}
@@ -183,6 +183,7 @@ const Desktop = styled.div`
       border: 1px dotted grey;
     }
   }
+  
   .options {
     position: relative;
     display: flex;
@@ -207,7 +208,7 @@ const Desktop = styled.div`
       pointer-events: none;
     }
 
-    & #position {
+    & .position-input {
       border-radius: 0;
       border-color: grey;
       &:focus {
@@ -218,7 +219,7 @@ const Desktop = styled.div`
       }
     }
 
-    & #color {
+    & .color-input {
       position: relative;
       padding: 0 16px 0 2px;
       border-radius: 4px;

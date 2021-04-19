@@ -2,7 +2,9 @@ import React, { useReducer, useRef, useCallback, useLayoutEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import useMouse from 'react-use/lib/useMouse';
 import ga from 'react-ga';
+
 import { getLocalStorage, setLocalStorage } from './utils';
+import { defaultDesktop } from './apps/DisplayProperties/utils';
 
 import {
   ADD_APP,
@@ -29,8 +31,6 @@ import ContextMenu from '../components/ContextMenu';
 import { contextMenuData } from '../components/ContextMenu/utils';
 import BackgroundView from '../components/BackgroundView';
 
-import bliss from '../assets/properties/displayProperties/backgrounds/bliss.bmp';
-
 import { DashedBox } from 'components';
 
 export const Context = React.createContext();
@@ -45,12 +45,7 @@ const initState = {
   contextMenuPosition: null,
   powerState: POWER_STATE.START,
   displayProperties: {
-    desktop: {
-      id: 5,
-      position: 'stretch',
-      image: bliss,
-      color: '#2f71cd',
-    },
+    desktop: defaultDesktop,
   },
 };
 const reducer = (state, action = { type: '' }) => {
@@ -77,7 +72,7 @@ const reducer = (state, action = { type: '' }) => {
           nextAppID: state.nextAppID + 1,
           nextZIndex: state.nextZIndex + 1,
           focusing: FOCUSING.WINDOW,
-          contextMenuPosition: false,
+          contextMenuPosition: null,
         };
       }
       const apps = state.apps.map(app =>
@@ -90,7 +85,7 @@ const reducer = (state, action = { type: '' }) => {
         apps,
         nextZIndex: state.nextZIndex + 1,
         focusing: FOCUSING.WINDOW,
-        contextMenuPosition: false,
+        contextMenuPosition: null,
       };
     case DEL_APP:
       if (state.focusing !== FOCUSING.WINDOW) return state;
@@ -202,7 +197,7 @@ const reducer = (state, action = { type: '' }) => {
         powerState: POWER_STATE.START,
       };
     case 'DISPLAY_PROPERTIES':
-      if (action.payload) setLocalStorage('display properties', action.payload);
+      if (action.payload) setLocalStorage('displayProperties', action.payload);
 
       return {
         ...state,
@@ -218,7 +213,7 @@ function WinXP() {
   const [state, dispatch] = useReducer(reducer, initState);
 
   useLayoutEffect(() => {
-    const desktop = getLocalStorage('display properties');
+    const desktop = getLocalStorage('displayProperties');
     if (desktop)
       dispatch({
         type: 'DISPLAY_PROPERTIES',
