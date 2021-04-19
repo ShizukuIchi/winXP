@@ -183,7 +183,7 @@ const Desktop = styled.div`
       border: 1px dotted grey;
     }
   }
-  
+
   .options {
     position: relative;
     display: flex;
