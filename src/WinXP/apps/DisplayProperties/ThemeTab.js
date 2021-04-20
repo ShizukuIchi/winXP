@@ -70,10 +70,20 @@ function ThemeTab({ state, dispatch }) {
           </select>
         </div>
         <div className="buttons">
-          <Button marginLeft={4} fontSize={13} width={78} height={18}>
+          <Button
+            style={{
+              marginLeft: 4,
+              width: 78,
+            }}
+          >
             Save As...
           </Button>
-          <Button marginLeft={4} fontSize={13} width={78} height={18} disabled>
+          <Button
+            style={{
+              marginLeft: 4,
+              width: 78,
+            }}
+          >
             Delete
           </Button>
         </div>

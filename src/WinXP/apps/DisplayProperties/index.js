@@ -84,13 +84,29 @@ function DisplayProperties({ onClose }) {
         appContext={appContext}
       />
       <Buttons>
-        <Button onClick={handleOk} width={70} marginRight={4}>
+        <Button
+          onClick={handleOk}
+          style={{
+            marginRight: 4,
+          }}
+        >
           OK
         </Button>
-        <Button onClick={handleCancel} width={70} marginRight={4}>
+        <Button
+          onClick={handleCancel}
+          style={{
+            marginRight: 4,
+          }}
+        >
           Cancel
         </Button>
-        <Button onClick={handleApply} width={70} disabled={!state.hasChanges}>
+        <Button
+          onClick={handleApply}
+          style={{
+            width: 70,
+          }}
+          disabled={!state.hasChanges}
+        >
           Apply
         </Button>
       </Buttons>

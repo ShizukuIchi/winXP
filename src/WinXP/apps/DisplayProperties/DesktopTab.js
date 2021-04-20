@@ -96,7 +96,7 @@ function DesktopTab({ state, dispatch }) {
             </ul>
           </div>
           <div className="options">
-            <Button height={18}>Browse...</Button>
+            <Button>Browse...</Button>
             <div className={isBackgroundNone ? 'disabled' : ''}>
               <img className="arrow-down" src={arrowDown} alt="arrow down" />
               <label htmlFor="position">Position:</label>
@@ -124,9 +124,7 @@ function DesktopTab({ state, dispatch }) {
             </div>
           </div>
         </div>
-        <Button width={146} height={18}>
-          Customize Desktop...
-        </Button>
+        <Button style={{ width: 146 }}>Customize Desktop...</Button>
       </div>
     </Desktop>
   );
