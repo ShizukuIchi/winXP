@@ -31,48 +31,88 @@ import soapBubbles from '../../../assets/properties/displayProperties/background
 import zapotec from '../../../assets/properties/displayProperties/backgrounds/tiles/zapotec.bmp';
 
 const backgroundsObj = [
-  { title: '(None)' },
-  { title: 'Ascent', background: ascent },
-  { title: 'Autumn', background: autumn },
-  { title: 'Azul', background: azul },
-  { title: 'Bliss', background: bliss },
-  { title: 'Blue Lace 16', background: blueLace },
-  { title: 'Coffee Bean', background: coffeeBean },
-  { title: 'Follow', background: follow },
-  { title: 'Crystal', background: crystal },
-  { title: 'Friend', background: friend },
-  { title: 'Home', background: home },
-  { title: 'Moon Flower', background: moonFlower },
-  { title: 'Peace', background: peace },
-  { title: 'Power', background: power },
-  { title: 'purple Flower', background: purpleFlower },
-  { title: 'Radiance', background: radiance },
-  { title: 'RedMoon Desert', background: redMoonDesert },
-  { title: 'Ripple', background: ripple },
-  { title: 'Stonehenge', background: stonehenge },
-  { title: 'Tulips', background: tulips },
-  { title: 'Vortec Space', background: vortecSpace },
-  { title: 'Wind', background: wind },
-  { title: 'Windows XP', background: windowsXp },
-  { title: 'Feather Texture', background: featherTexture },
-  { title: 'Gone Fishing', background: goneFishing },
-  { title: 'GreenStone', background: greenStone },
-  { title: 'Prairie Wind', background: prairieWind },
-  { title: 'Rhododendron', background: rhododendron },
-  { title: 'River Sumida', background: riverSumida },
-  { title: 'Santa Fe Stucco', background: santaFeStucco },
-  { title: 'Soap Bubbles', background: soapBubbles },
-  { title: 'Zapotec', background: zapotec },
+  { title: '(None)', defaultPosition: 'stretch' },
+  { title: 'Ascent', background: ascent, defaultPosition: 'stretch' },
+  { title: 'Autumn', background: autumn, defaultPosition: 'stretch' },
+  { title: 'Azul', background: azul, defaultPosition: 'stretch' },
+  { title: 'Bliss', background: bliss, defaultPosition: 'stretch' },
+  { title: 'Blue Lace 16', background: blueLace, defaultPosition: 'tile' },
+  { title: 'Coffee Bean', background: coffeeBean, defaultPosition: 'tile' },
+  { title: 'Follow', background: follow, defaultPosition: 'stretch' },
+  { title: 'Crystal', background: crystal, defaultPosition: 'stretch' },
+  { title: 'Friend', background: friend, defaultPosition: 'stretch' },
+  { title: 'Home', background: home, defaultPosition: 'stretch' },
+  { title: 'Moon Flower', background: moonFlower, defaultPosition: 'stretch' },
+  { title: 'Peace', background: peace, defaultPosition: 'stretch' },
+  { title: 'Power', background: power, defaultPosition: 'stretch' },
+  {
+    title: 'purple Flower',
+    background: purpleFlower,
+    defaultPosition: 'stretch',
+  },
+  { title: 'Radiance', background: radiance, defaultPosition: 'stretch' },
+  {
+    title: 'RedMoon Desert',
+    background: redMoonDesert,
+    defaultPosition: 'stretch',
+  },
+  { title: 'Ripple', background: ripple, defaultPosition: 'stretch' },
+  { title: 'Stonehenge', background: stonehenge, defaultPosition: 'stretch' },
+  { title: 'Tulips', background: tulips, defaultPosition: 'stretch' },
+  {
+    title: 'Vortec Space',
+    background: vortecSpace,
+    defaultPosition: 'stretch',
+  },
+  { title: 'Wind', background: wind, defaultPosition: 'stretch' },
+  { title: 'Windows XP', background: windowsXp, defaultPosition: 'stretch' },
+  {
+    title: 'Feather Texture',
+    background: featherTexture,
+    defaultPosition: 'tile',
+  },
+  {
+    title: 'Gone Fishing',
+    background: goneFishing,
+    defaultPosition: 'tile',
+  },
+  { title: 'GreenStone', background: greenStone, defaultPosition: 'tile' },
+  {
+    title: 'Prairie Wind',
+    background: prairieWind,
+    defaultPosition: 'tile',
+  },
+  {
+    title: 'Rhododendron',
+    background: rhododendron,
+    defaultPosition: 'tile',
+  },
+  {
+    title: 'River Sumida',
+    background: riverSumida,
+    defaultPosition: 'tile',
+  },
+  {
+    title: 'Santa Fe Stucco',
+    background: santaFeStucco,
+    defaultPosition: 'tile',
+  },
+  {
+    title: 'Soap Bubbles',
+    background: soapBubbles,
+    defaultPosition: 'tile',
+  },
+  { title: 'Zapotec', background: zapotec, defaultPosition: 'tile' },
 ];
 
 const initializeBackgrounds = backgroundsObj => {
-  return backgroundsObj.map((item, index) => ({ ...item, id: index + 1 }));
+  return backgroundsObj.map((item, index) => ({ ...item, id: index }));
 };
 
 export const backgrounds = initializeBackgrounds(backgroundsObj);
 
 export const defaultDesktop = {
-  id: 5,
+  id: 4,
   position: 'stretch',
   image: bliss,
   color: '#2f71cd',

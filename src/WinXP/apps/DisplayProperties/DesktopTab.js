@@ -20,7 +20,7 @@ function DesktopTab({ state, dispatch }) {
     color,
   });
 
-  const isBackgroundNone = desktopState.id === 1;
+  const isBackgroundNone = desktopState.id === 0;
 
   const refs = backgrounds.reduce((acc, item) => {
     acc[item.id] = React.createRef();
@@ -201,7 +201,7 @@ const Desktop = styled.div`
     .arrow-down {
       position: absolute;
       left: 70px;
-      top: 48px;
+      top: 49px;
       width: 16px;
       pointer-events: none;
     }
