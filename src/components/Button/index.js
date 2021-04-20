@@ -44,8 +44,8 @@ const StyledButton = styled.button`
         margin-left: ${marginLeft}px;
 
         &:hover {
-            background-color: #e5e5e5;
             border-color: black;
+            box-shadow: inset 0px 0px 0.5px 1.5px rgba(200, 100, 100, 0.5);
         }
 
         &:focus {

@@ -25,8 +25,15 @@ function ContextMenuItem({
   }
 
   function handleClick(action) {
-    if (action) {
-      onClick(Properties);
+    switch (action) {
+      case 'display properties':
+        onClick(Properties);
+        break;
+      case 'refresh':
+        window.location.reload();
+        break;
+      default:
+        break;
     }
     setCheckedItem(index);
   }

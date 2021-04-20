@@ -73,7 +73,7 @@ function ThemeTab({ state, dispatch }) {
           <Button marginLeft={4} fontSize={13} width={78} height={18}>
             Save As...
           </Button>
-          <Button marginLeft={4} fontSize={13} width={78} height={18}>
+          <Button marginLeft={4} fontSize={13} width={78} height={18} disabled>
             Delete
           </Button>
         </div>
@@ -129,6 +129,12 @@ const ThemesPage = styled.div`
       width: 180px;
       border-radius: 0;
       border-color: grey;
+      &:focus {
+        color: #fff;
+        background-color: #2f71cd;
+        box-shadow: 0px 0px 0px 2px #fff inset;
+        outline: none;
+      }
     }
   }
 
