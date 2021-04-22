@@ -32,40 +32,40 @@ import zapotec from '../../../assets/properties/displayProperties/backgrounds/ti
 
 const backgroundsObj = [
   { title: '(None)', defaultPosition: 'stretch' },
-  { title: 'Ascent', background: ascent, defaultPosition: 'stretch' },
-  { title: 'Autumn', background: autumn, defaultPosition: 'stretch' },
-  { title: 'Azul', background: azul, defaultPosition: 'stretch' },
-  { title: 'Bliss', background: bliss, defaultPosition: 'stretch' },
+  { title: 'Ascent', background: ascent, defaultPosition: 'center' },
+  { title: 'Autumn', background: autumn, defaultPosition: 'center' },
+  { title: 'Azul', background: azul, defaultPosition: 'center' },
+  { title: 'Bliss', background: bliss, defaultPosition: 'center' },
   { title: 'Blue Lace 16', background: blueLace, defaultPosition: 'tile' },
   { title: 'Coffee Bean', background: coffeeBean, defaultPosition: 'tile' },
-  { title: 'Follow', background: follow, defaultPosition: 'stretch' },
-  { title: 'Crystal', background: crystal, defaultPosition: 'stretch' },
-  { title: 'Friend', background: friend, defaultPosition: 'stretch' },
-  { title: 'Home', background: home, defaultPosition: 'stretch' },
-  { title: 'Moon Flower', background: moonFlower, defaultPosition: 'stretch' },
-  { title: 'Peace', background: peace, defaultPosition: 'stretch' },
-  { title: 'Power', background: power, defaultPosition: 'stretch' },
+  { title: 'Follow', background: follow, defaultPosition: 'center' },
+  { title: 'Crystal', background: crystal, defaultPosition: 'center' },
+  { title: 'Friend', background: friend, defaultPosition: 'center' },
+  { title: 'Home', background: home, defaultPosition: 'center' },
+  { title: 'Moon Flower', background: moonFlower, defaultPosition: 'center' },
+  { title: 'Peace', background: peace, defaultPosition: 'center' },
+  { title: 'Power', background: power, defaultPosition: 'center' },
   {
     title: 'purple Flower',
     background: purpleFlower,
-    defaultPosition: 'stretch',
+    defaultPosition: 'center',
   },
-  { title: 'Radiance', background: radiance, defaultPosition: 'stretch' },
+  { title: 'Radiance', background: radiance, defaultPosition: 'center' },
   {
     title: 'RedMoon Desert',
     background: redMoonDesert,
-    defaultPosition: 'stretch',
+    defaultPosition: 'center',
   },
-  { title: 'Ripple', background: ripple, defaultPosition: 'stretch' },
-  { title: 'Stonehenge', background: stonehenge, defaultPosition: 'stretch' },
-  { title: 'Tulips', background: tulips, defaultPosition: 'stretch' },
+  { title: 'Ripple', background: ripple, defaultPosition: 'center' },
+  { title: 'Stonehenge', background: stonehenge, defaultPosition: 'center' },
+  { title: 'Tulips', background: tulips, defaultPosition: 'center' },
   {
     title: 'Vortec Space',
     background: vortecSpace,
-    defaultPosition: 'stretch',
+    defaultPosition: 'center',
   },
-  { title: 'Wind', background: wind, defaultPosition: 'stretch' },
-  { title: 'Windows XP', background: windowsXp, defaultPosition: 'stretch' },
+  { title: 'Wind', background: wind, defaultPosition: 'center' },
+  { title: 'Windows XP', background: windowsXp, defaultPosition: 'center' },
   {
     title: 'Feather Texture',
     background: featherTexture,
@@ -121,3 +121,5 @@ export const defaultDesktop = {
 export const DISPLAY_PROPERTIES = 'DISPLAY_PROPERTIES';
 export const DESKTOP = 'DESKTOP';
 export const CHANGE = 'CHANGE';
+export const FIRST_CHANGE = 'FIRST_CHANGE';
+export const RESET_FIRST_CHANGE = 'RESET_FIRST_CHANGE';

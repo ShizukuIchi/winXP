@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import BackgroundView from '../../../components/BackgroundView';
+import Button from '../../../components/Button';
 
 import display from '../../../assets/properties/displayProperties/display.png';
 import arrowDown from '../../../assets/properties/displayProperties/icons/arrowDown.png';
 import iconNone from '../../../assets/properties/displayProperties/icons/none.png';
 import iconImage from '../../../assets/properties/displayProperties/icons/image.png';
 
-import Button from '../../../components/Button';
 import { backgrounds, DESKTOP } from './utils';
 
 function DesktopTab({ state, dispatch }) {
@@ -53,7 +53,11 @@ function DesktopTab({ state, dispatch }) {
       setDesktopState(prev => ({ ...prev, image: null }));
       return;
     }
-    setDesktopState(prev => ({ ...prev, image: background }));
+    setDesktopState(prev => ({
+      ...prev,
+      image: background,
+      position: backgrounds[id].defaultPosition,
+    }));
   };
 
   const handleSelectChange = e => {
@@ -61,7 +65,6 @@ function DesktopTab({ state, dispatch }) {
   };
 
   const handleColorChange = e => {
-    e.persist();
     setDesktopState(prev => ({ ...prev, color: e.target.value }));
   };
 
@@ -105,7 +108,7 @@ function DesktopTab({ state, dispatch }) {
                 id="position"
                 className="position-input"
                 onChange={handleSelectChange}
-                defaultValue={position}
+                value={position}
               >
                 <option value="center">Center</option>
                 <option value="tile">Tile</option>

@@ -11,7 +11,13 @@ import AppearanceTab from './AppearanceTab';
 import DesktopTab from './DesktopTab';
 import ScreenSaverTab from './ScreenSaverTab';
 import SettingsTab from './SettingsTab';
-import { DESKTOP, CHANGE, DISPLAY_PROPERTIES } from './utils';
+import {
+  DESKTOP,
+  CHANGE,
+  DISPLAY_PROPERTIES,
+  FIRST_CHANGE,
+  RESET_FIRST_CHANGE,
+} from './utils';
 
 const tabs = [
   { title: 'Themes', content: ThemeTab },
@@ -27,6 +33,16 @@ function DisplayProperties({ onClose }) {
 
   const reducer = (state, { type, payload }) => {
     switch (type) {
+      case RESET_FIRST_CHANGE:
+        return {
+          ...state,
+          firstChange: false,
+        };
+      case FIRST_CHANGE:
+        return {
+          ...state,
+          firstChange: true,
+        };
       case CHANGE:
         return {
           ...state,
@@ -51,24 +67,38 @@ function DisplayProperties({ onClose }) {
   const [state, dispatch] = useReducer(reducer, {
     displayProperties,
     hasChanges: false,
+    firstChange: false,
   });
 
   useEffect(() => {
-    dispatch({
-      type: CHANGE,
-      payload:
-        JSON.stringify(state.displayProperties) !==
-        JSON.stringify(displayProperties),
-    });
+    const hasChanged =
+      JSON.stringify(state.displayProperties) !==
+      JSON.stringify(displayProperties);
+
+    if (hasChanged) {
+      dispatch({
+        type: CHANGE,
+        payload: hasChanged,
+      });
+
+      dispatch({
+        type: FIRST_CHANGE,
+      });
+    }
   }, [displayProperties, state.displayProperties]);
 
   const handleCancel = onClose;
 
-  const handleApply = () =>
+  const handleApply = () => {
     appContext.dispatch({
       type: DISPLAY_PROPERTIES,
       payload: state.displayProperties,
     });
+
+    dispatch({
+      type: RESET_FIRST_CHANGE,
+    });
+  };
 
   const handleOk = () => {
     handleApply();
@@ -105,7 +135,7 @@ function DisplayProperties({ onClose }) {
           style={{
             width: 70,
           }}
-          disabled={!state.hasChanges}
+          disabled={!state.firstChange}
         >
           Apply
         </Button>
