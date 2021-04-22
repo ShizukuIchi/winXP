@@ -83,6 +83,7 @@ function ThemeTab({ state, dispatch }) {
               marginLeft: 4,
               width: 78,
             }}
+            disabled
           >
             Delete
           </Button>
