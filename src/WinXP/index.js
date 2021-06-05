@@ -1,4 +1,4 @@
-import React, { useReducer, useRef, useCallback } from 'react';
+import React, { useReducer, useRef, useCallback, useMemo } from 'react';
 import styled, { keyframes } from 'styled-components';
 import useMouse from 'react-use/lib/useMouse';
 import ga from 'react-ga';
@@ -182,7 +182,13 @@ function WinXP() {
   const [state, dispatch] = useReducer(reducer, initState);
   const ref = useRef(null);
   const mouse = useMouse(ref);
-  const focusedAppId = getFocusedAppId();
+  const focusedAppId = useMemo(() => {
+    if (state.focusing !== FOCUSING.WINDOW) return -1;
+    const focusedApp = [...state.apps]
+      .sort((a, b) => b.zIndex - a.zIndex)
+      .find(app => !app.minimized);
+    return focusedApp ? focusedApp.id : -1;
+  }, [state.apps, state.focusing]);
   const onFocusApp = useCallback(id => {
     dispatch({ type: FOCUS_APP, payload: id });
   }, []);
@@ -210,33 +216,29 @@ function WinXP() {
     },
     [focusedAppId],
   );
-  function onMouseDownFooterApp(id) {
-    if (focusedAppId === id) {
-      dispatch({ type: MINIMIZE_APP, payload: id });
-    } else {
-      dispatch({ type: FOCUS_APP, payload: id });
-    }
-  }
-  function onMouseDownIcon(id) {
+  const onMouseDownFooterApp = useCallback(
+    id => {
+      if (focusedAppId === id) {
+        dispatch({ type: MINIMIZE_APP, payload: id });
+      } else {
+        dispatch({ type: FOCUS_APP, payload: id });
+      }
+    },
+    [focusedAppId],
+  );
+  const onMouseDownIcon = useCallback(id => {
     dispatch({ type: FOCUS_ICON, payload: id });
-  }
-  function onDoubleClickIcon(component) {
+  }, []);
+  const onDoubleClickIcon = useCallback(component => {
     const appSetting = Object.values(appSettings).find(
       setting => setting.component === component,
     );
     dispatch({ type: ADD_APP, payload: appSetting });
-  }
-  function getFocusedAppId() {
-    if (state.focusing !== FOCUSING.WINDOW) return -1;
-    const focusedApp = [...state.apps]
-      .sort((a, b) => b.zIndex - a.zIndex)
-      .find(app => !app.minimized);
-    return focusedApp ? focusedApp.id : -1;
-  }
-  function onMouseDownFooter() {
+  }, []);
+  const onMouseDownFooter = useCallback(() => {
     dispatch({ type: FOCUS_DESKTOP });
-  }
-  function onClickMenuItem(o) {
+  }, []);
+  const onClickMenuItem = useCallback(o => {
     if (o === 'Internet')
       dispatch({ type: ADD_APP, payload: appSettings['Internet Explorer'] });
     else if (o === 'Minesweeper')
@@ -261,30 +263,33 @@ function WinXP() {
           injectProps: { message: 'C:\\\nApplication not found' },
         },
       });
-  }
-  function onMouseDownDesktop(e) {
-    if (e.target === e.currentTarget)
-      dispatch({
-        type: START_SELECT,
-        payload: { x: mouse.docX, y: mouse.docY },
-      });
-  }
-  function onMouseUpDesktop(e) {
+  }, []);
+  const onMouseDownDesktop = useCallback(
+    e => {
+      if (e.target === e.currentTarget)
+        dispatch({
+          type: START_SELECT,
+          payload: { x: mouse.docX, y: mouse.docY },
+        });
+    },
+    [mouse.docX, mouse.docY],
+  );
+  const onMouseUpDesktop = useCallback(e => {
     dispatch({ type: END_SELECT });
-  }
-  function onIconsSelected(iconIds) {
+  }, []);
+  const onIconsSelected = useCallback(iconIds => {
     dispatch({ type: SELECT_ICONS, payload: iconIds });
-  }
-  function onClickModalButton(text) {
+  }, []);
+  const onClickModalButton = useCallback(text => {
     dispatch({ type: CANCEL_POWER_OFF });
     dispatch({
       type: ADD_APP,
       payload: appSettings.Error,
     });
-  }
-  function onModalClose() {
+  }, []);
+  const onModalClose = useCallback(() => {
     dispatch({ type: CANCEL_POWER_OFF });
-  }
+  }, []);
   return (
     <Container
       ref={ref}
