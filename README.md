@@ -7,6 +7,8 @@ Features:
 - Drag and resize, minimize, maximize windows
 - Open applications from desktop icons or start menu
 - Minesweeper, Internet Explorer, My Computer, Notepad, Winamp, Paint
+- Desktop Context Menu
+- Display Properties window, including changeable wallpapers
 - Power off menu
 
 ## [Try it!](https://winxp.now.sh)

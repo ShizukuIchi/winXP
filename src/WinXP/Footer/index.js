@@ -105,6 +105,7 @@ function Footer({
 }
 
 function FooterWindow({ id, icon, title, onMouseDown, isFocus }) {
+  if (!icon) return null;
   function _onMouseDown() {
     onMouseDown(id);
   }
