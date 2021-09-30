@@ -1,12 +1,12 @@
 import checked from '../../assets/windowsIcons/checked.png';
-import briefcase from '../../assets/contextMenu-icons/briefcase.png';
-import folderZip from '../../assets/contextMenu-icons/folder-zip.png';
-import folder from '../../assets/contextMenu-icons/folder.png';
-import image from '../../assets/contextMenu-icons/image.png';
-import media from '../../assets/contextMenu-icons/media.png';
-import richText from '../../assets/contextMenu-icons/rich-text.png';
-import shortcut from '../../assets/contextMenu-icons/shortcut.png';
-import txt from '../../assets/contextMenu-icons/txt.png';
+import briefcase from '../../assets/contextMenuIcons/briefcase.png';
+import folderZip from '../../assets/contextMenuIcons/folder-zip.png';
+import folder from '../../assets/contextMenuIcons/folder.png';
+import image from '../../assets/contextMenuIcons/image.png';
+import media from '../../assets/contextMenuIcons/media.png';
+import richText from '../../assets/contextMenuIcons/rich-text.png';
+import shortcut from '../../assets/contextMenuIcons/shortcut.png';
+import txt from '../../assets/contextMenuIcons/txt.png';
 
 export const contextMenuData = [
   {
@@ -74,6 +74,7 @@ export const contextMenuData = [
   {
     type: 'item',
     text: 'Refresh',
+    action: 'refresh',
   },
   {
     type: 'separator',
@@ -156,5 +157,6 @@ export const contextMenuData = [
   {
     type: 'item',
     text: 'Properties',
+    action: 'display properties',
   },
 ];

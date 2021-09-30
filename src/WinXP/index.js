@@ -1,7 +1,10 @@
-import React, { useReducer, useRef, useCallback } from 'react';
+import React, { useReducer, useRef, useCallback, useLayoutEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import useMouse from 'react-use/lib/useMouse';
 import ga from 'react-ga';
+
+import { getLocalStorage, setLocalStorage } from './utils';
+import { defaultDesktop } from './apps/DisplayProperties/utils';
 
 import {
   ADD_APP,
@@ -26,6 +29,7 @@ import Windows from './Windows';
 import Icons from './Icons';
 import ContextMenu from '../components/ContextMenu';
 import { contextMenuData } from '../components/ContextMenu/utils';
+import BackgroundView from '../components/BackgroundView';
 
 import { DashedBox } from 'components';
 
@@ -40,6 +44,9 @@ const initState = {
   selecting: false,
   contextMenuPosition: null,
   powerState: POWER_STATE.START,
+  displayProperties: {
+    desktop: defaultDesktop,
+  },
 };
 const reducer = (state, action = { type: '' }) => {
   ga.event({
@@ -65,6 +72,7 @@ const reducer = (state, action = { type: '' }) => {
           nextAppID: state.nextAppID + 1,
           nextZIndex: state.nextZIndex + 1,
           focusing: FOCUSING.WINDOW,
+          contextMenuPosition: null,
         };
       }
       const apps = state.apps.map(app =>
@@ -77,6 +85,7 @@ const reducer = (state, action = { type: '' }) => {
         apps,
         nextZIndex: state.nextZIndex + 1,
         focusing: FOCUSING.WINDOW,
+        contextMenuPosition: null,
       };
     case DEL_APP:
       if (state.focusing !== FOCUSING.WINDOW) return state;
@@ -187,12 +196,31 @@ const reducer = (state, action = { type: '' }) => {
         ...state,
         powerState: POWER_STATE.START,
       };
+    case 'DISPLAY_PROPERTIES':
+      if (action.payload) setLocalStorage('displayProperties', action.payload);
+
+      return {
+        ...state,
+        displayProperties: action.payload,
+      };
+
     default:
       return state;
   }
 };
+
 function WinXP() {
   const [state, dispatch] = useReducer(reducer, initState);
+
+  useLayoutEffect(() => {
+    const desktop = getLocalStorage('displayProperties');
+    if (desktop)
+      dispatch({
+        type: 'DISPLAY_PROPERTIES',
+        payload: desktop,
+      });
+  }, []);
+
   const ref = useRef(null);
   const mouse = useMouse(ref);
   const focusedAppId = getFocusedAppId();
@@ -305,6 +333,7 @@ function WinXP() {
   function onModalClose() {
     dispatch({ type: CANCEL_POWER_OFF });
   }
+
   return (
     <Container
       ref={ref}
@@ -353,8 +382,10 @@ function WinXP() {
           items={contextMenuData}
           mousePos={state.contextMenuPosition}
           displayFocus={state.focusing === FOCUSING.ICON}
+          onClick={onDoubleClickIcon}
         />
       )}
+      <BackgroundView background={state.displayProperties.desktop} />
     </Container>
   );
 }
@@ -382,8 +413,6 @@ const Container = styled.div`
   height: 100%;
   overflow: hidden;
   position: relative;
-  background: url(https://i.imgur.com/Zk6TR5k.jpg) no-repeat center center fixed;
-  background-size: cover;
   animation: ${({ state }) => animation[state]} 5s forwards;
   *:not(input):not(textarea) {
     user-select: none;

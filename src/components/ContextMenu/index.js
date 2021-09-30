@@ -8,7 +8,14 @@ import React, {
 import styled from 'styled-components';
 import ContextMenuItem from './ContextMenuItem';
 
-function ContextMenu({ items, mousePos, parentRef, isToLeft, displayFocus }) {
+function ContextMenu({
+  items,
+  mousePos,
+  parentRef,
+  isToLeft,
+  displayFocus,
+  onClick,
+}) {
   const [isVisible, setIsVisible] = useState(false);
   const [openToLeft, setOpenToLeft] = useState(false);
   const [checkedItem, setCheckedItem] = useState(0);
@@ -104,6 +111,7 @@ function ContextMenu({ items, mousePos, parentRef, isToLeft, displayFocus }) {
             index={index}
             parentRef={menuRef}
             isToLeft={openToLeft}
+            onClick={onClick}
             checkedItem={checkedItem}
             setCheckedItem={setCheckedItem}
           />

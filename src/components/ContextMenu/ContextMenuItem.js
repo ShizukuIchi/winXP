@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+import Properties from '../../WinXP/apps/DisplayProperties';
+
 import ContextMenu from '.';
 
 function ContextMenuItem({
@@ -10,6 +12,7 @@ function ContextMenuItem({
   index,
   checkedItem,
   setCheckedItem,
+  onClick,
 }) {
   const [renderMenu, setRenderMenu] = useState(false);
 
@@ -21,7 +24,17 @@ function ContextMenuItem({
     setRenderMenu(false);
   }
 
-  function handleCheckedItem() {
+  function handleClick(action) {
+    switch (action) {
+      case 'display properties':
+        onClick(Properties);
+        break;
+      case 'refresh':
+        window.location.reload();
+        break;
+      default:
+        break;
+    }
     setCheckedItem(index);
   }
 
@@ -29,9 +42,11 @@ function ContextMenuItem({
     case 'item':
       return (
         <StyledItem
+          onClick={() => {
+            handleClick(item.action);
+          }}
           className={item.inactive ? 'inactive' : ''}
           showChecked={checkedItem === index}
-          onClick={handleCheckedItem}
         >
           {item.checked && (
             <img className="checked" src={item.checked} alt="checked" />
