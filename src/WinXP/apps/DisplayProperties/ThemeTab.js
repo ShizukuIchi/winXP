@@ -93,10 +93,11 @@ function ThemeTab({ state, dispatch }) {
         <p>Sample:</p>
         <div className="preview">
           <div className="background">
-            {preview && (
+            {preview ? (
               <img className="background" src={classicXP} alt="classic" />
+            ) : (
+              <BackgroundView background={state.displayProperties.desktop} />
             )}
-            <BackgroundView background={state.displayProperties.desktop} />
           </div>
           {!preview && (
             <>
