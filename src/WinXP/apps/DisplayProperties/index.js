@@ -7,10 +7,10 @@ import Button from '../../../components/Button';
 import TabsMenu from '../TabsMenu';
 
 import ThemeTab from './ThemeTab';
-import AppearanceTab from './AppearanceTab';
 import DesktopTab from './DesktopTab';
-import ScreenSaverTab from './ScreenSaverTab';
-import SettingsTab from './SettingsTab';
+// import AppearanceTab from './AppearanceTab';
+// import ScreenSaverTab from './ScreenSaverTab';
+// import SettingsTab from './SettingsTab';
 import {
   DESKTOP,
   CHANGE,
@@ -22,9 +22,9 @@ import {
 const tabs = [
   { title: 'Themes', content: ThemeTab },
   { title: 'Desktop', content: DesktopTab },
-  { title: 'Screen Saver', content: ScreenSaverTab },
-  { title: 'Appearance', content: AppearanceTab },
-  { title: 'Settings', content: SettingsTab },
+  // { title: 'Screen Saver', content: ScreenSaverTab },
+  // { title: 'Appearance', content: AppearanceTab },
+  // { title: 'Settings', content: SettingsTab },
 ];
 
 function DisplayProperties({ onClose }) {
