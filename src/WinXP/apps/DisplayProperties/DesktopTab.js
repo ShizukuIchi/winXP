@@ -10,6 +10,7 @@ import iconNone from '../../../assets/properties/displayProperties/icons/none.pn
 import iconImage from '../../../assets/properties/displayProperties/icons/image.png';
 
 import { backgrounds, DESKTOP } from './utils';
+import BackgroundColorPicker from 'components/BackgroundColorPicker';
 
 function DesktopTab({ state, dispatch }) {
   const { id, position, image, color } = state.displayProperties.desktop;
@@ -68,6 +69,9 @@ function DesktopTab({ state, dispatch }) {
     setDesktopState(prev => ({ ...prev, color: e.target.value }));
   };
 
+  const handleColorPickerOpen = e => {
+    console.log(e)
+  }
   return (
     <Desktop>
       <div className="preview">
@@ -116,14 +120,19 @@ function DesktopTab({ state, dispatch }) {
               </select>
             </div>
             <div>
+              <BackgroundColorPicker />
               <label htmlFor="color">Color:</label>
-              <input
+              <button
                 id="color"
-                className="color-input"
+                className="color-button"
                 type="color"
-                onChange={e => handleColorChange(e)}
-                value={desktopState.color}
-              />
+                //onChange={e => handleColorChange(e)}
+                //onClick={e=> handleColorPickerOpen(e)}
+              >
+                <input type="color" value={desktopState.color} disabled
+                className="color-box"
+                />
+                </button>
             </div>
           </div>
         </div>
@@ -220,11 +229,12 @@ const Desktop = styled.div`
       }
     }
 
-    & .color-input {
+    & .color-button {
       position: relative;
       padding: 0 16px 0 2px;
       border-radius: 4px;
       height: 22px;
+      
 
       &:before {
         content: '';
@@ -244,6 +254,15 @@ const Desktop = styled.div`
         border: 3.5px solid transparent;
         border-top-color: currentColor;
       }
+    }
+
+    & .color-box{
+      position: relative;
+      right: 1px;
+      bottom: 1px
+      border: none;
+      width: 60px;
+      height: 20px;
     }
 
     & label {
