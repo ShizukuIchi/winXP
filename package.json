@@ -5,6 +5,7 @@
   "author": "ShizukuIchi <shizukuichi@gmail.com>",
   "homepage": "https://winxp.now.sh",
   "dependencies": {
+    "@types/react": "^17.0.27",
     "lodash.samplesize": "^4.2.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -12,6 +13,7 @@
     "react-scripts": "3.1.1",
     "react-use": "^7.0.1",
     "styled-components": "^4.2.0",
+    "update-check": "^1.5.4",
     "webamp": "^1.3.2-beta.2"
   },
   "scripts": {

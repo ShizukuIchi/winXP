@@ -10,7 +10,7 @@ import iconNone from '../../../assets/properties/displayProperties/icons/none.pn
 import iconImage from '../../../assets/properties/displayProperties/icons/image.png';
 
 import { backgrounds, DESKTOP } from './utils';
-import BackgroundColorPicker from 'components/BackgroundColorPicker';
+import ColorSwatches from 'components/ColorSwatches/';
 
 function DesktopTab({ state, dispatch }) {
   const { id, position, image, color } = state.displayProperties.desktop;
@@ -20,6 +20,7 @@ function DesktopTab({ state, dispatch }) {
     image,
     color,
   });
+  const [openColorSwatches, setOpenColorSwatches] = useState(false)
 
   const isBackgroundNone = desktopState.id === 0;
 
@@ -69,9 +70,6 @@ function DesktopTab({ state, dispatch }) {
     setDesktopState(prev => ({ ...prev, color: e.target.value }));
   };
 
-  const handleColorPickerOpen = e => {
-    console.log(e)
-  }
   return (
     <Desktop>
       <div className="preview">
@@ -120,19 +118,19 @@ function DesktopTab({ state, dispatch }) {
               </select>
             </div>
             <div>
-              <BackgroundColorPicker />
               <label htmlFor="color">Color:</label>
               <button
                 id="color"
                 className="color-button"
                 type="color"
+                onClick={() => setOpenColorSwatches(!openColorSwatches)}
                 //onChange={e => handleColorChange(e)}
-                //onClick={e=> handleColorPickerOpen(e)}
               >
                 <input type="color" value={desktopState.color} disabled
                 className="color-box"
                 />
                 </button>
+                {openColorSwatches && <ColorSwatches />}
             </div>
           </div>
         </div>
