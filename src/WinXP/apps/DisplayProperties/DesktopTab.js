@@ -129,7 +129,7 @@ function DesktopTab({ state, dispatch }) {
                 <input type="color" value={desktopState.color} disabled
                 className="color-box"
                 />
-                </button>
+              </button>
                 {openColorSwatches && <ColorSwatches />}
             </div>
           </div>

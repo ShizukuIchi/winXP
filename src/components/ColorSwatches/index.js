@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Button from '../../components/Button';
 
 function ColorSwatches() {
 
@@ -12,12 +13,20 @@ function ColorSwatches() {
 
     return (
         <Swatches >
+            <section className="inline-grid">
             {colorsArray.map(column => 
             (<div>
                 {column.map(color => (
-                    <SampleBox sampleColor={color} ></SampleBox>
+                    <SampleBox sampleColor={color}/>
                 ))}
             </div>))}
+            </section>
+            <hr/>
+            <section className="inline-grid">
+                <Button >Other...</Button>
+                <SampleBox hidden/>
+            </section>
+           
         </Swatches>
     )
 }
@@ -25,15 +34,28 @@ function ColorSwatches() {
 const Swatches = styled.div`
   position: absolute;
   width: 112px; 
-  height: 164px;
-  display: flex;
+  height: 174px;
   padding-left: 1px;
   background-color: rgb(236, 233, 218);
   box-sizing: border-box;
   outline: 1px outset white;
-  -webkit-box-shadow: 1px 1px 3px -1px rgba(0,0,0,0.75);
-  -moz-box-shadow: 1px 1px 3px -1px rgba(0,0,0,0.75);
-  box-shadow: 1px 1px 3px -1px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 2px 2px 3px -1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 2px 2px 3px -1px rgba(0,0,0,0.75);
+  box-shadow: 2px 2px 3px -1px rgba(0,0,0,0.75);
+
+  & .inline-grid{
+      display: flex;
+  }
+
+  & hr{
+      width: 105px;
+      margin: 2px 0px 2px 2px
+  }
+  & button{
+      width: 75px!important;
+      margin: 2px 2px 0px 3px;
+      padding: 1px 0px;
+  }
 `;
 
 const SampleBox = styled.div`
@@ -44,13 +66,11 @@ const SampleBox = styled.div`
   -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0,0,0,0.5);
   -moz-box-shadow: inset 2px 2px 2px 0px rgba(0,0,0,0.5);
   inset 2px 2px 2px 0px rgba(0,0,0,0.5);
-  margin-left: 3px;
-  margin-top: 3px;
-  margin-right: 3px;
-  margin-bottom:5px;
+  margin: 3px 3px 5px 3px
   outline-offset: 1px;
   outline: 1px solid rgba(255,255,255,0.8);
   border-radius: 1px;
+  display: ${props => props.hidden && "none"}
   &:hover{
     outline-offset: -1px;
     outline: 3px double rgba(0,0,0,0.9);

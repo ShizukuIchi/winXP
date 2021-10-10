@@ -31,6 +31,7 @@ const StyledButton = styled.button`
     backgroundColor: rgba(233,233,233,0.5);
     border: 1px solid rgba(128,128,128, 0.5);
   }
+
 `;
 
 export default Button;
