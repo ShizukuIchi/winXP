@@ -66,10 +66,6 @@ function DesktopTab({ state, dispatch }) {
     setDesktopState(prev => ({ ...prev, position: e.target.value }));
   };
 
-  const handleColorChange = e => {
-    setDesktopState(prev => ({ ...prev, color: e.target.value }));
-  };
-
   return (
     <Desktop>
       <div className="preview">
@@ -124,13 +120,12 @@ function DesktopTab({ state, dispatch }) {
                 className="color-button"
                 type="color"
                 onClick={() => setOpenColorSwatches(!openColorSwatches)}
-                //onChange={e => handleColorChange(e)}
               >
                 <input type="color" value={desktopState.color} disabled
                 className="color-box"
                 />
               </button>
-                {openColorSwatches && <ColorSwatches />}
+                {openColorSwatches && <ColorSwatches setDesktopState={setDesktopState} currentColor={desktopState.color} />}
             </div>
           </div>
         </div>
