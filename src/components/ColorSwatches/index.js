@@ -68,8 +68,8 @@ function ColorSwatches({ setDesktopState, currentColor }) {
 
 const Swatches = styled.div`
   position: absolute;
-  width: 112px;
-  height: 174px;
+  width: 95px;
+  height: 153px;
   padding-left: 1px;
   background-color: rgb(236, 233, 218);
   box-sizing: border-box;
@@ -92,31 +92,30 @@ const Swatches = styled.div`
   }
 
   & hr {
-      width: 105px;
-      margin: 2px 0px 2px 2px;
+      width: 88px;
+      margin: -1px 0px 2px 2px;
   }
   & button {
-      width: 75px !important;
-      margin: 2px 2px 0px 3px;
-      padding: 1px 0px;
+      width: 63px !important;
+      margin: 1px 2px 0px 2px;
   }
 `;
 
 const SampleBox = styled.div`
   display: ${props => (props.hidden ? 'none' : 'block')}
-  width: 21px;
-  height: 22px;
+  width: 17px;
+  height: 17px;
   background-color: ${props => props.sampleColor}
   -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0,0,0,0.5);
   -moz-box-shadow: inset 2px 2px 2px 0px rgba(0,0,0,0.5);
   inset 2px 2px 2px 0px rgba(0,0,0,0.5);
-  margin: 3px 3px 5px 3px
-  -webkit-outline-offset: 1px;
-  -webkit-outline: 1px solid rgba(255,255,255,0.8);
+  margin: 3px 3px 7px 3px
+  outline-offset: 1px;
+  outline: 1px solid rgba(255,255,255,0.8);
   border-radius: 1px;
   &:hover{
     outline-offset: -1px;
-    outline: 3px double rgba(0,0,0,0.9);
+    outline: 3px double rgba(0,0,0,0.6);
     -webkit-box-shadow: inset 1px 2px 2px 0px rgba(0,0,0,0.5);
     -moz-box-shadow: inset 1px 2px 2px 0px rgba(0,0,0,0.5);
     inset 1px 2px 2px 0px rgba(0,0,0,0.5);
