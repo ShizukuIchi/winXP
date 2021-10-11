@@ -76,6 +76,7 @@ function ColorSwatches({
           sampleColor={customColor}
           highlighted={customColor === highlighted}
           onMouseEnter={() => setHighlighted(customColor)}
+          onClick={() => handleColorSelect(customColor)}
         />
       </section>
     </Swatches>
