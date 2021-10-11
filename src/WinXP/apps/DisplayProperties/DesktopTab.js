@@ -20,7 +20,7 @@ function DesktopTab({ state, dispatch }) {
     image,
     color,
   });
-  const [openColorSwatches, setOpenColorSwatches] = useState(false)
+  const [openColorSwatches, setOpenColorSwatches] = useState(false);
 
   const isBackgroundNone = desktopState.id === 0;
 
@@ -121,11 +121,20 @@ function DesktopTab({ state, dispatch }) {
                 type="color"
                 onClick={() => setOpenColorSwatches(!openColorSwatches)}
               >
-                <input type="color" value={desktopState.color} disabled
-                className="color-box"
+                <input
+                  type="color"
+                  value={desktopState.color}
+                  disabled
+                  className="color-box"
                 />
               </button>
-                {openColorSwatches && <ColorSwatches setDesktopState={setDesktopState} currentColor={desktopState.color} />}
+              {openColorSwatches && (
+                <ColorSwatches
+                  currentColor={desktopState.color}
+                  setDesktopState={setDesktopState}
+                  setOpenColorSwatches={setOpenColorSwatches}
+                />
+              )}
             </div>
           </div>
         </div>

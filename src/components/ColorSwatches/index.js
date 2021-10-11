@@ -1,69 +1,85 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Button from '../../components/Button';
 
-function ColorSwatches({ setDesktopState, currentColor }) {
+function ColorSwatches({
+  currentColor,
+  setDesktopState,
+  setOpenColorSwatches,
+}) {
+  const [customColor, setCustomColor] = useState(false);
+  const [highlighted, setHighlighted] = useState(currentColor);
 
-    const [custumColor, setCustomColor] = useState(false)
+  const sampleColumn1 = ['#ffffff', '#fa0000', '#00fc00', '#0602fd', '#bddbc3'];
+  const sampleColumn2 = ['#000000', '#7c0001', '#027f00', '#040078', '#a3c9ee'];
+  const sampleColumn3 = ['#bfbfc1', '#fcfb09', '#00fcfd', '#fd06f5', '#fcf9f0'];
+  const sampleColumn4 = ['#818181', '#7f7e09', '#03807a', '#641c5c', '#a2a1a7'];
 
-    const sampleColumn1 = ['#ffffff', '#fa0000', '#00fc00', '#0602fd', '#bddbc3'];
-    const sampleColumn2 = ['#000000', '#7c0001', '#027f00', '#040078', '#a3c9ee'];
-    const sampleColumn3 = ['#bfbfc1', '#fcfb09', '#00fcfd', '#fd06f5', '#fcf9f0'];
-    const sampleColumn4 = ['#818181', '#7f7e09', '#03807a', '#641c5c', '#a2a1a7'];
+  const colorsArray = [
+    sampleColumn1,
+    sampleColumn2,
+    sampleColumn3,
+    sampleColumn4,
+  ];
 
-    const colorsArray = [
-        sampleColumn1,
-        sampleColumn2,
-        sampleColumn3,
-        sampleColumn4,
-    ];
-
-    useEffect(() => {
-       const isCustomColor = checkIfSystemColor(currentColor, colorsArray)
-       if(isCustomColor){
-           setCustomColor(false)
-       }else{
-           setCustomColor(currentColor)
-       }
-    }, [currentColor])
-
-    const checkIfSystemColor = (colorToCheck, systemColors) => {
-        let isSystemColor = false
-        for (const colorCode of systemColors) {
-            if(colorCode.includes(colorToCheck))
-                isSystemColor = true
-        }
-        return isSystemColor;
+  useEffect(() => {
+    const isSystemColor = checkIfSystemColor(currentColor, colorsArray);
+    if (isSystemColor) {
+      setCustomColor(false);
+    } else {
+      setCustomColor(currentColor);
     }
+  }, [currentColor]);
 
-    const handleColorSelect = selectedColor => {
-        setDesktopState(prev => ({ ...prev, color: selectedColor }));
-        if(!checkIfSystemColor(selectedColor, colorsArray)){
-            setCustomColor(selectedColor)
-        }
-    };
+  const checkIfSystemColor = (colorToCheck, systemColors) => {
+    let existSystemColor = false;
+    for (const colorCode of systemColors) {
+      if (colorCode.includes(colorToCheck)) existSystemColor = true;
+    }
+    return existSystemColor;
+  };
 
-    return (
-        <Swatches>
-            <section className="inline-grid">
-                {colorsArray.map(column => (
-                    <div key={column[0]}>
-                        {column.map(color => (
-                            <SampleBox
-                                onClick={() => handleColorSelect(color)}
-                                key={color}
-                                sampleColor={color}
-                            />))}
-                    </div>
-                ))}
-            </section>
-            <hr />
-            <section className="inline-grid">
-                <Button><input type="color" className="customColorPicker" onChange={e => handleColorSelect(e.target.value)} />Other...</Button>
-                <SampleBox hidden={!custumColor} sampleColor={custumColor} />
-            </section>
-        </Swatches>
-    );
+  const handleColorSelect = selectedColor => {
+    setDesktopState(prev => ({ ...prev, color: selectedColor }));
+    setOpenColorSwatches(false);
+  };
+
+  return (
+    <Swatches>
+      <section className="inline-grid">
+        {colorsArray.map(column => (
+          <div key={column[0]}>
+            {column.map(color => (
+              <SampleBox
+                onClick={() => handleColorSelect(color)}
+                key={color}
+                sampleColor={color}
+                highlighted={color === highlighted}
+                onMouseEnter={() => setHighlighted(color)}
+              />
+            ))}
+          </div>
+        ))}
+      </section>
+      <hr />
+      <section className="inline-grid">
+        <Button>
+          <input
+            type="color"
+            className="customColorPicker"
+            onChange={e => handleColorSelect(e.target.value)}
+          />
+          Other...
+        </Button>
+        <SampleBox
+          hidden={!customColor}
+          sampleColor={customColor}
+          highlighted={customColor === highlighted}
+          onMouseEnter={() => setHighlighted(customColor)}
+        />
+      </section>
+    </Swatches>
+  );
 }
 
 const Swatches = styled.div`
@@ -78,26 +94,26 @@ const Swatches = styled.div`
   -moz-box-shadow: 2px 2px 3px -1px rgba(0, 0, 0, 0.75);
   box-shadow: 2px 2px 3px -1px rgba(0, 0, 0, 0.75);
 
-  & .customColorPicker{
-      position: absolute;
-      width: 73px;
-      height: 21px;
-      opacity: 0;
-      left: 5px;
-      bottom: 4px;
+  & .customColorPicker {
+    position: absolute;
+    width: 61px !important;
+    height: 18px;
+    opacity: 0;
+    left: 4px;
+    bottom: 5px;
   }
 
   & .inline-grid {
-      display: flex;
+    display: flex;
   }
 
   & hr {
-      width: 88px;
-      margin: -1px 0px 2px 2px;
+    width: 88px;
+    margin: -1px 0px 2px 2px;
   }
   & button {
-      width: 63px !important;
-      margin: 1px 2px 0px 2px;
+    width: 63px !important;
+    margin: 1px 2px 0px 2px;
   }
 `;
 
@@ -113,13 +129,15 @@ const SampleBox = styled.div`
   outline-offset: 1px;
   outline: 1px solid rgba(255,255,255,0.8);
   border-radius: 1px;
-  &:hover{
+  ${props =>
+    props.highlighted &&
+    `
     outline-offset: -1px;
     outline: 3px double rgba(0,0,0,0.6);
     -webkit-box-shadow: inset 1px 2px 2px 0px rgba(0,0,0,0.5);
     -moz-box-shadow: inset 1px 2px 2px 0px rgba(0,0,0,0.5);
     inset 1px 2px 2px 0px rgba(0,0,0,0.5);
-  }
+    `}
 `;
 
 export default ColorSwatches;
