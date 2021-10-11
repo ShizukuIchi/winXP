@@ -236,7 +236,6 @@ const Desktop = styled.div`
       padding: 0 16px 0 2px;
       border-radius: 4px;
       height: 22px;
-      
 
       &:before {
         content: '';
