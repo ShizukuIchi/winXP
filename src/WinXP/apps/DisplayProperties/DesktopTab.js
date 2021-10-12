@@ -226,7 +226,7 @@ const Desktop = styled.div`
       &:focus {
         color: #fff;
         background-color: #2f71cd;
-        box-shadow: 0px 0px 0px 2px #fff inset;
+        box-shadow: inset 0px 0px 0px 2px #fff;
         outline: none;
       }
     }
@@ -260,7 +260,7 @@ const Desktop = styled.div`
     & .color-box {
       position: relative;
       right: 1px;
-      bottom: 1px
+      bottom: 1px;
       border: none;
       width: 60px;
       height: 20px;
