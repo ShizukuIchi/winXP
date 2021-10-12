@@ -115,18 +115,18 @@ const SampleBox = styled.div`
   display: block;
   width: 17px;
   height: 17px;
-  background-color: ${props => props.sampleColor}
-  inset 2px 2px 2px 0px rgba(0,0,0,0.5);
-  margin: 3px 3px 7px 3px
+  background-color: ${props => props.sampleColor};
+  box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.5);
+  margin: 3px 3px 7px 3px;
   outline-offset: 1px;
-  outline: 1px solid rgba(255,255,255,0.8);
+  outline: 1px solid rgba(255, 255, 255, 0.8);
   border-radius: 1px;
   ${props =>
     props.highlighted &&
     `
     outline-offset: -1px;
     outline: 3px double rgba(0,0,0,0.6);
-    inset 1px 2px 2px 0px rgba(0,0,0,0.5);
+    box-shadow: inset 1px 2px 2px 0px rgba(0,0,0,0.5);
     `}
 `;
 
