@@ -10,7 +10,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-ga": "^2.5.7",
-    "react-scripts": "3.1.1",
+    "react-scripts": "3.1.2",
     "react-use": "^7.0.1",
     "styled-components": "^4.2.0",
     "update-check": "^1.5.4",
