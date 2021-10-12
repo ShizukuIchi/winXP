@@ -20,11 +20,11 @@ function ColorSwatches({
   ];
 
   useEffect(() => {
-    const isSystemColor = checkIfSystemColor(currentColor, colorsArray);
+    const isSystemColor = checkCurrentColor(currentColor, colorsArray);
     setCustomColor(isSystemColor ? false : currentColor);
   }, [currentColor, colorsArray]);
 
-  const checkIfSystemColor = (colorToCheck, systemColors) => {
+  const checkCurrentColor = (colorToCheck, systemColors) => {
     let existSystemColor = false;
     for (const colorCode of systemColors) {
       if (colorCode.includes(colorToCheck)) existSystemColor = true;
@@ -64,13 +64,14 @@ function ColorSwatches({
           />
           Other...
         </Button>
-        <SampleBox
-          hidden={!customColor}
-          sampleColor={customColor}
-          highlighted={customColor === highlighted}
-          onMouseEnter={() => setHighlighted(customColor)}
-          onClick={() => handleColorSelect(customColor)}
-        />
+        {customColor && (
+          <SampleBox
+            sampleColor={customColor}
+            highlighted={customColor === highlighted}
+            onMouseEnter={() => setHighlighted(customColor)}
+            onClick={() => handleColorSelect(customColor)}
+          />
+        )}
       </section>
     </Swatches>
   );
@@ -84,18 +85,7 @@ const Swatches = styled.div`
   background-color: rgb(236, 233, 218);
   box-sizing: border-box;
   outline: 1px outset white;
-  -webkit-box-shadow: 2px 2px 3px -1px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 2px 2px 3px -1px rgba(0, 0, 0, 0.75);
   box-shadow: 2px 2px 3px -1px rgba(0, 0, 0, 0.75);
-
-  & .customColorPicker {
-    position: absolute;
-    width: 61px !important;
-    height: 18px;
-    opacity: 0;
-    left: 4px;
-    bottom: 5px;
-  }
 
   & .inline-grid {
     display: flex;
@@ -105,19 +95,27 @@ const Swatches = styled.div`
     width: 88px;
     margin: -1px 0px 2px 2px;
   }
-  & button {
-    width: 63px !important;
+
+  &&& .customColorPicker {
+    position: absolute;
+    width: 61px;
+    height: 18px;
+    opacity: 0;
+    left: 4px;
+    bottom: 5px;
+  }
+
+  &&& button {
+    width: 63px;
     margin: 1px 2px 0px 2px;
   }
 `;
 
 const SampleBox = styled.div`
-  display: ${props => (props.hidden ? 'none' : 'block')}
+  display: block;
   width: 17px;
   height: 17px;
   background-color: ${props => props.sampleColor}
-  -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0,0,0,0.5);
-  -moz-box-shadow: inset 2px 2px 2px 0px rgba(0,0,0,0.5);
   inset 2px 2px 2px 0px rgba(0,0,0,0.5);
   margin: 3px 3px 7px 3px
   outline-offset: 1px;
@@ -128,8 +126,6 @@ const SampleBox = styled.div`
     `
     outline-offset: -1px;
     outline: 3px double rgba(0,0,0,0.6);
-    -webkit-box-shadow: inset 1px 2px 2px 0px rgba(0,0,0,0.5);
-    -moz-box-shadow: inset 1px 2px 2px 0px rgba(0,0,0,0.5);
     inset 1px 2px 2px 0px rgba(0,0,0,0.5);
     `}
 `;
