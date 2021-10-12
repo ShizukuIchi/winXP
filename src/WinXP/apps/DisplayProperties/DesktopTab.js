@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import BackgroundView from '../../../components/BackgroundView';
-import Button from '../../../components/Button';
+import BackgroundView from 'components/BackgroundView';
+import Button from 'components/Button';
 import ColorSwatches from 'components/ColorSwatches/';
 
-import display from '../../../assets/properties/displayProperties/display.png';
-import arrowDown from '../../../assets/properties/displayProperties/icons/arrowDown.png';
-import iconNone from '../../../assets/properties/displayProperties/icons/none.png';
-import iconImage from '../../../assets/properties/displayProperties/icons/image.png';
+import display from 'assets/properties/displayProperties/display.png';
+import arrowDown from 'assets/properties/displayProperties/icons/arrowDown.png';
+import iconNone from 'assets/properties/displayProperties/icons/none.png';
+import iconImage from 'assets/properties/displayProperties/icons/image.png';
 
 import { backgrounds, DESKTOP } from './utils';
 

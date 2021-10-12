@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import onClickOutside from 'react-onclickoutside';
 import styled from 'styled-components';
-import Button from '../../components/Button';
+import Button from 'components/Button';
 
 function ColorSwatches({
   currentColor,

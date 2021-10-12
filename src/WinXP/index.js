@@ -27,9 +27,9 @@ import Modal from './Modal';
 import Footer from './Footer';
 import Windows from './Windows';
 import Icons from './Icons';
-import ContextMenu from '../components/ContextMenu';
-import { contextMenuData } from '../components/ContextMenu/utils';
-import BackgroundView from '../components/BackgroundView';
+import ContextMenu from 'components/ContextMenu';
+import { contextMenuData } from 'components/ContextMenu/utils';
+import BackgroundView from 'components/BackgroundView';
 
 import { DashedBox } from 'components';
 
