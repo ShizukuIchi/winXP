@@ -100,7 +100,7 @@ function DesktopTab({ state, dispatch }) {
             <Button>Browse...</Button>
             <div className={isBackgroundNone ? 'disabled' : ''}>
               <img className="arrow-down" src={arrowDown} alt="arrow down" />
-              <label htmlFor="position">Position:</label>
+              <label>Position:</label>
               <select
                 disabled={isBackgroundNone}
                 id="position"
@@ -114,12 +114,12 @@ function DesktopTab({ state, dispatch }) {
               </select>
             </div>
             <div>
-              <label htmlFor="color">Color:</label>
+              <label>Color:</label>
               <button
                 id="color"
                 className="color-button ignore-react-onclickoutside"
                 type="button"
-                onClick={() => setOpenColorSwatches(!openColorSwatches)}
+                onClick={() => setOpenColorSwatches(true)}
               >
                 <input
                   type="color"
