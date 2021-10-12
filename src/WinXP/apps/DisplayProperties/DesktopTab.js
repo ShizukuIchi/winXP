@@ -117,7 +117,7 @@ function DesktopTab({ state, dispatch }) {
               <label htmlFor="color">Color:</label>
               <button
                 id="color"
-                className="color-button"
+                className="color-button ignore-react-onclickoutside"
                 type="button"
                 onClick={() => setOpenColorSwatches(!openColorSwatches)}
               >
