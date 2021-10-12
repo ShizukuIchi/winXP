@@ -20,17 +20,9 @@ function ColorSwatches({
   ];
 
   useEffect(() => {
-    const isSystemColor = checkCurrentColor(currentColor, colorsArray);
+    const isSystemColor = colorsArray.flat().includes(currentColor);
     setCustomColor(isSystemColor ? false : currentColor);
   }, [currentColor, colorsArray]);
-
-  const checkCurrentColor = (colorToCheck, systemColors) => {
-    let existSystemColor = false;
-    for (const colorCode of systemColors) {
-      if (colorCode.includes(colorToCheck)) existSystemColor = true;
-    }
-    return existSystemColor;
-  };
 
   const handleColorSelect = selectedColor => {
     setDesktopState(prev => ({ ...prev, color: selectedColor }));
