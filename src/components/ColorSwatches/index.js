@@ -10,26 +10,17 @@ function ColorSwatches({
   const [customColor, setCustomColor] = useState(false);
   const [highlighted, setHighlighted] = useState(currentColor);
 
-  const sampleColumn1 = ['#ffffff', '#fa0000', '#00fc00', '#0602fd', '#bddbc3'];
-  const sampleColumn2 = ['#000000', '#7c0001', '#027f00', '#040078', '#a3c9ee'];
-  const sampleColumn3 = ['#bfbfc1', '#fcfb09', '#00fcfd', '#fd06f5', '#fcf9f0'];
-  const sampleColumn4 = ['#818181', '#7f7e09', '#03807a', '#641c5c', '#a2a1a7'];
-
   const colorsArray = [
-    sampleColumn1,
-    sampleColumn2,
-    sampleColumn3,
-    sampleColumn4,
+    ['#ffffff', '#fa0000', '#00fc00', '#0602fd', '#bddbc3'],
+    ['#000000', '#7c0001', '#027f00', '#040078', '#a3c9ee'],
+    ['#bfbfc1', '#fcfb09', '#00fcfd', '#fd06f5', '#fcf9f0'],
+    ['#818181', '#7f7e09', '#03807a', '#641c5c', '#a2a1a7'],
   ];
 
   useEffect(() => {
     const isSystemColor = checkIfSystemColor(currentColor, colorsArray);
-    if (isSystemColor) {
-      setCustomColor(false);
-    } else {
-      setCustomColor(currentColor);
-    }
-  }, [currentColor]);
+    setCustomColor(isSystemColor ? false : currentColor);
+  }, [currentColor, colorsArray]);
 
   const checkIfSystemColor = (colorToCheck, systemColors) => {
     let existSystemColor = false;

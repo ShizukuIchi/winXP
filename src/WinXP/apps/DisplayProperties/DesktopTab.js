@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import BackgroundView from '../../../components/BackgroundView';
 import Button from '../../../components/Button';
+import ColorSwatches from 'components/ColorSwatches/';
 
 import display from '../../../assets/properties/displayProperties/display.png';
 import arrowDown from '../../../assets/properties/displayProperties/icons/arrowDown.png';
@@ -10,7 +11,6 @@ import iconNone from '../../../assets/properties/displayProperties/icons/none.pn
 import iconImage from '../../../assets/properties/displayProperties/icons/image.png';
 
 import { backgrounds, DESKTOP } from './utils';
-import ColorSwatches from 'components/ColorSwatches/';
 
 function DesktopTab({ state, dispatch }) {
   const { id, position, image, color } = state.displayProperties.desktop;
@@ -118,7 +118,7 @@ function DesktopTab({ state, dispatch }) {
               <button
                 id="color"
                 className="color-button"
-                type="color"
+                type="button"
                 onClick={() => setOpenColorSwatches(!openColorSwatches)}
               >
                 <input
@@ -257,7 +257,7 @@ const Desktop = styled.div`
       }
     }
 
-    & .color-box{
+    & .color-box {
       position: relative;
       right: 1px;
       bottom: 1px
