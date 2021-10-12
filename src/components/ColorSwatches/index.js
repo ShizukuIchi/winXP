@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import onClickOutside from 'react-onclickoutside';
 import styled from 'styled-components';
 import Button from '../../components/Button';
 
@@ -9,6 +10,7 @@ function ColorSwatches({
 }) {
   const [customColor, setCustomColor] = useState(false);
   const [highlighted, setHighlighted] = useState(currentColor);
+  ColorSwatches.handleClickOutside = () => setOpenColorSwatches(false);
 
   const colorsArray = [
     ['#ffffff', '#fa0000', '#00fc00', '#0602fd', '#bddbc3'],
@@ -132,4 +134,8 @@ const SampleBox = styled.div`
     `}
 `;
 
-export default ColorSwatches;
+const clickOutsideConfig = {
+  handleClickOutside: () => ColorSwatches.handleClickOutside,
+};
+
+export default onClickOutside(ColorSwatches, clickOutsideConfig);
