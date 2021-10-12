@@ -27,10 +27,11 @@ const StyledButton = styled.button`
 
   &:disabled {
     pointer-events: none;
-    color: grey;
-    background-color: #e9e9e9;
-    opacity: 0.5;
+    color: rgba(128,128,128,0.5);
+    backgroundColor: rgba(233,233,233,0.5);
+    border: 1px solid rgba(128,128,128, 0.5);
   }
+
 `;
 
 export default Button;

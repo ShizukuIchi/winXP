@@ -1,12 +1,12 @@
-import checked from '../../assets/windowsIcons/checked.png';
-import briefcase from '../../assets/contextMenuIcons/briefcase.png';
-import folderZip from '../../assets/contextMenuIcons/folder-zip.png';
-import folder from '../../assets/contextMenuIcons/folder.png';
-import image from '../../assets/contextMenuIcons/image.png';
-import media from '../../assets/contextMenuIcons/media.png';
-import richText from '../../assets/contextMenuIcons/rich-text.png';
-import shortcut from '../../assets/contextMenuIcons/shortcut.png';
-import txt from '../../assets/contextMenuIcons/txt.png';
+import checked from 'assets/windowsIcons/checked.png';
+import briefcase from 'assets/contextMenuIcons/briefcase.png';
+import folderZip from 'assets/contextMenuIcons/folder-zip.png';
+import folder from 'assets/contextMenuIcons/folder.png';
+import image from 'assets/contextMenuIcons/image.png';
+import media from 'assets/contextMenuIcons/media.png';
+import richText from 'assets/contextMenuIcons/rich-text.png';
+import shortcut from 'assets/contextMenuIcons/shortcut.png';
+import txt from 'assets/contextMenuIcons/txt.png';
 
 export const contextMenuData = [
   {

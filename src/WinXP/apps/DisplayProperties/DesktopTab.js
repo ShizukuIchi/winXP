@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import BackgroundView from '../../../components/BackgroundView';
-import Button from '../../../components/Button';
+import BackgroundView from 'components/BackgroundView';
+import Button from 'components/Button';
+import ColorSwatches from 'components/ColorSwatches/';
 
-import display from '../../../assets/properties/displayProperties/display.png';
-import arrowDown from '../../../assets/properties/displayProperties/icons/arrowDown.png';
-import iconNone from '../../../assets/properties/displayProperties/icons/none.png';
-import iconImage from '../../../assets/properties/displayProperties/icons/image.png';
+import display from 'assets/properties/displayProperties/display.png';
+import arrowDown from 'assets/properties/displayProperties/icons/arrowDown.png';
+import iconNone from 'assets/properties/displayProperties/icons/none.png';
+import iconImage from 'assets/properties/displayProperties/icons/image.png';
 
 import { backgrounds, DESKTOP } from './utils';
 
@@ -19,6 +20,7 @@ function DesktopTab({ state, dispatch }) {
     image,
     color,
   });
+  const [openColorSwatches, setOpenColorSwatches] = useState(false);
 
   const isBackgroundNone = desktopState.id === 0;
 
@@ -64,10 +66,6 @@ function DesktopTab({ state, dispatch }) {
     setDesktopState(prev => ({ ...prev, position: e.target.value }));
   };
 
-  const handleColorChange = e => {
-    setDesktopState(prev => ({ ...prev, color: e.target.value }));
-  };
-
   return (
     <Desktop>
       <div className="preview">
@@ -102,7 +100,7 @@ function DesktopTab({ state, dispatch }) {
             <Button>Browse...</Button>
             <div className={isBackgroundNone ? 'disabled' : ''}>
               <img className="arrow-down" src={arrowDown} alt="arrow down" />
-              <label htmlFor="position">Position:</label>
+              <label>Position:</label>
               <select
                 disabled={isBackgroundNone}
                 id="position"
@@ -116,14 +114,27 @@ function DesktopTab({ state, dispatch }) {
               </select>
             </div>
             <div>
-              <label htmlFor="color">Color:</label>
-              <input
+              <label>Color:</label>
+              <button
                 id="color"
-                className="color-input"
-                type="color"
-                onChange={e => handleColorChange(e)}
-                value={desktopState.color}
-              />
+                className="color-button ignore-react-onclickoutside"
+                type="button"
+                onClick={() => setOpenColorSwatches(true)}
+              >
+                <input
+                  type="color"
+                  value={desktopState.color}
+                  disabled
+                  className="color-box"
+                />
+              </button>
+              {openColorSwatches && (
+                <ColorSwatches
+                  currentColor={desktopState.color}
+                  setDesktopState={setDesktopState}
+                  setOpenColorSwatches={setOpenColorSwatches}
+                />
+              )}
             </div>
           </div>
         </div>
@@ -215,12 +226,12 @@ const Desktop = styled.div`
       &:focus {
         color: #fff;
         background-color: #2f71cd;
-        box-shadow: 0px 0px 0px 2px #fff inset;
+        box-shadow: inset 0px 0px 0px 2px #fff;
         outline: none;
       }
     }
 
-    & .color-input {
+    & .color-button {
       position: relative;
       padding: 0 16px 0 2px;
       border-radius: 4px;
@@ -244,6 +255,15 @@ const Desktop = styled.div`
         border: 3.5px solid transparent;
         border-top-color: currentColor;
       }
+    }
+
+    & .color-box {
+      position: relative;
+      right: 1px;
+      bottom: 1px;
+      border: none;
+      width: 60px;
+      height: 20px;
     }
 
     & label {

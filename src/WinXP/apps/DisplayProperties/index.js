@@ -2,7 +2,7 @@ import React, { useReducer, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { Context as AppContext } from './../../../WinXP';
-import Button from '../../../components/Button';
+import Button from 'components/Button';
 
 import TabsMenu from '../TabsMenu';
 

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import BackgroundView from '../../../components/BackgroundView';
-import Button from '../../../components/Button';
+import BackgroundView from 'components/BackgroundView';
+import Button from 'components/Button';
 
-import arrowDown from '../../../assets/properties/displayProperties/icons/arrowDown.png';
-import classicXP from '../../../assets/properties/displayProperties/classic-xp.png';
-import windowImage from '../../../assets/properties/displayProperties/window-image.png';
-import trashImage from '../../../assets/properties/displayProperties/trash-image.png';
+import arrowDown from 'assets/properties/displayProperties/icons/arrowDown.png';
+import classicXP from 'assets/properties/displayProperties/classic-xp.png';
+import windowImage from 'assets/properties/displayProperties/window-image.png';
+import trashImage from 'assets/properties/displayProperties/trash-image.png';
 
 import { getLocalStorage } from '../../utils';
 import { DESKTOP, defaultDesktop } from './utils';
