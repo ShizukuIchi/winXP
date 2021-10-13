@@ -8,8 +8,8 @@ import TabsMenu from '../TabsMenu';
 
 import ThemeTab from './ThemeTab';
 import DesktopTab from './DesktopTab';
+import ScreenSaverTab from './ScreenSaverTab';
 // import AppearanceTab from './AppearanceTab';
-// import ScreenSaverTab from './ScreenSaverTab';
 // import SettingsTab from './SettingsTab';
 import {
   DESKTOP,
@@ -22,7 +22,7 @@ import {
 const tabs = [
   { title: 'Themes', content: ThemeTab },
   { title: 'Desktop', content: DesktopTab },
-  // { title: 'Screen Saver', content: ScreenSaverTab },
+  { title: 'Screen Saver', content: ScreenSaverTab },
   // { title: 'Appearance', content: AppearanceTab },
   // { title: 'Settings', content: SettingsTab },
 ];
