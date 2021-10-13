@@ -112,7 +112,6 @@ const SampleBox = styled.div`
   margin: 3px 3px 7px 3px;
   outline-offset: 1px;
   outline: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: 1px;
   ${props =>
     props.highlighted &&
     `
