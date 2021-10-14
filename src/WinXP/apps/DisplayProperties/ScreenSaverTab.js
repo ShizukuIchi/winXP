@@ -10,6 +10,11 @@ function ScreenSaverTab() {
         <img src={display} alt="display" />
         <div className="display-overlay"></div>
       </div>
+      <form className="config">
+        <fieldset>
+          <legend>Screen saver</legend>
+        </fieldset>
+      </form>
     </ScreenSaver>
   );
 }
@@ -19,7 +24,7 @@ const ScreenSaver = styled.div`
     position: relative;
     display: flex;
     justify-content: center;
-    margin: 10px 0;
+    margin-top: 10px;
 
     & .display-overlay {
       position: absolute;
@@ -29,6 +34,9 @@ const ScreenSaver = styled.div`
       height: 118px;
       background-color: #2f71cd;
     }
+  }
+  .config {
+    margin: 3px 0px 0px 0px;
   }
 `;
 
