@@ -4,6 +4,8 @@ import numberDown from '../../assets/properties/displayProperties/icons/numberDo
 
 function NumberInput({ defaultValue }) {
   const [inputValue, setInputValue] = useState(defaultValue);
+  const [upMouseClickStyle, setUpMouseClickStyle] = useState({});
+  const [downMouseClickStyle, setDownMouseClickStyle] = useState({});
 
   const inputRef = useRef(null);
 
@@ -18,11 +20,22 @@ function NumberInput({ defaultValue }) {
 
   const handleKeyDown = e => {
     if (e.key === 'ArrowDown') {
+      setDownMouseClickStyle({
+        boxShadow: 'inset 2px 4px 4px 1px rgb(85 108 165 / 56%)',
+      });
       if (inputValue < 3) setInputValue(2);
     }
     if (e.key === 'ArrowUp') {
+      setUpMouseClickStyle({
+        boxShadow: 'inset -2px -4px 4px 1px rgb(85 108 165 / 56%)',
+      });
       if (inputValue < 0) setInputValue(1);
     }
+  };
+
+  const handleKeyUp = () => {
+    setUpMouseClickStyle({});
+    setDownMouseClickStyle({});
   };
 
   return (
@@ -31,11 +44,27 @@ function NumberInput({ defaultValue }) {
         type="button"
         className="arrowUp"
         onClick={() => handleValueStepper(1)}
+        onMouseDown={() =>
+          setUpMouseClickStyle({
+            boxShadow: 'inset -2px -4px 4px 1px rgb(85 108 165 / 56%)',
+          })
+        }
+        onMouseUp={() => setUpMouseClickStyle({})}
+        onMouseOut={() => setUpMouseClickStyle({})}
+        style={upMouseClickStyle}
       />
       <button
         type="button"
         className="arrowDown"
         onClick={() => handleValueStepper(-1)}
+        onMouseDown={() =>
+          setDownMouseClickStyle({
+            boxShadow: 'inset 2px 4px 4px 1px rgb(85 108 165 / 56%)',
+          })
+        }
+        onMouseUp={() => setDownMouseClickStyle({})}
+        onMouseOut={() => setDownMouseClickStyle({})}
+        style={downMouseClickStyle}
       />
       <input
         type="number"
@@ -44,6 +73,7 @@ function NumberInput({ defaultValue }) {
         value={inputValue}
         onChange={e => setInputValue(e.target.value)}
         onKeyDown={handleKeyDown}
+        onKeyUp={handleKeyUp}
         onFocus={e => e.target.select()}
       />
     </StyledNumberInput>
@@ -57,9 +87,9 @@ const StyledNumberInput = styled.div`
     border: 1px solid grey;
     font-size: 12px;
     margin-left: 32px;
-    margin-top: 7.5px;
+    margin-top: 6px;
     width: 49px;
-    height: 22px;
+    height: 21px;
     padding-bottom: 2px;
     padding-right: 2px;
     text-align: right;
@@ -85,7 +115,7 @@ const StyledNumberInput = styled.div`
     cursor: pointer;
     outline: inherit;
     position: absolute;
-    top: 38px;
+    top: 36px;
     left: 64px;
     width: 15px;
     height: 9px;
@@ -106,7 +136,7 @@ const StyledNumberInput = styled.div`
     outline: inherit;
     position: absolute;
     position: absolute;
-    top: 47px;
+    top: 44.5px;
     left: 64px;
     width: 15px;
     height: 9px;
