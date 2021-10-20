@@ -6,6 +6,7 @@ import display from '../../../assets/properties/displayProperties/display.png';
 import arrowDown from 'assets/properties/displayProperties/icons/arrowDown.png';
 import Button from 'components/Button';
 import NumberInput from 'components/numberInput';
+import CheckBox from 'components/checkBox';
 
 function ScreenSaverTab() {
   return (
@@ -30,9 +31,13 @@ function ScreenSaverTab() {
             <Button style={{ marginLeft: '9px' }}>Preview</Button>
           </div>
           <div className="quickSettings">
-            <label className="label">Wait:</label>
+            <label className="waitLabel">Wait:</label>
             <NumberInput defaultValue={5} />
             <p>minutes</p>
+            <CheckBox
+              className="check-box"
+              label="On resume, password protect"
+            />
           </div>
         </fieldset>
         <fieldset className="settings">
@@ -114,11 +119,18 @@ const ScreenSaver = styled.div`
   .quickSettings {
     display: flex;
     margin-top: 8px;
-    & label {
+
+    .check-box {
+      margin-top: 5.5px;
+      margin-left: 6px;
+    }
+
+    & .waitLabel {
       margin-top: 3.5px;
       margin-left: 8px;
       padding-right: 2.5px;
     }
+
     & p {
       margin-left: 5px;
       margin-top: 4px;
