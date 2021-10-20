@@ -2,8 +2,8 @@ import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import numberDown from '../../assets/properties/displayProperties/icons/numberDown.png';
 
-function NumberInput({ defaultValue }) {
-  const [inputValue, setInputValue] = useState(defaultValue);
+function NumberInput(props) {
+  const [inputValue, setInputValue] = useState(props.defaultValue);
   const [upMouseClickStyle, setUpMouseClickStyle] = useState({});
   const [downMouseClickStyle, setDownMouseClickStyle] = useState({});
 
@@ -40,7 +40,7 @@ function NumberInput({ defaultValue }) {
   };
 
   return (
-    <StyledNumberInput>
+    <StyledNumberInput {...props}>
       <button
         type="button"
         className="arrowUp"
