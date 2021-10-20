@@ -10,9 +10,8 @@ function NumberInput({ defaultValue }) {
   const inputRef = useRef(null);
 
   const handleValueStepper = action => {
-    if (inputValue > 1) setInputValue(prev => +prev + action);
-    else if (action === -1 || inputValue < 1) setInputValue(1);
-    else setInputValue(2);
+    const nextValue = +inputValue + action;
+    checkAndSetInput(nextValue);
     setTimeout(() => {
       inputRef.current.select();
     }, 0);
@@ -23,19 +22,21 @@ function NumberInput({ defaultValue }) {
       setDownMouseClickStyle({
         boxShadow: 'inset 2px 4px 4px 1px rgb(85 108 165 / 56%)',
       });
-      if (inputValue < 3) setInputValue(2);
     }
     if (e.key === 'ArrowUp') {
       setUpMouseClickStyle({
         boxShadow: 'inset -2px -4px 4px 1px rgb(85 108 165 / 56%)',
       });
-      if (inputValue < 0) setInputValue(1);
     }
   };
 
   const handleKeyUp = () => {
     setUpMouseClickStyle({});
     setDownMouseClickStyle({});
+  };
+
+  const checkAndSetInput = value => {
+    if (!(value < 1 || value > 9999)) setInputValue(value);
   };
 
   return (
@@ -71,7 +72,7 @@ function NumberInput({ defaultValue }) {
         className="numberInput"
         ref={inputRef}
         value={inputValue}
-        onChange={e => setInputValue(e.target.value)}
+        onChange={e => checkAndSetInput(e.target.value)}
         onKeyDown={handleKeyDown}
         onKeyUp={handleKeyUp}
         onFocus={e => e.target.select()}
@@ -85,9 +86,7 @@ const StyledNumberInput = styled.div`
     border-radius: 0;
     border-color: grey;
     border: 1px solid grey;
-    font-size: 12px;
-    margin-left: 32px;
-    margin-top: 6px;
+    font-size: 13px;
     width: 49px;
     height: 21px;
     padding-bottom: 2px;
@@ -115,12 +114,13 @@ const StyledNumberInput = styled.div`
     cursor: pointer;
     outline: inherit;
     position: absolute;
-    top: 36px;
-    left: 64px;
+    top: 38px;
+    left: 69px;
     width: 15px;
     height: 9px;
     transform: rotate(180deg);
     background-image: url(${numberDown});
+    z-index: 1;
     &:hover {
       filter: brightness(1.07);
     }
@@ -136,11 +136,12 @@ const StyledNumberInput = styled.div`
     outline: inherit;
     position: absolute;
     position: absolute;
-    top: 44.5px;
-    left: 64px;
+    top: 46.5px;
+    left: 69px;
     width: 15px;
     height: 9px;
     background-image: url(${numberDown});
+    z-index: 1;
     &:hover {
       filter: brightness(1.07);
     }
