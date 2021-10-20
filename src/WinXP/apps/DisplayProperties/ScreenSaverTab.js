@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import display from '../../../assets/properties/displayProperties/display.png';
-
+import display from 'assets/properties/displayProperties/display.png';
 import arrowDown from 'assets/properties/displayProperties/icons/arrowDown.png';
 import Button from 'components/Button';
 import NumberInput from 'components/numberInput';
@@ -42,6 +41,8 @@ function ScreenSaverTab() {
         </fieldset>
         <fieldset className="settings">
           <legend>Monitor power</legend>
+          <p>To adjust monitor power settings and save energy, click Power.</p>
+          <Button className="power-button">Power...</Button>
         </fieldset>
       </form>
     </ScreenSaver>
@@ -74,6 +75,17 @@ const ScreenSaver = styled.div`
     border-radius: 5px;
     font-size: 11px;
     height: 80px;
+
+    & p {
+      margin-left: 82px;
+      margin-top: 7px;
+    }
+
+    & .power-button {
+      position: absolute;
+      right: 9px;
+      top: 45px;
+    }
   }
 
   .settings:nth-child(2) {
