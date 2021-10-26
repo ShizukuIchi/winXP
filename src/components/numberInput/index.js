@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import numberDown from '../../assets/properties/displayProperties/icons/numberDown.png';
 
 function NumberInput(props) {
-  const [inputValue, setInputValue] = useState(props.defaultValue);
+  const { defaultValue, handleWaitingTime } = props;
+  const [inputValue, setInputValue] = useState(defaultValue);
   const [upMouseClickStyle, setUpMouseClickStyle] = useState({});
   const [downMouseClickStyle, setDownMouseClickStyle] = useState({});
 
@@ -36,7 +37,10 @@ function NumberInput(props) {
   };
 
   const checkAndSetInput = value => {
-    if (!(value < 1 || value > 9999)) setInputValue(value);
+    if (!(value < 1 || value > 9999)) {
+      setInputValue(value);
+      handleWaitingTime(value);
+    }
   };
 
   return (

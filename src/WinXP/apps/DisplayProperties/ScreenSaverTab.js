@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import display from 'assets/properties/displayProperties/display.png';
 import arrowDown from 'assets/properties/displayProperties/icons/arrowDown.png';
 import Button from 'components/Button';
-import NumberInput from 'components/numberInput';
-import CheckBox from 'components/checkBox';
+import NumberInput from 'components/NumberInput';
+import CheckBox from 'components/CheckBox';
+import { SCREEN_SAVER } from './utils';
 
-function ScreenSaverTab() {
+function ScreenSaverTab({ state, dispatch }) {
+  const { value, wait } = state.displayProperties.screenSaver;
+  const [screenSaverState, setScreenSaverState] = useState({ value, wait });
+
+  useEffect(() => {
+    dispatch({ type: SCREEN_SAVER, payload: screenSaverState });
+  }, [screenSaverState, dispatch]);
+
+  const handleSelectChange = e => {
+    setScreenSaverState(prev => ({ ...prev, value: e.target.value }));
+  };
+
+  const handleWaitingTime = wait => {
+    setScreenSaverState(prev => ({ ...prev, wait }));
+  };
+
   return (
     <ScreenSaver>
       <div className="preview">
@@ -19,19 +35,32 @@ function ScreenSaverTab() {
           <legend>Screen saver</legend>
           <img className="arrow-down" src={arrowDown} alt="arrow down" />
           <label htmlFor="screen-saver">
-            <select id="screen-saver" className="position-input" autoFocus>
+            <select
+              value={value}
+              id="screen-saver"
+              className="position-input"
+              onChange={handleSelectChange}
+              autoFocus
+            >
               <option value="(None)">(None)</option>
               <option value="Blank">Blank</option>
-              <option value="Windows XP">Windows XP</option>
+              <option value="windowsXP">Windows XP</option>
             </select>
           </label>
           <div className="button-group">
-            <Button style={{ marginLeft: '7px' }}>Settings</Button>
-            <Button style={{ marginLeft: '9px' }}>Preview</Button>
+            <Button type="button" style={{ marginLeft: '7px' }}>
+              Settings
+            </Button>
+            <Button type="button" style={{ marginLeft: '9px' }}>
+              Preview
+            </Button>
           </div>
           <div className="quickSettings">
             <label className="waitLabel">Wait:</label>
-            <NumberInput defaultValue={5} />
+            <NumberInput
+              defaultValue={wait}
+              handleWaitingTime={handleWaitingTime}
+            />
             <p>minutes</p>
             <CheckBox
               className="check-box"
@@ -42,7 +71,9 @@ function ScreenSaverTab() {
         <fieldset className="settings">
           <legend>Monitor power</legend>
           <p>To adjust monitor power settings and save energy, click Power.</p>
-          <Button className="power-button">Power...</Button>
+          <Button type="button" className="power-button">
+            Power...
+          </Button>
         </fieldset>
       </form>
     </ScreenSaver>
