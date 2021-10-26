@@ -118,8 +118,14 @@ export const defaultDesktop = {
   color: '#2f71cd',
 };
 
+export const defaultScreenSaver = {
+  value: 'windowsXP',
+  wait: '5',
+};
+
 export const DISPLAY_PROPERTIES = 'DISPLAY_PROPERTIES';
 export const DESKTOP = 'DESKTOP';
 export const CHANGE = 'CHANGE';
 export const FIRST_CHANGE = 'FIRST_CHANGE';
 export const RESET_FIRST_CHANGE = 'RESET_FIRST_CHANGE';
+export const SCREEN_SAVER = 'SCREEN_SAVER';

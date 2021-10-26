@@ -1,10 +1,21 @@
-import React, { useReducer, useRef, useCallback, useLayoutEffect } from 'react';
+import React, {
+  useReducer,
+  useRef,
+  useCallback,
+  useLayoutEffect,
+  useState,
+  useEffect,
+} from 'react';
 import styled, { keyframes } from 'styled-components';
 import useMouse from 'react-use/lib/useMouse';
 import ga from 'react-ga';
 
 import { getLocalStorage, setLocalStorage } from './utils';
-import { defaultDesktop } from './apps/DisplayProperties/utils';
+import {
+  defaultDesktop,
+  defaultScreenSaver,
+  DISPLAY_PROPERTIES,
+} from './apps/DisplayProperties/utils';
 
 import {
   ADD_APP,
@@ -32,6 +43,7 @@ import { contextMenuData } from 'components/ContextMenu/utils';
 import BackgroundView from 'components/BackgroundView';
 
 import { DashedBox } from 'components';
+import ScreenSaver from 'components/ScreenSavers';
 
 export const Context = React.createContext();
 
@@ -46,6 +58,7 @@ const initState = {
   powerState: POWER_STATE.START,
   displayProperties: {
     desktop: defaultDesktop,
+    screenSaver: defaultScreenSaver,
   },
 };
 const reducer = (state, action = { type: '' }) => {
@@ -196,7 +209,7 @@ const reducer = (state, action = { type: '' }) => {
         ...state,
         powerState: POWER_STATE.START,
       };
-    case 'DISPLAY_PROPERTIES':
+    case DISPLAY_PROPERTIES:
       if (action.payload) setLocalStorage('displayProperties', action.payload);
 
       return {
@@ -212,12 +225,23 @@ const reducer = (state, action = { type: '' }) => {
 function WinXP() {
   const [state, dispatch] = useReducer(reducer, initState);
 
+  const [isScreenSaverActive, setIsScreenSaverActive] = useState(false);
+  const [timeoutId, setTimeoutId] = useState('');
+
+  useEffect(() => {
+    screenSaverIdleTimer();
+    console.log('hhhhhhhhh');
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [state.displayProperties.screenSaver.wait, isScreenSaverActive]);
+
   useLayoutEffect(() => {
-    const desktop = getLocalStorage('displayProperties');
-    if (desktop)
+    const displayProperties = getLocalStorage('displayProperties');
+    if (displayProperties)
       dispatch({
-        type: 'DISPLAY_PROPERTIES',
-        payload: desktop,
+        type: DISPLAY_PROPERTIES,
+        payload: displayProperties,
       });
   }, []);
 
@@ -251,6 +275,19 @@ function WinXP() {
     },
     [focusedAppId],
   );
+
+  const screenSaverIdleTimer = () => {
+    const { wait } = state.displayProperties.screenSaver;
+    clearTimeout(timeoutId);
+    console.log('timeout cleared');
+    if (!isScreenSaverActive) {
+      console.log('timeout start');
+      const id = setTimeout(() => {
+        setIsScreenSaverActive(true);
+      }, wait * 1000 * 60);
+      setTimeoutId(id);
+    }
+  };
   function onMouseDownFooterApp(id) {
     if (focusedAppId === id) {
       dispatch({ type: MINIMIZE_APP, payload: id });
@@ -304,6 +341,7 @@ function WinXP() {
       });
   }
   function onMouseDownDesktop(e) {
+    resetScreenSaver();
     if (e.target === e.currentTarget)
       dispatch({
         type: START_SELECT,
@@ -334,13 +372,23 @@ function WinXP() {
     dispatch({ type: CANCEL_POWER_OFF });
   }
 
+  const resetScreenSaver = () => {
+    if (isScreenSaverActive) {
+      setIsScreenSaverActive(false);
+    }
+    screenSaverIdleTimer();
+  };
+
   return (
     <Container
       ref={ref}
+      onMouseMove={resetScreenSaver}
+      onKeyDown={resetScreenSaver}
       onMouseUp={onMouseUpDesktop}
       onMouseDown={onMouseDownDesktop}
       onContextMenu={onContextMenu}
       state={state.powerState}
+      tabIndex={0}
     >
       <Icons
         icons={state.icons}
@@ -386,6 +434,7 @@ function WinXP() {
         />
       )}
       <BackgroundView background={state.displayProperties.desktop} />
+      {isScreenSaverActive && <ScreenSaver />}
     </Container>
   );
 }

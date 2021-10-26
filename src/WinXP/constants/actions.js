@@ -11,3 +11,5 @@ export const END_SELECT = 'END_SELECT';
 export const CONTEXT_MENU = 'CONTEXT_MENU';
 export const POWER_OFF = 'POWER_OFF';
 export const CANCEL_POWER_OFF = 'CANCEL_POWER_OFF';
+export const SET_DESKTOP = 'SET_DESKTOP';
+export const SET_SCREEN_SAVER = 'SET_SCREEN_SAVER';

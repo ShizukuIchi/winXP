@@ -17,6 +17,7 @@ import {
   DISPLAY_PROPERTIES,
   FIRST_CHANGE,
   RESET_FIRST_CHANGE,
+  SCREEN_SAVER,
 } from './utils';
 
 const tabs = [
@@ -55,6 +56,17 @@ function DisplayProperties({ onClose }) {
             ...displayProperties,
             desktop: {
               ...state.displayProperties.desktop,
+              ...payload,
+            },
+          },
+        };
+      case SCREEN_SAVER:
+        return {
+          ...state,
+          displayProperties: {
+            ...displayProperties,
+            screenSaver: {
+              ...state.displayProperties.screenSaver,
               ...payload,
             },
           },
