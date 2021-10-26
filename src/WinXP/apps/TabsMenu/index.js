@@ -13,7 +13,6 @@ function TabsMenu({ tabs, state, dispatch }) {
 
     setActiveTab(defaultTabIndex === -1 ? fallbackTabIndex : defaultTabIndex);
   }, [tabs]);
-
   function isValidTab(tab) {
     return !tab.disabled && !tab.skip;
   }
@@ -22,7 +21,6 @@ function TabsMenu({ tabs, state, dispatch }) {
     if (item.disabled) return;
     setActiveTab(index);
   }
-
   return (
     <TabMenu>
       <Tabs>

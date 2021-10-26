@@ -31,7 +31,6 @@ function Windows({
     </div>
   );
 }
-
 const Window = memo(function({
   injectProps,
   id,
