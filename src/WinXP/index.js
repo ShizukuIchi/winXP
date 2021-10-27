@@ -230,7 +230,6 @@ function WinXP() {
 
   useEffect(() => {
     screenSaverIdleTimer();
-    console.log('hhhhhhhhh');
     return () => {
       clearTimeout(timeoutId);
     };
@@ -279,9 +278,11 @@ function WinXP() {
   const screenSaverIdleTimer = () => {
     const { wait } = state.displayProperties.screenSaver;
     clearTimeout(timeoutId);
-    console.log('timeout cleared');
-    if (!isScreenSaverActive) {
-      console.log('timeout start');
+    //Activate Timer for screen saver only if screen saver is off and "(none)" is not selected.
+    if (
+      !isScreenSaverActive &&
+      state.displayProperties.screenSaver.value !== '(None)'
+    ) {
       const id = setTimeout(() => {
         setIsScreenSaverActive(true);
       }, wait * 1000 * 60);
@@ -434,7 +435,11 @@ function WinXP() {
         />
       )}
       <BackgroundView background={state.displayProperties.desktop} />
-      {isScreenSaverActive && <ScreenSaver />}
+      {isScreenSaverActive && (
+        <ScreenSaver
+          selectedScreenSaver={state.displayProperties.screenSaver.value}
+        />
+      )}
     </Container>
   );
 }

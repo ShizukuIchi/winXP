@@ -119,7 +119,7 @@ export const defaultDesktop = {
 };
 
 export const defaultScreenSaver = {
-  value: 'windowsXP',
+  value: 'WindowsXP',
   wait: '5',
 };
 

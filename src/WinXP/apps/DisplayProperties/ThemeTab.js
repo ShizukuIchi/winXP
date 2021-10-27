@@ -113,21 +113,17 @@ function ThemeTab({ state, dispatch }) {
 
 const ThemesPage = styled.div`
   font-size: 10px;
-
   .theme {
     margin-top: 15px;
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
   }
-
   .label {
     display: block;
   }
-
   .options {
     position: relative;
-
     & .arrow-down {
       position: absolute;
       left: 163px;
@@ -135,7 +131,6 @@ const ThemesPage = styled.div`
       width: 16px;
       pointer-events: none;
     }
-
     & .select {
       margin-top: 5px;
       width: 180px;
@@ -149,15 +144,12 @@ const ThemesPage = styled.div`
       }
     }
   }
-
   .sample {
     margin-top: 20px;
-
     .preview {
       position: relative;
       margin-top: 5px;
       height: 230px;
-
       &:before {
         content: '';
         position: absolute;
@@ -165,19 +157,16 @@ const ThemesPage = styled.div`
         height: 100%;
         box-shadow: -0.5px -0.5px 1.5px 1px #262626;
       }
-
       .background {
         height: 100%;
         width: 100%;
       }
-
       .window-image {
         position: absolute;
         top: 35px;
         left: 35px;
         width: 215px;
       }
-
       .trash-image {
         position: absolute;
         top: 185px;
