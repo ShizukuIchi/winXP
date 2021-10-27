@@ -7,6 +7,7 @@ import Button from 'components/Button';
 import NumberInput from 'components/NumberInput';
 import CheckBox from 'components/CheckBox';
 import { SCREEN_SAVER } from './utils';
+import ScreenSaver from 'components/ScreenSavers';
 
 function ScreenSaverTab({ state, dispatch }) {
   const { value, wait } = state.displayProperties.screenSaver;
@@ -25,10 +26,12 @@ function ScreenSaverTab({ state, dispatch }) {
   };
 
   return (
-    <ScreenSaver>
+    <ScreenSaverSettings>
       <div className="preview">
         <img src={display} alt="display" />
-        <div className="display-overlay"></div>
+        <div className="display-overlay">
+          <ScreenSaver selectedScreenSaver={value} previewScreen={true} />
+        </div>
       </div>
       <form className="config-area">
         <fieldset className="settings">
@@ -44,25 +47,38 @@ function ScreenSaverTab({ state, dispatch }) {
             >
               <option value="(None)">(None)</option>
               <option value="Blank">Blank</option>
-              <option value="windowsXP">Windows XP</option>
+              <option value="WindowsXP">Windows XP</option>
             </select>
           </label>
           <div className="button-group">
-            <Button type="button" style={{ marginLeft: '7px' }}>
+            <Button
+              disabled={screenSaverState.value === '(None)'}
+              type="button"
+              style={{ marginLeft: '7px' }}
+            >
               Settings
             </Button>
-            <Button type="button" style={{ marginLeft: '9px' }}>
+            <Button
+              disabled={screenSaverState.value === '(None)'}
+              type="button"
+              style={{ marginLeft: '9px' }}
+            >
               Preview
             </Button>
           </div>
-          <div className="quickSettings">
+          <div
+            className="quickSettings"
+            style={{ color: screenSaverState.value === '(None)' && '#adaa9c' }}
+          >
             <label className="waitLabel">Wait:</label>
             <NumberInput
+              value={screenSaverState.value}
               defaultValue={wait}
               handleWaitingTime={handleWaitingTime}
             />
             <p>minutes</p>
             <CheckBox
+              value={screenSaverState.value}
               className="check-box"
               label="On resume, password protect"
             />
@@ -76,11 +92,11 @@ function ScreenSaverTab({ state, dispatch }) {
           </Button>
         </fieldset>
       </form>
-    </ScreenSaver>
+    </ScreenSaverSettings>
   );
 }
 
-const ScreenSaver = styled.div`
+const ScreenSaverSettings = styled.div`
   .preview {
     position: relative;
     display: flex;
