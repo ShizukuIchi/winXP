@@ -222,18 +222,32 @@ const reducer = (state, action = { type: '' }) => {
   }
 };
 
+//TODO: Fix settimeout multiple reset error (Maximum update depth exceeded)
+
 function WinXP() {
   const [state, dispatch] = useReducer(reducer, initState);
 
   const [isScreenSaverActive, setIsScreenSaverActive] = useState(false);
-  const [timeoutId, setTimeoutId] = useState('');
+
+  const timerIdRef = useRef();
+
+  const screenSaverIdleTimer = useCallback(() => {
+    const { wait } = state.displayProperties.screenSaver;
+    clearTimeout(timerIdRef.current);
+    if (state.displayProperties.screenSaver.value !== '(None)') {
+      const id = setTimeout(() => {
+        setIsScreenSaverActive(true);
+      }, wait * 1000 * 60);
+      timerIdRef.current = id;
+    }
+  }, [state.displayProperties.screenSaver]);
 
   useEffect(() => {
     screenSaverIdleTimer();
     return () => {
-      clearTimeout(timeoutId);
+      clearTimeout(timerIdRef.current);
     };
-  }, [state.displayProperties.screenSaver.wait, isScreenSaverActive]);
+  }, [screenSaverIdleTimer]);
 
   useLayoutEffect(() => {
     const displayProperties = getLocalStorage('displayProperties');
@@ -275,20 +289,6 @@ function WinXP() {
     [focusedAppId],
   );
 
-  const screenSaverIdleTimer = () => {
-    const { wait } = state.displayProperties.screenSaver;
-    clearTimeout(timeoutId);
-    //Activate Timer for screen saver only if screen saver is off and "(none)" is not selected.
-    if (
-      !isScreenSaverActive &&
-      state.displayProperties.screenSaver.value !== '(None)'
-    ) {
-      const id = setTimeout(() => {
-        setIsScreenSaverActive(true);
-      }, wait * 1000 * 60);
-      setTimeoutId(id);
-    }
-  };
   function onMouseDownFooterApp(id) {
     if (focusedAppId === id) {
       dispatch({ type: MINIMIZE_APP, payload: id });
