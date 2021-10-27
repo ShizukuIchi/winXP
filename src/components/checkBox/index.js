@@ -5,7 +5,12 @@ import checkMark from '../../assets/properties/displayProperties/icons/checkmark
 function checkBox(props) {
   return (
     <StyledCheckBox {...props}>
-      <input type="checkbox" id="checkbox" className="checkbox" />
+      <input
+        disabled={props.value === '(None)'}
+        type="checkbox"
+        id="checkbox"
+        className={props.value === '(None)' ? 'checkboxDisabled' : 'checkbox'}
+      />
       <label className="label" htmlFor="checkbox">
         {props.label}
       </label>
@@ -62,6 +67,17 @@ const StyledCheckBox = styled.div`
     bottom: 1px;
     left: 3px;
     border: 1px dotted transparent;
+  }
+
+  .checkboxDisabled {
+    width: 11px;
+    height: 11px;
+    outline: 1px solid #afafaf;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    box-shadow: inset 24px 26px 8px -27px rgb(0 0 0 / 22%);
   }
 `;
 

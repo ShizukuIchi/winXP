@@ -1,13 +1,25 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import styled from 'styled-components';
 import logoXP from 'assets/properties/displayProperties/screenSaver/windows-xp-logo.png';
 
-function WindowsXP() {
+function WindowsXP({
+  winWidth = window.innerWidth,
+  winHeight = window.innerHeight,
+  imgHeight = 175,
+  imgWidth = 240,
+}) {
   const [logoPosition, setLogoPosition] = useState({ top: 0, left: 0 });
 
   const imgRef = useRef(null);
-  let winWidth = window.innerWidth;
-  let winHeight = window.innerHeight;
+
+  const randomizeLogoPosition = useCallback(() => {
+    let randomPosY = Math.random() * (winHeight - imgHeight);
+    let randomPosX = Math.random() * (winWidth - imgWidth);
+    setLogoPosition({
+      top: randomPosY,
+      left: randomPosX,
+    });
+  }, [winWidth, winHeight, imgHeight, imgWidth]);
 
   useEffect(() => {
     randomizeLogoPosition();
@@ -17,22 +29,17 @@ function WindowsXP() {
     return () => {
       clearInterval(id);
     };
-  }, []);
-
-  const randomizeLogoPosition = () => {
-    const imgHeight = imgRef.current.offsetHeight || 175;
-    const imgWidth = imgRef.current.offsetWidth || 240;
-    let randomPosY = Math.random() * (winHeight - imgHeight);
-    let randomPosX = Math.random() * (winWidth - imgWidth);
-    setLogoPosition({
-      top: randomPosY,
-      left: randomPosX,
-    });
-  };
+  }, [randomizeLogoPosition]);
 
   return (
     <StyledWindowsXP posY={logoPosition.top} posX={logoPosition.left}>
-      <img src={logoXP} alt="XP logo" ref={imgRef} />
+      <img
+        src={logoXP}
+        alt="XP logo"
+        ref={imgRef}
+        width={imgWidth}
+        height={imgHeight}
+      />
     </StyledWindowsXP>
   );
 }
@@ -41,8 +48,8 @@ const StyledWindowsXP = styled.div`
   position: absolute;
   top: 0px;
   left: 0px;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-color: black;
 
   img {

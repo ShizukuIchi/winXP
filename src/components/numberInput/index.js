@@ -47,7 +47,7 @@ function NumberInput(props) {
     <StyledNumberInput {...props}>
       <button
         type="button"
-        className="arrowUp"
+        className={props.value === '(None)' ? 'disabledArrowUp' : 'arrowUp'}
         onClick={() => handleValueStepper(1)}
         onMouseDown={() =>
           setUpMouseClickStyle({
@@ -57,10 +57,11 @@ function NumberInput(props) {
         onMouseUp={() => setUpMouseClickStyle({})}
         onMouseOut={() => setUpMouseClickStyle({})}
         style={upMouseClickStyle}
+        disabled={props.value === '(None)'}
       />
       <button
         type="button"
-        className="arrowDown"
+        className={props.value === '(None)' ? 'disabledArrowDown' : 'arrowDown'}
         onClick={() => handleValueStepper(-1)}
         onMouseDown={() =>
           setDownMouseClickStyle({
@@ -70,16 +71,20 @@ function NumberInput(props) {
         onMouseUp={() => setDownMouseClickStyle({})}
         onMouseOut={() => setDownMouseClickStyle({})}
         style={downMouseClickStyle}
+        disabled={props.value === '(None)'}
       />
       <input
         type="number"
-        className="numberInput"
+        className={
+          props.value === '(None)' ? 'numberInputDisabled' : 'numberInput'
+        }
         ref={inputRef}
         value={inputValue}
         onChange={e => checkAndSetInput(e.target.value)}
         onKeyDown={handleKeyDown}
         onKeyUp={handleKeyUp}
         onFocus={e => e.target.select()}
+        disabled={props.value === '(None)'}
       />
     </StyledNumberInput>
   );
@@ -88,8 +93,7 @@ function NumberInput(props) {
 const StyledNumberInput = styled.div`
   .numberInput {
     border-radius: 0;
-    border-color: grey;
-    border: 1px solid grey;
+    border: 1px solid gray;
     font-size: 13px;
     width: 49px;
     height: 21px;
@@ -109,8 +113,19 @@ const StyledNumberInput = styled.div`
     }
   }
 
+  .numberInputDisabled {
+    border-radius: 0;
+    font-size: 13px;
+    width: 49px;
+    height: 21px;
+    padding-bottom: 2px;
+    padding-right: 2px;
+    color: #adaa9c;
+    border: 1px solid #afafaf;
+    text-align: right;
+  }
+
   .arrowUp {
-    background: none;
     color: inherit;
     border: none;
     padding: 0;
@@ -149,6 +164,42 @@ const StyledNumberInput = styled.div`
     &:hover {
       filter: brightness(1.07);
     }
+  }
+
+  .disabledArrowUp {
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: inherit;
+    outline: inherit;
+    position: absolute;
+    top: 38px;
+    left: 69px;
+    width: 15px;
+    height: 9px;
+    transform: rotate(180deg);
+    background-image: url(${numberDown});
+    filter: grayscale(100%);
+    z-index: 1;
+  }
+
+  .disabledArrowDown {
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: inherit;
+    outline: inherit;
+    position: absolute;
+    position: absolute;
+    top: 47px;
+    left: 69px;
+    width: 15px;
+    height: 9px;
+    background-image: url(${numberDown});
+    filter: grayscale(100%);
+    z-index: 1;
   }
 `;
 
