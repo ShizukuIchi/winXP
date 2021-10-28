@@ -2,33 +2,24 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 import { WindowDropDowns } from 'components';
-import dropDownData from './dropDownData';
+import originalDropDownData from './dropDownData';
 
 export default function Notepad({ onClose }) {
   const [docText, setDocText] = useState('');
   const [wordWrap, setWordWrap] = useState(false);
   const [selectedText, setSelectedText] = useState('');
-  const [dropDownStatus, setDropDownStatus] = useState({});
+  const [caretPos, setCaretPos] = useState([0, 0]);
+  const [dropDownData, setDropDownData] = useState(originalDropDownData);
 
   const textareaRef = useRef();
 
-  // creates a copy of the dropdown JSON to trigger a render when statuses change
-  useEffect(() => {
-    setDropDownStatus(dropDownData);
-  }, [dropDownStatus]);
-
   useEffect(() => {
     dropDownData.Edit.forEach(option => {
-      if (['Cut', 'Copy', 'Delete'].includes(option.text)) {
-        if (selectedText) {
-          delete option.disable;
-        } else {
-          option.disable = true;
-        }
-        setDropDownStatus(dropDownData);
-      }
+      if (['Cut', 'Copy', 'Delete'].includes(option.text))
+        option.disable = !selectedText;
     });
-  }, [selectedText]);
+    setDropDownData(dropDownData => dropDownData);
+  }, [selectedText, dropDownData.Edit]);
 
   function onClickOptionItem(item) {
     switch (item) {
@@ -40,9 +31,7 @@ export default function Notepad({ onClose }) {
         break;
       case 'Time/Date':
         const date = new Date();
-        setDocText(
-          `${docText}${date.toLocaleTimeString()} ${date.toLocaleDateString()}`,
-        );
+        insertText(date.toLocaleTimeString() + ' ' + date.toLocaleDateString());
         break;
       case 'Select All':
         textareaRef.current.select();
@@ -71,8 +60,21 @@ export default function Notepad({ onClose }) {
 
   async function onPasteText() {
     const copiedText = await navigator.clipboard.readText();
-    setDocText((textareaRef.current.value += copiedText));
+    insertText(copiedText);
     setSelectedText('');
+  }
+
+  function insertText(text) {
+    const { value } = textareaRef.current;
+    if (selectedText) {
+      setDocText(
+        value.substring(0, caretPos[0]) + text + value.substring(caretPos[1]),
+      );
+    } else {
+      setDocText(
+        value.substring(0, caretPos[0]) + text + value.substring(caretPos[0]),
+      );
+    }
   }
 
   function onDeleteText() {
@@ -109,14 +111,15 @@ export default function Notepad({ onClose }) {
         value={docText}
         onChange={e => setDocText(e.target.value)}
         onKeyDown={onTextAreaKeyDown}
-        onSelect={e =>
+        onSelect={e => {
           setSelectedText(
             e.target.value.substring(
               e.target.selectionStart,
               e.target.selectionEnd,
             ),
-          )
-        }
+          );
+          setCaretPos([e.target.selectionStart, e.target.selectionEnd]);
+        }}
         spellCheck={false}
       />
     </Div>

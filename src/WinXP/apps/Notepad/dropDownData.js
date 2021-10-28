@@ -44,7 +44,7 @@ const Edit = [
   {
     type: 'item',
     disable: true,
-    text: 'Undo...',
+    text: 'Undo',
   },
   {
     type: 'separator',
