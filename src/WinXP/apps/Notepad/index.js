@@ -18,7 +18,7 @@ export default function Notepad({ onClose }) {
   }, [dropDownStatus]);
 
   useEffect(() => {
-    dropDownData.Edit.forEach((option) => {
+    dropDownData.Edit.forEach(option => {
       if (['Cut', 'Copy', 'Delete'].includes(option.text)) {
         if (selectedText) {
           delete option.disable;
@@ -41,7 +41,7 @@ export default function Notepad({ onClose }) {
       case 'Time/Date':
         const date = new Date();
         setDocText(
-          `${docText}${date.toLocaleTimeString()} ${date.toLocaleDateString()}`
+          `${docText}${date.toLocaleTimeString()} ${date.toLocaleDateString()}`,
         );
         break;
       case 'Select All':
@@ -71,7 +71,7 @@ export default function Notepad({ onClose }) {
 
   async function onPasteText() {
     const copiedText = await navigator.clipboard.readText();
-    setDocText(textareaRef.current.value += copiedText);
+    setDocText((textareaRef.current.value += copiedText));
     setSelectedText('');
   }
 
@@ -85,8 +85,8 @@ export default function Notepad({ onClose }) {
     if (e.which === 9) {
       e.preventDefault();
       e.persist();
-      var start = e.target.selectionStart;
-      var end = e.target.selectionEnd;
+      const start = e.target.selectionStart;
+      const end = e.target.selectionEnd;
       setDocText(`${docText.substring(0, start)}\t${docText.substring(end)}`);
 
       // asynchronously update textarea selection to include tab
@@ -109,7 +109,14 @@ export default function Notepad({ onClose }) {
         value={docText}
         onChange={e => setDocText(e.target.value)}
         onKeyDown={onTextAreaKeyDown}
-        onSelect={e => setSelectedText(e.target.value.substring(e.target.selectionStart, e.target.selectionEnd))}
+        onSelect={e =>
+          setSelectedText(
+            e.target.value.substring(
+              e.target.selectionStart,
+              e.target.selectionEnd,
+            ),
+          )
+        }
         spellCheck={false}
       />
     </Div>
