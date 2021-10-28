@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 function Blank() {
-  return <StyledWindowsXP></StyledWindowsXP>;
+  return <StyledWindowsXP />;
 }
 
 const StyledWindowsXP = styled.div`
