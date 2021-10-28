@@ -66,15 +66,9 @@ export default function Notepad({ onClose }) {
 
   function insertText(text) {
     const { value } = textareaRef.current;
-    if (selectedText) {
-      setDocText(
-        value.substring(0, caretPos[0]) + text + value.substring(caretPos[1]),
-      );
-    } else {
-      setDocText(
-        value.substring(0, caretPos[0]) + text + value.substring(caretPos[0]),
-      );
-    }
+    setDocText(
+      value.substring(0, caretPos[0]) + text + value.substring(caretPos[1]),
+    );
   }
 
   function onDeleteText() {
@@ -87,16 +81,7 @@ export default function Notepad({ onClose }) {
     if (e.which === 9) {
       e.preventDefault();
       e.persist();
-      const start = e.target.selectionStart;
-      const end = e.target.selectionEnd;
-      setDocText(`${docText.substring(0, start)}\t${docText.substring(end)}`);
-
-      // asynchronously update textarea selection to include tab
-      // workaround due to https://github.com/facebook/react/issues/14174
-      requestAnimationFrame(() => {
-        e.target.selectionStart = start + 1;
-        e.target.selectionEnd = start + 1;
-      });
+      insertText(`\t`);
     }
   }
 
@@ -112,13 +97,9 @@ export default function Notepad({ onClose }) {
         onChange={e => setDocText(e.target.value)}
         onKeyDown={onTextAreaKeyDown}
         onSelect={e => {
-          setSelectedText(
-            e.target.value.substring(
-              e.target.selectionStart,
-              e.target.selectionEnd,
-            ),
-          );
-          setCaretPos([e.target.selectionStart, e.target.selectionEnd]);
+          const { selectionStart, selectionEnd, value } = e.target;
+          setSelectedText(value.substring(selectionStart, selectionEnd));
+          setCaretPos([selectionStart, selectionEnd]);
         }}
         spellCheck={false}
       />
