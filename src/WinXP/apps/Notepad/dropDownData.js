@@ -61,7 +61,6 @@ const Edit = [
   },
   {
     type: 'item',
-    disable: true,
     text: 'Paste',
   },
   {

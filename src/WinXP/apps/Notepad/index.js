@@ -7,38 +7,28 @@ import dropDownData from './dropDownData';
 export default function Notepad({ onClose }) {
   const [docText, setDocText] = useState('');
   const [wordWrap, setWordWrap] = useState(false);
-  const [selectedText, setSelectedText] = useState('')
-  const [copiedText, setCopiedText] = useState('')
-  const [dropDownStatus, setDropDownStatus] = useState({})
+  const [selectedText, setSelectedText] = useState('');
+  const [dropDownStatus, setDropDownStatus] = useState({});
 
-  const textareaRef = useRef()
+  const textareaRef = useRef();
 
+  // creates a copy of the dropdown JSON to trigger a render when statuses change
   useEffect(() => {
-    setDropDownStatus(dropDownData)
-  }, [dropDownStatus])
+    setDropDownStatus(dropDownData);
+  }, [dropDownStatus]);
 
   useEffect(() => {
     dropDownData.Edit.forEach((option) => {
-      if (['Cut', 'Copy', 'Paste', 'Delete'].includes(option.text)) {
+      if (['Cut', 'Copy', 'Delete'].includes(option.text)) {
         if (selectedText) {
-          delete option.disable
+          delete option.disable;
         } else {
-          option.disable = true
+          option.disable = true;
         }
-        setDropDownStatus(dropDownData)
+        setDropDownStatus(dropDownData);
       }
-    })
-  }, [selectedText])
-
-  useEffect(() => {
-    const optionPaste = dropDownData.Edit.find(option => option.text === 'Paste')
-    if (copiedText) {
-      delete optionPaste.disable
-    } else {
-      optionPaste.disable = true
-    }
-    setDropDownStatus(dropDownData)
-  }, [selectedText, copiedText])
+    });
+  }, [selectedText]);
 
   function onClickOptionItem(item) {
     switch (item) {
@@ -51,46 +41,43 @@ export default function Notepad({ onClose }) {
       case 'Time/Date':
         const date = new Date();
         setDocText(
-          `${docText}${date.toLocaleTimeString()} ${date.toLocaleDateString()}`,
+          `${docText}${date.toLocaleTimeString()} ${date.toLocaleDateString()}`
         );
         break;
       case 'Select All':
-        textareaRef.current.select()
+        textareaRef.current.select();
         break;
       case 'Copy':
-        onCopyText()
+        onCopyText();
         break;
       case 'Paste':
-        onPasteText()
+        onPasteText();
         break;
       case 'Cut':
-        onCopyText()
-        onDeleteText()
+        onCopyText();
+        onDeleteText();
         break;
       case 'Delete':
-        onDeleteText()
+        onDeleteText();
         break;
       default:
     }
   }
 
   function onCopyText() {
-    navigator.clipboard.writeText(selectedText)
-    setCopiedText(selectedText)
-    setSelectedText('')
+    navigator.clipboard.writeText(selectedText);
+    setSelectedText('');
   }
 
-  function onPasteText() {
-    navigator.clipboard.readText().then(
-      copiedText => {
-        setDocText(textareaRef.current.value += copiedText)
-        setSelectedText('')
-      });
+  async function onPasteText() {
+    const copiedText = await navigator.clipboard.readText();
+    setDocText(textareaRef.current.value += copiedText);
+    setSelectedText('');
   }
 
   function onDeleteText() {
-    setDocText(textareaRef.current.value.replace(selectedText, ''))
-    setSelectedText('')
+    setDocText(textareaRef.current.value.replace(selectedText, ''));
+    setSelectedText('');
   }
 
   function onTextAreaKeyDown(e) {
