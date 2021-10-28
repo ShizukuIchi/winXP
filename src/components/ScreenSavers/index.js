@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import Blank from './Blank';
 import None from './None';
 import WindowsXP from './WindowsXP';
@@ -33,13 +32,7 @@ function ScreenSaver({ selectedScreenSaver, previewScreen = false }) {
     };
   }
 
-  return (
-    <StyledScreenSaver>
-      <Component {...previewProps[selectedScreenSaver]} />
-    </StyledScreenSaver>
-  );
+  return <Component {...previewProps[selectedScreenSaver]} />;
 }
-
-const StyledScreenSaver = styled.div``;
 
 export default ScreenSaver;

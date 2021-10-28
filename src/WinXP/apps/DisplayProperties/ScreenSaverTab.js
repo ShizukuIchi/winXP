@@ -72,8 +72,8 @@ function ScreenSaverTab({ state, dispatch }) {
           >
             <label className="waitLabel">Wait:</label>
             <NumberInput
-              value={screenSaverState.value}
-              defaultValue={wait}
+              selectedScreenSaver={screenSaverState.value}
+              waitingTime={wait}
               handleWaitingTime={handleWaitingTime}
             />
             <p>minutes</p>
@@ -112,6 +112,7 @@ const ScreenSaverSettings = styled.div`
       background-color: #2f71cd;
     }
   }
+
   .config-area {
     margin-top: 4.5px;
   }

@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import numberDown from '../../assets/properties/displayProperties/icons/numberDown.png';
 
 function NumberInput(props) {
-  const { defaultValue, handleWaitingTime } = props;
-  const [inputValue, setInputValue] = useState(defaultValue);
+  const { waitingTime, handleWaitingTime } = props;
+  const [inputValue, setInputValue] = useState(waitingTime);
   const [upMouseClickStyle, setUpMouseClickStyle] = useState({});
   const [downMouseClickStyle, setDownMouseClickStyle] = useState({});
 
@@ -47,7 +47,9 @@ function NumberInput(props) {
     <StyledNumberInput {...props}>
       <button
         type="button"
-        className={props.value === '(None)' ? 'disabledArrowUp' : 'arrowUp'}
+        className={
+          props.selectedScreenSaver === '(None)' ? 'disabledArrowUp' : 'arrowUp'
+        }
         onClick={() => handleValueStepper(1)}
         onMouseDown={() =>
           setUpMouseClickStyle({
@@ -57,11 +59,15 @@ function NumberInput(props) {
         onMouseUp={() => setUpMouseClickStyle({})}
         onMouseOut={() => setUpMouseClickStyle({})}
         style={upMouseClickStyle}
-        disabled={props.value === '(None)'}
+        disabled={props.selectedScreenSaver === '(None)'}
       />
       <button
         type="button"
-        className={props.value === '(None)' ? 'disabledArrowDown' : 'arrowDown'}
+        className={
+          props.selectedScreenSaver === '(None)'
+            ? 'disabledArrowDown'
+            : 'arrowDown'
+        }
         onClick={() => handleValueStepper(-1)}
         onMouseDown={() =>
           setDownMouseClickStyle({
@@ -71,12 +77,14 @@ function NumberInput(props) {
         onMouseUp={() => setDownMouseClickStyle({})}
         onMouseOut={() => setDownMouseClickStyle({})}
         style={downMouseClickStyle}
-        disabled={props.value === '(None)'}
+        disabled={props.selectedScreenSaver === '(None)'}
       />
       <input
         type="number"
         className={
-          props.value === '(None)' ? 'numberInputDisabled' : 'numberInput'
+          props.selectedScreenSaver === '(None)'
+            ? 'numberInputDisabled'
+            : 'numberInput'
         }
         ref={inputRef}
         value={inputValue}
@@ -84,7 +92,7 @@ function NumberInput(props) {
         onKeyDown={handleKeyDown}
         onKeyUp={handleKeyUp}
         onFocus={e => e.target.select()}
-        disabled={props.value === '(None)'}
+        disabled={props.selectedScreenSaver === '(None)'}
       />
     </StyledNumberInput>
   );

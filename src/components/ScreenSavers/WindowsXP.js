@@ -8,16 +8,14 @@ function WindowsXP({
   imgHeight = 175,
   imgWidth = 240,
 }) {
-  const [logoPosition, setLogoPosition] = useState({ top: 0, left: 0 });
-
-  const imgRef = useRef(null);
+  const [logoPosition, setLogoPosition] = useState({ posY: 0, posX: 0 });
 
   const randomizeLogoPosition = useCallback(() => {
     let randomPosY = Math.random() * (winHeight - imgHeight);
     let randomPosX = Math.random() * (winWidth - imgWidth);
     setLogoPosition({
-      top: randomPosY,
-      left: randomPosX,
+      posY: randomPosY,
+      posX: randomPosX,
     });
   }, [winWidth, winHeight, imgHeight, imgWidth]);
 
@@ -32,14 +30,8 @@ function WindowsXP({
   }, [randomizeLogoPosition]);
 
   return (
-    <StyledWindowsXP posY={logoPosition.top} posX={logoPosition.left}>
-      <img
-        src={logoXP}
-        alt="XP logo"
-        ref={imgRef}
-        width={imgWidth}
-        height={imgHeight}
-      />
+    <StyledWindowsXP {...logoPosition}>
+      <img src={logoXP} alt="XP logo" width={imgWidth} height={imgHeight} />
     </StyledWindowsXP>
   );
 }
