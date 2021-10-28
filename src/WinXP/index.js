@@ -211,7 +211,6 @@ const reducer = (state, action = { type: '' }) => {
       };
     case DISPLAY_PROPERTIES:
       if (action.payload) setLocalStorage('displayProperties', action.payload);
-
       return {
         ...state,
         displayProperties: action.payload,
@@ -222,30 +221,32 @@ const reducer = (state, action = { type: '' }) => {
   }
 };
 
-//TODO: Fix settimeout multiple reset error (Maximum update depth exceeded)
-
 function WinXP() {
   const [state, dispatch] = useReducer(reducer, initState);
 
   const [isScreenSaverActive, setIsScreenSaverActive] = useState(false);
+  const [oneSecondMouseMove, setOneSecondMouseMove] = useState(false);
 
-  const timerIdRef = useRef();
+  const screenSaverSetTimeoutid = useRef();
 
   const screenSaverIdleTimer = useCallback(() => {
+    const mouseId = setTimeout(() => {
+      setOneSecondMouseMove(true);
+    }, 1000);
     const { wait } = state.displayProperties.screenSaver;
-    clearTimeout(timerIdRef.current);
+    clearTimeout(screenSaverSetTimeoutid.current);
     if (state.displayProperties.screenSaver.value !== '(None)') {
       const id = setTimeout(() => {
         setIsScreenSaverActive(true);
       }, wait * 1000 * 60);
-      timerIdRef.current = id;
+      screenSaverSetTimeoutid.current = id;
     }
   }, [state.displayProperties.screenSaver]);
 
   useEffect(() => {
     screenSaverIdleTimer();
     return () => {
-      clearTimeout(timerIdRef.current);
+      clearTimeout(screenSaverSetTimeoutid.current);
     };
   }, [screenSaverIdleTimer]);
 
@@ -377,7 +378,10 @@ function WinXP() {
     if (isScreenSaverActive) {
       setIsScreenSaverActive(false);
     }
-    screenSaverIdleTimer();
+    if (oneSecondMouseMove) {
+      setOneSecondMouseMove(false);
+      screenSaverIdleTimer();
+    }
   };
 
   return (
