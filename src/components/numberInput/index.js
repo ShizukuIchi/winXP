@@ -100,10 +100,6 @@ const StyledNumberInput = styled.div`
     padding-bottom: 2px;
     padding-right: 2px;
     text-align: right;
-    -webkit-appearance: textfield;
-    -moz-appearance: textfield;
-    appearance: textfield;
-    -webkit-appearance: none;
     &:focus {
       outline: transparent;
     }
