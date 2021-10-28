@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 import { WindowDropDowns } from 'components';
@@ -7,6 +7,38 @@ import dropDownData from './dropDownData';
 export default function Notepad({ onClose }) {
   const [docText, setDocText] = useState('');
   const [wordWrap, setWordWrap] = useState(false);
+  const [selectedText, setSelectedText] = useState('')
+  const [copiedText, setCopiedText] = useState('')
+  const [dropDownStatus, setDropDownStatus] = useState({})
+
+  const textareaRef = useRef()
+
+  useEffect(() => {
+    setDropDownStatus(dropDownData)
+  }, [dropDownStatus])
+
+  useEffect(() => {
+    dropDownData.Edit.forEach((option) => {
+      if (['Cut', 'Copy', 'Paste', 'Delete'].includes(option.text)) {
+        if (selectedText) {
+          delete option.disable
+        } else {
+          option.disable = true
+        }
+        setDropDownStatus(dropDownData)
+      }
+    })
+  }, [selectedText])
+
+  useEffect(() => {
+    const optionPaste = dropDownData.Edit.find(option => option.text === 'Paste')
+    if (copiedText) {
+      delete optionPaste.disable
+    } else {
+      optionPaste.disable = true
+    }
+    setDropDownStatus(dropDownData)
+  }, [selectedText, copiedText])
 
   function onClickOptionItem(item) {
     switch (item) {
@@ -22,9 +54,45 @@ export default function Notepad({ onClose }) {
           `${docText}${date.toLocaleTimeString()} ${date.toLocaleDateString()}`,
         );
         break;
+      case 'Select All':
+        textareaRef.current.select()
+        break;
+      case 'Copy':
+        onCopyText()
+        break;
+      case 'Paste':
+        onPasteText()
+        break;
+      case 'Cut':
+        onCopyText()
+        onDeleteText()
+        break;
+      case 'Delete':
+        onDeleteText()
+        break;
       default:
     }
   }
+
+  function onCopyText() {
+    navigator.clipboard.writeText(selectedText)
+    setCopiedText(selectedText)
+    setSelectedText('')
+  }
+
+  function onPasteText() {
+    navigator.clipboard.readText().then(
+      copiedText => {
+        setDocText(textareaRef.current.value += copiedText)
+        setSelectedText('')
+      });
+  }
+
+  function onDeleteText() {
+    setDocText(textareaRef.current.value.replace(selectedText, ''))
+    setSelectedText('')
+  }
+
   function onTextAreaKeyDown(e) {
     // handle tabs in text area
     if (e.which === 9) {
@@ -49,10 +117,12 @@ export default function Notepad({ onClose }) {
         <WindowDropDowns items={dropDownData} onClickItem={onClickOptionItem} />
       </section>
       <StyledTextarea
+        ref={textareaRef}
         wordWrap={wordWrap}
         value={docText}
         onChange={e => setDocText(e.target.value)}
         onKeyDown={onTextAreaKeyDown}
+        onSelect={e => setSelectedText(e.target.value.substring(e.target.selectionStart, e.target.selectionEnd))}
         spellCheck={false}
       />
     </Div>
