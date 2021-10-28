@@ -10,7 +10,7 @@ import styled, { keyframes } from 'styled-components';
 import useMouse from 'react-use/lib/useMouse';
 import ga from 'react-ga';
 
-import { getLocalStorage, setLocalStorage } from './utils';
+import { getLocalStorage, setLocalStorage, debouncedFunc } from './utils';
 import {
   defaultDesktop,
   defaultScreenSaver,
@@ -225,14 +225,10 @@ function WinXP() {
   const [state, dispatch] = useReducer(reducer, initState);
 
   const [isScreenSaverActive, setIsScreenSaverActive] = useState(false);
-  const [oneSecondMouseMove, setOneSecondMouseMove] = useState(false);
 
   const screenSaverSetTimeoutid = useRef();
 
   const screenSaverIdleTimer = useCallback(() => {
-    const mouseId = setTimeout(() => {
-      setOneSecondMouseMove(true);
-    }, 1000);
     const { wait } = state.displayProperties.screenSaver;
     clearTimeout(screenSaverSetTimeoutid.current);
     if (state.displayProperties.screenSaver.value !== '(None)') {
@@ -378,10 +374,7 @@ function WinXP() {
     if (isScreenSaverActive) {
       setIsScreenSaverActive(false);
     }
-    if (oneSecondMouseMove) {
-      setOneSecondMouseMove(false);
-      screenSaverIdleTimer();
-    }
+    debouncedFunc(screenSaverIdleTimer);
   };
 
   return (
