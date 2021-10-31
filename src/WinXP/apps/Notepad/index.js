@@ -94,6 +94,7 @@ export default function Notepad({ onClose }) {
       e.preventDefault();
       e.persist();
       insertOrReplace(`\t`);
+      focusCaret(`\t`.length);
     }
   }
 
