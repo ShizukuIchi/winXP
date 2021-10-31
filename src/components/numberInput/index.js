@@ -185,6 +185,7 @@ const StyledNumberInput = styled.div`
     transform: rotate(180deg);
     background-image: url(${numberDown});
     filter: grayscale(100%);
+    opacity: 0.3;
     z-index: 1;
   }
 
@@ -203,6 +204,7 @@ const StyledNumberInput = styled.div`
     height: 9px;
     background-image: url(${numberDown});
     filter: grayscale(100%);
+    opacity: 0.3;
     z-index: 1;
   }
 `;

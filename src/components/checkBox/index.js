@@ -77,7 +77,8 @@ const StyledCheckBox = styled.div`
     -moz-appearance: none;
     -o-appearance: none;
     appearance: none;
-    box-shadow: inset 24px 26px 8px -27px rgb(0 0 0 / 22%);
+    background-color: white;
+    opacity: 0.7;
   }
 `;
 
