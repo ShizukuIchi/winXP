@@ -154,6 +154,7 @@ const ScreenSaverSettings = styled.div`
 
   legend {
     margin-left: 9px;
+    color: #1a66c4;
   }
 
   .position-input {
