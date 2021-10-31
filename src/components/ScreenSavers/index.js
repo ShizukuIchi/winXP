@@ -32,8 +32,8 @@ function ScreenSaver({
       WindowsXP: {
         winWidth: 170,
         winHeight: 118,
-        imgHeight: 35,
-        imgWidth: 48,
+        imgHeight: 23,
+        imgWidth: 32,
       },
       Blank: '',
       None: '',
