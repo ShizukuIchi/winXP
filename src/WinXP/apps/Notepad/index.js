@@ -31,7 +31,9 @@ export default function Notepad({ onClose }) {
         break;
       case 'Time/Date':
         const date = new Date();
-        insertText(date.toLocaleTimeString() + ' ' + date.toLocaleDateString());
+        insertOrReplace(
+          date.toLocaleTimeString() + ' ' + date.toLocaleDateString(),
+        );
         break;
       case 'Select All':
         textareaRef.current.select();
@@ -55,25 +57,35 @@ export default function Notepad({ onClose }) {
 
   function onCopyText() {
     navigator.clipboard.writeText(selectedText);
-    setSelectedText('');
   }
 
   async function onPasteText() {
     const copiedText = await navigator.clipboard.readText();
-    insertText(copiedText);
-    setSelectedText('');
+    insertOrReplace(copiedText);
+    focusCaret(copiedText.length);
   }
 
-  function insertText(text) {
+  function insertOrReplace(text) {
     const { value } = textareaRef.current;
     setDocText(
       value.substring(0, caretPos[0]) + text + value.substring(caretPos[1]),
     );
   }
 
+  function focusCaret(insertedTextLength) {
+    const insteadOfText = caretPos[0] + insertedTextLength;
+    const afterText = caretPos[1] + insertedTextLength;
+    textareaRef.current.focus();
+    requestAnimationFrame(() => {
+      selectedText
+        ? textareaRef.current.setSelectionRange(insteadOfText, insteadOfText)
+        : textareaRef.current.setSelectionRange(afterText, afterText);
+    });
+  }
+
   function onDeleteText() {
-    setDocText(textareaRef.current.value.replace(selectedText, ''));
-    setSelectedText('');
+    insertOrReplace('');
+    focusCaret(0);
   }
 
   function onTextAreaKeyDown(e) {
@@ -81,7 +93,7 @@ export default function Notepad({ onClose }) {
     if (e.which === 9) {
       e.preventDefault();
       e.persist();
-      insertText(`\t`);
+      insertOrReplace(`\t`);
     }
   }
 
