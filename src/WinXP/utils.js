@@ -10,6 +10,5 @@ export function getLocalStorage(name) {
 }
 
 export const debouncedFunc = debounce(callback => {
-  console.log('active');
   callback();
 }, 1000);

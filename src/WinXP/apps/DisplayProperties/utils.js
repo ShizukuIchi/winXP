@@ -123,7 +123,6 @@ export const defaultScreenSaver = {
   wait: '5',
 };
 
-export const DISPLAY_PROPERTIES = 'DISPLAY_PROPERTIES';
 export const DESKTOP = 'DESKTOP';
 export const CHANGE = 'CHANGE';
 export const FIRST_CHANGE = 'FIRST_CHANGE';

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import styled from 'styled-components';
 import logoXP from 'assets/properties/displayProperties/screenSaver/windows-xp-logo.png';
 

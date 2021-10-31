@@ -14,7 +14,6 @@ import { getLocalStorage, setLocalStorage, debouncedFunc } from './utils';
 import {
   defaultDesktop,
   defaultScreenSaver,
-  DISPLAY_PROPERTIES,
 } from './apps/DisplayProperties/utils';
 
 import {
@@ -31,6 +30,8 @@ import {
   CONTEXT_MENU,
   POWER_OFF,
   CANCEL_POWER_OFF,
+  DISPLAY_PROPERTIES,
+  SCREEN_SAVER_PREVIEW,
 } from './constants/actions';
 import { FOCUSING, POWER_STATE } from './constants';
 import { defaultIconState, defaultAppState, appSettings } from './apps';
@@ -59,6 +60,7 @@ const initState = {
   displayProperties: {
     desktop: defaultDesktop,
     screenSaver: defaultScreenSaver,
+    screenSaverPreview: false,
   },
 };
 const reducer = (state, action = { type: '' }) => {
@@ -215,6 +217,14 @@ const reducer = (state, action = { type: '' }) => {
         ...state,
         displayProperties: action.payload,
       };
+    case SCREEN_SAVER_PREVIEW:
+      return {
+        ...state,
+        displayProperties: {
+          ...state.displayProperties,
+          screenSaverPreview: action.payload,
+        },
+      };
 
     default:
       return state;
@@ -245,6 +255,12 @@ function WinXP() {
       clearTimeout(screenSaverSetTimeoutid.current);
     };
   }, [screenSaverIdleTimer]);
+
+  useEffect(() => {
+    if (state.displayProperties.screenSaverPreview) {
+      setIsScreenSaverActive(true);
+    }
+  }, [state.displayProperties.screenSaverPreview]);
 
   useLayoutEffect(() => {
     const displayProperties = getLocalStorage('displayProperties');
@@ -371,9 +387,11 @@ function WinXP() {
   }
 
   const resetScreenSaver = () => {
-    if (isScreenSaverActive) {
-      setIsScreenSaverActive(false);
-    }
+    dispatch({
+      type: SCREEN_SAVER_PREVIEW,
+      payload: false,
+    });
+    setIsScreenSaverActive(false);
     debouncedFunc(screenSaverIdleTimer);
   };
 
@@ -435,6 +453,7 @@ function WinXP() {
       {isScreenSaverActive && (
         <ScreenSaver
           selectedScreenSaver={state.displayProperties.screenSaver.value}
+          activatePreview={state.displayProperties.screenSaverPreview}
         />
       )}
     </Container>
