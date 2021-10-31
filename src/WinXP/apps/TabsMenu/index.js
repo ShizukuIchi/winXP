@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-function TabsMenu({ tabs, state, dispatch }) {
+function TabsMenu({ tabs, state, dispatch, appContext }) {
   const [activeTab, setActiveTab] = useState(-1);
 
   useEffect(() => {
@@ -47,7 +47,14 @@ function TabsMenu({ tabs, state, dispatch }) {
         {tabs.map(({ content: Content, title }, index) => {
           if (index !== activeTab) return null;
 
-          return <Content key={title} state={state} dispatch={dispatch} />;
+          return (
+            <Content
+              key={title}
+              state={state}
+              dispatch={dispatch}
+              appContext={appContext}
+            />
+          );
         })}
       </Content>
     </TabMenu>

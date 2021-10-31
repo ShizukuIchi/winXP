@@ -6,16 +6,22 @@ import arrowDown from 'assets/properties/displayProperties/icons/arrowDown.png';
 import Button from 'components/Button';
 import NumberInput from 'components/NumberInput';
 import CheckBox from 'components/CheckBox';
-import { SCREEN_SAVER } from './utils';
 import ScreenSaver from 'components/ScreenSavers';
+import { SCREEN_SAVER } from './utils';
+import { SCREEN_SAVER_PREVIEW } from 'WinXP/constants/actions';
 
-function ScreenSaverTab({ state, dispatch }) {
+function ScreenSaverTab({ state, dispatch, appContext }) {
   const { value, wait } = state.displayProperties.screenSaver;
   const [screenSaverState, setScreenSaverState] = useState({ value, wait });
+  const [isNone, setIsNone] = useState(false);
 
   useEffect(() => {
     dispatch({ type: SCREEN_SAVER, payload: screenSaverState });
   }, [screenSaverState, dispatch]);
+
+  useEffect(() => {
+    setIsNone(screenSaverState.value === '(None)' ? true : false);
+  }, [screenSaverState.value]);
 
   const handleSelectChange = e => {
     setScreenSaverState(prev => ({ ...prev, value: e.target.value }));
@@ -23,6 +29,13 @@ function ScreenSaverTab({ state, dispatch }) {
 
   const handleWaitingTime = wait => {
     setScreenSaverState(prev => ({ ...prev, wait }));
+  };
+
+  const handlePreview = () => {
+    appContext.dispatch({
+      type: SCREEN_SAVER_PREVIEW,
+      payload: value,
+    });
   };
 
   return (
@@ -52,24 +65,22 @@ function ScreenSaverTab({ state, dispatch }) {
           </label>
           <div className="button-group">
             <Button
-              disabled={screenSaverState.value === '(None)'}
+              disabled={isNone}
               type="button"
               style={{ marginLeft: '7px' }}
             >
               Settings
             </Button>
             <Button
-              disabled={screenSaverState.value === '(None)'}
+              disabled={isNone}
               type="button"
               style={{ marginLeft: '9px' }}
+              onClick={handlePreview}
             >
               Preview
             </Button>
           </div>
-          <div
-            className="quickSettings"
-            style={{ color: screenSaverState.value === '(None)' && '#adaa9c' }}
-          >
+          <div className="quickSettings" style={{ color: isNone && '#adaa9c' }}>
             <label className="waitLabel">Wait:</label>
             <NumberInput
               selectedScreenSaver={screenSaverState.value}

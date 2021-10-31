@@ -16,8 +16,14 @@ const getScreenSaver = value => {
   }
 };
 
-function ScreenSaver({ selectedScreenSaver, previewScreen = false }) {
-  const Component = getScreenSaver(selectedScreenSaver);
+function ScreenSaver({
+  selectedScreenSaver,
+  activatePreview = false,
+  previewScreen = false,
+}) {
+  let Component = getScreenSaver(
+    activatePreview ? activatePreview : selectedScreenSaver,
+  );
   let previewProps = '';
   if (previewScreen) {
     previewProps = {
