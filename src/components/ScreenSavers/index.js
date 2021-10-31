@@ -18,9 +18,11 @@ const getScreenSaver = value => {
 
 function ScreenSaver({
   selectedScreenSaver,
+  state,
   activatePreview = false,
   previewScreen = false,
 }) {
+  const { color } = state.displayProperties.desktop;
   let Component = getScreenSaver(
     activatePreview ? activatePreview : selectedScreenSaver,
   );
@@ -38,7 +40,12 @@ function ScreenSaver({
     };
   }
 
-  return <Component {...previewProps[selectedScreenSaver]} />;
+  return (
+    <Component
+      currentBackgroundColor={color}
+      {...previewProps[selectedScreenSaver]}
+    />
+  );
 }
 
 export default ScreenSaver;
