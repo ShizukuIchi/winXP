@@ -215,7 +215,10 @@ const reducer = (state, action = { type: '' }) => {
       if (action.payload) setLocalStorage('displayProperties', action.payload);
       return {
         ...state,
-        displayProperties: action.payload,
+        displayProperties: {
+          ...state.displayProperties,
+          ...action.payload,
+        },
       };
     case SCREEN_SAVER_PREVIEW:
       return {
