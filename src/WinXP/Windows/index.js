@@ -61,6 +61,9 @@ const Window = memo(function({
   function _onMouseUpMaximize() {
     if (resizable) onMouseUpMaximize(id);
   }
+  function _onMouseUpHelp() {
+    return;
+  }
   const dragRef = useRef(null);
   const ref = useRef(null);
   const { width: windowWidth, height: windowHeight } = useWindowSize();
@@ -103,17 +106,20 @@ const Window = memo(function({
     >
       <div className="header__bg" />
       <header className="app__header" ref={dragRef}>
-        <img
-          src={header.icon}
-          alt={header.title}
-          className="app__header__icon"
-        />
+        {header.icon && (
+          <img
+            src={header.icon}
+            alt={header.title}
+            className="app__header__icon"
+          />
+        )}
         <div className="app__header__title">{header.title}</div>
         <HeaderButtons
           buttons={header.buttons}
           onMaximize={_onMouseUpMaximize}
           onMinimize={_onMouseUpMinimize}
           onClose={_onMouseUpClose}
+          onHelp={_onMouseUpHelp}
           maximized={maximized}
           resizable={resizable}
           isFocus={isFocus}
@@ -196,7 +202,6 @@ const StyledWindow = styled(Window)`
     width: 15px;
     height: 15px;
     margin-left: 1px;
-    margin-right: 3px;
   }
   .app__header__title {
     flex: 1;
@@ -206,6 +211,7 @@ const StyledWindow = styled(Window)`
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    margin-left: 3px;
   }
   .app__content {
     flex: 1;

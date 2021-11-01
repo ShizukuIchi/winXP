@@ -5,6 +5,7 @@ import MyComputer from './MyComputer';
 import Notepad from './Notepad';
 import Winamp from './Winamp';
 import Paint from './Paint';
+import DisplayProperties from './DisplayProperties';
 import iePaper from 'assets/windowsIcons/ie-paper.png';
 import ie from 'assets/windowsIcons/ie.png';
 import mine from 'assets/minesweeper/mine-icon.png';
@@ -32,6 +33,7 @@ export const defaultAppState = [
     header: {
       title: 'Internet Explorer',
       icon: iePaper,
+      buttons: ['minimize', 'maximize', 'close'],
     },
     defaultSize: {
       width: 700,
@@ -52,6 +54,7 @@ export const defaultAppState = [
     header: {
       title: 'Minesweeper',
       icon: mine,
+      buttons: ['minimize', 'maximize', 'close'],
     },
     defaultSize: {
       width: 0,
@@ -93,6 +96,7 @@ export const defaultAppState = [
     header: {
       title: 'My Computer',
       icon: computer,
+      buttons: ['minimize', 'maximize', 'close'],
     },
     defaultSize: {
       width: 660,
@@ -160,6 +164,7 @@ export const appSettings = {
     header: {
       icon: iePaper,
       title: 'InternetExplorer',
+      buttons: ['minimize', 'maximize', 'close'],
     },
     component: InternetExplorer,
     defaultSize: {
@@ -179,6 +184,7 @@ export const appSettings = {
     header: {
       icon: mine,
       title: 'Minesweeper',
+      buttons: ['minimize', 'maximize', 'close'],
     },
     component: Minesweeper,
     defaultSize: {
@@ -219,6 +225,7 @@ export const appSettings = {
     header: {
       icon: computer,
       title: 'My Computer',
+      buttons: ['minimize', 'maximize', 'close'],
     },
     component: MyComputer,
     defaultSize: {
@@ -238,6 +245,7 @@ export const appSettings = {
     header: {
       icon: notepad,
       title: 'Untitled - Notepad',
+      buttons: ['minimize', 'maximize', 'close'],
     },
     component: Notepad,
     defaultSize: {
@@ -277,6 +285,7 @@ export const appSettings = {
     header: {
       icon: paint,
       title: 'Untitled - Paint',
+      buttons: ['minimize', 'maximize', 'close'],
     },
     component: Paint,
     defaultSize: {
@@ -292,6 +301,33 @@ export const appSettings = {
     maximized: window.innerWidth < 800,
     multiInstance: true,
   },
+  Properties: {
+    header: {
+      title: 'Display Properties',
+      buttons: ['help', 'close'],
+    },
+    component: DisplayProperties,
+    defaultSize: {
+      width: 400,
+      height: 475,
+    },
+    defaultOffset: {
+      x: 40,
+      y: 40,
+    },
+    resizable: false,
+    minimized: false,
+    maximized: false,
+    multiInstance: false,
+  },
 };
 
-export { InternetExplorer, Minesweeper, ErrorBox, MyComputer, Notepad, Winamp };
+export {
+  InternetExplorer,
+  Minesweeper,
+  ErrorBox,
+  MyComputer,
+  Notepad,
+  Winamp,
+  DisplayProperties,
+};
