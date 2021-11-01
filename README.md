@@ -8,7 +8,7 @@ Features:
 - Open applications from desktop icons or start menu
 - Minesweeper, Internet Explorer, My Computer, Notepad, Winamp, Paint
 - Desktop Context Menu
-- Display Properties window, including changeable Wallpapers & basic Screens Savers
+- Display Properties window, including changeable Wallpapers & basic Screen Savers
 - Power off menu
 
 ## [Try it!](https://rgwinxp.netlify.app)
