@@ -1,12 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 import { WindowDropDowns } from 'components';
-import dropDownData from './dropDownData';
+import originalDropDownData from './dropDownData';
 
 export default function Notepad({ onClose }) {
   const [docText, setDocText] = useState('');
   const [wordWrap, setWordWrap] = useState(false);
+  const [selectedText, setSelectedText] = useState('');
+  const [caretPos, setCaretPos] = useState([0, 0]);
+  const [dropDownData, setDropDownData] = useState(originalDropDownData);
+
+  const textareaRef = useRef();
+
+  useEffect(() => {
+    dropDownData.Edit.forEach(option => {
+      if (['Cut', 'Copy', 'Delete'].includes(option.text))
+        option.disable = !selectedText;
+    });
+    setDropDownData(dropDownData => dropDownData);
+  }, [selectedText, dropDownData.Edit]);
 
   function onClickOptionItem(item) {
     switch (item) {
@@ -18,28 +31,71 @@ export default function Notepad({ onClose }) {
         break;
       case 'Time/Date':
         const date = new Date();
-        setDocText(
-          `${docText}${date.toLocaleTimeString()} ${date.toLocaleDateString()}`,
-        );
+        const formatedDate =
+          date.toLocaleTimeString() + ' ' + date.toLocaleDateString();
+        insertOrReplace(formatedDate);
+        focusCaret(formatedDate.length);
+        break;
+      case 'Select All':
+        textareaRef.current.select();
+        break;
+      case 'Copy':
+        onCopyText();
+        break;
+      case 'Paste':
+        onPasteText();
+        break;
+      case 'Cut':
+        onCopyText();
+        onDeleteText();
+        break;
+      case 'Delete':
+        onDeleteText();
         break;
       default:
     }
   }
+
+  function onCopyText() {
+    navigator.clipboard.writeText(selectedText);
+  }
+
+  async function onPasteText() {
+    const copiedText = await navigator.clipboard.readText();
+    insertOrReplace(copiedText);
+    focusCaret(copiedText.length);
+  }
+
+  function insertOrReplace(text) {
+    const { value } = textareaRef.current;
+    setDocText(
+      value.substring(0, caretPos[0]) + text + value.substring(caretPos[1]),
+    );
+  }
+
+  function focusCaret(insertedTextLength) {
+    const insteadOfText = caretPos[0] + insertedTextLength;
+    const afterText = caretPos[1] + insertedTextLength;
+    textareaRef.current.focus();
+    requestAnimationFrame(() => {
+      selectedText
+        ? textareaRef.current.setSelectionRange(insteadOfText, insteadOfText)
+        : textareaRef.current.setSelectionRange(afterText, afterText);
+    });
+  }
+
+  function onDeleteText() {
+    insertOrReplace('');
+    focusCaret(0);
+  }
+
   function onTextAreaKeyDown(e) {
     // handle tabs in text area
     if (e.which === 9) {
       e.preventDefault();
       e.persist();
-      var start = e.target.selectionStart;
-      var end = e.target.selectionEnd;
-      setDocText(`${docText.substring(0, start)}\t${docText.substring(end)}`);
-
-      // asynchronously update textarea selection to include tab
-      // workaround due to https://github.com/facebook/react/issues/14174
-      requestAnimationFrame(() => {
-        e.target.selectionStart = start + 1;
-        e.target.selectionEnd = start + 1;
-      });
+      insertOrReplace(`\t`);
+      focusCaret(`\t`.length);
     }
   }
 
@@ -49,10 +105,16 @@ export default function Notepad({ onClose }) {
         <WindowDropDowns items={dropDownData} onClickItem={onClickOptionItem} />
       </section>
       <StyledTextarea
+        ref={textareaRef}
         wordWrap={wordWrap}
         value={docText}
         onChange={e => setDocText(e.target.value)}
         onKeyDown={onTextAreaKeyDown}
+        onSelect={e => {
+          const { selectionStart, selectionEnd, value } = e.target;
+          setSelectedText(value.substring(selectionStart, selectionEnd));
+          setCaretPos([selectionStart, selectionEnd]);
+        }}
         spellCheck={false}
       />
     </Div>

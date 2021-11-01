@@ -44,7 +44,7 @@ const Edit = [
   {
     type: 'item',
     disable: true,
-    text: 'Undo...',
+    text: 'Undo',
   },
   {
     type: 'separator',
@@ -61,7 +61,6 @@ const Edit = [
   },
   {
     type: 'item',
-    disable: true,
     text: 'Paste',
   },
   {
@@ -97,7 +96,6 @@ const Edit = [
   },
   {
     type: 'item',
-    disable: true,
     text: 'Select All',
   },
   {
