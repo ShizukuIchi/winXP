@@ -1,6 +1,6 @@
 # WinXP
 
-🏁 Web based Windows XP desktop recreation.
+Web based desktop recreation of Windows XP. Maintained by Really Good, feel free to contribute.
 
 Features:
 
