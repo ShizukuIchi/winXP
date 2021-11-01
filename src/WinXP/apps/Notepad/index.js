@@ -31,9 +31,10 @@ export default function Notepad({ onClose }) {
         break;
       case 'Time/Date':
         const date = new Date();
-        insertOrReplace(
-          date.toLocaleTimeString() + ' ' + date.toLocaleDateString(),
-        );
+        const formatedDate =
+          date.toLocaleTimeString() + ' ' + date.toLocaleDateString();
+        insertOrReplace(formatedDate);
+        focusCaret(formatedDate.length);
         break;
       case 'Select All':
         textareaRef.current.select();
