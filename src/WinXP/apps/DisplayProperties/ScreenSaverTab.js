@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 import display from 'assets/properties/displayProperties/display.png';
@@ -31,22 +31,14 @@ function ScreenSaverTab({ state, dispatch, appContext }) {
     setScreenSaverState(prev => ({ ...prev, wait }));
   };
 
-  const [isKeySpacePressed, setIsKeySpacePressed] = useState(false);
+  const selectorRef = useRef(null);
 
-  //SpaceBar trigger onClick(handlePreviewOpen), which cause unwanted result.
-  // "if(isKeySpacePressed).." prevent the spacebar from triggering the onClick.
-  const handlePreviewOpen = () => {
-    if (isKeySpacePressed) setIsKeySpacePressed(false);
-    else {
-      appContext.dispatch({
-        type: SCREEN_SAVER_PREVIEW,
-        payload: value,
-      });
-    }
-  };
-
-  const handleKeyUp = e => {
-    if (e.key === ' ') setIsKeySpacePressed(true);
+  const handlePreviewOpen = e => {
+    appContext.dispatch({
+      type: SCREEN_SAVER_PREVIEW,
+      payload: value,
+    });
+    selectorRef.current.focus();
   };
 
   return (
@@ -71,6 +63,8 @@ function ScreenSaverTab({ state, dispatch, appContext }) {
               id="screen-saver"
               className="position-input"
               onChange={handleSelectChange}
+              ref={selectorRef}
+              onKeyPress={e => e.preventDefault()}
               autoFocus
             >
               <option value="(None)">(None)</option>
@@ -87,7 +81,6 @@ function ScreenSaverTab({ state, dispatch, appContext }) {
               type="button"
               style={{ marginLeft: 9 }}
               onClick={handlePreviewOpen}
-              onKeyUp={handleKeyUp}
             >
               Preview
             </Button>
