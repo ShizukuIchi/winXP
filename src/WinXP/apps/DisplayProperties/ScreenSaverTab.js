@@ -31,11 +31,22 @@ function ScreenSaverTab({ state, dispatch, appContext }) {
     setScreenSaverState(prev => ({ ...prev, wait }));
   };
 
-  const handlePreview = () => {
-    appContext.dispatch({
-      type: SCREEN_SAVER_PREVIEW,
-      payload: value,
-    });
+  const [isKeySpacePressed, setIsKeySpacePressed] = useState(false);
+
+  //SpaceBar trigger onClick(handlePreviewOpen), which cause unwanted result.
+  // "if(isKeySpacePressed).." prevent the spacebar from triggering the onClick.
+  const handlePreviewOpen = () => {
+    if (isKeySpacePressed) setIsKeySpacePressed(false);
+    else {
+      appContext.dispatch({
+        type: SCREEN_SAVER_PREVIEW,
+        payload: value,
+      });
+    }
+  };
+
+  const handleKeyUp = e => {
+    if (e.key === ' ') setIsKeySpacePressed(true);
   };
 
   return (
@@ -68,18 +79,15 @@ function ScreenSaverTab({ state, dispatch, appContext }) {
             </select>
           </label>
           <div className="button-group">
-            <Button
-              disabled={isNone}
-              type="button"
-              style={{ marginLeft: '7px' }}
-            >
+            <Button disabled={isNone} type="button" style={{ marginLeft: 7 }}>
               Settings
             </Button>
             <Button
               disabled={isNone}
               type="button"
-              style={{ marginLeft: '9px' }}
-              onClick={handlePreview}
+              style={{ marginLeft: 9 }}
+              onClick={handlePreviewOpen}
+              onKeyUp={handleKeyUp}
             >
               Preview
             </Button>
