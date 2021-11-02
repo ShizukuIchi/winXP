@@ -20,7 +20,7 @@ function ScreenSaverTab({ state, dispatch, appContext }) {
   }, [screenSaverState, dispatch]);
 
   useEffect(() => {
-    setIsNone(screenSaverState.value === '(None)' ? true : false);
+    setIsNone(screenSaverState.value === '(None)';
   }, [screenSaverState.value]);
 
   const handleSelectChange = e => {
