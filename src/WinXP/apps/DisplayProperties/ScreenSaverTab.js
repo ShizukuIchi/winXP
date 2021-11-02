@@ -85,11 +85,7 @@ function ScreenSaverTab({ state, dispatch, appContext }) {
               Preview
             </Button>
           </div>
-          <div
-            className={
-              isNone ? 'quick-settings disabled-text' : 'quick-settings'
-            }
-          >
+          <div className={`quick-settings ${isNone ? 'disabled-text' : ''}`}>
             <label className="wait-label">Wait:</label>
             <NumberInput
               value={wait}
