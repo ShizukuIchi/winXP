@@ -247,7 +247,7 @@ function WinXP() {
     if (state.displayProperties.screenSaver.value !== '(None)') {
       const id = setTimeout(() => {
         setIsScreenSaverActive(true);
-        ref.current.focus();
+        ref.current && ref.current.focus();
       }, wait * 1000 * 60);
       screenSaverTimeoutid.current = id;
     }

@@ -5,8 +5,10 @@ import numberDown from './numberDown.png';
 function NumberInput(props) {
   const { value, onChange, min = 1, max = 9999, disabled } = props;
   const [inputValue, setInputValue] = useState(value);
-  const [upMouseClickStyle, setUpMouseClickStyle] = useState({});
-  const [downMouseClickStyle, setDownMouseClickStyle] = useState({});
+  const [isKeyArrowPressed, setIsKeyArrowPressed] = useState({
+    arrowUp: false,
+    arrowDown: false,
+  });
 
   const inputRef = useRef(null);
 
@@ -19,21 +21,18 @@ function NumberInput(props) {
   };
 
   const handleKeyDown = e => {
-    if (e.key === 'ArrowDown') {
-      setDownMouseClickStyle({
-        boxShadow: 'inset 2px 4px 4px 1px rgb(85 108 165 / 56%)',
-      });
-    }
     if (e.key === 'ArrowUp') {
-      setUpMouseClickStyle({
-        boxShadow: 'inset -2px -4px 4px 1px rgb(85 108 165 / 56%)',
-      });
+      setIsKeyArrowPressed(prev => ({ ...prev, arrowUp: true }));
+      handleValueStepper(1);
+    }
+    if (e.key === 'ArrowDown') {
+      setIsKeyArrowPressed(prev => ({ ...prev, arrowDown: true }));
+      handleValueStepper(-1);
     }
   };
 
   const handleKeyUp = () => {
-    setUpMouseClickStyle({});
-    setDownMouseClickStyle({});
+    setIsKeyArrowPressed(false);
   };
 
   const checkAndSetInput = value => {
@@ -44,33 +43,21 @@ function NumberInput(props) {
   };
 
   return (
-    <StyledNumberInput {...props}>
+    <StyledNumberInput>
       <StyledArrow
         type="button"
         onClick={() => handleValueStepper(1)}
-        onMouseDown={() =>
-          setUpMouseClickStyle({
-            boxShadow: 'inset -2px -4px 4px 1px rgb(85 108 165 / 56%)',
-          })
-        }
-        onMouseUp={() => setUpMouseClickStyle({})}
-        onMouseOut={() => setUpMouseClickStyle({})}
-        style={upMouseClickStyle}
+        onMouseOut={handleKeyUp}
         disabled={disabled}
+        arrowClickStyle={isKeyArrowPressed.arrowUp}
         up
       />
       <StyledArrow
         type="button"
         onClick={() => handleValueStepper(-1)}
-        onMouseDown={() =>
-          setDownMouseClickStyle({
-            boxShadow: 'inset 2px 4px 4px 1px rgb(85 108 165 / 56%)',
-          })
-        }
-        onMouseUp={() => setDownMouseClickStyle({})}
-        onMouseOut={() => setDownMouseClickStyle({})}
-        style={downMouseClickStyle}
+        onMouseOut={handleKeyUp}
         disabled={disabled}
+        arrowClickStyle={isKeyArrowPressed.arrowDown}
       />
       <input
         type="number"
@@ -131,8 +118,18 @@ const StyledArrow = styled.button`
    top: 38px;
    `}
 
+  ${props =>
+    props.arrowClickStyle &&
+    `
+  box-shadow: inset 2px 4px 4px 1px rgb(85 108 165 / 56%);
+  `}
+
   &:hover {
     filter: brightness(1.07);
+  }
+
+  &:active {
+    box-shadow: inset -2px -4px 4px 1px rgb(85 108 165 / 56%);
   }
 
   &:disabled {
