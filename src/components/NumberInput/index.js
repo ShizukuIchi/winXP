@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import numberDown from './numberDown.png';
 
 function NumberInput(props) {
-  const { waitingTime, handleWaitingTime } = props;
-  const [inputValue, setInputValue] = useState(waitingTime);
+  const { value, onChange, min = 1, max = 9999, disabled } = props;
+  const [inputValue, setInputValue] = useState(value);
   const [upMouseClickStyle, setUpMouseClickStyle] = useState({});
   const [downMouseClickStyle, setDownMouseClickStyle] = useState({});
 
@@ -37,9 +37,9 @@ function NumberInput(props) {
   };
 
   const checkAndSetInput = value => {
-    if (!(value < 1 || value > 9999)) {
+    if (!(value < min || value > max)) {
       setInputValue(value);
-      handleWaitingTime(value);
+      onChange(value);
     }
   };
 
@@ -56,7 +56,7 @@ function NumberInput(props) {
         onMouseUp={() => setUpMouseClickStyle({})}
         onMouseOut={() => setUpMouseClickStyle({})}
         style={upMouseClickStyle}
-        disabled={props.selectedScreenSaver === '(None)'}
+        disabled={disabled}
         up
       />
       <StyledArrow
@@ -70,7 +70,7 @@ function NumberInput(props) {
         onMouseUp={() => setDownMouseClickStyle({})}
         onMouseOut={() => setDownMouseClickStyle({})}
         style={downMouseClickStyle}
-        disabled={props.selectedScreenSaver === '(None)'}
+        disabled={disabled}
       />
       <input
         type="number"
@@ -81,7 +81,7 @@ function NumberInput(props) {
         onKeyDown={handleKeyDown}
         onKeyUp={handleKeyUp}
         onFocus={e => e.target.select()}
-        disabled={props.selectedScreenSaver === '(None)'}
+        disabled={disabled}
       />
     </StyledNumberInput>
   );

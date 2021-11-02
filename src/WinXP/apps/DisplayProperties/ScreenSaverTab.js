@@ -92,9 +92,9 @@ function ScreenSaverTab({ state, dispatch, appContext }) {
           >
             <label className="wait-label">Wait:</label>
             <NumberInput
-              selectedScreenSaver={screenSaverState.value}
-              waitingTime={wait}
-              handleWaitingTime={handleWaitingTime}
+              value={wait}
+              onChange={handleWaitingTime}
+              disabled={isNone}
             />
             <p>minutes</p>
             <CheckBox
