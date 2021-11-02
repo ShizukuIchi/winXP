@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
-import numberDown from '../../assets/properties/displayProperties/icons/numberDown.png';
+import numberDown from './numberDown.png';
 
 function NumberInput(props) {
   const { waitingTime, handleWaitingTime } = props;
@@ -45,11 +45,8 @@ function NumberInput(props) {
 
   return (
     <StyledNumberInput {...props}>
-      <button
+      <StyledArrow
         type="button"
-        className={
-          props.selectedScreenSaver === '(None)' ? 'disabledArrowUp' : 'arrowUp'
-        }
         onClick={() => handleValueStepper(1)}
         onMouseDown={() =>
           setUpMouseClickStyle({
@@ -60,14 +57,10 @@ function NumberInput(props) {
         onMouseOut={() => setUpMouseClickStyle({})}
         style={upMouseClickStyle}
         disabled={props.selectedScreenSaver === '(None)'}
+        up
       />
-      <button
+      <StyledArrow
         type="button"
-        className={
-          props.selectedScreenSaver === '(None)'
-            ? 'disabledArrowDown'
-            : 'arrowDown'
-        }
         onClick={() => handleValueStepper(-1)}
         onMouseDown={() =>
           setDownMouseClickStyle({
@@ -81,11 +74,7 @@ function NumberInput(props) {
       />
       <input
         type="number"
-        className={
-          props.selectedScreenSaver === '(None)'
-            ? 'numberInputDisabled'
-            : 'numberInput'
-        }
+        className="numberInput"
         ref={inputRef}
         value={inputValue}
         onChange={e => checkAndSetInput(e.target.value)}
@@ -111,101 +100,44 @@ const StyledNumberInput = styled.div`
     &:focus {
       outline: transparent;
     }
+    &:disabled {
+      color: #adaa9c;
+    }
     &::selection {
       background: #2f71cd;
       color: white;
     }
   }
+`;
 
-  .numberInputDisabled {
-    border-radius: 0;
-    font-size: 13px;
-    width: 49px;
-    height: 21px;
-    padding-bottom: 2px;
-    padding-right: 2px;
-    color: #adaa9c;
-    border: 1px solid #afafaf;
-    text-align: right;
+const StyledArrow = styled.button`
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  position: absolute;
+  top: 46px;
+  left: 69px;
+  width: 15px;
+  height: 9px;
+  background-image: url(${numberDown});
+  z-index: 1;
+  ${props =>
+    props.up &&
+    `
+   transform: rotate(180deg);
+   top: 38px;
+   `}
+
+  &:hover {
+    filter: brightness(1.07);
   }
 
-  .arrowUp {
-    color: inherit;
-    border: none;
-    padding: 0;
-    font: inherit;
-    cursor: pointer;
-    outline: inherit;
-    position: absolute;
-    top: 38px;
-    left: 69px;
-    width: 15px;
-    height: 9px;
-    transform: rotate(180deg);
-    background-image: url(${numberDown});
-    z-index: 1;
-    &:hover {
-      filter: brightness(1.07);
-    }
-  }
-
-  .arrowDown {
-    background: none;
-    color: inherit;
-    border: none;
-    padding: 0;
-    font: inherit;
-    cursor: pointer;
-    outline: inherit;
-    position: absolute;
-    position: absolute;
-    top: 46.5px;
-    left: 69px;
-    width: 15px;
-    height: 9px;
-    background-image: url(${numberDown});
-    z-index: 1;
-    &:hover {
-      filter: brightness(1.07);
-    }
-  }
-
-  .disabledArrowUp {
-    color: inherit;
-    border: none;
-    padding: 0;
-    font: inherit;
-    cursor: inherit;
-    outline: inherit;
-    position: absolute;
-    top: 38px;
-    left: 69px;
-    width: 15px;
-    height: 9px;
-    transform: rotate(180deg);
-    background-image: url(${numberDown});
+  &:disabled {
     filter: grayscale(100%);
     opacity: 0.3;
-    z-index: 1;
-  }
-
-  .disabledArrowDown {
-    color: inherit;
-    border: none;
-    padding: 0;
-    font: inherit;
-    cursor: inherit;
-    outline: inherit;
-    position: absolute;
-    position: absolute;
-    top: 47px;
-    left: 69px;
-    width: 15px;
-    height: 9px;
-    background-image: url(${numberDown});
-    filter: grayscale(100%);
-    opacity: 0.3;
-    z-index: 1;
   }
 `;
 

@@ -53,8 +53,8 @@ function ScreenSaverTab({ state, dispatch, appContext }) {
           />
         </div>
       </div>
-      <form className="config-area">
-        <fieldset className="settings">
+      <Config>
+        <SelectionSettings height="80px">
           <legend>Screen saver</legend>
           <img className="arrow-down" src={arrowDown} alt="arrow down" />
           <label htmlFor="screen-saver">
@@ -85,8 +85,12 @@ function ScreenSaverTab({ state, dispatch, appContext }) {
               Preview
             </Button>
           </div>
-          <div className="quickSettings" style={{ color: isNone && '#adaa9c' }}>
-            <label className="waitLabel">Wait:</label>
+          <div
+            className={
+              isNone ? 'quick-settings disabled-text' : 'quick-settings'
+            }
+          >
+            <label className="wait-label">Wait:</label>
             <NumberInput
               selectedScreenSaver={screenSaverState.value}
               waitingTime={wait}
@@ -99,15 +103,15 @@ function ScreenSaverTab({ state, dispatch, appContext }) {
               label="On resume, password protect"
             />
           </div>
-        </fieldset>
-        <fieldset className="settings">
+        </SelectionSettings>
+        <SelectionSettings height="87.5px" marginTop="4px">
           <legend>Monitor power</legend>
           <p>To adjust monitor power settings and save energy, click Power.</p>
           <Button type="button" className="power-button">
             Power...
           </Button>
-        </fieldset>
-      </form>
+        </SelectionSettings>
+      </Config>
     </ScreenSaverSettings>
   );
 }
@@ -128,34 +132,10 @@ const ScreenSaverSettings = styled.div`
       background-color: #2f71cd;
     }
   }
+`;
 
-  .config-area {
-    margin-top: 4.5px;
-  }
-
-  .settings {
-    position: relative;
-    border: 1px solid #e1e1d4;
-    border-radius: 5px;
-    font-size: 11px;
-    height: 80px;
-
-    & p {
-      margin-left: 82px;
-      margin-top: 7px;
-    }
-
-    & .power-button {
-      position: absolute;
-      right: 9px;
-      top: 45px;
-    }
-  }
-
-  .settings:nth-child(2) {
-    height: 87.5px;
-    margin-top: 4px;
-  }
+const Config = styled.form`
+  margin-top: 4.5px;
 
   legend {
     margin-left: 9px;
@@ -193,7 +173,7 @@ const ScreenSaverSettings = styled.div`
     top: 5px;
   }
 
-  .quickSettings {
+  .quick-settings {
     display: flex;
     margin-top: 8px;
 
@@ -202,7 +182,7 @@ const ScreenSaverSettings = styled.div`
       margin-left: 6px;
     }
 
-    & .waitLabel {
+    & .wait-label {
       margin-top: 3.5px;
       margin-left: 8px;
       padding-right: 2.5px;
@@ -212,6 +192,29 @@ const ScreenSaverSettings = styled.div`
       margin-left: 5px;
       margin-top: 4px;
     }
+  }
+  .disabled-text {
+    color: #adaa9c;
+  }
+`;
+
+const SelectionSettings = styled.fieldset`
+  position: relative;
+  border: 1px solid #e1e1d4;
+  border-radius: 5px;
+  font-size: 11px;
+  height: ${props => props.height};
+  margin-top: ${props => props.marginTop};
+
+  & p {
+    margin-left: 82px;
+    margin-top: 7px;
+  }
+
+  & .power-button {
+    position: absolute;
+    right: 9px;
+    top: 45px;
   }
 `;
 

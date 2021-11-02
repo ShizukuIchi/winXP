@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import BackgroundView from 'components/BackgroundView';
@@ -14,12 +14,6 @@ import { DESKTOP, defaultDesktop } from './utils';
 
 function ThemeTab({ state, dispatch }) {
   const [preview, setPreview] = useState(null);
-
-  const selectRef = useRef(null);
-
-  useEffect(() => {
-    selectRef.current.focus();
-  }, []);
 
   const handleSelectChange = e => {
     const { value } = e.target;
@@ -64,7 +58,7 @@ function ThemeTab({ state, dispatch }) {
             className="select"
             id="theme-picker"
             onChange={handleSelectChange}
-            ref={selectRef}
+            autoFocus
           >
             {state.hasChanges && (
               <option value="current">Windows XP (Modified)</option>

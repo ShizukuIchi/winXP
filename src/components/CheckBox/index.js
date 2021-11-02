@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import checkMark from '../../assets/properties/displayProperties/icons/checkmark.svg';
+import checkMark from './checkmark.svg';
 
-function checkBox(props) {
+function CheckBox(props) {
   return (
     <StyledCheckBox {...props}>
       <input
         disabled={props.value === '(None)'}
         type="checkbox"
         id="checkbox"
-        className={props.value === '(None)' ? 'checkboxDisabled' : 'checkbox'}
+        className="checkbox"
       />
       <label className="label" htmlFor="checkbox">
         {props.label}
@@ -29,7 +29,7 @@ const StyledCheckBox = styled.div`
     outline: 1px solid grey;
     box-shadow: inset 24px 26px 8px -27px rgb(0 0 0 / 22%);
 
-    &:hover {
+    &:hover:enabled {
       box-shadow: inset -2px -2px #f8b636, inset 2px 2px #fedf9c;
     }
 
@@ -60,6 +60,18 @@ const StyledCheckBox = styled.div`
         background-image: url(${checkMark});
       }
     }
+
+    &:disabled {
+      width: 11px;
+      height: 11px;
+      outline: 1px solid #afafaf;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      -o-appearance: none;
+      appearance: none;
+      background-color: white;
+      opacity: 0.7;
+    }
   }
 
   label {
@@ -68,18 +80,6 @@ const StyledCheckBox = styled.div`
     left: 3px;
     border: 1px dotted transparent;
   }
-
-  .checkboxDisabled {
-    width: 11px;
-    height: 11px;
-    outline: 1px solid #afafaf;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -o-appearance: none;
-    appearance: none;
-    background-color: white;
-    opacity: 0.7;
-  }
 `;
 
-export default checkBox;
+export default CheckBox;

@@ -236,24 +236,24 @@ function WinXP() {
 
   const [isScreenSaverActive, setIsScreenSaverActive] = useState(false);
 
-  const screenSaverSetTimeoutid = useRef();
+  const screenSaverTimeoutid = useRef();
 
   const screenSaverIdleTimer = useCallback(() => {
     const { wait } = state.displayProperties.screenSaver;
-    clearTimeout(screenSaverSetTimeoutid.current);
+    clearTimeout(screenSaverTimeoutid.current);
     if (state.displayProperties.screenSaver.value !== '(None)') {
       const id = setTimeout(() => {
         setIsScreenSaverActive(true);
         ref.current.focus();
       }, wait * 1000 * 60);
-      screenSaverSetTimeoutid.current = id;
+      screenSaverTimeoutid.current = id;
     }
   }, [state.displayProperties.screenSaver]);
 
   useEffect(() => {
     screenSaverIdleTimer();
     return () => {
-      clearTimeout(screenSaverSetTimeoutid.current);
+      clearTimeout(screenSaverTimeoutid.current);
     };
   }, [screenSaverIdleTimer]);
 
