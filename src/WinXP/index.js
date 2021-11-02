@@ -391,11 +391,13 @@ function WinXP() {
   }
 
   const resetScreenSaver = () => {
-    dispatch({
-      type: SCREEN_SAVER_PREVIEW,
-      payload: false,
-    });
-    setIsScreenSaverActive(false);
+    if (isScreenSaverActive) {
+      dispatch({
+        type: SCREEN_SAVER_PREVIEW,
+        payload: false,
+      });
+      setIsScreenSaverActive(false);
+    }
     debouncedFunc(screenSaverIdleTimer);
   };
 

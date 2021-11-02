@@ -3,7 +3,15 @@ import styled from 'styled-components';
 import numberDown from './numberDown.png';
 
 function NumberInput(props) {
-  const { value, onChange, min = 1, max = 9999, disabled } = props;
+  const {
+    value,
+    onChange,
+    min = 1,
+    max = 9999,
+    disabled,
+    ...otherProps
+  } = props;
+
   const [inputValue, setInputValue] = useState(value);
   const [isKeyArrowPressed, setIsKeyArrowPressed] = useState({
     arrowUp: false,
@@ -43,11 +51,11 @@ function NumberInput(props) {
   };
 
   return (
-    <StyledNumberInput>
+    <StyledNumberInput {...otherProps}>
       <StyledArrow
         type="button"
         onClick={() => handleValueStepper(1)}
-        onMouseOut={handleKeyUp}
+        onKeyUp={handleKeyUp}
         disabled={disabled}
         arrowClickStyle={isKeyArrowPressed.arrowUp}
         up
@@ -55,7 +63,7 @@ function NumberInput(props) {
       <StyledArrow
         type="button"
         onClick={() => handleValueStepper(-1)}
-        onMouseOut={handleKeyUp}
+        onKeyUp={handleKeyUp}
         disabled={disabled}
         arrowClickStyle={isKeyArrowPressed.arrowDown}
       />
