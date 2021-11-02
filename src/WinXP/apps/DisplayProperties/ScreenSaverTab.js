@@ -20,7 +20,7 @@ function ScreenSaverTab({ state, dispatch, appContext }) {
   }, [screenSaverState, dispatch]);
 
   useEffect(() => {
-    setIsNone(screenSaverState.value === '(None)' ? true : false);
+    setIsNone(screenSaverState.value === '(None)';
   }, [screenSaverState.value]);
 
   const handleSelectChange = e => {
@@ -48,7 +48,7 @@ function ScreenSaverTab({ state, dispatch, appContext }) {
         <div className="display-overlay">
           <ScreenSaver
             selectedScreenSaver={value}
-            previewScreen={true}
+            previewScreen
             state={state}
           />
         </div>
