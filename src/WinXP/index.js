@@ -1,10 +1,20 @@
-import React, { useReducer, useRef, useCallback, useLayoutEffect } from 'react';
+import React, {
+  useReducer,
+  useRef,
+  useCallback,
+  useLayoutEffect,
+  useState,
+  useEffect,
+} from 'react';
 import styled, { keyframes } from 'styled-components';
 import useMouse from 'react-use/lib/useMouse';
 import ga from 'react-ga';
 
-import { getLocalStorage, setLocalStorage } from './utils';
-import { defaultDesktop } from './apps/DisplayProperties/utils';
+import { getLocalStorage, setLocalStorage, throttledFunc } from './utils';
+import {
+  defaultDesktop,
+  defaultScreenSaver,
+} from './apps/DisplayProperties/utils';
 
 import {
   ADD_APP,
@@ -20,6 +30,8 @@ import {
   CONTEXT_MENU,
   POWER_OFF,
   CANCEL_POWER_OFF,
+  DISPLAY_PROPERTIES,
+  SCREEN_SAVER_PREVIEW,
 } from './constants/actions';
 import { FOCUSING, POWER_STATE } from './constants';
 import { defaultIconState, defaultAppState, appSettings } from './apps';
@@ -32,6 +44,7 @@ import { contextMenuData } from 'components/ContextMenu/utils';
 import BackgroundView from 'components/BackgroundView';
 
 import { DashedBox } from 'components';
+import ScreenSaver from 'components/ScreenSavers';
 
 export const Context = React.createContext();
 
@@ -46,6 +59,8 @@ const initState = {
   powerState: POWER_STATE.START,
   displayProperties: {
     desktop: defaultDesktop,
+    screenSaver: defaultScreenSaver,
+    screenSaverPreview: false,
   },
 };
 const reducer = (state, action = { type: '' }) => {
@@ -196,12 +211,22 @@ const reducer = (state, action = { type: '' }) => {
         ...state,
         powerState: POWER_STATE.START,
       };
-    case 'DISPLAY_PROPERTIES':
+    case DISPLAY_PROPERTIES:
       if (action.payload) setLocalStorage('displayProperties', action.payload);
-
       return {
         ...state,
-        displayProperties: action.payload,
+        displayProperties: {
+          ...state.displayProperties,
+          ...action.payload,
+        },
+      };
+    case SCREEN_SAVER_PREVIEW:
+      return {
+        ...state,
+        displayProperties: {
+          ...state.displayProperties,
+          screenSaverPreview: action.payload,
+        },
       };
 
     default:
@@ -212,12 +237,41 @@ const reducer = (state, action = { type: '' }) => {
 function WinXP() {
   const [state, dispatch] = useReducer(reducer, initState);
 
+  const [isScreenSaverActive, setIsScreenSaverActive] = useState(false);
+
+  const screenSaverTimeoutid = useRef();
+
+  const screenSaverIdleTimer = useCallback(() => {
+    const { wait } = state.displayProperties.screenSaver;
+    clearTimeout(screenSaverTimeoutid.current);
+    if (state.displayProperties.screenSaver.value !== '(None)') {
+      const id = setTimeout(() => {
+        setIsScreenSaverActive(true);
+        ref.current && ref.current.focus();
+      }, wait * 1000 * 60);
+      screenSaverTimeoutid.current = id;
+    }
+  }, [state.displayProperties.screenSaver]);
+
+  useEffect(() => {
+    screenSaverIdleTimer();
+    return () => {
+      clearTimeout(screenSaverTimeoutid.current);
+    };
+  }, [screenSaverIdleTimer]);
+
+  useEffect(() => {
+    if (state.displayProperties.screenSaverPreview) {
+      setIsScreenSaverActive(true);
+    }
+  }, [state.displayProperties.screenSaverPreview]);
+
   useLayoutEffect(() => {
-    const desktop = getLocalStorage('displayProperties');
-    if (desktop)
+    const displayProperties = getLocalStorage('displayProperties');
+    if (displayProperties)
       dispatch({
-        type: 'DISPLAY_PROPERTIES',
-        payload: desktop,
+        type: DISPLAY_PROPERTIES,
+        payload: displayProperties,
       });
   }, []);
 
@@ -251,6 +305,7 @@ function WinXP() {
     },
     [focusedAppId],
   );
+
   function onMouseDownFooterApp(id) {
     if (focusedAppId === id) {
       dispatch({ type: MINIMIZE_APP, payload: id });
@@ -304,6 +359,7 @@ function WinXP() {
       });
   }
   function onMouseDownDesktop(e) {
+    resetScreenSaver();
     if (e.target === e.currentTarget)
       dispatch({
         type: START_SELECT,
@@ -334,13 +390,27 @@ function WinXP() {
     dispatch({ type: CANCEL_POWER_OFF });
   }
 
+  const resetScreenSaver = () => {
+    if (isScreenSaverActive) {
+      dispatch({
+        type: SCREEN_SAVER_PREVIEW,
+        payload: false,
+      });
+      setIsScreenSaverActive(false);
+    }
+    throttledFunc(screenSaverIdleTimer);
+  };
+
   return (
     <Container
       ref={ref}
+      onMouseMove={resetScreenSaver}
+      onKeyDown={resetScreenSaver}
       onMouseUp={onMouseUpDesktop}
       onMouseDown={onMouseDownDesktop}
       onContextMenu={onContextMenu}
       state={state.powerState}
+      tabIndex={0}
     >
       <Icons
         icons={state.icons}
@@ -386,6 +456,12 @@ function WinXP() {
         />
       )}
       <BackgroundView background={state.displayProperties.desktop} />
+      {isScreenSaverActive && (
+        <ScreenSaver
+          selectedScreenSaver={state.displayProperties.screenSaver.value}
+          activatePreview={state.displayProperties.screenSaverPreview}
+        />
+      )}
     </Container>
   );
 }

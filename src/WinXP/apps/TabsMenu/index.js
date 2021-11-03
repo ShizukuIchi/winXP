@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-function TabsMenu({ tabs, state, dispatch }) {
+function TabsMenu({ tabs, state, dispatch, appContext }) {
   const [activeTab, setActiveTab] = useState(-1);
 
   useEffect(() => {
@@ -13,7 +13,6 @@ function TabsMenu({ tabs, state, dispatch }) {
 
     setActiveTab(defaultTabIndex === -1 ? fallbackTabIndex : defaultTabIndex);
   }, [tabs]);
-
   function isValidTab(tab) {
     return !tab.disabled && !tab.skip;
   }
@@ -22,7 +21,6 @@ function TabsMenu({ tabs, state, dispatch }) {
     if (item.disabled) return;
     setActiveTab(index);
   }
-
   return (
     <TabMenu>
       <Tabs>
@@ -49,7 +47,14 @@ function TabsMenu({ tabs, state, dispatch }) {
         {tabs.map(({ content: Content, title }, index) => {
           if (index !== activeTab) return null;
 
-          return <Content key={title} state={state} dispatch={dispatch} />;
+          return (
+            <Content
+              key={title}
+              state={state}
+              dispatch={dispatch}
+              appContext={appContext}
+            />
+          );
         })}
       </Content>
     </TabMenu>

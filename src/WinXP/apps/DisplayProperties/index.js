@@ -2,7 +2,7 @@ import React, { useReducer, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { Context as AppContext } from './../../../WinXP';
-import Button from 'components/Button';
+import Button from '../../../components/Button';
 
 import TabsMenu from '../TabsMenu';
 
@@ -14,10 +14,12 @@ import ScreenSaverTab from './ScreenSaverTab';
 import {
   DESKTOP,
   CHANGE,
-  DISPLAY_PROPERTIES,
   FIRST_CHANGE,
   RESET_FIRST_CHANGE,
+  SCREEN_SAVER,
 } from './utils';
+
+import { DISPLAY_PROPERTIES } from '../../constants/actions';
 
 const tabs = [
   { title: 'Themes', content: ThemeTab },
@@ -59,6 +61,17 @@ function DisplayProperties({ onClose }) {
             },
           },
         };
+      case SCREEN_SAVER:
+        return {
+          ...state,
+          displayProperties: {
+            ...displayProperties,
+            screenSaver: {
+              ...state.displayProperties.screenSaver,
+              ...payload,
+            },
+          },
+        };
       default:
         break;
     }
@@ -69,7 +82,6 @@ function DisplayProperties({ onClose }) {
     hasChanges: false,
     firstChange: false,
   });
-
   useEffect(() => {
     const hasChanged =
       JSON.stringify(state.displayProperties) !==
@@ -104,7 +116,6 @@ function DisplayProperties({ onClose }) {
     handleApply();
     onClose();
   };
-
   return (
     <Properties>
       <TabsMenu
