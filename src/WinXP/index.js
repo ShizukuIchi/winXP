@@ -10,7 +10,7 @@ import styled, { keyframes } from 'styled-components';
 import useMouse from 'react-use/lib/useMouse';
 import ga from 'react-ga';
 
-import { getLocalStorage, setLocalStorage, debouncedFunc } from './utils';
+import { getLocalStorage, setLocalStorage, throttledFunc } from './utils';
 import {
   defaultDesktop,
   defaultScreenSaver,
@@ -398,7 +398,7 @@ function WinXP() {
       });
       setIsScreenSaverActive(false);
     }
-    debouncedFunc(screenSaverIdleTimer);
+    throttledFunc(screenSaverIdleTimer);
   };
 
   return (

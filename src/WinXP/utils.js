@@ -1,4 +1,4 @@
-import { debounce } from 'lodash';
+import { throttle } from 'lodash';
 
 export function setLocalStorage(name, item) {
   localStorage.setItem(name, JSON.stringify(item));
@@ -9,6 +9,4 @@ export function getLocalStorage(name) {
   return JSON.parse(item);
 }
 
-export const debouncedFunc = debounce(callback => {
-  callback();
-}, 1000);
+export const throttledFunc = throttle(callback => callback(), 10_000);
