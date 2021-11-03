@@ -23,9 +23,9 @@ function NumberInput(props) {
   const handleValueStepper = action => {
     const nextValue = +inputValue + action;
     checkAndSetInput(nextValue);
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       inputRef.current.select();
-    }, 0);
+    });
   };
 
   const handleKeyDown = e => {
