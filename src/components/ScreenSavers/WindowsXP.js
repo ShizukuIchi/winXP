@@ -5,25 +5,25 @@ import logoXP from 'assets/properties/displayProperties/screenSaver/windows-xp-l
 function WindowsXP({
   winWidth = window.innerWidth,
   winHeight = window.innerHeight,
-  imgHeight = 175,
   imgWidth = 240,
+  imgHeight = 175,
 }) {
   const [logoPosition, setLogoPosition] = useState({ posY: 0, posX: 0 });
 
   const randomizeLogoPosition = useCallback(() => {
-    let randomPosY = Math.random() * (winHeight - imgHeight);
     let randomPosX = Math.random() * (winWidth - imgWidth);
+    let randomPosY = Math.random() * (winHeight - imgHeight);
     setLogoPosition({
-      posY: randomPosY,
       posX: randomPosX,
+      posY: randomPosY,
     });
-  }, [winWidth, winHeight, imgHeight, imgWidth]);
+  }, [winWidth, winHeight, imgWidth, imgHeight]);
 
   useEffect(() => {
     randomizeLogoPosition();
     const id = setInterval(() => {
       randomizeLogoPosition();
-    }, 10000);
+    }, 10_000);
     return () => {
       clearInterval(id);
     };
