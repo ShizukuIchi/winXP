@@ -191,11 +191,6 @@ var camera = new THREE.PerspectiveCamera(
   100000
 );
 
-// controls
-var controls = new THREE.OrbitControls(camera, renderer.domElement);
-controls.enabled = false;
-// controls.autoRotate = true;
-
 // scene
 var scene = new THREE.Scene();
 
@@ -274,7 +269,6 @@ function reset() {
 
 // this function is executed on each animation frame
 function animate() {
-  controls.update();
   if (options.texturePath && !textures[options.texturePath]) {
     var texture = THREE.ImageUtils.loadTexture(options.texturePath);
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
@@ -387,7 +381,6 @@ function look() {
   }
   var center = new THREE.Vector3(0, 0, 0);
   camera.lookAt(center);
-  controls.update();
 }
 look();
 
@@ -412,45 +405,34 @@ canvasContainer.addEventListener(
   false
 );
 
-// var toggleControlButton = document.getElementById("toggle-controls");
-// toggleControlButton.addEventListener(
-//   "click",
-//   function(e) {
-//     controls.enabled = !controls.enabled;
-//     showElementsIf(".normal-controls-enabled", !controls.enabled);
-//     showElementsIf(".orbit-controls-enabled", controls.enabled);
-//   },
-//   false
-// );
-
 // parse URL parameters
 // support e.g. <iframe src="https://1j01.github.io/pipes/#{%22hideUI%22:true}"/>
-function updateFromParametersInURL() {
-  var paramsJSON = decodeURIComponent(location.hash.replace(/^#/, ""));
-  if (paramsJSON) {
-    try {
-      var params = JSON.parse(paramsJSON);
-      if (typeof params !== "object") {
-        alert("Invalid URL parameter JSON: top level value must be an object");
-        params = null;
-      }
-    } catch (error) {
-      alert(
-        "Invalid URL parameter JSON syntax\n\n" +
-          error +
-          "\n\nRecieved:\n" +
-          paramsJSON
-      );
-    }
-  }
-  params = params || {};
+// function updateFromParametersInURL() {
+//   var paramsJSON = decodeURIComponent(location.hash.replace(/^#/, ""));
+//   if (paramsJSON) {
+//     try {
+//       var params = JSON.parse(paramsJSON);
+//       if (typeof params !== "object") {
+//         alert("Invalid URL parameter JSON: top level value must be an object");
+//         params = null;
+//       }
+//     } catch (error) {
+//       alert(
+//         "Invalid URL parameter JSON syntax\n\n" +
+//           error +
+//           "\n\nRecieved:\n" +
+//           paramsJSON
+//       );
+//     }
+//   }
+//   params = params || {};
 
-  // update based on the parameters
-  showElementsIf(".ui-container", !params.hideUI);
-}
+//   // update based on the parameters
+//   showElementsIf(".ui-container", !params.hideUI);
+// }
 
-updateFromParametersInURL();
-window.addEventListener("hashchange", updateFromParametersInURL);
+// updateFromParametersInURL();
+// window.addEventListener("hashchange", updateFromParametersInURL);
 
 // start animation
 animate();
