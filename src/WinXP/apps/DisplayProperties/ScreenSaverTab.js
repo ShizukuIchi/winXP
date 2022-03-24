@@ -70,6 +70,7 @@ function ScreenSaverTab({ state, dispatch, appContext }) {
               <option value="(None)">(None)</option>
               <option value="Blank">Blank</option>
               <option value="WindowsXP">Windows XP</option>
+              <option value="Pipes3D">3D Pipes</option>
             </select>
           </label>
           <div className="button-group">

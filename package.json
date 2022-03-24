@@ -6,6 +6,7 @@
   "homepage": "https://winxp.now.sh",
   "dependencies": {
     "@types/react": "^17.0.27",
+    "3d-pipes": "github:1j01/pipes",
     "lodash.debounce": "^4.0.8",
     "lodash.samplesize": "^4.2.0",
     "react": "^16.8.6",

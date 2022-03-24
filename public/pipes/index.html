@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>3D Pipes Screensaver</title>
+    <link
+      rel="icon"
+      href="images/meta/icon-16x16.png"
+      type="image/png"
+      sizes="16x16"
+    />
+    <link
+      rel="icon"
+      href="images/meta/icon-32x32.png"
+      type="image/png"
+      sizes="32x32"
+    />
+    <link
+      rel="icon"
+      href="images/meta/favicon.ico"
+      type="image/x-icon"
+      sizes="16x16 32x32"
+    />
+    <!--
+      Note: chrome does not display the 16px icon in its 16px space in this case
+    -->
+    <!-- but the 16px icon isn't objectively better, so whatever -->
+    <style>
+      html,
+      body {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #000;
+        color: white;
+        font-family: sans-serif;
+      }
+      #canvas-container {
+        position: relative;
+      }
+      canvas {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      .controls {
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.4);
+        text-shadow: 0 0 2px black;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      .controls,
+      .fork-me {
+        z-index: 1;
+      }
+      .controls th {
+        text-align: left;
+      }
+      .controls th,
+      .controls td {
+        padding: 10px;
+      }
+      .controls > button,
+      .controls > label {
+        margin: 10px;
+      }
+      button {
+        border: 1px solid gray;
+        background: rgba(128, 128, 128, 0.4);
+        color: inherit;
+        display: flex;
+        padding: 5px 10px;
+      }
+      button svg {
+        margin-right: 5px;
+        height: 1em;
+      }
+      button svg path {
+        fill: currentColor;
+      }
+    </style>
+    <script src="lib/sri-fallback.js"></script>
+    <script
+      x-sri-fallback="lib/three.min.js"
+      src="https://cdnjs.cloudflare.com/ajax/libs/three.js/98/three.min.js"
+      integrity="sha256-MbIcpOhIEGLabqntH1B7ZgE7a6V0TrocmKouz1npT1g="
+      crossorigin="anonymous"
+    ></script>
+    <script src="lib/OrbitControls.js"></script>
+    <script src="lib/TeapotBufferGeometry.js"></script>
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+  </head>
+  <body>
+    <div class="controls ui-container" hidden>
+      <!-- <label>
+        Joint Type:
+        <select id="joint-types">
+          <option value="elbow">Elbow</option>
+          <option value="ball">Ball</option>
+          <option value="mixed" selected>Mixed</option>
+          <option value="cycle">Cycle</option>
+        </select>
+      </label> -->
+      <!-- <button id="toggle-controls">
+        <span class="normal-controls-enabled">Control Camera</span>
+        <span hidden class="orbit-controls-enabled">Relinquish Camera</span>
+      </button> -->
+    </div>
+    <div id="canvas-container">
+      <canvas id="canvas-webgl"></canvas>
+      <canvas id="canvas-2d" style="pointer-events: none"></canvas>
+    </div>
+    <script src="screensaver.js"></script>
+  </body>
+</html>
