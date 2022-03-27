@@ -6,6 +6,7 @@ import Notepad from './Notepad';
 import Winamp from './Winamp';
 import Paint from './Paint';
 import DisplayProperties from './DisplayProperties';
+import Pipes3DProperties from './DisplayProperties/Pipes3DProperties';
 import iePaper from 'assets/windowsIcons/ie-paper.png';
 import ie from 'assets/windowsIcons/ie.png';
 import mine from 'assets/minesweeper/mine-icon.png';
@@ -314,6 +315,25 @@ export const appSettings = {
     defaultOffset: {
       x: 40,
       y: 40,
+    },
+    resizable: false,
+    minimized: false,
+    maximized: false,
+    multiInstance: false,
+  },
+  Pipes3D: {
+    header: {
+      title: '3D Pipes Settings',
+      buttons: ['help', 'close'],
+    },
+    component: Pipes3DProperties,
+    defaultSize: {
+      width: 400,
+      height: 275,
+    },
+    defaultOffset: {
+      x: 400,
+      y: 200,
     },
     resizable: false,
     minimized: false,

@@ -8,7 +8,8 @@ import NumberInput from 'components/NumberInput';
 import CheckBox from 'components/CheckBox';
 import ScreenSaver from 'components/ScreenSavers';
 import { SCREEN_SAVER } from './utils';
-import { SCREEN_SAVER_PREVIEW } from 'WinXP/constants/actions';
+import { ADD_APP, SCREEN_SAVER_PREVIEW } from 'WinXP/constants/actions';
+import { appSettings } from '../';
 
 function ScreenSaverTab({ state, dispatch, appContext }) {
   const { value, wait } = state.displayProperties.screenSaver;
@@ -39,6 +40,16 @@ function ScreenSaverTab({ state, dispatch, appContext }) {
       payload: value,
     });
     selectorRef.current.focus();
+  };
+
+  const handleSettingsOpen = e => {
+    /// Currently only supported for 3D pipes
+    /// TODO: make a switch case in the future when there are more setting options
+    if (value !== 'Pipes3D') return;
+    appContext.dispatch({
+      type: ADD_APP,
+      payload: appSettings.Pipes3D,
+    });
   };
 
   return (
@@ -74,7 +85,12 @@ function ScreenSaverTab({ state, dispatch, appContext }) {
             </select>
           </label>
           <div className="button-group">
-            <Button disabled={isNone} type="button" style={{ marginLeft: 7 }}>
+            <Button
+              disabled={isNone}
+              type="button"
+              style={{ marginLeft: 7 }}
+              onClick={handleSettingsOpen}
+            >
               Settings
             </Button>
             <Button

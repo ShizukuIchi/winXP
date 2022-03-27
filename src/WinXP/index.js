@@ -61,6 +61,12 @@ const initState = {
     desktop: defaultDesktop,
     screenSaver: defaultScreenSaver,
     screenSaverPreview: false,
+    pipes3DSettings: {
+      isMulti: false,
+      surfaceStyle: 'solid',
+      jointType: 'elbow',
+      speed: 0.5,
+    },
   },
 };
 const reducer = (state, action = { type: '' }) => {
