@@ -4,7 +4,7 @@ import styled from 'styled-components';
 function Pipes3D() {
   return (
     <StyledPipes>
-      <iframe title="blah" src="./pipes/index.html"></iframe>
+      <iframe title="pipes-3D" src="./pipes/index.html"></iframe>
     </StyledPipes>
   );
 }

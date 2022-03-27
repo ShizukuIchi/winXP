@@ -401,6 +401,15 @@ function WinXP() {
     throttledFunc(screenSaverIdleTimer);
   };
 
+  window.addEventListener(
+    'message',
+    event => {
+      if (event.data === 'pipesMouseMove' || event.message === 'pipesMouseMove')
+        resetScreenSaver();
+    },
+    false,
+  );
+
   return (
     <Container
       ref={ref}

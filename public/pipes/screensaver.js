@@ -386,16 +386,24 @@ look();
 
 canvasContainer.addEventListener("mousedown", function(e) {
   e.preventDefault();
-  if (!controls.enabled) {
-    if (e.button) {
-      clear(true);
-    } else {
-      look();
-    }
+
+  if (e.button) {
+    clear(true);
+  } else {
+    look();
   }
+
   window.getSelection().removeAllRanges();
   document.activeElement.blur();
 });
+
+canvasContainer.addEventListener(
+  "mousemove",
+  () => {
+    parent.postMessage("pipesMouseMove", "*");
+  },
+  false
+);
 
 canvasContainer.addEventListener(
   "contextmenu",
@@ -405,36 +413,6 @@ canvasContainer.addEventListener(
   false
 );
 
-// parse URL parameters
-// support e.g. <iframe src="https://1j01.github.io/pipes/#{%22hideUI%22:true}"/>
-// function updateFromParametersInURL() {
-//   var paramsJSON = decodeURIComponent(location.hash.replace(/^#/, ""));
-//   if (paramsJSON) {
-//     try {
-//       var params = JSON.parse(paramsJSON);
-//       if (typeof params !== "object") {
-//         alert("Invalid URL parameter JSON: top level value must be an object");
-//         params = null;
-//       }
-//     } catch (error) {
-//       alert(
-//         "Invalid URL parameter JSON syntax\n\n" +
-//           error +
-//           "\n\nRecieved:\n" +
-//           paramsJSON
-//       );
-//     }
-//   }
-//   params = params || {};
-
-//   // update based on the parameters
-//   showElementsIf(".ui-container", !params.hideUI);
-// }
-
-// updateFromParametersInURL();
-// window.addEventListener("hashchange", updateFromParametersInURL);
-
-// start animation
 animate();
 
 /**************\
@@ -467,12 +445,12 @@ function randomIntegerVector3WithinBox(box) {
     randomInteger(box.min.z, box.max.z)
   );
 }
-function showElementsIf(selector, condition) {
-  Array.from(document.querySelectorAll(selector)).forEach(function(el) {
-    if (condition) {
-      el.removeAttribute("hidden");
-    } else {
-      el.setAttribute("hidden", "hidden");
-    }
-  });
-}
+// function showElementsIf(selector, condition) {
+//   Array.from(document.querySelectorAll(selector)).forEach(function(el) {
+//     if (condition) {
+//       el.removeAttribute("hidden");
+//     } else {
+//       el.setAttribute("hidden", "hidden");
+//     }
+//   });
+// }
