@@ -29,18 +29,22 @@ function Pipes3DProperties({ onClose }) {
       type: DISPLAY_PROPERTIES,
       payload: { ...displayProperties, pipes3DSettings: pipes3DState },
     });
+    onClose();
   };
 
-  const testClick = e => {
-    setPipes3DState(prev => ({ ...prev, isMulti: true }));
-    handleApply();
+  const handleChange = (field, value) => {
+    setPipes3DState(prev => ({ ...prev, [field]: value }));
   };
 
   return (
     <>
       <Properties>
         <GroupBox>
-          <form>
+          <form
+            onChange={e => {
+              handleChange('isMulti', e.target.value === 'multi');
+            }}
+          >
             <label className="container">
               Single
               <input
@@ -48,7 +52,7 @@ function Pipes3DProperties({ onClose }) {
                 value="single"
                 type="radio"
                 name="isMulti"
-                onChange={() => console.log('change')}
+                checked={!pipes3DState.isMulti}
               />
               <span className="checkmark"></span>
             </label>
@@ -56,23 +60,23 @@ function Pipes3DProperties({ onClose }) {
             <label className="container">
               Multiple
               <input
-                id="Multi"
-                value="Multi"
+                id="multi"
+                value="multi"
                 type="radio"
                 name="isMulti"
-                onChange={() => console.log('change')}
+                checked={pipes3DState.isMulti}
               />
               <span className="checkmark"></span>
             </label>
           </form>
         </GroupBox>
 
-        <button onClick={testClick}> clickme</button>
         <Buttons>
           <Button
             style={{
               marginRight: 4,
             }}
+            onClick={handleApply}
           >
             OK
           </Button>
@@ -167,11 +171,7 @@ const GroupBox = styled.div`
     border-radius: 50%;
     /* background: url('public/radioIndicatior.svg'); */
     /* TODO: change to svg */
-    background: linear-gradient(
-      90deg,
-      rgba(62, 185, 53, 1) 0%,
-      rgba(49, 150, 35, 1) 65%
-    );
+    background: linear-gradient(90deg, rgb(77 207 67) 0%, rgb(39 129 27) 90%);
   }
 `;
 
