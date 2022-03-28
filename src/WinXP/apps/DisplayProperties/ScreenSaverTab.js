@@ -54,13 +54,18 @@ function ScreenSaverTab({ state, dispatch, appContext }) {
     });
   };
 
+  // TODO: make a more general helper function like 'isAppOpen(appName)', find a suiting place for it
+  const isPipesSettingsOpen = !!appContext.state.apps.find(app => {
+    return app.component.name === 'Pipes3DProperties';
+  });
+
   return (
     <ScreenSaverSettings>
       <div className="preview">
         <img src={display} alt="display" />
         <div className="display-overlay">
           <ScreenSaver
-            selectedScreenSaver={value}
+            selectedScreenSaver={isPipesSettingsOpen ? '(None)' : value}
             state={appContext.state}
             previewScreen
           />
