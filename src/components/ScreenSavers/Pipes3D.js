@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 
-function Pipes3D() {
+const Pipes3D = ({ settings }) => {
+  if (!settings) settings = {};
+
+  const encodedParams = useMemo(() => {
+    let paramsString = JSON.stringify(settings).slice(1, -1);
+    return encodeURIComponent(paramsString);
+  }, [settings]);
+
   return (
     <StyledPipes>
-      <iframe title="pipes-3D" src="./pipes/index.html"></iframe>
+      <iframe
+        title="pipes-3D"
+        src={`./pipes/index.html#{${encodedParams}}`}
+      ></iframe>
     </StyledPipes>
   );
-}
+};
 
 const StyledPipes = styled.div`
   position: absolute;

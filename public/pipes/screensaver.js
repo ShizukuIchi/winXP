@@ -157,16 +157,17 @@ var jointsCycleIndex = 0;
 var jointTypeSelect = document.getElementById("joint-types");
 
 var pipes = [];
-var options = {
+
+/// Default options
+let options = {
   multiple: true,
   texturePath: null,
   joints: jointTypeSelect?.value || "mixed",
   interval: [16, 24], // range of seconds between fade-outs... not necessarily anything like how the original works
 };
 
-// jointTypeSelect.addEventListener("change", function() {
-//   options.joints = jointTypeSelect.value;
-// });
+/// Update options acordding to URL params
+updateFromParametersInURL();
 
 var canvasContainer = document.getElementById("canvas-container");
 
@@ -414,6 +415,36 @@ canvasContainer.addEventListener(
 );
 
 animate();
+
+// parse URL parameters
+// support e.g. <iframe src="https://1j01.github.io/pipes/#{%22hideUI%22:true}"/>
+function updateFromParametersInURL() {
+  const optionsJSON = decodeURIComponent(
+    window.location.hash.replace(/^#/, "")
+  );
+  if (optionsJSON) {
+    try {
+      const newOptions = JSON.parse(optionsJSON);
+      if (typeof newOptions !== "object") {
+        return alert(
+          "Invalid URL parameter JSON: top level value must be an object"
+        );
+      }
+      options = { ...options, ...newOptions };
+    } catch (error) {
+      alert(
+        "Invalid URL parameter JSON syntax\n\n" +
+          error +
+          "\n\nRecieved:\n" +
+          optionsJSON
+      );
+    }
+  }
+}
+
+window.addEventListener("hashchange", () => {
+  updateFromParametersInURL();
+});
 
 /**************\
 |boring helpers|
