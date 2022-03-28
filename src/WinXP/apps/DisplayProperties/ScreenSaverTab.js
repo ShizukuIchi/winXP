@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import display from 'assets/properties/displayProperties/display.png';
 import arrowDown from 'assets/properties/displayProperties/icons/arrowDown.png';
 import Button from 'components/Button';
+import LegendFieldset from 'components/LegendFieldset';
+
 import NumberInput from 'components/NumberInput';
 import CheckBox from 'components/CheckBox';
 import ScreenSaver from 'components/ScreenSavers';
@@ -65,71 +67,82 @@ function ScreenSaverTab({ state, dispatch, appContext }) {
         </div>
       </div>
       <Config>
-        <SelectionSettings height="80px">
+        <LegendFieldset>
           <legend>Screen saver</legend>
-          <img className="arrow-down" src={arrowDown} alt="arrow down" />
-          <label htmlFor="screen-saver">
-            <select
-              value={value}
-              id="screen-saver"
-              className="position-input"
-              onChange={handleSelectChange}
-              ref={selectorRef}
-              onKeyPress={e => e.preventDefault()}
-              autoFocus
-            >
-              <option value="(None)">(None)</option>
-              <option value="Blank">Blank</option>
-              <option value="WindowsXP">Windows XP</option>
-              <option value="Pipes3D">3D Pipes</option>
-            </select>
-          </label>
-          <div className="button-group">
-            <Button
-              disabled={isNone}
-              type="button"
-              style={{ marginLeft: 7 }}
-              onClick={handleSettingsOpen}
-            >
-              Settings
-            </Button>
-            <Button
-              disabled={isNone}
-              type="button"
-              style={{ marginLeft: 9 }}
-              onClick={handlePreviewOpen}
-            >
-              Preview
-            </Button>
-          </div>
-          <div className={`quick-settings ${isNone ? 'disabled-text' : ''}`}>
-            <label className="wait-label">Wait:</label>
-            <NumberInput
-              value={wait}
-              onChange={handleWaitingTime}
-              disabled={isNone}
-            />
-            <p>minutes</p>
-            <CheckBox
-              value={screenSaverState.value}
-              className="check-box"
-              label="On resume, password protect"
-            />
-          </div>
-        </SelectionSettings>
-        <SelectionSettings height="87.5px" marginTop="4px">
+          <SelectionSettings height="65px">
+            <img className="arrow-down" src={arrowDown} alt="arrow down" />
+            <label htmlFor="screen-saver">
+              <select
+                value={value}
+                id="screen-saver"
+                className="position-input"
+                onChange={handleSelectChange}
+                ref={selectorRef}
+                onKeyPress={e => e.preventDefault()}
+                autoFocus
+              >
+                <option value="(None)">(None)</option>
+                <option value="Blank">Blank</option>
+                <option value="WindowsXP">Windows XP</option>
+                <option value="Pipes3D">3D Pipes</option>
+              </select>
+            </label>
+            <div className="button-group">
+              <Button
+                disabled={isNone}
+                type="button"
+                style={{ marginLeft: 7 }}
+                onClick={handleSettingsOpen}
+              >
+                Settings
+              </Button>
+              <Button
+                disabled={isNone}
+                type="button"
+                style={{ marginLeft: 9 }}
+                onClick={handlePreviewOpen}
+              >
+                Preview
+              </Button>
+            </div>
+            <div className={`quick-settings ${isNone ? 'disabled-text' : ''}`}>
+              <label className="wait-label">Wait:</label>
+              <NumberInput
+                value={wait}
+                onChange={handleWaitingTime}
+                disabled={isNone}
+              />
+              <p>minutes</p>
+              <CheckBox
+                value={screenSaverState.value}
+                className="check-box"
+                label="On resume, password protect"
+              />
+            </div>
+          </SelectionSettings>
+        </LegendFieldset>
+        <LegendFieldset>
           <legend>Monitor power</legend>
-          <p>To adjust monitor power settings and save energy, click Power.</p>
-          <Button type="button" className="power-button">
-            Power...
-          </Button>
-        </SelectionSettings>
+          <SelectionSettings height="65px" marginTop="4px">
+            <p>
+              To adjust monitor power settings and save energy, click Power.
+            </p>
+            <Button type="button" className="power-button">
+              Power...
+            </Button>
+          </SelectionSettings>
+        </LegendFieldset>
       </Config>
     </ScreenSaverSettings>
   );
 }
 
 const ScreenSaverSettings = styled.div`
+  legend {
+    font-size: 11px;
+    margin-left: 9px;
+  }
+
   .preview {
     position: relative;
     display: flex;
@@ -148,12 +161,10 @@ const ScreenSaverSettings = styled.div`
 `;
 
 const Config = styled.form`
-  margin-top: 4.5px;
-
-  legend {
-    margin-left: 9px;
-    color: #1a66c4;
+  fieldset {
+    margin-bottom: 5px;
   }
+  margin-top: 4.5px;
 
   .position-input {
     border-radius: 0;
@@ -211,10 +222,8 @@ const Config = styled.form`
   }
 `;
 
-const SelectionSettings = styled.fieldset`
+const SelectionSettings = styled.div`
   position: relative;
-  border: 1px solid #e1e1d4;
-  border-radius: 5px;
   font-size: 11px;
   height: ${props => props.height};
   margin-top: ${props => props.marginTop};
@@ -227,7 +236,7 @@ const SelectionSettings = styled.fieldset`
   & .power-button {
     position: absolute;
     right: 9px;
-    top: 45px;
+    top: 37px;
   }
 `;
 

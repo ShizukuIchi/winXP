@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import Button from '../../../components/Button';
 import { Context as AppContext } from './../../../WinXP';
+import LegendFieldset from 'components/LegendFieldset';
 
 import { DISPLAY_PROPERTIES } from '../../constants/actions';
 
@@ -40,37 +41,39 @@ function Pipes3DProperties({ onClose }) {
     <>
       <Properties>
         <GroupBox>
-          <form
-            onChange={e => {
-              handleChange('isMulti', e.target.value === 'multi');
-            }}
-          >
-            <label className="container">
-              Single
-              <input
-                id="single"
-                value="single"
-                type="radio"
-                name="isMulti"
-                checked={!pipes3DState.isMulti}
-              />
-              <span className="checkmark"></span>
-            </label>
+          <LegendFieldset>
+            <legend>Pipes</legend>
+            <form
+              onChange={e => {
+                handleChange('isMulti', e.target.value === 'multi');
+              }}
+            >
+              <label className="container">
+                Single
+                <input
+                  id="single"
+                  value="single"
+                  type="radio"
+                  name="isMulti"
+                  checked={!pipes3DState.isMulti}
+                />
+                <span className="checkmark"></span>
+              </label>
 
-            <label className="container">
-              Multiple
-              <input
-                id="multi"
-                value="multi"
-                type="radio"
-                name="isMulti"
-                checked={pipes3DState.isMulti}
-              />
-              <span className="checkmark"></span>
-            </label>
-          </form>
+              <label className="container">
+                Multiple
+                <input
+                  id="multi"
+                  value="multi"
+                  type="radio"
+                  name="isMulti"
+                  checked={pipes3DState.isMulti}
+                />
+                <span className="checkmark"></span>
+              </label>
+            </form>
+          </LegendFieldset>
         </GroupBox>
-
         <Buttons>
           <Button
             style={{
@@ -109,15 +112,15 @@ const Buttons = styled.div`
   width: 100%;
 `;
 
-// TODO: make global
+// TODO: make global/ make a groupbox component which receives options as props
 const GroupBox = styled.div`
   /* The container */
   .container {
     display: block;
     position: relative;
-    padding-left: 20px;
+    padding-left: 17px;
     margin-bottom: 12px;
-    font-size: 12px;
+
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
