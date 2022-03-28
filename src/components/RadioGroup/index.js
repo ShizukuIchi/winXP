@@ -10,7 +10,7 @@ function RadioGroup({ groupName, options, cb }) {
         }}
       >
         {options.map(option => (
-          <label className="container">
+          <label key={option.id} className="container">
             {option.label}
             <input
               id={option.id}

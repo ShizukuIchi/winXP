@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Blank from './Blank';
 import None from './None';
 import WindowsXP from './WindowsXP';
@@ -28,6 +28,7 @@ function ScreenSaver({
   let Component = getScreenSaver(
     activePreview ? activePreview : selectedScreenSaver,
   );
+
   let previewProps = '';
   if (previewScreen) {
     previewProps = {

@@ -61,8 +61,8 @@ function ScreenSaverTab({ state, dispatch, appContext }) {
         <div className="display-overlay">
           <ScreenSaver
             selectedScreenSaver={value}
+            state={appContext.state}
             previewScreen
-            state={state}
           />
         </div>
       </div>
