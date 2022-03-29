@@ -4,6 +4,7 @@ import Button from '../../../components/Button';
 import { Context as AppContext } from './../../../WinXP';
 import LegendFieldset from 'components/LegendFieldset';
 import RadioGroup from 'components/RadioGroup';
+import SelectInput from 'components/SelectInput';
 
 import { DISPLAY_PROPERTIES } from '../../constants/actions';
 
@@ -40,7 +41,7 @@ function Pipes3DProperties({ onClose }) {
     onClose();
   };
 
-  const handleChange = (field, value) => {
+  const handleChange = (value, field) => {
     setPipes3DState(prev => ({ ...prev, [field]: value }));
   };
 
@@ -49,31 +50,54 @@ function Pipes3DProperties({ onClose }) {
     setPipes3DState(prev => ({ ...prev, [field]: booleanValue }));
   };
 
+  const jointTypeOptions = [
+    { label: 'Elbow', value: 'elbow' },
+    { label: 'Ball', value: 'ball' },
+    { label: 'Mixed', value: 'mixed' },
+    { label: 'Cycle', value: 'cycle' },
+  ];
+
   return (
     <>
       <Properties>
-        <LegendFieldset>
-          <legend>Pipes</legend>
-          <RadioGroup
-            groupName="multiple"
-            /// groupName correlates with the properties (multiple, joints etc.)
-            options={[
-              {
-                label: 'Single',
-                id: 'single',
-                value: false,
-                checked: !pipes3DState.multiple,
-              },
-              {
-                label: 'Multi',
-                id: 'multi',
-                value: true,
-                checked: pipes3DState.multiple,
-              },
-            ]}
-            cb={handleBooleanChange}
-          />
-        </LegendFieldset>
+        <div>
+          <LegendFieldset>
+            <legend>Pipes</legend>
+            <RadioGroup
+              groupName="multiple"
+              /// groupName correlates with the properties (multiple, joints etc.)
+              options={[
+                {
+                  label: 'Single',
+                  id: 'single',
+                  value: false,
+                  checked: !pipes3DState.multiple,
+                },
+                {
+                  label: 'Multi',
+                  id: 'multi',
+                  value: true,
+                  checked: pipes3DState.multiple,
+                },
+              ]}
+              cb={handleBooleanChange}
+            />
+          </LegendFieldset>
+          <LegendFieldset>
+            <legend>Pipe Style</legend>
+            <label>Joint type:</label>
+            <SelectInput
+              value={
+                jointTypeOptions.find(
+                  option => option.value === pipes3DState.joints,
+                ).value
+              }
+              options={jointTypeOptions}
+              field="joints"
+              cb={handleChange}
+            />
+          </LegendFieldset>
+        </div>
         <Buttons>
           <Button
             style={{
@@ -101,6 +125,7 @@ function Pipes3DProperties({ onClose }) {
 const Properties = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   height: 100%;
   background-color: rgb(236, 233, 218);
   padding: 10px;
