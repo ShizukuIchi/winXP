@@ -42,7 +42,7 @@ const StyledSelect = styled.div`
 
   .arrow-down {
     position: absolute;
-    left: 150px;
+    right: 2px;
     top: 1px;
     width: 16px;
     height: 20px;

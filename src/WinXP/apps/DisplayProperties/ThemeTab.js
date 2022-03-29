@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
 
 import BackgroundView from 'components/BackgroundView';
 import Button from 'components/Button';
 
-import arrowDown from 'assets/properties/displayProperties/icons/arrowDown.png';
+import SelectInput from 'components/SelectInput';
 import classicXP from 'assets/properties/displayProperties/classic-xp.png';
 import windowImage from 'assets/properties/displayProperties/window-image.png';
 import trashImage from 'assets/properties/displayProperties/trash-image.png';
@@ -15,11 +15,27 @@ import { DESKTOP, defaultDesktop } from './utils';
 function ThemeTab({ state, dispatch }) {
   const [preview, setPreview] = useState(null);
 
-  const handleSelectChange = e => {
-    const { value } = e.target;
+  const themeOptions = useMemo(() => {
+    let options = [
+      { value: 'current', label: 'My Current Theme' },
+      { value: 'xp', label: 'Windows XP' },
+      { value: 'classicXP', label: 'Windows Classic' },
+      { value: 'more', label: 'More themes online...' },
+      { value: 'browse', label: 'Browse...' },
+    ];
 
+    if (state.hasChanges) {
+      options = [
+        { value: 'current', label: 'Windows XP (Modified)' },
+        ...options,
+      ];
+    }
+    return options;
+  }, [state.hasChanges]);
+
+  const handleSelectChange = value => {
     switch (value) {
-      case classicXP:
+      case 'classicXP':
         setPreview(classicXP);
         break;
       case 'current':
@@ -49,27 +65,11 @@ function ThemeTab({ state, dispatch }) {
         <p>to help you personalize your computer with one click.</p>
       </div>
       <div className="theme">
-        <div className="options">
-          <img className="arrow-down" src={arrowDown} alt="arrow down" />
-          <label className="label" htmlFor="theme-picker">
-            Theme:
-          </label>
-          <select
-            className="select"
-            id="theme-picker"
-            onChange={handleSelectChange}
-            autoFocus
-          >
-            {state.hasChanges && (
-              <option value="current">Windows XP (Modified)</option>
-            )}
-            <option value="current">My Current Theme</option>
-            <option value="xp">Windows XP</option>
-            <option value={classicXP}>Windows Classic</option>
-            <option value="more">More themes online...</option>
-            <option value="browse">Browse...</option>
-          </select>
+        <div>
+          <label>Theme:</label>
+          <SelectInput options={themeOptions} cb={handleSelectChange} />
         </div>
+
         <div className="buttons">
           <Button
             style={{
@@ -120,8 +120,15 @@ const ThemesPage = styled.div`
     align-items: flex-end;
     justify-content: space-between;
   }
-  .label {
+  select {
+    width: 185px;
+  }
+  label {
     display: block;
+    margin-bottom: 5px;
+  }
+  .buttons {
+    display: flex;
   }
   .options {
     position: relative;
@@ -131,18 +138,6 @@ const ThemesPage = styled.div`
       top: 18px;
       width: 16px;
       pointer-events: none;
-    }
-    & .select {
-      margin-top: 5px;
-      width: 180px;
-      border-radius: 0;
-      border-color: grey;
-      &:focus {
-        color: #fff;
-        background-color: #2f71cd;
-        box-shadow: 0px 0px 0px 2px #fff inset;
-        outline: none;
-      }
     }
   }
   .sample {

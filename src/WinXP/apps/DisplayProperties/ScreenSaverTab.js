@@ -82,7 +82,6 @@ function ScreenSaverTab({ state, dispatch, appContext }) {
           <legend>Screen saver</legend>
           <SelectionSettings height="65px">
             <SelectInput
-              style={{ marginTop: 50 }}
               options={screenSaverOptions}
               cb={handleSelectChange}
               value={value}

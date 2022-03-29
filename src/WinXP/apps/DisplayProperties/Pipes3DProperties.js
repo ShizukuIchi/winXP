@@ -85,7 +85,7 @@ function Pipes3DProperties({ onClose }) {
           </LegendFieldset>
           <LegendFieldset>
             <legend>Pipe Style</legend>
-            <label>Joint type:</label>
+            <p>Joint type:</p>
             <SelectInput
               value={
                 jointTypeOptions.find(
@@ -131,7 +131,7 @@ const Properties = styled.div`
   padding: 10px;
   //
 
-  label {
+  p {
     font-size: 12px;
   }
 
