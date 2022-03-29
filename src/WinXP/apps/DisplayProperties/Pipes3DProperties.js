@@ -169,8 +169,8 @@ const Properties = styled.div`
     display: grid;
     grid-template-columns: 225px 225px;
     grid-row: auto auto;
-    grid-column-gap: 5px;
-    grid-row-gap: 5px;
+    grid-column-gap: 10px;
+    /* grid-row-gap: 5px; */
   }
 
   .surface-style-wrapper {
