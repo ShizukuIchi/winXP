@@ -7,19 +7,17 @@ function SelectInput({ options, cb, value, selectorRef, field }) {
   return (
     <StyledSelect>
       <img className="arrow-down" src={arrowDown} alt="arrow down" />
-      <label>
-        <select
-          value={value}
-          onChange={e => cb(e.target.value, field)}
-          ref={selectorRef}
-          onKeyPress={e => e.preventDefault()}
-          autoFocus
-        >
-          {options.map(option => (
-            <option value={option.value}>{option.label}</option>
-          ))}
-        </select>
-      </label>
+      <select
+        value={value}
+        onChange={e => cb(e.target.value, field)}
+        ref={selectorRef}
+        onKeyPress={e => e.preventDefault()}
+        autoFocus
+      >
+        {options.map(option => (
+          <option value={option.value}>{option.label}</option>
+        ))}
+      </select>
     </StyledSelect>
   );
 }

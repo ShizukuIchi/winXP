@@ -131,12 +131,18 @@ const Properties = styled.div`
   padding: 10px;
   //
 
+  label {
+    font-size: 12px;
+  }
+
   fieldset {
     padding-left: 10px;
+    height: 80px;
+    margin-bottom: 5px;
   }
   legend {
     font-size: 12px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     margin-left: 5px;
   }
 `;
