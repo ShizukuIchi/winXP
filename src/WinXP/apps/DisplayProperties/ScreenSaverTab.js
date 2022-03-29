@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import display from 'assets/properties/displayProperties/display.png';
-import arrowDown from 'assets/properties/displayProperties/icons/arrowDown.png';
 import Button from 'components/Button';
 import LegendFieldset from 'components/LegendFieldset';
+import SelectInput from 'components/SelectInput';
 
 import NumberInput from 'components/NumberInput';
 import CheckBox from 'components/CheckBox';
@@ -18,6 +18,13 @@ function ScreenSaverTab({ state, dispatch, appContext }) {
   const [screenSaverState, setScreenSaverState] = useState({ value, wait });
   const [isNone, setIsNone] = useState(false);
 
+  const screenSaverOptions = [
+    { value: '(None)', label: '(None)' },
+    { value: 'Blank', label: 'Blank' },
+    { value: 'WindowsXP', label: 'Windows XP' },
+    { value: 'Pipes3D', label: '3D Pipes' },
+  ];
+
   useEffect(() => {
     dispatch({ type: SCREEN_SAVER, payload: screenSaverState });
   }, [screenSaverState, dispatch]);
@@ -26,22 +33,21 @@ function ScreenSaverTab({ state, dispatch, appContext }) {
     setIsNone(screenSaverState.value === '(None)');
   }, [screenSaverState.value]);
 
-  const handleSelectChange = e => {
-    setScreenSaverState(prev => ({ ...prev, value: e.target.value }));
+  const handleSelectChange = value => {
+    setScreenSaverState(prev => ({ ...prev, value }));
   };
 
   const handleWaitingTime = wait => {
     setScreenSaverState(prev => ({ ...prev, wait }));
   };
 
-  const selectorRef = useRef(null);
-
   const handlePreviewOpen = e => {
     appContext.dispatch({
       type: SCREEN_SAVER_PREVIEW,
       payload: value,
     });
-    selectorRef.current.focus();
+    // @todo: make SelectInput focus
+    // selectorRef.current.focus();
   };
 
   const handleSettingsOpen = e => {
@@ -75,23 +81,13 @@ function ScreenSaverTab({ state, dispatch, appContext }) {
         <LegendFieldset>
           <legend>Screen saver</legend>
           <SelectionSettings height="65px">
-            <img className="arrow-down" src={arrowDown} alt="arrow down" />
-            <label htmlFor="screen-saver">
-              <select
-                value={value}
-                id="screen-saver"
-                className="position-input"
-                onChange={handleSelectChange}
-                ref={selectorRef}
-                onKeyPress={e => e.preventDefault()}
-                autoFocus
-              >
-                <option value="(None)">(None)</option>
-                <option value="Blank">Blank</option>
-                <option value="WindowsXP">Windows XP</option>
-                <option value="Pipes3D">3D Pipes</option>
-              </select>
-            </label>
+            <SelectInput
+              style={{ marginTop: 50 }}
+              options={screenSaverOptions}
+              cb={handleSelectChange}
+              value={value}
+            />
+
             <div className="button-group">
               <Button
                 disabled={isNone}
@@ -171,35 +167,10 @@ const Config = styled.form`
   }
   margin-top: 4.5px;
 
-  .position-input {
-    border-radius: 0;
-    border-color: grey;
-    font-size: 12px;
-    margin-left: 9px;
-    margin-top: 6.5px;
-    width: 167px;
-    height: 22px;
-    &:focus {
-      color: #fff;
-      background-color: #2f71cd;
-      box-shadow: inset 0px 0px 0px 2px #fff;
-      outline: none;
-    }
-  }
-
-  .arrow-down {
-    position: absolute;
-    left: 159px;
-    top: 7px;
-    width: 16px;
-    height: 20px;
-    pointer-events: none;
-  }
-
   .button-group {
     display: inline-block;
     position: absolute;
-    top: 5px;
+    top: 6px;
   }
 
   .quick-settings {
@@ -233,6 +204,10 @@ const SelectionSettings = styled.div`
   height: ${props => props.height};
   margin-top: ${props => props.marginTop};
 
+  .select-wrapper {
+    margin-top: 6px;
+    margin-left: 10px;
+  }
   & p {
     margin-left: 82px;
     margin-top: 7px;
