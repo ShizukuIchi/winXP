@@ -3,11 +3,12 @@ import styled from 'styled-components';
 
 import arrowDown from 'assets/properties/displayProperties/icons/arrowDown.png';
 
-function SelectInput({ options, cb, value, field }) {
+function SelectInput({ options, cb, value, field, disabled }) {
   return (
     <StyledSelect className="select-wrapper">
       <img className="arrow-down" src={arrowDown} alt="arrow down" />
       <select
+        disabled={disabled}
         value={value}
         onChange={e => cb(e.target.value, field)}
         onKeyPress={e => e.preventDefault()}
@@ -43,9 +44,9 @@ const StyledSelect = styled.div`
   .arrow-down {
     position: absolute;
     right: 2px;
-    top: 1px;
+    top: 2px;
     width: 16px;
-    height: 20px;
+    height: 18px;
     pointer-events: none;
   }
 `;

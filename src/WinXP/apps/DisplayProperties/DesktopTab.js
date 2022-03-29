@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import BackgroundView from 'components/BackgroundView';
 import Button from 'components/Button';
 import ColorSwatches from 'components/ColorSwatches/';
+import SelectInput from 'components/SelectInput/';
 
 import display from 'assets/properties/displayProperties/display.png';
-import arrowDown from 'assets/properties/displayProperties/icons/arrowDown.png';
 import iconNone from 'assets/properties/displayProperties/icons/none.png';
 import iconImage from 'assets/properties/displayProperties/icons/image.png';
 
@@ -21,6 +21,12 @@ function DesktopTab({ state, dispatch }) {
     color,
   });
   const [openColorSwatches, setOpenColorSwatches] = useState(false);
+
+  const positionOptions = [
+    { value: 'center', label: 'Center' },
+    { value: 'tile', label: 'Tile' },
+    { value: 'stretch', label: 'Stretch' },
+  ];
 
   const isBackgroundNone = desktopState.id === 0;
 
@@ -62,8 +68,8 @@ function DesktopTab({ state, dispatch }) {
     }));
   };
 
-  const handleSelectChange = e => {
-    setDesktopState(prev => ({ ...prev, position: e.target.value }));
+  const handleSelectChange = value => {
+    setDesktopState(prev => ({ ...prev, position: value }));
   };
 
   return (
@@ -99,19 +105,13 @@ function DesktopTab({ state, dispatch }) {
           <div className="options">
             <Button>Browse...</Button>
             <div className={isBackgroundNone ? 'disabled' : ''}>
-              <img className="arrow-down" src={arrowDown} alt="arrow down" />
               <label>Position:</label>
-              <select
+              <SelectInput
                 disabled={isBackgroundNone}
-                id="position"
-                className="position-input"
-                onChange={handleSelectChange}
+                cb={handleSelectChange}
                 value={position}
-              >
-                <option value="center">Center</option>
-                <option value="tile">Tile</option>
-                <option value="stretch">Stretch</option>
-              </select>
+                options={positionOptions}
+              />
             </div>
             <div>
               <label>Color:</label>
@@ -212,23 +212,8 @@ const Desktop = styled.div`
       width: 80px;
     }
 
-    .arrow-down {
-      position: absolute;
-      left: 70px;
-      top: 49px;
-      width: 16px;
-      pointer-events: none;
-    }
-
-    & .position-input {
-      border-radius: 0;
-      border-color: grey;
-      &:focus {
-        color: #fff;
-        background-color: #2f71cd;
-        box-shadow: inset 0px 0px 0px 2px #fff;
-        outline: none;
-      }
+    select {
+      font-size: 13px;
     }
 
     & .color-button {
