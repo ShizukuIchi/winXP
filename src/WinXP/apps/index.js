@@ -328,8 +328,8 @@ export const appSettings = {
     },
     component: Pipes3DProperties,
     defaultSize: {
-      width: 400,
-      height: 275,
+      width: 480,
+      height: 265,
     },
     defaultOffset: {
       x: 100,

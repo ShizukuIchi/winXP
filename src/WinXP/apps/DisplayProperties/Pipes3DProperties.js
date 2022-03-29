@@ -45,10 +45,12 @@ function Pipes3DProperties({ onClose }) {
     setPipes3DState(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleBooleanChange = ({ groupName: field, value }) => {
+  const handleBooleanChange = (value, field) => {
     let booleanValue = value === 'true' ? true : false;
     setPipes3DState(prev => ({ ...prev, [field]: booleanValue }));
   };
+
+  /// TODO: move all options to different file?
 
   const jointTypeOptions = [
     { label: 'Elbow', value: 'elbow' },
@@ -57,29 +59,46 @@ function Pipes3DProperties({ onClose }) {
     { label: 'Cycle', value: 'cycle' },
   ];
 
+  const surfaceStyleOptions = [
+    {
+      label: 'Solid',
+      id: 'solid',
+      value: 'solid',
+      checked: pipes3DState.surfaceStyle === 'solid',
+    },
+    {
+      label: 'Textured',
+      id: 'textured',
+      value: 'textured',
+      checked: pipes3DState.surfaceStyle === 'textured',
+    },
+  ];
+
+  const isMultipleOptions = [
+    {
+      label: 'Single',
+      id: 'single',
+      value: false,
+      checked: !pipes3DState.multiple,
+    },
+    {
+      label: 'Multi',
+      id: 'multi',
+      value: true,
+      checked: pipes3DState.multiple,
+    },
+  ];
+
   return (
     <>
       <Properties>
-        <div>
+        <div className="pipes-settings-wrapper">
           <LegendFieldset>
             <legend>Pipes</legend>
             <RadioGroup
               groupName="multiple"
               /// groupName correlates with the properties (multiple, joints etc.)
-              options={[
-                {
-                  label: 'Single',
-                  id: 'single',
-                  value: false,
-                  checked: !pipes3DState.multiple,
-                },
-                {
-                  label: 'Multi',
-                  id: 'multi',
-                  value: true,
-                  checked: pipes3DState.multiple,
-                },
-              ]}
+              options={isMultipleOptions}
               cb={handleBooleanChange}
             />
           </LegendFieldset>
@@ -97,7 +116,26 @@ function Pipes3DProperties({ onClose }) {
               cb={handleChange}
             />
           </LegendFieldset>
+          <LegendFieldset>
+            <legend>Surface Style</legend>
+            <div className="surface-style-wrapper">
+              <RadioGroup
+                groupName="surfaceStyle"
+                options={surfaceStyleOptions}
+                cb={handleChange}
+              />
+              <Button disabled={pipes3DState.surfaceStyle !== 'textured'}>
+                Choose Texture...
+              </Button>
+            </div>
+          </LegendFieldset>
+
+          <LegendFieldset>
+            <legend>Speed</legend>
+            speeed
+          </LegendFieldset>
         </div>
+
         <Buttons>
           <Button
             style={{
@@ -131,19 +169,39 @@ const Properties = styled.div`
   padding: 10px;
   //
 
+  .pipes-settings-wrapper {
+    display: grid;
+    grid-template-columns: 225px 225px;
+    grid-row: auto auto;
+    grid-column-gap: 5px;
+    grid-row-gap: 5px;
+  }
+
+  .surface-style-wrapper {
+    position: relative;
+    button {
+      position: absolute;
+      font-size: 12px;
+      right: 30px;
+      bottom: -5px;
+      width: fit-content;
+      padding: 0 4px;
+    }
+  }
+
   p {
     font-size: 12px;
   }
 
   fieldset {
     padding-left: 10px;
-    height: 80px;
+    height: 85px;
     margin-bottom: 5px;
   }
   legend {
     font-size: 12px;
     margin-bottom: 10px;
-    margin-left: 5px;
+    margin-left: -3px;
   }
 `;
 const Buttons = styled.div`

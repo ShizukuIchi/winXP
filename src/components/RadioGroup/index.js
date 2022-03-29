@@ -6,7 +6,7 @@ function RadioGroup({ groupName, options, cb }) {
     <StyledRadioGroup>
       <form
         onChange={e => {
-          cb({ groupName, value: e.target.value });
+          cb(e.target.value, groupName);
         }}
       >
         {options.map(option => (

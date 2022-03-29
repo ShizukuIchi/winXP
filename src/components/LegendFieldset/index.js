@@ -10,7 +10,7 @@ const StyledLegendFieldset = styled.fieldset`
   border-radius: 5px;
 
   legend {
-    color: #4172d6;
+    color: #255fd5;
     position: relative;
   }
 `;
