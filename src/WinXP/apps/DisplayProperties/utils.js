@@ -151,9 +151,8 @@ export const getTexturePathOptions = isSolid => [
   {
     label: 'Textured',
     id: 'textured',
-    /// texture path value hard coded for now
-    value:
-      'https://www.chefli.co.il/storage/2014/12/chocolate_hero1-d62e5444a8734f8d8fe91f5631d51ca5.jpg',
+    /// TODO: change value to path string after fixing bug
+    value: '',
     checked: !isSolid,
   },
 ];

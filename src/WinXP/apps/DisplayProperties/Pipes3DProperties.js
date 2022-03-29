@@ -106,7 +106,7 @@ function Pipes3DProperties({ onClose }) {
               <RadioGroup
                 groupName="texturePath"
                 options={getTexturePathOptions(!pipes3DState.texturePath)}
-                // cb={handleChange} known bug - TODO: fix image load bug
+                cb={handleChange}
               />
               <Button disabled={!pipes3DState.texturePath}>
                 Choose Texture...
