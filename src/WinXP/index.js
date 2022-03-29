@@ -64,7 +64,9 @@ const initState = {
     screenSaversSettings: {
       Pipes3D: {
         multiple: false,
-        jointType: 'elbow',
+        joints: 'elbow',
+        interval: [16, 24],
+        texturePath: '',
       },
     },
   },

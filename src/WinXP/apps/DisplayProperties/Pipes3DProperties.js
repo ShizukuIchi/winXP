@@ -2,11 +2,20 @@ import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import Button from '../../../components/Button';
 import { Context as AppContext } from './../../../WinXP';
+
 import LegendFieldset from 'components/LegendFieldset';
 import RadioGroup from 'components/RadioGroup';
 import SelectInput from 'components/SelectInput';
+import Slider from 'components/Slider';
 
 import { DISPLAY_PROPERTIES } from '../../constants/actions';
+import {
+  MAX_SPEED,
+  MIN_SPEED,
+  getColorOptions,
+  getTexturePathOptions,
+  jointTypeOptions,
+} from './utils';
 
 function Pipes3DProperties({ onClose }) {
   const appContext = useContext(AppContext);
@@ -16,15 +25,15 @@ function Pipes3DProperties({ onClose }) {
   /// Component state
   const {
     multiple,
-    surfaceStyle,
+    texturePath,
     joints,
-    speed,
+    interval,
   } = displayProperties.screenSaversSettings.Pipes3D;
   const [pipes3DState, setPipes3DState] = useState({
     multiple,
-    surfaceStyle,
+    texturePath,
     joints,
-    speed,
+    interval,
   });
 
   const handleApply = () => {
@@ -50,44 +59,17 @@ function Pipes3DProperties({ onClose }) {
     setPipes3DState(prev => ({ ...prev, [field]: booleanValue }));
   };
 
-  /// TODO: move all options to different file?
-
-  const jointTypeOptions = [
-    { label: 'Elbow', value: 'elbow' },
-    { label: 'Ball', value: 'ball' },
-    { label: 'Mixed', value: 'mixed' },
-    { label: 'Cycle', value: 'cycle' },
-  ];
-
-  const surfaceStyleOptions = [
-    {
-      label: 'Solid',
-      id: 'solid',
-      value: 'solid',
-      checked: pipes3DState.surfaceStyle === 'solid',
-    },
-    {
-      label: 'Textured',
-      id: 'textured',
-      value: 'textured',
-      checked: pipes3DState.surfaceStyle === 'textured',
-    },
-  ];
-
-  const isMultipleOptions = [
-    {
-      label: 'Single',
-      id: 'single',
-      value: false,
-      checked: !pipes3DState.multiple,
-    },
-    {
-      label: 'Multi',
-      id: 'multi',
-      value: true,
-      checked: pipes3DState.multiple,
-    },
-  ];
+  const handleSpeedChange = (value, field) => {
+    // 'interval' is an array of 2 numbers that represents a range of seconds between fade-outs
+    // The 2nd number is 1.5 * the first one
+    // The default one is [16, 24]
+    // Values of the slider ranges from
+    // Becuase we want the slider to go from "slow" to "fast", we'd have to deduct the selected value from 32
+    setPipes3DState(prev => ({
+      ...prev,
+      [field]: [MAX_SPEED - value, (MAX_SPEED - value) * 1.5],
+    }));
+  };
 
   return (
     <>
@@ -98,33 +80,35 @@ function Pipes3DProperties({ onClose }) {
             <RadioGroup
               groupName="multiple"
               /// groupName correlates with the properties (multiple, joints etc.)
-              options={isMultipleOptions}
+              options={getColorOptions(pipes3DState.multiple)}
               cb={handleBooleanChange}
             />
           </LegendFieldset>
           <LegendFieldset>
             <legend>Pipe Style</legend>
-            <p>Joint type:</p>
-            <SelectInput
-              value={
-                jointTypeOptions.find(
-                  option => option.value === pipes3DState.joints,
-                ).value
-              }
-              options={jointTypeOptions}
-              field="joints"
-              cb={handleChange}
-            />
+            <div className="joint-types-wrapper">
+              <label>Joint type:</label>
+              <SelectInput
+                value={
+                  jointTypeOptions.find(
+                    option => option.value === pipes3DState.joints,
+                  ).value
+                }
+                options={jointTypeOptions}
+                field="joints"
+                cb={handleChange}
+              />
+            </div>
           </LegendFieldset>
           <LegendFieldset>
             <legend>Surface Style</legend>
             <div className="surface-style-wrapper">
               <RadioGroup
-                groupName="surfaceStyle"
-                options={surfaceStyleOptions}
-                cb={handleChange}
+                groupName="texturePath"
+                options={getTexturePathOptions(!pipes3DState.texturePath)}
+                // cb={handleChange} known bug - TODO: fix image load bug
               />
-              <Button disabled={pipes3DState.surfaceStyle !== 'textured'}>
+              <Button disabled={!pipes3DState.texturePath}>
                 Choose Texture...
               </Button>
             </div>
@@ -132,7 +116,19 @@ function Pipes3DProperties({ onClose }) {
 
           <LegendFieldset>
             <legend>Speed</legend>
-            speeed
+            <div className="speed-slider-wrapper">
+              <p>
+                <label>Slow</label>
+                <label>Fast</label>
+              </p>
+              <Slider
+                cb={handleSpeedChange}
+                field="interval"
+                min={MIN_SPEED}
+                max={MAX_SPEED - MIN_SPEED}
+                value={MAX_SPEED - pipes3DState.interval[0]}
+              />
+            </div>
           </LegendFieldset>
         </div>
 
@@ -189,8 +185,22 @@ const Properties = styled.div`
     }
   }
 
-  p {
-    font-size: 12px;
+  .joint-types-wrapper,
+  .speed-slider-wrapper {
+    margin-left: 23px;
+    label {
+      font-size: 12px;
+      margin-bottom: 5px;
+      display: inline-block;
+    }
+  }
+
+  .speed-slider-wrapper {
+    width: 167px;
+    p {
+      display: flex;
+      justify-content: space-between;
+    }
   }
 
   fieldset {

@@ -128,3 +128,47 @@ export const CHANGE = 'CHANGE';
 export const FIRST_CHANGE = 'FIRST_CHANGE';
 export const RESET_FIRST_CHANGE = 'RESET_FIRST_CHANGE';
 export const SCREEN_SAVER = 'SCREEN_SAVER';
+
+/* Pipes3DProperties */
+
+export const MAX_SPEED = 32;
+export const MIN_SPEED = 6;
+
+export const jointTypeOptions = [
+  { label: 'Elbow', value: 'elbow' },
+  { label: 'Ball', value: 'ball' },
+  { label: 'Mixed', value: 'mixed' },
+  { label: 'Cycle', value: 'cycle' },
+];
+
+export const getTexturePathOptions = isSolid => [
+  {
+    label: 'Solid',
+    id: 'solid',
+    value: '',
+    checked: isSolid,
+  },
+  {
+    label: 'Textured',
+    id: 'textured',
+    /// texture path value hard coded for now
+    value:
+      'https://www.chefli.co.il/storage/2014/12/chocolate_hero1-d62e5444a8734f8d8fe91f5631d51ca5.jpg',
+    checked: !isSolid,
+  },
+];
+
+export const getColorOptions = isMulti => [
+  {
+    label: 'Single',
+    id: 'single',
+    value: false,
+    checked: !isMulti,
+  },
+  {
+    label: 'Multi',
+    id: 'multi',
+    value: true,
+    checked: isMulti,
+  },
+];
