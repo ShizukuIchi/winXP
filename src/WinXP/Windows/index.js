@@ -49,8 +49,13 @@ const Window = memo(function({
   isFocus,
   className,
 }) {
-  function _onMouseDown() {
+  function _onMouseDown({ detail }) {
     onMouseDown(id);
+
+    // Detects double click
+    if (detail === 2) {
+      _onMouseUpMaximize();
+    }
   }
   function _onMouseUpClose() {
     onMouseUpClose(id);
