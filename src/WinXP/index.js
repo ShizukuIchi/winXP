@@ -272,9 +272,12 @@ function WinXP() {
   function onMouseUpDesktop(e) {
     dispatch({ type: END_SELECT });
   }
-  function onIconsSelected(iconIds) {
-    dispatch({ type: SELECT_ICONS, payload: iconIds });
-  }
+  const onIconsSelected = useCallback(
+    iconIds => {
+      dispatch({ type: SELECT_ICONS, payload: iconIds });
+    },
+    [dispatch],
+  );
   function onClickModalButton(text) {
     dispatch({ type: CANCEL_POWER_OFF });
     dispatch({
