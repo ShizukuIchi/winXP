@@ -61,6 +61,10 @@ const Window = memo(function({
   function _onMouseUpMaximize() {
     if (resizable) onMouseUpMaximize(id);
   }
+  function onDoubleClickHeader(e) {
+    if (e.target !== dragRef.current) return;
+    _onMouseUpMaximize();
+  }
   const dragRef = useRef(null);
   const ref = useRef(null);
   const { width: windowWidth, height: windowHeight } = useWindowSize();
@@ -102,11 +106,17 @@ const Window = memo(function({
       }}
     >
       <div className="header__bg" />
-      <header className="app__header" ref={dragRef}>
+      <header
+        className="app__header"
+        ref={dragRef}
+        onDoubleClick={onDoubleClickHeader}
+      >
         <img
+          onDoubleClick={_onMouseUpClose}
           src={header.icon}
           alt={header.title}
           className="app__header__icon"
+          draggable={false}
         />
         <div className="app__header__title">{header.title}</div>
         <HeaderButtons
@@ -192,7 +202,6 @@ const StyledWindow = styled(Window)`
     align-items: center;
   }
   .app__header__icon {
-    pointer-events: none;
     width: 15px;
     height: 15px;
     margin-left: 1px;

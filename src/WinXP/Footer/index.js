@@ -225,8 +225,8 @@ const Container = styled.footer`
   }
   .footer__window.cover:hover {
     background-color: #53a3ff;
-    box-shadow: 1px 0px 1px rgba(0, 0, 0, 0.2),
-      inset 1px 1px 1px rgba(255, 255, 255, 0.3);
+    box-shadow: inset -1px 0px rgba(0, 0, 0, 0.3),
+      inset 1px 1px 1px rgba(255, 255, 255, 0.2);
   }
   .footer__window.cover:before {
     display: block;

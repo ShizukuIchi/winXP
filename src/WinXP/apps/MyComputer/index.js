@@ -249,21 +249,6 @@ function MyComputer({ onClose }) {
                 <div className="com__content__left__card__row">
                   <img
                     className="com__content__left__card__img"
-                    src="https://image.flaticon.com/icons/png/128/179/179312.png"
-                    alt="control"
-                  />
-                  <ga.OutboundLink
-                    eventLabel="https://sh1zuku.csie.io/blog"
-                    to="https://sh1zuku.csie.io/blog"
-                    className="com__content__left__card__text link"
-                    target="_blank"
-                  >
-                    Blog
-                  </ga.OutboundLink>
-                </div>
-                <div className="com__content__left__card__row">
-                  <img
-                    className="com__content__left__card__img"
                     src={mine}
                     alt="control"
                   />
@@ -273,7 +258,7 @@ function MyComputer({ onClose }) {
                     className="com__content__left__card__text link"
                     target="_blank"
                   >
-                    Minesweeper(mobile)
+                    Minesweeper
                   </ga.OutboundLink>
                 </div>
               </div>

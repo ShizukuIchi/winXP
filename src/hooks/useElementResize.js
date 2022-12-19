@@ -27,8 +27,12 @@ function useElementResize(ref, options) {
     let _boundary;
     let originMouseX;
     let originMouseY;
+    let shouldCover = false;
 
     function onDragging(e) {
+      if (shouldCover && !document.body.contains(cover)) {
+        document.body.appendChild(cover);
+      }
       const { pageX, pageY } = getComputedPagePosition(e, _boundary);
       const x = pageX - originMouseX + previousOffset.x;
       const y = pageY - originMouseY + previousOffset.y;
@@ -36,6 +40,7 @@ function useElementResize(ref, options) {
     }
     function onDragEnd(e) {
       cover.remove();
+      shouldCover = false;
       const { pageX, pageY } = getComputedPagePosition(e, _boundary);
       previousOffset.x += pageX - originMouseX;
       previousOffset.y += pageY - originMouseY;
@@ -215,7 +220,7 @@ function useElementResize(ref, options) {
       originMouseY = e.pageY;
       _boundary = { ...boundary };
       if (dragTarget && e.target === dragTarget) {
-        document.body.appendChild(cover);
+        shouldCover = true;
         return onDragStart(e);
       }
       if (e.target !== target || !resizable) return;
