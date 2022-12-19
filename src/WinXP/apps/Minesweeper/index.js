@@ -267,7 +267,10 @@ function insertMines(config, originCeils) {
   if (rows * columns !== ceils.length)
     throw new Error('rows and columns not equal to ceils');
   const indexArray = [...Array(rows * columns).keys()];
-  sampleSize(indexArray.filter(i => i !== exclude), mines).forEach(chosen => {
+  sampleSize(
+    indexArray.filter(i => i !== exclude),
+    mines,
+  ).forEach(chosen => {
     ceils[chosen].minesAround = -10;
     getNearIndexes(chosen, rows, columns).forEach(nearIndex => {
       ceils[nearIndex].minesAround += 1;
