@@ -402,7 +402,3 @@ export const AllPrograms = [
     text: 'Windows Movie Maker',
   },
 ];
-
-export default {
-  AllPrograms,
-};

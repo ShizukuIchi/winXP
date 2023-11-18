@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import ga from 'react-ga';
 
 import { WindowDropDowns } from 'components';
 import dropDownData from './dropDownData';
@@ -237,14 +236,14 @@ function MyComputer({ onClose }) {
                     src="https://cdn.iconscout.com/icon/free/png-256/medium-1425876-1205067.png"
                     alt="control"
                   />
-                  <ga.OutboundLink
-                    eventLabel="https://medium.com/@ShizukuIchi"
-                    to="https://medium.com/@ShizukuIchi"
-                    className="com__content__left__card__text link"
+                  <a
+                    href="https://medium.com/@ShizukuIchi"
                     target="_blank"
+                    rel="noreferrer"
+                    className="com__content__left__card__text link"
                   >
                     Medium
-                  </ga.OutboundLink>
+                  </a>
                 </div>
                 <div className="com__content__left__card__row">
                   <img
@@ -252,14 +251,14 @@ function MyComputer({ onClose }) {
                     src={mine}
                     alt="control"
                   />
-                  <ga.OutboundLink
-                    eventLabel="https://github.com/ShizukuIchi/minesweeper"
-                    to="https://github.com/ShizukuIchi/minesweeper"
-                    className="com__content__left__card__text link"
+                  <a
+                    href="https://github.com/ShizukuIchi/minesweeper"
                     target="_blank"
+                    rel="noreferrer"
+                    className="com__content__left__card__text link"
                   >
                     Minesweeper
-                  </ga.OutboundLink>
+                  </a>
                 </div>
               </div>
             </div>
@@ -339,11 +338,11 @@ function MyComputer({ onClose }) {
                 About Me :)
               </div>
               <div className="com__content__right__card__content">
-                <ga.OutboundLink
-                  eventLabel="https://github.com/ShizukuIchi"
-                  to="https://github.com/ShizukuIchi"
-                  className="com__content__right__card__item--me"
+                <a
+                  href="https://github.com/ShizukuIchi"
                   target="_blank"
+                  rel="noreferrer"
+                  className="com__content__right__card__item--me"
                 >
                   <img
                     className="com__content__right__card__img"
@@ -351,12 +350,12 @@ function MyComputer({ onClose }) {
                     alt="control"
                   />
                   <div className="com__content__right__card__text">Github</div>
-                </ga.OutboundLink>
-                <ga.OutboundLink
-                  eventLabel="https://sh1zuku.csie.io"
-                  to="https://sh1zuku.csie.io"
-                  className="com__content__right__card__item--me"
+                </a>
+                <a
+                  href="https://sh1zuku.csie.io"
                   target="_blank"
+                  rel="noreferrer"
+                  className="com__content__right__card__item--me"
                 >
                   <img
                     className="com__content__right__card__img"
@@ -366,7 +365,7 @@ function MyComputer({ onClose }) {
                   <div className="com__content__right__card__text">
                     My Website
                   </div>
-                </ga.OutboundLink>
+                </a>
               </div>
             </div>
           </div>

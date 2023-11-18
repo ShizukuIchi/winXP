@@ -9,7 +9,7 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
-serviceWorker.register();
+serviceWorker.unregister();
 
 if (module.hot && !window.frameElement) {
   console.log('HMR enabled');
