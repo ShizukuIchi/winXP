@@ -27,14 +27,14 @@ function Balloon({ startAfter = 3000, duration = 15000 }) {
           <div className="balloon__header">
             <img className="balloon__header__img" src={risk} alt="risk" />
             <span className="balloon__header__text">
-              Your computer might be at risk
+              Cookie agreement
             </span>
           </div>
           <p className="balloon__text__first">
-            Antivirus software might not be installed
+            This website uses cookies to store site data like minesweeper highscores. 
           </p>
           <p className="balloon__text__second">
-            Click this balloon to fix this problem.
+            Click this balloon to accept the cookies. 
           </p>
         </div>
       </Div>
