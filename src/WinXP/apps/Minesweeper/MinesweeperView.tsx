@@ -47,7 +47,7 @@ const digits = [
 ];
 
 type CeilState = 'open' | 'flag' | 'misflagged' | 'mine' | 'die' | 'unknown' | 'cover';
-type GameStatus = 'playing' | 'won' | 'died';
+type GameStatus = 'new' | 'started' | 'died' | 'won';
 type Difficulty = 'Beginner' | 'Intermediate' | 'Expert';
 
 interface Ceil {
@@ -155,6 +155,8 @@ function MineSweeperView({
         return <img alt="dead" src={dead} />;
       case 'won':
         return <img alt="win" src={win} />;
+      case 'new':
+      case 'started':
       default:
         return <img alt="smile" src={smile} />;
     }

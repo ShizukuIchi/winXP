@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import { WindowDropDowns, Google } from 'components';
+import { WindowDropDowns } from 'components';
 import dropDownData from './dropDownData';
 import ie from 'assets/windowsIcons/ie-paper.png';
 import printer from 'assets/windowsIcons/17(32x32).png';
@@ -26,40 +26,13 @@ interface InternetExplorerProps {
   onClose?: () => void;
 }
 
-type InternetExplorerRoute = 'main' | 'search';
-
-interface InternetExplorerState {
-  route: InternetExplorerRoute;
-  query: string;
-}
+const GOOGLE_CLONE_URL = 'https://mdahlgrengadd.github.io/google-search-clone/';
 
 const InternetExplorer: React.FC<InternetExplorerProps> = ({ onClose }) => {
-  const [state, setState] = useState<InternetExplorerState>({
-    route: 'main',
-    query: '',
-  });
-  function onSearch(str: string): void {
-    if (str.length) {
-      setState({
-        route: 'search',
-        query: str,
-      });
-    }
-  }
-  function goMain(): void {
-    setState({
-      route: 'main',
-      query: '',
-    });
-  }
   function onClickOptionItem(item: string): void {
     switch (item) {
       case 'Close':
         onClose?.();
-        break;
-      case 'Home Page':
-      case 'Back':
-        goMain();
         break;
       default:
     }
@@ -77,12 +50,7 @@ const InternetExplorer: React.FC<InternetExplorerProps> = ({ onClose }) => {
         <img className="ie__windows-logo" src={windows} alt="windows" />
       </section>
       <section className="ie__function_bar">
-        <div
-          onClick={goMain}
-          className={`ie__function_bar__button${
-            state.route === 'main' ? '--disable' : ''
-          }`}
-        >
+        <div className="ie__function_bar__button--disable">
           <img className="ie__function_bar__icon" src={back} alt="" />
           <span className="ie__function_bar__text">Back</span>
           <div className="ie__function_bar__arrow" />
@@ -101,7 +69,7 @@ const InternetExplorer: React.FC<InternetExplorerProps> = ({ onClose }) => {
             alt=""
           />
         </div>
-        <div className="ie__function_bar__button" onClick={goMain}>
+        <div className="ie__function_bar__button">
           <img className="ie__function_bar__icon--margin-1" src={home} alt="" />
         </div>
         <div className="ie__function_bar__separate" />
@@ -148,11 +116,7 @@ const InternetExplorer: React.FC<InternetExplorerProps> = ({ onClose }) => {
         <div className="ie__address_bar__content">
           <img src={ie} alt="ie" className="ie__address_bar__content__img" />
           <div className="ie__address_bar__content__text">
-            {`https://www.google.com.tw${
-              state.route === 'search'
-                ? `/search?q=${encodeURIComponent(state.query)}`
-                : ''
-            }`}
+            {GOOGLE_CLONE_URL}
           </div>
           <img
             src={dropdown}
@@ -176,11 +140,13 @@ const InternetExplorer: React.FC<InternetExplorerProps> = ({ onClose }) => {
       </section>
       <div className="ie__content">
         <div className="ie__content__inner">
-          <Google
-            route={state.route}
-            query={state.query}
-            onSearch={onSearch}
-            goMain={goMain}
+          <iframe
+            src={GOOGLE_CLONE_URL}
+            className="ie__iframe"
+            title="Google Search Clone"
+            frameBorder="0"
+            width="100%"
+            height="100%"
           />
         </div>
       </div>
@@ -403,16 +369,27 @@ const Div = styled.div`
   }
   .ie__content {
     flex: 1;
-    overflow: auto;
+    overflow: hidden;
     padding-left: 1px;
     border-left: 1px solid #6f6f6f;
     background-color: #f1f1f1;
     position: relative;
   }
   .ie__content__inner {
-    position: relative;
-    min-height: 800px;
-    min-width: 800px;
+    position: absolute;
+    top: 0;
+    left: 1px;
+    right: 0;
+    bottom: 0;
+    width: calc(100% - 1px);
+    height: 100%;
+  }
+  .ie__iframe {
+    border: none;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
   }

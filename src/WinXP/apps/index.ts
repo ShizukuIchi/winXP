@@ -83,77 +83,16 @@ export const defaultAppState: AppInstanceConfig[] = [
       icon: iePaper
     },
     defaultSize: {
-      width: 700,
-      height: 500
-    },
-    defaultOffset: {
-      x: 130,
-      y: 20
-    },
-    resizable: true,
-    minimized: false,
-    maximized: typeof window !== 'undefined' ? window.innerWidth < 800 : false,
-    id: genId(),
-    zIndex: genIndex()
-  },
-  {
-    component: Minesweeper,
-    header: {
-      title: 'Minesweeper',
-      icon: mine
-    },
-    defaultSize: {
-      width: 0,
-      height: 0
-    },
-    defaultOffset: {
-      x: 180,
-      y: 170
-    },
-    resizable: false,
-    minimized: false,
-    maximized: false,
-    id: genId(),
-    zIndex: genIndex()
-  },
-  {
-    component: Winamp,
-    header: {
-      title: 'Winamp',
-      icon: winampIcon,
-      invisible: true
-    },
-    defaultSize: {
-      width: 0,
-      height: 0
-    },
-    defaultOffset: {
-      x: 0,
-      y: 0
-    },
-    resizable: false,
-    minimized: false,
-    maximized: false,
-    id: genId(),
-    zIndex: genIndex()
-  },
-  {
-    component: MyComputer,
-    header: {
-      title: 'My Computer',
-      icon: computerSmall
-    },
-    defaultSize: {
-      width: 660,
-      height: 500
+      width: 1200,
+      height: 900
     },
     defaultOffset: {
       x: 250,
-      y: 40
+      y: 30
     },
     resizable: true,
     minimized: false,
-    maximized: typeof window !== 'undefined' ? window.innerWidth < 800 : false,
+    maximized: typeof window !== 'undefined' ? window.innerWidth < 1200 : false,
     id: genId(),
     zIndex: genIndex()
   }
@@ -209,16 +148,16 @@ export const AppList: AppRegistry = {
       title: 'Internet Explorer'
     },
     defaultSize: {
-      width: 700,
-      height: 500
+      width: 1000,
+      height: 700
     },
     defaultOffset: {
-      x: 150,
-      y: 40
+      x: 60,
+      y: 50
     },
     resizable: true,
     minimized: false,
-    maximized: typeof window !== 'undefined' ? window.innerWidth < 800 : false,
+    maximized: typeof window !== 'undefined' ? window.innerWidth < 1200 : false,
     multiInstance: true
   },
   Minesweeper: {
