@@ -5,6 +5,7 @@
   "author": "ShizukuIchi <shizukuichi@gmail.com>",
   "homepage": "https://winxp.now.sh",
   "dependencies": {
+    "caniuse-lite": "^1.0.30001743",
     "lodash.samplesize": "^4.2.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -32,7 +33,9 @@
       "plugin:prettier/recommended"
     ],
     "parser": "@typescript-eslint/parser",
-    "plugins": ["@typescript-eslint"],
+    "plugins": [
+      "@typescript-eslint"
+    ],
     "rules": {
       "@typescript-eslint/no-unused-vars": "error",
       "@typescript-eslint/explicit-function-return-type": "off",
