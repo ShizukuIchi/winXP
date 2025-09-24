@@ -21,6 +21,7 @@ export { default as XPGroupBox } from './XPGroupBox';
 export { default as XPTabs } from './XPTabs';
 export { default as XPTreeView } from './XPTreeView';
 export { default as XPProgressBar } from './XPProgressBar';
+export { default as XPMenuBar } from './XPMenuBar';
 
 // Convenience component for XP apps - XP.css is imported automatically
 import React from 'react';

@@ -12,7 +12,8 @@ import {
   XPOptionButton,
   XPOptionGroup,
   XPProgressBar,
-  XPTreeView
+  XPTreeView,
+  XPMenuBar
 } from './index';
 
 // Example app demonstrating all XP components
@@ -23,6 +24,53 @@ const XPExampleApp = ({ onClose }) => {
   const [sliderValue, setSliderValue] = useState(50);
   const [radioValue, setRadioValue] = useState('option1');
   const [progressValue] = useState(75);
+
+  const menuItems = {
+    File: [
+      { label: 'New', shortcut: 'Ctrl+N' },
+      { label: 'Open...', shortcut: 'Ctrl+O' },
+      { label: 'Save', shortcut: 'Ctrl+S' },
+      { label: 'Save As...' },
+      { type: 'separator' },
+      { label: 'Print...', shortcut: 'Ctrl+P' },
+      { label: 'Print Preview' },
+      { type: 'separator' },
+      { label: 'Exit', shortcut: 'Alt+F4' }
+    ],
+    Edit: [
+      { label: 'Undo', shortcut: 'Ctrl+Z', disabled: true },
+      { label: 'Redo', shortcut: 'Ctrl+Y', disabled: true },
+      { type: 'separator' },
+      { label: 'Cut', shortcut: 'Ctrl+X' },
+      { label: 'Copy', shortcut: 'Ctrl+C' },
+      { label: 'Paste', shortcut: 'Ctrl+V' },
+      { type: 'separator' },
+      { label: 'Select All', shortcut: 'Ctrl+A' }
+    ],
+    View: [
+      { label: 'Toolbar', checked: true },
+      { label: 'Status Bar', checked: true },
+      { type: 'separator' },
+      { label: 'Zoom In', shortcut: 'Ctrl++' },
+      { label: 'Zoom Out', shortcut: 'Ctrl+-' },
+      { label: 'Normal Size', shortcut: 'Ctrl+0' }
+    ],
+    Help: [
+      { label: 'Help Topics', shortcut: 'F1' },
+      { type: 'separator' },
+      { label: 'About XP Demo' }
+    ]
+  };
+
+  const handleMenuClick = (itemName) => {
+    console.log('Menu clicked:', itemName);
+    if (itemName === 'Exit') {
+      onClose?.();
+    }
+    if (itemName === 'About XP Demo') {
+      alert('XP Component Demo\nBuilt with XP.css');
+    }
+  };
 
   const dropdownOptions = [
     { value: 'red', label: 'Red' },
@@ -122,11 +170,23 @@ const XPExampleApp = ({ onClose }) => {
     <XPThemeProvider>
       <XPWindow hideTitle showStatusBar statusText="Ready">
         <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-          <XPTabs tabs={tabs} />
-          <div style={{ marginTop: 16, textAlign: 'center' }}>
-            <XPButton onClick={() => alert('XP Button Clicked!')}>
-              Click Me!
-            </XPButton>
+          <XPMenuBar
+            items={menuItems}
+            onClickItem={handleMenuClick}
+            style={{
+              background: '#ECE9D8',
+              borderBottom: '1px solid #ACA899',
+              padding: '2px 4px',
+              margin: 0
+            }}
+          />
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+            <XPTabs tabs={tabs} />
+            <div style={{ marginTop: 16, textAlign: 'center' }}>
+              <XPButton onClick={() => alert('XP Button Clicked!')}>
+                Click Me!
+              </XPButton>
+            </div>
           </div>
         </div>
       </XPWindow>
