@@ -5,7 +5,7 @@ import WindowDropDown from './WindowDropDown';
 export function WindowDropDowns({
   items,
   onClickItem,
-  className,
+  className = '',
   height = 20,
 }) {
   const dropDown = useRef(null);
@@ -77,3 +77,4 @@ export default styled(WindowDropDowns)`
     }
   }
 `;
+

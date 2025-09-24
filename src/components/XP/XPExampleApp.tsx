@@ -15,97 +15,106 @@ import {
   XPTreeView,
   XPMenuBar
 } from './index';
+import type {
+  DropdownOption,
+  MenuBarItems,
+  OptionGroupEntry,
+  TreeViewItem,
+  XPTabItem
+} from 'types/components';
 
-// Example app demonstrating all XP components
-const XPExampleApp = ({ onClose }) => {
+interface XPExampleAppProps {
+  onClose?: () => void;
+}
+
+const XPExampleApp: React.FC<XPExampleAppProps> = ({ onClose }) => {
   const [checkboxValue, setCheckboxValue] = useState(false);
   const [textValue, setTextValue] = useState('Hello Windows XP!');
   const [dropdownValue, setDropdownValue] = useState('');
   const [sliderValue, setSliderValue] = useState(50);
-  const [radioValue, setRadioValue] = useState('option1');
+  const [radioValue, setRadioValue] = useState<string | number>('option1');
   const [progressValue] = useState(75);
 
-  const menuItems = {
+  const menuItems: MenuBarItems = {
     File: [
       { label: 'New', shortcut: 'Ctrl+N' },
       { label: 'Open...', shortcut: 'Ctrl+O' },
       { label: 'Save', shortcut: 'Ctrl+S' },
       { label: 'Save As...' },
-      { type: 'separator' },
+      { type: 'separator', label: 'separator' },
       { label: 'Print...', shortcut: 'Ctrl+P' },
       { label: 'Print Preview' },
-      { type: 'separator' },
-      { label: 'Exit', shortcut: 'Alt+F4' }
+      { type: 'separator', label: 'separator' },
+      { label: 'Exit', shortcut: 'Alt+F4', name: 'Exit' }
     ],
     Edit: [
       { label: 'Undo', shortcut: 'Ctrl+Z', disabled: true },
       { label: 'Redo', shortcut: 'Ctrl+Y', disabled: true },
-      { type: 'separator' },
+      { type: 'separator', label: 'separator' },
       { label: 'Cut', shortcut: 'Ctrl+X' },
       { label: 'Copy', shortcut: 'Ctrl+C' },
       { label: 'Paste', shortcut: 'Ctrl+V' },
-      { type: 'separator' },
+      { type: 'separator', label: 'separator' },
       { label: 'Select All', shortcut: 'Ctrl+A' }
     ],
     View: [
       { label: 'Toolbar', checked: true },
       { label: 'Status Bar', checked: true },
-      { type: 'separator' },
+      { type: 'separator', label: 'separator' },
       { label: 'Zoom In', shortcut: 'Ctrl++' },
       { label: 'Zoom Out', shortcut: 'Ctrl+-' },
       { label: 'Normal Size', shortcut: 'Ctrl+0' }
     ],
     Help: [
       { label: 'Help Topics', shortcut: 'F1' },
-      { type: 'separator' },
-      { label: 'About XP Demo' }
+      { type: 'separator', label: 'separator' },
+      { label: 'About XP Demo', name: 'About XP Demo' }
     ]
   };
 
-  const handleMenuClick = (itemName) => {
+  const handleMenuClick = (itemName: string) => {
+    // eslint-disable-next-line no-console
     console.log('Menu clicked:', itemName);
     if (itemName === 'Exit') {
       onClose?.();
     }
     if (itemName === 'About XP Demo') {
-      alert('XP Component Demo\nBuilt with XP.css');
+      window.alert('XP Component Demo\nBuilt with XP.css');
     }
   };
 
-  const dropdownOptions = [
+  const dropdownOptions: DropdownOption[] = [
     { value: 'red', label: 'Red' },
     { value: 'green', label: 'Green' },
     { value: 'blue', label: 'Blue' }
   ];
 
-  const radioOptions = [
+  const radioOptions: OptionGroupEntry[] = [
     { value: 'option1', label: 'Option 1' },
     { value: 'option2', label: 'Option 2' },
     { value: 'option3', label: 'Option 3' }
   ];
 
-  const treeItems = [
+  const treeItems: TreeViewItem[] = [
     {
       id: 'folder1',
       label: 'My Documents',
-      icon: '📁',
+      icon: '[Folder]',
       expanded: true,
       children: [
-        { id: 'file1', label: 'Document.txt', icon: '📄' },
-        { id: 'file2', label: 'Picture.jpg', icon: '🖼️' }
+        { id: 'file1', label: 'Document.txt', icon: '[File]' },
+        { id: 'file2', label: 'Picture.jpg', icon: '[Image]' }
       ]
     },
     {
       id: 'folder2',
       label: 'Desktop',
-      icon: '📁',
-      children: [
-        { id: 'file3', label: 'Shortcut.lnk', icon: '🔗' }
-      ]
+      icon: '[Folder]',
+      children: [{ id: 'file3', label: 'Shortcut.lnk', icon: '[Shortcut]' }]
     }
   ];
 
-  const tabs = [
+  const tabs: XPTabItem[] = [
     {
       id: 'general',
       label: 'General',
@@ -115,17 +124,17 @@ const XPExampleApp = ({ onClose }) => {
             <XPCheckbox
               label="Enable notifications"
               checked={checkboxValue}
-              onChange={(e) => setCheckboxValue(e.target.checked)}
+              onChange={(event) => setCheckboxValue(event.target.checked)}
             />
             <XPTextBox
               label="Username"
               value={textValue}
-              onChange={(e) => setTextValue(e.target.value)}
+              onChange={(event) => setTextValue(event.target.value)}
             />
             <XPDropdown
               options={dropdownOptions}
               value={dropdownValue}
-              onChange={(e) => setDropdownValue(e.target.value)}
+              onChange={(event) => setDropdownValue(event.target.value)}
               placeholder="Select a color"
             />
           </XPGroupBox>
@@ -141,13 +150,13 @@ const XPExampleApp = ({ onClose }) => {
             <XPSlider
               label={`Volume: ${sliderValue}%`}
               value={sliderValue}
-              onChange={(e) => setSliderValue(e.target.value)}
+              onChange={(event) => setSliderValue(Number(event.target.value))}
             />
             <XPOptionGroup
               options={radioOptions}
               name="example-radio"
               value={radioValue}
-              onChange={(e) => setRadioValue(e.target.value)}
+              onChange={(event) => setRadioValue(event.target.value)}
             />
             <XPProgressBar value={progressValue} max={100} />
           </XPGroupBox>
@@ -160,7 +169,10 @@ const XPExampleApp = ({ onClose }) => {
       content: (
         <XPTreeView
           items={treeItems}
-          onItemClick={(item) => console.log('Clicked:', item.label)}
+          onItemClick={(item) => {
+            // eslint-disable-next-line no-console
+            console.log('Clicked:', item.label);
+          }}
         />
       )
     }
@@ -183,7 +195,7 @@ const XPExampleApp = ({ onClose }) => {
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
             <XPTabs tabs={tabs} />
             <div style={{ marginTop: 16, textAlign: 'center' }}>
-              <XPButton onClick={() => alert('XP Button Clicked!')}>
+              <XPButton onClick={() => window.alert('XP Button Clicked!')}>
                 Click Me!
               </XPButton>
             </div>

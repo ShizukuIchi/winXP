@@ -2,40 +2,47 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import errorSoundSrc from 'assets/sounds/error.wav';
-import error from 'assets/windowsIcons/897(32x32).png';
+import errorIcon from 'assets/windowsIcons/897(32x32).png';
 
-function lineBreak(str) {
-  return str.split('\n').map((s, i) => (
-    <p key={i} className="error__message">
-      {s}
-    </p>
-  ));
+interface ErrorBoxProps {
+  onClose?: () => void;
+  message?: string;
 }
 
-function Error({ onClose, message = "Something's wrong!" }) {
+const getMessageLines = (value: string): React.ReactNode[] =>
+  value.split('\n').map((line, index) => (
+    <p key={`${index}-${line}`} className="error__message">
+      {line}
+    </p>
+  ));
+
+const ErrorBox: React.FC<ErrorBoxProps> = ({ onClose, message = "Something's wrong!" }) => {
   useEffect(() => {
     try {
-      new Audio(errorSoundSrc).play();
-    } catch (e) {
-      console.log(e);
+      const audio = new Audio(errorSoundSrc);
+      void audio.play();
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
     }
   }, []);
+
   return (
-    <Div>
+    <StyledErrorBox>
       <div className="error__top">
-        <img src={error} alt="error" className="error__img" />
-        <div className="error__messages">{lineBreak(message)}</div>
+        <img src={errorIcon} alt="error" className="error__img" />
+        <div className="error__messages">{getMessageLines(message)}</div>
       </div>
       <div className="error__bottom">
-        <div onClick={onClose} className="error__button">
+        <div className="error__button" onClick={() => onClose?.()}>
           <span className="error__confirm">OK</span>
         </div>
       </div>
-    </Div>
+    </StyledErrorBox>
   );
-}
+};
 
-const Div = styled.div`
+const StyledErrorBox = styled.div`
   background-color: #f5f5f5;
   width: 100%;
   height: 100%;
@@ -70,6 +77,7 @@ const Div = styled.div`
     justify-content: center;
     align-items: center;
     box-shadow: inset -1px -1px 1px black;
+    cursor: pointer;
     &:hover:active {
       box-shadow: inset 1px 1px 1px black;
       & > * {
@@ -82,4 +90,4 @@ const Div = styled.div`
   }
 `;
 
-export default Error;
+export default ErrorBox;

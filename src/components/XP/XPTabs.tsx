@@ -1,30 +1,45 @@
-import React, { useState } from 'react';
+import React from 'react';
+import type { XPTabItem } from 'types/components';
 
-const XPTabs = ({
-  tabs = [],
+export interface XPTabsProps extends React.HTMLAttributes<HTMLDivElement> {
+  tabs: XPTabItem[];
+  defaultActiveTab?: string;
+  onTabChange?: (tabId: string) => void;
+}
+
+const XPTabs: React.FC<XPTabsProps> = ({
+  tabs,
   defaultActiveTab,
   onTabChange,
   className = '',
-  ...props
+  ...rest
 }) => {
-  const [activeTab, setActiveTab] = useState(defaultActiveTab || tabs[0]?.id);
+  const initialTab = React.useMemo(() => {
+    return defaultActiveTab ?? tabs[0]?.id ?? '';
+  }, [defaultActiveTab, tabs]);
 
-  const handleTabClick = (tabId) => {
+  const [activeTab, setActiveTab] = React.useState<string>(initialTab);
+
+  React.useEffect(() => {
+    setActiveTab(initialTab);
+  }, [initialTab]);
+
+  const handleTabClick = (tabId: string) => {
     setActiveTab(tabId);
     onTabChange?.(tabId);
   };
 
   return (
-    <div className={className} {...props}>
+    <div className={className} {...rest}>
       <menu role="tablist">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             role="tab"
+            type="button"
             aria-selected={activeTab === tab.id}
             aria-controls={`xp-panel-${tab.id}`}
             onClick={() => handleTabClick(tab.id)}
-            type="button"
           >
             {tab.label}
           </button>

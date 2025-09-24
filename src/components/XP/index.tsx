@@ -1,8 +1,9 @@
+import React from 'react';
+
 // XP Component Library
 // A collection of Windows XP-styled components using XP.css
 // with proper isolation to prevent CSS bleed
 
-// Export the container and global styles
 export { XPContainer, XPGlobalStyles } from './XPContainer';
 
 // Core Input Components
@@ -23,9 +24,4 @@ export { default as XPTreeView } from './XPTreeView';
 export { default as XPProgressBar } from './XPProgressBar';
 export { default as XPMenuBar } from './XPMenuBar';
 
-// Convenience component for XP apps - XP.css is imported automatically
-import React from 'react';
-
-export const XPThemeProvider = ({ children }) => {
-  return <>{children}</>;
-};
+export const XPThemeProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => <>{children}</>;

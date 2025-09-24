@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import 'xp.css/dist/XP.css';
 import './XPOverrides.css';
@@ -30,4 +31,4 @@ export const XPContainer = styled.div`
 `;
 
 // No need for global styles - XP.css is imported directly
-export const XPGlobalStyles = () => null;
+export const XPGlobalStyles: React.FC = () => null;

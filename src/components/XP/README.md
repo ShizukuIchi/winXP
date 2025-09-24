@@ -4,12 +4,12 @@ A comprehensive collection of Windows XP-styled React components using XP.css wi
 
 ## Features
 
-- ✅ Authentic Windows XP styling using XP.css
-- ✅ CSS isolation prevents bleed with existing styled-components
-- ✅ Easy to use for creating new apps
-- ✅ Full TypeScript-like prop interfaces
-- ✅ Accessibility features built-in
-- ✅ Compatible with existing WinXP desktop architecture
+- Authentic Windows XP styling using XP.css
+- CSS isolation prevents bleed with existing styled-components
+- Easy to use for creating new apps
+- Full TypeScript-like prop interfaces
+- Accessibility features built-in
+- Compatible with existing WinXP desktop architecture
 
 ## Quick Start
 
@@ -152,4 +152,5 @@ export default function MyNewApp({ onClose }) {
 
 ## Example App
 
-See `XPExampleApp.js` for a comprehensive demonstration of all components in action.
+See `XPExampleApp.tsx` for a comprehensive demonstration of all components in action.
+
