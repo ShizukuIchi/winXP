@@ -74,6 +74,7 @@ const XPMenuBar: React.FC<XPMenuBarProps> = ({
         flexDirection: 'row',
         alignItems: 'center',
         margin: 0,
+        marginBottom: '8px',
         padding: 0,
         height: 'auto',
         ...(style ?? {})
@@ -117,9 +118,10 @@ const XPMenuBar: React.FC<XPMenuBarProps> = ({
               background: openMenu === menuName ? '#316AC5' : 'transparent',
               color: openMenu === menuName ? 'white' : 'black',
               // Tighten spacing between top-level menu entries
-              padding: '2px 6px',
+              padding: '0px 6px',
               minWidth: 0,
-              marginRight: '2px',
+              marginRight: '0px',
+              
                 outline: 'none',
                 boxShadow: 'none',
               font: 'inherit',
@@ -140,7 +142,7 @@ const XPMenuBar: React.FC<XPMenuBarProps> = ({
                 left: 0,
                 zIndex: 1000,
                 minWidth: '120px',
-                margin: 0,
+                margin: '0px',
                 padding: '2px',
                 // Lighter XP-style menu background
                 background: '#fff',
