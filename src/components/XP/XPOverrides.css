@@ -1,0 +1,51 @@
+/* XP.css overrides for proper component styling */
+
+/* Ensure title bar control buttons are properly sized */
+.title-bar-controls button {
+  min-width: 16px !important;
+  min-height: 14px !important;
+  width: 16px;
+  height: 14px;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box;
+}
+
+/* Prevent any button styling from affecting title bar controls */
+.title-bar-controls button:not(:disabled) {
+  background: #c0c7c8;
+  box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #ffffff, inset -2px -2px #808080, inset 2px 2px #dfdfdf;
+}
+
+.title-bar-controls button:not(:disabled):active,
+.title-bar-controls button:not(:disabled).active {
+  box-shadow: inset -1px -1px #ffffff, inset 1px 1px #0a0a0a, inset -2px -2px #dfdfdf, inset 2px 2px #808080;
+}
+
+/* Ensure XP components don't have excessive spacing */
+.field-row {
+  margin-bottom: 6px;
+}
+
+/* Make sure tabs work properly */
+menu[role="tablist"] button {
+  min-width: unset !important;
+  padding: 4px 8px !important;
+}
+
+/* Fix status bar vertical stretching - ensure single row height */
+.status-bar {
+  height: 23px !important;
+  min-height: 23px !important;
+  max-height: 23px !important;
+  display: flex !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+}
+
+.status-bar-field {
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+}

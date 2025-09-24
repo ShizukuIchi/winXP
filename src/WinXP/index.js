@@ -244,6 +244,8 @@ function WinXP() {
       dispatch({ type: ADD_APP, payload: appSettings.Winamp });
     else if (o === 'Paint')
       dispatch({ type: ADD_APP, payload: appSettings.Paint });
+    else if (o === 'XP Components')
+      dispatch({ type: ADD_APP, payload: appSettings['XP Components'] });
     else if (o === 'Log Off')
       dispatch({ type: POWER_OFF, payload: POWER_STATE.LOG_OFF });
     else if (o === 'Turn Off Computer')

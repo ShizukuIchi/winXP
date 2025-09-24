@@ -5,6 +5,7 @@ import MyComputer from './MyComputer';
 import Notepad from './Notepad';
 import Winamp from './Winamp';
 import Paint from './Paint';
+import XPExampleApp from '../../components/XP/XPExampleApp';
 import iePaper from 'assets/windowsIcons/ie-paper.png';
 import ie from 'assets/windowsIcons/ie.png';
 import mine from 'assets/minesweeper/mine-icon.png';
@@ -16,6 +17,7 @@ import notepadLarge from 'assets/windowsIcons/327(32x32).png';
 import winamp from 'assets/windowsIcons/winamp.png';
 import paintLarge from 'assets/windowsIcons/680(32x32).png';
 import paint from 'assets/windowsIcons/680(16x16).png';
+import xpDemo from 'assets/windowsIcons/300(32x32).png';
 
 const gen = () => {
   let id = -1;
@@ -151,6 +153,13 @@ export const defaultIconState = [
     icon: paintLarge,
     title: 'Paint',
     component: Paint,
+    isFocus: false,
+  },
+  {
+    id: 6,
+    icon: xpDemo,
+    title: 'XP Components',
+    component: XPExampleApp,
     isFocus: false,
   },
 ];
@@ -292,6 +301,25 @@ export const appSettings = {
     maximized: window.innerWidth < 800,
     multiInstance: true,
   },
+  'XP Components': {
+    header: {
+      icon: xpDemo,
+      title: 'XP Component Demo',
+    },
+    component: XPExampleApp,
+    defaultSize: {
+      width: 500,
+      height: 400,
+    },
+    defaultOffset: {
+      x: 300,
+      y: 80,
+    },
+    resizable: true,
+    minimized: false,
+    maximized: window.innerWidth < 800,
+    multiInstance: true,
+  },
 };
 
-export { InternetExplorer, Minesweeper, ErrorBox, MyComputer, Notepad, Winamp };
+export { InternetExplorer, Minesweeper, ErrorBox, MyComputer, Notepad, Winamp, Paint, XPExampleApp };

@@ -1,0 +1,26 @@
+/* XP.css styles with targeted overrides for desktop UI */
+
+/* Only target specific desktop UI buttons, preserve all XP component styling */
+.menu-bar-button,
+.window-close-button,
+.taskbar-button,
+.start-button,
+.desktop-icon-button,
+.go-button,
+.address-bar-button {
+  /* Reset only XP.css specific properties */
+  border: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  min-width: auto !important;
+  min-height: auto !important;
+  padding: revert !important;
+  font-family: revert !important;
+  font-size: revert !important;
+  line-height: revert !important;
+  outline: none !important;
+}
+
+/* No XP style forcing inside XP components to avoid conflicts */

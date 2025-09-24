@@ -1,0 +1,65 @@
+/* Global XP.css button overrides to prevent bleeding into existing desktop UI */
+
+/* Override XP.css button min-width for existing desktop window controls */
+.header__button {
+  min-width: auto !important;
+  min-height: auto !important;
+}
+
+/* Also prevent XP.css from affecting other desktop buttons */
+.menu-bar button,
+.window-close-button,
+.taskbar-button,
+.start-button,
+.desktop-icon-button,
+.go-button,
+.address-bar-button,
+.drop-down button {
+  min-width: auto !important;
+  min-height: auto !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  box-shadow: none !important;
+  background: inherit !important;
+  border: inherit !important;
+}
+
+/* Ensure footer buttons aren't affected */
+.footer__item button {
+  min-width: auto !important;
+  min-height: auto !important;
+  background: inherit !important;
+  box-shadow: none !important;
+}
+
+/* Fix balloon close button */
+.balloon__close {
+  min-width: auto !important;
+  min-height: auto !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  /* Override XP.css button styling completely */
+  box-shadow: none !important;
+  background: transparent !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  padding: 0 !important;
+  /* Ensure X symbol is properly positioned */
+  position: absolute !important;
+  right: 4px !important;
+  top: 4px !important;
+  width: 14px !important;
+  height: 14px !important;
+  border-radius: 3px !important;
+}
+
+.balloon__close:before {
+  /* Center the X symbol properly */
+  left: 5px !important;
+  top: 2px !important;
+}
+
+.balloon__close:after {
+  /* Center the X symbol properly */
+  left: 5px !important;
+  top: 2px !important;
+}
