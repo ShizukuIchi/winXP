@@ -81,7 +81,7 @@ const XPMenuBar: React.FC<XPMenuBarProps> = ({
       {...rest}
     >
       {menuEntries.map(([menuName, menuItems]) => (
-        <div key={menuName} style={{ position: 'relative', display: 'inline-block' }}>
+        <div key={menuName} style={{ position: 'relative' }}>
           <button
             role="menuitem"
             type="button"
@@ -94,6 +94,8 @@ const XPMenuBar: React.FC<XPMenuBarProps> = ({
                 const target = event.currentTarget;
                 target.style.background = 'transparent';
                 target.style.color = 'black';
+                  target.style.outline = 'none';
+                  target.style.boxShadow = 'none';
               }
             }}
             onMouseOver={(event) => {
@@ -101,16 +103,29 @@ const XPMenuBar: React.FC<XPMenuBarProps> = ({
                 const target = event.currentTarget;
                 target.style.background = '#316AC5';
                 target.style.color = 'white';
+                  target.style.outline = 'none';
+                  target.style.boxShadow = 'none';
               }
             }}
+              onFocus={(event) => {
+                const target = event.currentTarget;
+                target.style.outline = 'none';
+                target.style.boxShadow = 'none';
+              }}
             style={{
               border: 'none',
               background: openMenu === menuName ? '#316AC5' : 'transparent',
               color: openMenu === menuName ? 'white' : 'black',
-              padding: '4px 8px',
+              // Tighten spacing between top-level menu entries
+              padding: '2px 6px',
+              minWidth: 0,
+              marginRight: '2px',
+                outline: 'none',
+                boxShadow: 'none',
               font: 'inherit',
               cursor: 'default',
-              borderRadius: 0
+              borderRadius: 0,
+              width: 'auto'
             }}
           >
             {menuName}
@@ -127,8 +142,10 @@ const XPMenuBar: React.FC<XPMenuBarProps> = ({
                 minWidth: '120px',
                 margin: 0,
                 padding: '2px',
-                background: '#c0c7c8',
-                border: '2px outset #c0c7c8'
+                // Lighter XP-style menu background
+                background: '#fff',
+                border: '1px solid #808080',
+                boxShadow: 'inset -1px -1px #ffffff, inset 1px 1px #dfdfdf'
               }}
             >
               {menuItems.map((menuItem, index) => {

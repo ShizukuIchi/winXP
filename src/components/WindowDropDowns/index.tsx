@@ -96,7 +96,10 @@ const StyledWindowDropDowns = styled(WindowDropDownsComponent)<StyledProps>`
     color: #fff;
   }
   .drop-down__label {
-    padding: 0 7px;
+    padding: 0 6px;
+    cursor: default;
+    user-select: none;
+    white-space: nowrap;
     &:hover {
       background-color: #1660e8;
       color: #fff;
