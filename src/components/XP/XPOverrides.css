@@ -49,3 +49,12 @@ menu[role="tablist"] button {
   align-items: center !important;
   box-sizing: border-box !important;
 }
+
+/* Window container overrides */
+.window {
+  box-shadow: none !important;
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+  padding: 0px !important;
+  -webkit-font-smoothing: antialiased;
+}

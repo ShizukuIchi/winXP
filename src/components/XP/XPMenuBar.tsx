@@ -75,6 +75,9 @@ const XPMenuBar: React.FC<XPMenuBarProps> = ({
         alignItems: 'center',
         margin: 0,
         marginBottom: '8px',
+        marginTop: '-8px',
+        marginLeft: '-8px',
+        marginRight: '-8px',
         padding: 0,
         height: 'auto',
         ...(style ?? {})
