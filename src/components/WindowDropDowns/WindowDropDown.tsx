@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import styled from 'styled-components';
 
 import iePaper from 'assets/windowsIcons/ie-paper.png';
@@ -6,71 +6,30 @@ import ieBook from 'assets/windowsIcons/ie-book.png';
 import check from 'assets/windowsIcons/checked.png';
 import folder from 'assets/windowsIcons/folder.png';
 
-export function WindowDropDown({ items, position = {}, onClick }) {
-  const [option, setOption] = useState('');
-  return (
-    <Div {...position}>
-      <div className="drop-down__menu">
-        {items.map((item, index) => {
-          switch (item.type) {
-            case 'item':
-              return (
-                <div
-                  key={item.text}
-                  className={`drop-down__row${item.disable ? '--disable' : ''}`}
-                  onMouseEnter={() => setOption(item.text)}
-                  onClick={() => onClick(item.text)}
-                >
-                  <div className="drop-down__check">
-                    <RowSymbol type={item.symbol} />
-                  </div>
-                  <div className="drop-down__text">{item.text}</div>
-                  <span className="drop-down__hot-key">
-                    {item.hotkey || ''}
-                  </span>
-                  <div className="drop-down__arrow--disable" />
-                </div>
-              );
-            case 'menu':
-              return (
-                <div
-                  key={item.text}
-                  className={`drop-down__row${
-                    option === item.text ? '--active' : ''
-                  }`}
-                  onMouseEnter={() => setOption(item.text)}
-                >
-                  <div className="drop-down__check">
-                    <RowSymbol type={item.symbol} />
-                  </div>
-                  <div className="drop-down__text">{item.text}</div>
-                  <span className="drop-down__hot-key">
-                    {item.hotkey || ''}
-                  </span>
-                  <div className="drop-down__arrow" />
-                  <div style={{ position: 'relative' }}>
-                    {option === item.text && (
-                      <WindowDropDown
-                        position={item.position}
-                        items={item.items}
-                        onClick={onClick}
-                      />
-                    )}
-                  </div>
-                </div>
-              );
-            case 'separator':
-              return <div key={index} className="drop-down__separator" />;
-            default:
-              return null;
-          }
-        })}
-      </div>
-    </Div>
-  );
-}
+import type {
+  WindowDropDownEntry,
+  WindowDropDownItem,
+  WindowDropDownMenu,
+  WindowDropDownPosition,
+  WindowDropDownSymbol
+} from 'types/components';
 
-function RowSymbol({ type }) {
+type WindowDropDownProps = {
+  items: WindowDropDownEntry[];
+  position?: WindowDropDownPosition;
+  onClick: (name: string) => void;
+};
+
+type RowSymbolProps = {
+  type?: WindowDropDownSymbol;
+};
+
+type StyledDropdownProps = WindowDropDownPosition;
+
+const isItem = (entry: WindowDropDownEntry): entry is WindowDropDownItem => entry.type === 'item';
+const isMenu = (entry: WindowDropDownEntry): entry is WindowDropDownMenu => entry.type === 'menu';
+
+const RowSymbol: React.FC<RowSymbolProps> = ({ type }) => {
   switch (type) {
     case 'ie-paper':
       return <img className="drop-down__icon" src={iePaper} alt="" />;
@@ -87,16 +46,16 @@ function RowSymbol({ type }) {
             width: '6px',
             height: '6px',
             borderRadius: '50%',
-            backgroundColor: '#000',
+            backgroundColor: '#000'
           }}
         />
       );
     default:
       return null;
   }
-}
+};
 
-const Div = styled.div`
+const Div = styled.div<StyledDropdownProps>`
   left: ${({ left }) => (left ? left : 'initial')};
   top: ${({ top }) => (top ? top : 'initial')};
   right: ${({ right }) => (right ? right : 'initial')};
@@ -206,4 +165,76 @@ const Div = styled.div`
     height: 100%;
   }
 `;
+
+const WindowDropDown: React.FC<WindowDropDownProps> = ({ items, position, onClick }) => {
+  const [activeOption, setActiveOption] = useState<string | null>(null);
+
+  const handleItemClick = useCallback(
+    (itemText: string, disabled?: boolean) => {
+      if (!disabled) {
+        onClick(itemText);
+      }
+    },
+    [onClick]
+  );
+
+  const dropdownPosition = useMemo<WindowDropDownPosition | undefined>(() => position, [position]);
+
+  return (
+    <Div {...dropdownPosition}>
+      <div className="drop-down__menu">
+        {items.map((entry, index) => {
+          if (isItem(entry)) {
+            const rowClass = `drop-down__row${entry.disable ? '--disable' : ''}`;
+            return (
+              <div
+                key={`${entry.text}-${index}`}
+                className={rowClass}
+                onMouseEnter={() => setActiveOption(entry.text)}
+                onClick={() => handleItemClick(entry.text, entry.disable)}
+              >
+                <div className="drop-down__check">
+                  <RowSymbol type={entry.symbol} />
+                </div>
+                <div className="drop-down__text">{entry.text}</div>
+                <span className="drop-down__hot-key">{entry.hotkey ?? ''}</span>
+                <div className="drop-down__arrow--disable" />
+              </div>
+            );
+          }
+
+          if (isMenu(entry)) {
+            const rowClass = `drop-down__row${activeOption === entry.text ? '--active' : ''}`;
+            return (
+              <div
+                key={`${entry.text}-${index}`}
+                className={rowClass}
+                onMouseEnter={() => setActiveOption(entry.text)}
+              >
+                <div className="drop-down__check">
+                  <RowSymbol type={entry.symbol} />
+                </div>
+                <div className="drop-down__text">{entry.text}</div>
+                <span className="drop-down__hot-key">{entry.hotkey ?? ''}</span>
+                <div className="drop-down__arrow" />
+                <div style={{ position: 'relative' }}>
+                  {activeOption === entry.text && (
+                    <WindowDropDown
+                      position={entry.position}
+                      items={entry.items}
+                      onClick={onClick}
+                    />
+                  )}
+                </div>
+              </div>
+            );
+          }
+
+          return <div key={`separator-${index}`} className="drop-down__separator" />;
+        })}
+      </div>
+    </Div>
+  );
+};
+
 export default WindowDropDown;

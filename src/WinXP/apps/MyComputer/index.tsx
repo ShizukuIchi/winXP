@@ -26,11 +26,14 @@ import logo from 'assets/github-logo.png';
 import mine from 'assets/minesweeper/mine-icon.png';
 import windows from 'assets/windowsIcons/windows.png';
 
-function MyComputer({ onClose }) {
-  function onClickOptionItem(item) {
+interface MyComputerProps {
+  onClose?: () => void;
+}
+const MyComputer: React.FC<MyComputerProps> = ({ onClose }) => {
+  const onClickOptionItem = (item: string): void => {
     switch (item) {
       case 'Close':
-        onClose();
+        onClose?.();
         break;
       default:
     }
@@ -752,3 +755,8 @@ const Div = styled.div`
 `;
 
 export default MyComputer;
+
+
+
+
+

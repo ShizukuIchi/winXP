@@ -5,7 +5,10 @@
       "WebFetch(domain:botoxparty.github.io)",
       "Bash(npm install:*)",
       "Bash(npm start)",
-      "Bash(taskkill:*)"
+      "Bash(taskkill:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run type-check:*)",
+      "Bash(npm run build:*)"
     ],
     "deny": [],
     "ask": []

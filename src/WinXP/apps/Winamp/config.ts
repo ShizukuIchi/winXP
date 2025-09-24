@@ -1,8 +1,18 @@
-// from Webamp demo
+export interface TrackMetadata {
+  title: string;
+  artist: string;
+  album?: string;
+}
+
+export interface Track {
+  url: string;
+  duration: number;
+  metaData: TrackMetadata;
+}
 
 const album = 'netBloc Vol. 24: tiuqottigeloot';
 
-export const initialTracks = [
+export const initialTracks: Track[] = [
   {
     url:
       'https://raw.githubusercontent.com/captbaritone/webamp-music/4b556fbf/Diablo_Swing_Orchestra_-_01_-_Heroines.mp3',
@@ -10,8 +20,8 @@ export const initialTracks = [
     metaData: {
       title: 'Heroines',
       artist: 'Diablo Swing Orchestra',
-      album,
-    },
+      album
+    }
   },
   {
     url:
@@ -20,8 +30,8 @@ export const initialTracks = [
     metaData: {
       title: 'We Are Going To Eclecfunk Your Ass',
       artist: 'Eclectek',
-      album,
-    },
+      album
+    }
   },
   {
     url:
@@ -30,8 +40,8 @@ export const initialTracks = [
     metaData: {
       title: 'Seventeen',
       artist: 'Auto-Pilot',
-      album,
-    },
+      album
+    }
   },
   {
     url:
@@ -40,8 +50,8 @@ export const initialTracks = [
     metaData: {
       title: 'Microphone',
       artist: 'Muha',
-      album,
-    },
+      album
+    }
   },
   {
     url:
@@ -50,8 +60,8 @@ export const initialTracks = [
     metaData: {
       title: 'Stumble',
       artist: 'Just Plain Ant',
-      album,
-    },
+      album
+    }
   },
   {
     url:
@@ -60,8 +70,8 @@ export const initialTracks = [
     metaData: {
       title: 'God Damn',
       artist: 'Sleaze',
-      album,
-    },
+      album
+    }
   },
   {
     url:
@@ -70,8 +80,8 @@ export const initialTracks = [
     metaData: {
       title: 'Hola Hola Bossa Nova',
       artist: 'Juanitos',
-      album,
-    },
+      album
+    }
   },
   {
     url:
@@ -80,8 +90,8 @@ export const initialTracks = [
     metaData: {
       title: 'Resolutions (Chris Summer Remix)',
       artist: 'Entertainment for the Braindead',
-      album,
-    },
+      album
+    }
   },
   {
     url:
@@ -90,8 +100,8 @@ export const initialTracks = [
     metaData: {
       title: 'Trail',
       artist: 'Nobara Hayakawa',
-      album,
-    },
+      album
+    }
   },
   {
     url:
@@ -100,8 +110,8 @@ export const initialTracks = [
     metaData: {
       title: 'Tongue Tied',
       artist: 'Paper Navy',
-      album,
-    },
+      album
+    }
   },
   {
     url:
@@ -110,8 +120,8 @@ export const initialTracks = [
     metaData: {
       title: 'Garage',
       artist: '60 Tigres',
-      album,
-    },
+      album
+    }
   },
   {
     url:
@@ -120,7 +130,7 @@ export const initialTracks = [
     metaData: {
       title: 'The Cycle (Featuring Mista Mista)',
       artist: 'CM aka Creative',
-      album,
-    },
-  },
+      album
+    }
+  }
 ];

@@ -22,12 +22,23 @@ import stop from 'assets/windowsIcons/stop.png';
 import windows from 'assets/windowsIcons/windows.png';
 import dropdown from 'assets/windowsIcons/dropdown.png';
 
-function InternetExplorer({ onClose }) {
-  const [state, setState] = useState({
+interface InternetExplorerProps {
+  onClose?: () => void;
+}
+
+type InternetExplorerRoute = 'main' | 'search';
+
+interface InternetExplorerState {
+  route: InternetExplorerRoute;
+  query: string;
+}
+
+const InternetExplorer: React.FC<InternetExplorerProps> = ({ onClose }) => {
+  const [state, setState] = useState<InternetExplorerState>({
     route: 'main',
     query: '',
   });
-  function onSearch(str) {
+  function onSearch(str: string): void {
     if (str.length) {
       setState({
         route: 'search',
@@ -35,16 +46,16 @@ function InternetExplorer({ onClose }) {
       });
     }
   }
-  function goMain() {
+  function goMain(): void {
     setState({
       route: 'main',
       query: '',
     });
   }
-  function onClickOptionItem(item) {
+  function onClickOptionItem(item: string): void {
     switch (item) {
       case 'Close':
-        onClose();
+        onClose?.();
         break;
       case 'Home Page':
       case 'Back':
@@ -469,3 +480,11 @@ const Div = styled.div`
 `;
 
 export default InternetExplorer;
+
+
+
+
+
+
+
+

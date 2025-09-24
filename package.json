@@ -20,7 +20,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "now-build": "react-scripts build",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "tsc --noEmit --watch"
   },
   "eslintConfig": {
     "extends": [

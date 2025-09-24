@@ -1,14 +1,17 @@
 import React from 'react';
 
-// add child div to capture mouse event when not focused
+interface PaintProps {
+  onClose?: () => void;
+  isFocus?: boolean;
+}
 
-function Paint({ onClose, isFocus }) {
+const Paint: React.FC<PaintProps> = ({ isFocus = false }) => {
   return (
     <div
       style={{
         width: '100%',
         height: '100%',
-        position: 'relative',
+        position: 'relative'
       }}
     >
       <iframe
@@ -19,7 +22,7 @@ function Paint({ onClose, isFocus }) {
           display: 'block',
           width: '100%',
           height: '100%',
-          backgroundColor: 'rgb(192,192,192)',
+          backgroundColor: 'rgb(192,192,192)'
         }}
       />
       {!isFocus && (
@@ -29,12 +32,12 @@ function Paint({ onClose, isFocus }) {
             height: '100%',
             position: 'absolute',
             left: 0,
-            top: 0,
+            top: 0
           }}
         />
       )}
     </div>
   );
-}
+};
 
 export default Paint;
