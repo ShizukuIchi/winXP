@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Windows XP Desktop</title>
+    <style>
+        html, body, #root {
+            height: 100%;
+            margin: 0;
+            font-family: 'Tahoma', sans-serif;
+            overflow: hidden;
+        }
+
+        body {
+            background: url('assets/wallpapers/bliss.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        /* Prevent text selection on desktop */
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Allow text selection in windows and text inputs */
+        [role="textbox"], textarea, input[type="text"], .selectable {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>

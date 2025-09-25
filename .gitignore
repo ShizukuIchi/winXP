@@ -2,6 +2,10 @@
 
 # dependencies
 /node_modules
+/host/node_modules
+/apps/notepad/node_modules
+/apps/**/node_modules
+*node_modules*
 /.pnp
 .pnp.js
 

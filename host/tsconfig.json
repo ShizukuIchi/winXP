@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "checkJs": false,
+    "noEmit": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["webpack/module"],
+    "baseUrl": ".",
+    "paths": {
+      "components": ["../src/components/index.js"],
+      "components/*": ["../src/components/*"],
+      "assets/*": ["../src/assets/*"],
+      "hooks": ["../src/hooks"],
+      "types/components": ["../src/types/components.ts"],
+      "types/*": ["../src/types/*"]
+    }
+  },
+  "include": ["src", "src/types", "../src/components", "../src/types", "../src/assets"],
+  "exclude": ["node_modules", "dist"]
+}
