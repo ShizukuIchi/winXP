@@ -27,6 +27,7 @@ import { DashedBox } from 'components';
 // Import Module Federation functionality
 import { loadApp, getAppManifest, APP_REGISTRY } from './api/app-registry';
 import { HostAPI, WindowOptions } from './api/host-sdk';
+import { DesktopAction } from '../../src/types/actions';
 
 // Legacy app imports that haven't been migrated yet
 import InternetExplorer from './legacy-apps/InternetExplorer';
@@ -230,7 +231,7 @@ const initState = {
   powerState: POWER_STATE.START,
 };
 
-const reducer = (state: any, action: any = { type: '' }) => {
+const reducer = (state: any, action: DesktopAction) => {
   switch (action.type) {
     case ADD_APP:
       const app = state.apps.find(
@@ -347,11 +348,34 @@ function Desktop() {
   const [state, dispatch] = useReducer(reducer, initState);
   const [loadingApps, setLoadingApps] = useState<Set<string>>(new Set());
   const ref = useRef<HTMLDivElement>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
+  const isMountedRef = useRef(true);
   const mouse = useMouse(ref as unknown as React.RefObject<HTMLElement>);
   const focusedAppId = getFocusedAppId();
 
-  // Set up Host SDK API
+  // Helper function to create proper ADD_APP payload
+  const createAppPayload = useCallback((appConfig: AppInstanceConfig, name?: string) => ({
+    name: name || appConfig.header.title,
+    component: appConfig.component as any,
+    icon: appConfig.header.icon,
+    iconLarge: appConfig.iconLarge || appConfig.header.icon,
+    multiInstance: appConfig.multiInstance !== false,
+    header: appConfig.header,
+    defaultSize: appConfig.defaultSize,
+    defaultOffset: appConfig.defaultOffset,
+    resizable: appConfig.resizable,
+    minimized: appConfig.minimized,
+    maximized: appConfig.maximized,
+    isRemote: appConfig.isRemote,
+    appId: appConfig.appId,
+    injectProps: (appConfig as any).injectProps
+  }), []);
+
+  // Set up Host SDK API and cleanup
   useEffect(() => {
+    // Create abort controller for cleanup
+    abortControllerRef.current = new AbortController();
+    
     const hostAPI: HostAPI = {
       openWindow: (component: React.ComponentType<any>, options: WindowOptions) => {
         const appConfig: AppInstanceConfig = {
@@ -372,7 +396,10 @@ function Desktop() {
           isRemote: true,
         };
 
-        dispatch({ type: ADD_APP, payload: appConfig });
+        dispatch({ 
+          type: ADD_APP, 
+          payload: createAppPayload(appConfig, options.title)
+        });
         return `app-${Date.now()}`; // Return a unique window ID
       },
 
@@ -416,9 +443,21 @@ function Desktop() {
     window.__winxp_host_sdk = hostAPI;
 
     return () => {
-      delete window.__winxp_host_sdk;
+      // Mark component as unmounted
+      isMountedRef.current = false;
+      
+      // Abort any pending operations
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+        abortControllerRef.current = null;
+      }
+      
+      // Clean up global API
+      if (window.__winxp_host_sdk) {
+        delete window.__winxp_host_sdk;
+      }
     };
-  }, []);
+  }, [dispatch]);
 
   const onFocusApp = useCallback((id: number) => {
     dispatch({ type: FOCUS_APP, payload: id });
@@ -454,20 +493,29 @@ function Desktop() {
     dispatch({ type: FOCUS_ICON, payload: id });
   }
 
-  async function onDoubleClickIcon(component: React.ComponentType<any> | undefined, appId?: string) {
+  const onDoubleClickIcon = useCallback(async (component: React.ComponentType<any> | undefined, appId?: string) => {
     if (appId) {
       // Handle remote app
       if (loadingApps.has(appId)) {
         return; // Already loading
       }
 
-      setLoadingApps(prev => new Set(prev).add(appId));
+      // Check if component is still mounted
+      if (!isMountedRef.current || !abortControllerRef.current || abortControllerRef.current.signal.aborted) {
+        return;
+      }
+
+      // Update loading state only if component is still mounted
+      if (isMountedRef.current && !abortControllerRef.current.signal.aborted) {
+        setLoadingApps(prev => new Set(prev).add(appId));
+      }
 
       try {
         const AppComponent = await loadApp(appId);
         const appManifest = getAppManifest(appId);
 
-        if (AppComponent && appManifest) {
+        // Check if component is still mounted before dispatching
+        if (isMountedRef.current && !abortControllerRef.current?.signal.aborted && AppComponent && appManifest) {
           const appSetting: AppInstanceConfig = {
             component: AppComponent,
             header: {
@@ -484,24 +532,34 @@ function Desktop() {
             appId,
           };
 
-          dispatch({ type: ADD_APP, payload: appSetting });
+          dispatch({ 
+            type: ADD_APP, 
+            payload: createAppPayload(appSetting, appManifest.name)
+          });
         }
       } catch (error) {
-        console.error(`Failed to load app ${appId}:`, error);
-        // Show error dialog
-        dispatch({
-          type: ADD_APP,
-          payload: {
-            ...legacyAppSettings.Error,
-            injectProps: { message: `Failed to load ${appId}\n${error}` },
-          },
-        });
+        // Only show error if component is still mounted
+        if (isMountedRef.current && !abortControllerRef.current?.signal.aborted) {
+          console.error(`Failed to load app ${appId}:`, error);
+          // Show error dialog
+          const errorConfig = { 
+            ...legacyAppSettings.Error, 
+            injectProps: { message: `Failed to load ${appId}\n${error}` } 
+          };
+          dispatch({
+            type: ADD_APP,
+            payload: createAppPayload(errorConfig as AppInstanceConfig, 'Error'),
+          });
+        }
       } finally {
-        setLoadingApps(prev => {
-          const newSet = new Set(prev);
-          newSet.delete(appId);
-          return newSet;
-        });
+        // Only update state if component is still mounted
+        if (isMountedRef.current && !abortControllerRef.current?.signal.aborted) {
+          setLoadingApps(prev => {
+            const newSet = new Set(prev);
+            newSet.delete(appId);
+            return newSet;
+          });
+        }
       }
     } else if (component) {
       // Handle legacy app
@@ -509,10 +567,13 @@ function Desktop() {
         setting => setting.component === component,
       );
       if (appSetting) {
-        dispatch({ type: ADD_APP, payload: appSetting });
+        dispatch({ 
+          type: ADD_APP, 
+          payload: createAppPayload(appSetting)
+        });
       }
     }
-  }
+  }, [loadingApps, dispatch, createAppPayload]);
 
   function getFocusedAppId() {
     if (state.focusing !== FOCUSING.WINDOW) return -1;
@@ -526,23 +587,48 @@ function Desktop() {
     dispatch({ type: FOCUS_DESKTOP });
   }
 
-  async function onClickMenuItem(menuItem: string) {
-    if (menuItem === 'Internet')
-      dispatch({ type: ADD_APP, payload: legacyAppSettings['Internet Explorer'] });
+  const onClickMenuItem = useCallback(async (menuItem: string) => {
+    // Check if component is still mounted before any async operations
+    if (!isMountedRef.current || !abortControllerRef.current || abortControllerRef.current.signal.aborted) {
+      return;
+    }
+
+    if (menuItem === 'Internet') {
+      const setting = legacyAppSettings['Internet Explorer'];
+      dispatch({ 
+        type: ADD_APP, 
+        payload: createAppPayload(setting)
+      });
+    }
     else if (menuItem === 'Minesweeper') {
       // Use remote Minesweeper app
       await onDoubleClickIcon(undefined, 'app.minesweeper');
     }
-    else if (menuItem === 'My Computer')
-      dispatch({ type: ADD_APP, payload: legacyAppSettings['My Computer'] });
+    else if (menuItem === 'My Computer') {
+      const setting = legacyAppSettings['My Computer'];
+      dispatch({ 
+        type: ADD_APP, 
+        payload: createAppPayload(setting)
+      });
+    }
     else if (menuItem === 'Notepad') {
       // Use remote Notepad app
       await onDoubleClickIcon(undefined, 'app.notepad');
     }
-    else if (menuItem === 'Winamp')
-      dispatch({ type: ADD_APP, payload: legacyAppSettings.Winamp });
-    else if (menuItem === 'Paint')
-      dispatch({ type: ADD_APP, payload: legacyAppSettings.Paint });
+    else if (menuItem === 'Winamp') {
+      const setting = legacyAppSettings.Winamp;
+      dispatch({ 
+        type: ADD_APP, 
+        payload: createAppPayload(setting)
+      });
+    }
+    else if (menuItem === 'Paint') {
+      const setting = legacyAppSettings.Paint;
+      dispatch({ 
+        type: ADD_APP, 
+        payload: createAppPayload(setting)
+      });
+    }
     else if (menuItem === 'XP Components') {
       // Use remote XP Demo app
       await onDoubleClickIcon(undefined, 'app.xp-demo');
@@ -551,15 +637,17 @@ function Desktop() {
       dispatch({ type: POWER_OFF, payload: POWER_STATE.LOG_OFF });
     else if (menuItem === 'Turn Off Computer')
       dispatch({ type: POWER_OFF, payload: POWER_STATE.TURN_OFF });
-    else
+    else {
+      const errorConfig = {
+        ...legacyAppSettings.Error,
+        injectProps: { message: 'C:\\\nApplication not found' },
+      };
       dispatch({
         type: ADD_APP,
-        payload: {
-          ...legacyAppSettings.Error,
-          injectProps: { message: 'C:\\\nApplication not found' },
-        },
+        payload: createAppPayload(errorConfig as AppInstanceConfig),
       });
-  }
+    }
+  }, [onDoubleClickIcon, dispatch, createAppPayload]);
 
   function onMouseDownDesktop(e: React.MouseEvent) {
     if (e.target === e.currentTarget)
@@ -582,7 +670,11 @@ function Desktop() {
 
   function onClickModalButton() {
     dispatch({ type: CANCEL_POWER_OFF });
-    dispatch({ type: ADD_APP, payload: legacyAppSettings.Error });
+    const setting = legacyAppSettings.Error;
+    dispatch({ 
+      type: ADD_APP, 
+      payload: createAppPayload(setting)
+    });
   }
 
   function onModalClose() {
@@ -621,13 +713,13 @@ function Desktop() {
         onMouseDown={onMouseDownFooter}
         onClickMenuItem={onClickMenuItem}
       />
-      {state.powerState !== POWER_STATE.START && (
-        <Modal
-          onClose={onModalClose}
-          onClickButton={onClickModalButton}
-          mode={state.powerState}
-        />
-      )}
+      {state.powerState !== POWER_STATE.START && 
+        (Modal as any)({
+          onClose: onModalClose,
+          onClickButton: onClickModalButton,
+          mode: state.powerState,
+        })
+      }
     </Container>
   );
 }
@@ -644,7 +736,13 @@ const animation: Record<string, any> = {
   [POWER_STATE.LOG_OFF]: powerOffAnimation,
 };
 
-const Container = styled.div<{ state: keyof typeof POWER_STATE | any}>`
+const Container = styled.div<{ 
+  state: keyof typeof POWER_STATE | any;
+  children?: React.ReactNode;
+  ref?: React.RefObject<HTMLDivElement>;
+  onMouseUp?: () => void;
+  onMouseDown?: (e: React.MouseEvent) => void;
+}>`
   @import url('https://fonts.googleapis.com/css?family=Noto+Sans');
   font-family: Tahoma, 'Noto Sans', sans-serif;
   height: 100%;

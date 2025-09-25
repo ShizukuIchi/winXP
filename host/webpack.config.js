@@ -30,6 +30,15 @@ module.exports = {
       }
     ],
     hot: true,
+    liveReload: true,
+    client: {
+      overlay: {
+        errors: true,
+        warnings: false,
+      },
+      reconnect: true,
+    },
+    webSocketServer: 'ws',
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js'],
