@@ -38,6 +38,25 @@ export const APP_REGISTRY: AppManifest[] = [
       resizable: true
     },
     multiInstance: true
+  },
+  {
+    id: 'app.minesweeper',
+    name: 'Minesweeper',
+    version: '1.0.0',
+    icon: 'assets/minesweeper/mine-icon.png',
+    iconLarge: 'assets/minesweeper/mine-icon.png',
+    entry: {
+      scope: 'minesweeperApp',
+      url: 'http://localhost:3106/remoteEntry.js',
+      module: './App'
+    },
+    window: {
+      title: 'Minesweeper',
+      defaultSize: { width: 300, height: 450 },
+      defaultOffset: { x: 190, y: 180 },
+      resizable: false
+    },
+    multiInstance: true
   }
 ];
 

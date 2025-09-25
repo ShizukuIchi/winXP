@@ -195,7 +195,7 @@ const defaultIconState: DesktopIconConfig[] = [
     id: 1,
     icon: mine,
     title: 'Minesweeper',
-    component: Minesweeper,
+    appId: 'app.minesweeper', // This will use the remote app
     isFocus: false
   },
   {
@@ -533,8 +533,10 @@ function Desktop() {
   async function onClickMenuItem(menuItem: string) {
     if (menuItem === 'Internet')
       dispatch({ type: ADD_APP, payload: legacyAppSettings['Internet Explorer'] });
-    else if (menuItem === 'Minesweeper')
-      dispatch({ type: ADD_APP, payload: legacyAppSettings.Minesweeper });
+    else if (menuItem === 'Minesweeper') {
+      // Use remote Minesweeper app
+      await onDoubleClickIcon(undefined, 'app.minesweeper');
+    }
     else if (menuItem === 'My Computer')
       dispatch({ type: ADD_APP, payload: legacyAppSettings['My Computer'] });
     else if (menuItem === 'Notepad') {

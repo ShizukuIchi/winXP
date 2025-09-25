@@ -90,6 +90,7 @@ module.exports = {
       name: 'winxpHost',
       remotes: {
         notepadApp: 'notepadApp@http://localhost:3105/remoteEntry.js',
+        minesweeperApp: 'minesweeperApp@http://localhost:3106/remoteEntry.js',
       },
       shared: {
         react: {
@@ -110,6 +111,10 @@ module.exports = {
         'react-use': {
           singleton: true,
           requiredVersion: '^7.0.1'
+        },
+        'lodash.samplesize': {
+          singleton: true,
+          requiredVersion: '^4.2.0'
         }
       }
     }),
