@@ -57,6 +57,25 @@ export const APP_REGISTRY: AppManifest[] = [
       resizable: false
     },
     multiInstance: true
+  },
+  {
+    id: 'app.xp-demo',
+    name: 'XP Demo',
+    version: '1.0.0',
+    icon: 'assets/windowsIcons/winxp-32x32.png',
+    iconLarge: 'assets/windowsIcons/winxp-32x32.png',
+    entry: {
+      scope: 'xpDemoApp',
+      url: 'http://localhost:3108/remoteEntry.js',
+      module: './App'
+    },
+    window: {
+      title: 'XP Component Demo',
+      defaultSize: { width: 800, height: 600 },
+      defaultOffset: { x: 150, y: 100 },
+      resizable: true
+    },
+    multiInstance: false
   }
 ];
 

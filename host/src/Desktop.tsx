@@ -35,7 +35,6 @@ import ErrorBox from './legacy-apps/ErrorBox';
 import MyComputer from './legacy-apps/MyComputer';
 import Winamp from './legacy-apps/Winamp';
 import Paint from './legacy-apps/Paint';
-import XPExampleApp from 'components/XP/XPExampleApp';
 
 // Legacy icons
 import iePaper from 'assets/windowsIcons/ie-paper.png';
@@ -49,7 +48,6 @@ import notepadLarge from 'assets/windowsIcons/327(32x32).png';
 import winampIcon from 'assets/windowsIcons/winamp.png';
 import paintLarge from 'assets/windowsIcons/680(32x32).png';
 import paintSmall from 'assets/windowsIcons/680(16x16).png';
-import xpDemo from 'assets/windowsIcons/300(32x32).png';
 
 interface AppInstanceConfig {
   component: React.ComponentType<any>;
@@ -156,16 +154,6 @@ const legacyAppSettings: Record<string, AppInstanceConfig> = {
     maximized: typeof window !== 'undefined' ? window.innerWidth < 800 : false,
     multiInstance: true
   },
-  'XP Components': {
-    component: XPExampleApp,
-    header: { icon: xpDemo, title: 'XP Component Demo' },
-    defaultSize: { width: 500, height: 400 },
-    defaultOffset: { x: 300, y: 80 },
-    resizable: true,
-    minimized: false,
-    maximized: typeof window !== 'undefined' ? window.innerWidth < 800 : false,
-    multiInstance: true
-  }
 };
 
 const defaultAppState: AppInstanceConfig[] = [
@@ -221,6 +209,14 @@ const defaultIconState: DesktopIconConfig[] = [
     component: Paint,
     isFocus: false,
     iconLarge: paintLarge
+  },
+  {
+    id: 5,
+    icon: 'assets/windowsIcons/300(32x32).png',
+    title: 'XP Demo',
+    appId: 'app.xp-demo', // This will use the remote app
+    isFocus: false,
+    iconLarge: 'assets/windowsIcons/300(32x32).png'
   }
 ];
 
@@ -547,8 +543,10 @@ function Desktop() {
       dispatch({ type: ADD_APP, payload: legacyAppSettings.Winamp });
     else if (menuItem === 'Paint')
       dispatch({ type: ADD_APP, payload: legacyAppSettings.Paint });
-    else if (menuItem === 'XP Components')
-      dispatch({ type: ADD_APP, payload: legacyAppSettings['XP Components'] });
+    else if (menuItem === 'XP Components') {
+      // Use remote XP Demo app
+      await onDoubleClickIcon(undefined, 'app.xp-demo');
+    }
     else if (menuItem === 'Log Off')
       dispatch({ type: POWER_OFF, payload: POWER_STATE.LOG_OFF });
     else if (menuItem === 'Turn Off Computer')

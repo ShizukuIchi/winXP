@@ -295,6 +295,11 @@ export const AllPrograms = [
         icon: wordPad,
         text: 'WordPad',
       },
+      {
+        type: 'item',
+        icon: 'assets/windowsIcons/300(32x32).png',
+        text: 'XP Components',
+      },
     ],
   },
   {

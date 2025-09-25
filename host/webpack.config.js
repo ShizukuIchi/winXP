@@ -91,6 +91,7 @@ module.exports = {
       remotes: {
         notepadApp: 'notepadApp@http://localhost:3105/remoteEntry.js',
         minesweeperApp: 'minesweeperApp@http://localhost:3106/remoteEntry.js',
+        xpDemoApp: 'xpDemoApp@http://localhost:3108/remoteEntry.js',
       },
       shared: {
         react: {
@@ -114,7 +115,8 @@ module.exports = {
         },
         'lodash.samplesize': {
           singleton: true,
-          requiredVersion: '^4.2.0'
+          requiredVersion: '^4.2.0',
+          eager: true
         }
       }
     }),
