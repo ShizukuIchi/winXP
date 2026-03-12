@@ -1,0 +1,33 @@
+{
+  "name": "Karim",
+  "title": "Token design advisor, angel investor, and DeFi degen",
+  "bio": "Welcome, I'm Karim.\n\natm I'm building DeFi products and experimenting with vibecoding.\n\nIn the past I have:\n- Contributed to Messari Research (a research and data firm in the crypto industry).\n- Worked at Outlier Ventures (an early stage crypto investor and accelerator) where I was a token designer for 2 years. This entailed advising early stage crypto protocols on incentive design, product, and token economics.\n- Done some angel investing and advisory.\n\nMy current passion is building in DeFi, where I embrace the pseudonymous nature of the culture. I have so far:\n- Led a permissionless leverage protocol which garned over $5m in pre-deposits, and generated over $250k in protocol revenue within 2 weeks of launching.\n- Won 2 hackathons in first place, earning over $80k in prize money (which i quickly and unsuccessfully invested in trying to grow those products).\n- Built multiple iterations of an economic game that uses MEV to bootstrap a prize pool, which has done over $1.3m in game volume.\n- Strategised and executed DeFi liquidity strategies to grow product and token liquidity for different protocols.\n\nI am still yield farming, advising, and building in DeFi.",
+  "profileImage": "https://via.placeholder.com/200x200/6c757d/ffffff?text=K",
+  "location": "Building in DeFi",
+  "experience": [
+    {
+      "title": "Token Designer",
+      "company": "Outlier Ventures",
+      "period": "2 years",
+      "description": "Advised early stage crypto protocols on incentive design, product, and token economics"
+    },
+    {
+      "title": "DeFi Builder",
+      "company": "Independent",
+      "period": "Present",
+      "description": "Building permissionless protocols, winning hackathons, and experimenting with MEV-based economic games"
+    }
+  ],
+  "socialLinks": {
+    "mirror": "https://mirror.xyz/%F0%9F%94%A5%F0%9F%94%A5%F0%9F%98%8E%F0%9F%94%A5%F0%9F%94%A5.eth",
+    "twitter": "https://twitter.com/your-handle",
+    "email": "hello@yourname.com"
+  },
+  "interests": [
+    "DeFi Protocol Design",
+    "Token Economics", 
+    "MEV Research",
+    "Yield Farming",
+    "Vibecoding"
+  ]
+} 

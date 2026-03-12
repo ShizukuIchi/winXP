@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "companyName": "Example Startup Inc.",
+    "description": "Revolutionary AI platform for healthcare",
+    "sector": "HealthTech",
+    "investmentStage": "Seed",
+    "investmentYear": 2023,
+    "logo": "https://via.placeholder.com/64x64/007acc/ffffff?text=ES",
+    "website": "https://example-startup.com",
+    "status": "Active",
+    "notes": "Impressive founding team with deep healthcare experience"
+  },
+  {
+    "id": 2,
+    "companyName": "TechFlow Solutions",
+    "description": "Cloud infrastructure automation tools",
+    "sector": "DevOps",
+    "investmentStage": "Series A",
+    "investmentYear": 2022,
+    "logo": "https://via.placeholder.com/64x64/28a745/ffffff?text=TF",
+    "website": "https://techflow.io",
+    "status": "Active",
+    "notes": "Strong product-market fit in the enterprise segment"
+  }
+] 

@@ -31,7 +31,7 @@ function Icons({
   }, [iconsRect, setSelectedIcons, selecting, mouse.docX, mouse.docY]);
   return (
     <IconsContainer>
-      {icons.map(icon => (
+      {icons.map((icon, index) => (
         <StyledIcon
           key={icon.id}
           {...icon}
@@ -39,6 +39,10 @@ function Icons({
           onMouseDown={onMouseDown}
           onDoubleClick={onDoubleClick}
           measure={measure}
+          gridPosition={{
+            column: Math.floor(index / 5),
+            row: index % 5
+          }}
         />
       ))}
     </IconsContainer>
@@ -54,6 +58,7 @@ function Icon({
   id,
   component,
   measure,
+  gridPosition,
 }) {
   const ref = useRef(null);
   function _onMouseDown() {
@@ -76,6 +81,10 @@ function Icon({
       onMouseDown={_onMouseDown}
       onDoubleClick={_onDoubleClick}
       ref={ref}
+      style={{
+        gridColumn: gridPosition.column + 1,
+        gridRow: gridPosition.row + 1,
+      }}
     >
       <div className={`${className}__img__container`}>
         <img src={icon} alt={title} className={`${className}__img`} />
@@ -91,20 +100,24 @@ const IconsContainer = styled.div`
   position: absolute;
   margin-top: 40px;
   margin-left: 40px;
+  display: grid;
+  grid-template-rows: repeat(5, auto);
+  grid-auto-columns: 105px;
+  gap: 45px 30px;
+  grid-auto-flow: column;
 `;
 
 const StyledIcon = styled(Icon)`
-  width: 70px;
-  margin-bottom: 30px;
+  width: 105px;
   display: flex;
   flex-direction: column;
   align-items: center;
   &__text__container {
     width: 100%;
-    font-size: 10px;
+    font-size: 15px;
     color: white;
     text-shadow: 0 1px 1px black;
-    margin-top: 5px;
+    margin-top: 8px;
     display: flex;
     justify-content: center;
 
@@ -120,21 +133,21 @@ const StyledIcon = styled(Icon)`
     }
   }
   &__text {
-    padding: 0 3px 2px;
+    padding: 0 5px 3px;
     background-color: ${({ isFocus, displayFocus }) =>
       isFocus && displayFocus ? '#0b61ff' : 'transparent'};
     text-align: center;
     flex-shrink: 1;
   }
   &__img__container {
-    width: 30px;
-    height: 30px;
+    width: 45px;
+    height: 45px;
     filter: ${({ isFocus, displayFocus }) =>
       isFocus && displayFocus ? 'drop-shadow(0 0 blue)' : ''};
   }
   &__img {
-    width: 30px;
-    height: 30px;
+    width: 45px;
+    height: 45px;
     opacity: ${({ isFocus, displayFocus }) =>
       isFocus && displayFocus ? 0.5 : 1};
   }

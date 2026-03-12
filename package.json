@@ -1,9 +1,10 @@
 {
-  "name": "winXP",
-  "version": "0.1.0",
+  "name": "karim-personal-website",
+  "version": "1.0.0",
   "private": true,
-  "author": "ShizukuIchi <shizukuichi@gmail.com>",
-  "homepage": "https://winxp.now.sh",
+  "author": "Karim <your-email@example.com>",
+  "homepage": "https://ngmilabs.com",
+  "description": "Personal website with Windows XP theme showcasing angel investments, bio, and articles",
   "dependencies": {
     "lodash.samplesize": "^4.2.0",
     "react": "^16.8.6",

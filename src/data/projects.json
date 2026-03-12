@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "Sudoku Stake",
+    "description": "Daily sudoku puzzle with financial stakes — $1 entry, pot split among winners. Published in the Worldcoin Appstore.",
+    "url": "https://sodoku-stake.vercel.app/"
+  },
+  {
+    "id": 2,
+    "name": "Latinify",
+    "description": "A Chrome Extension that translates your page into Latin.",
+    "url": "https://chromewebstore.google.com/detail/latinify/kgjlehjlmdaiondflegcgceekpliafjj"
+  },
+  {
+    "id": 3,
+    "name": "ENS Expiry Bot",
+    "description": "A Telegram bot that notifies you when ENS names you monitor near expiry.",
+    "url": "https://t.me/ensexpirybot"
+  },
+  {
+    "id": 4,
+    "name": "Speck",
+    "description": "A Telegram bot that sends you a daily message reminding you of your cosmic insignificance.",
+    "url": "https://t.me/hellospeckbot"
+  },
+  {
+    "id": 5,
+    "name": "Clarity BTC",
+    "description": "A human-readable Bitcoin explorer.",
+    "url": "https://claritybtc.com/"
+  },
+  {
+    "id": 6,
+    "name": "Long Tail MEV Strategies",
+    "description": "Vibe coding some long-tail strats which I am running, mainly for learning purposes and for fun.",
+    "url": null
+  }
+]

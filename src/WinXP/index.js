@@ -236,6 +236,8 @@ function WinXP() {
       dispatch({ type: ADD_APP, payload: appSettings['Internet Explorer'] });
     else if (o === 'Minesweeper')
       dispatch({ type: ADD_APP, payload: appSettings.Minesweeper });
+    else if (o === 'Spider Solitaire')
+      dispatch({ type: ADD_APP, payload: appSettings['Spider Solitaire'] });
     else if (o === 'My Computer')
       dispatch({ type: ADD_APP, payload: appSettings['My Computer'] });
     else if (o === 'Notepad')

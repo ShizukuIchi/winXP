@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "title": "The Future of Angel Investing in 2024",
+    "description": "Insights on emerging trends in early-stage investing and what founders should know",
+    "publication": "TechCrunch",
+    "publishDate": "2024-01-15",
+    "readTime": "5 min read",
+    "url": "https://techcrunch.com/your-article",
+    "category": "Investing",
+    "featured": true
+  },
+  {
+    "id": 2,
+    "title": "Building Sustainable Tech Companies",
+    "description": "How environmental consciousness is reshaping the startup landscape",
+    "publication": "Medium",
+    "publishDate": "2023-11-20",
+    "readTime": "8 min read",
+    "url": "https://medium.com/@yourname/building-sustainable-tech",
+    "category": "Sustainability",
+    "featured": false
+  },
+  {
+    "id": 3,
+    "title": "Lessons from 50+ Angel Investments",
+    "description": "Key insights and patterns from my journey as an active angel investor",
+    "publication": "Personal Blog",
+    "publishDate": "2023-09-10",
+    "readTime": "12 min read",
+    "url": "https://yourblog.com/lessons-angel-investing",
+    "category": "Investing",
+    "featured": true
+  }
+] 
