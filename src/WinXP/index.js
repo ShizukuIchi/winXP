@@ -216,7 +216,11 @@ function WinXP() {
   function onMouseDownIcon(id) {
     dispatch({ type: FOCUS_ICON, payload: id });
   }
-  function onDoubleClickIcon(component) {
+  function onDoubleClickIcon({ component, link }) {
+    if (link) {
+      window.open(link, '_blank', 'noopener,noreferrer');
+      return;
+    }
     const appSetting = Object.values(appSettings).find(
       setting => setting.component === component,
     );
