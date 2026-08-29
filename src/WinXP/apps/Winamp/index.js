@@ -1,12 +1,8 @@
 import React, { useEffect, useRef } from 'react';
+import styled from 'styled-components';
 import Webamp from 'webamp';
 import { initialTracks } from './config';
 
-// The desktop puts a CSS transform on every window, which makes that window the
-// containing block for position:fixed children. So this layer can't measure the
-// viewport with right/bottom:0 - it collapses to the window's 0x0 size, and
-// webamp then centres its stack inside that empty box, landing top left.
-// Sizing it in vw/vh is viewport relative regardless, so webamp centres for real.
 const TASKBAR_HEIGHT = 30;
 
 function Winamp({ onClose, onMinimize }) {
@@ -34,18 +30,28 @@ function Winamp({ onClose, onMinimize }) {
       webamp.current.onMinimize(onMinimize);
     }
   });
-  return (
-    <div
-      style={{
-        position: 'fixed',
-        left: 0,
-        top: 0,
-        width: '100vw',
-        height: `calc(100vh - ${TASKBAR_HEIGHT}px)`,
-      }}
-      ref={ref}
-    />
-  );
+  return <Layer ref={ref} />;
 }
+
+// Sized in vw/vh rather than right/bottom:0 because every desktop window
+// carries a CSS transform, which makes it the containing block for
+// position:fixed children. With right/bottom the layer collapsed to the
+// window's 0x0 size and webamp centred its stack into the top left corner.
+//
+// Covering the viewport means this layer would otherwise swallow every click
+// on the desktop behind it, breaking icon selection and drag to select, so it
+// ignores pointer events and hands them back to webamp's own windows.
+const Layer = styled.div`
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: calc(100vh - ${TASKBAR_HEIGHT}px);
+  pointer-events: none;
+
+  #webamp {
+    pointer-events: auto;
+  }
+`;
 
 export default Winamp;
