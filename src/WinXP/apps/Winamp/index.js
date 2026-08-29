@@ -16,10 +16,29 @@ function Winamp({ onClose, onMinimize }) {
     webamp.current = new Webamp({
       initialTracks,
     });
+    // Browsers refuse to start audio that no user gesture asked for, so try
+    // anyway and otherwise wait for the first click or keypress. Gestures
+    // aimed at Winamp itself are ignored, so hitting its own pause button
+    // can't be undone by this handler firing straight afterwards.
+    function playOnGesture(event) {
+      if (event.target.closest && event.target.closest('#webamp')) return;
+      if (webamp.current) webamp.current.play();
+      stopWaitingForGesture();
+    }
+    function stopWaitingForGesture() {
+      document.removeEventListener('pointerdown', playOnGesture);
+      document.removeEventListener('keydown', playOnGesture);
+    }
+
     webamp.current.renderWhenReady(target).then(() => {
       target.appendChild(document.querySelector('#webamp'));
+      if (!webamp.current) return;
+      webamp.current.play();
+      document.addEventListener('pointerdown', playOnGesture);
+      document.addEventListener('keydown', playOnGesture);
     });
     return () => {
+      stopWaitingForGesture();
       webamp.current.dispose();
       webamp.current = null;
     };
