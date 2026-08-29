@@ -1,6 +1,6 @@
 {
-  "short_name": "WinXP",
-  "name": "Windows XP in React and Hooks",
+  "short_name": "Maarten Slebos",
+  "name": "Maarten Slebos",
   "icons": [
     {
       "src": "favicon.ico",
@@ -10,6 +10,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#fff",
-  "background_color": "#fff"
+  "theme_color": "#3a6ea5",
+  "background_color": "#3a6ea5"
 }
