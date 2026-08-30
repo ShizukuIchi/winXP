@@ -17,13 +17,14 @@ function Winamp({ onClose, onMinimize }) {
       initialTracks,
     });
     // Browsers refuse to start audio that no user gesture asked for, so try
-    // anyway and otherwise wait for the first click or keypress. Gestures
-    // aimed at Winamp itself are ignored, so hitting its own pause button
-    // can't be undone by this handler firing straight afterwards.
+    // anyway and otherwise wait for the first click or keypress. That first
+    // gesture disarms this either way: one aimed at Winamp itself means the
+    // user is already driving playback, and play() seeks back to 0 unless the
+    // track is paused, so calling it again would restart whatever is playing.
     function playOnGesture(event) {
+      stopWaitingForGesture();
       if (event.target.closest && event.target.closest('#webamp')) return;
       if (webamp.current) webamp.current.play();
-      stopWaitingForGesture();
     }
     function stopWaitingForGesture() {
       document.removeEventListener('pointerdown', playOnGesture);
