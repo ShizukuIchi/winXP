@@ -1,6 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <title>DEGIRO</title>
+  <defs>
+    <clipPath id="degiroBadge">
+      <rect width="64" height="64" rx="14"/>
+    </clipPath>
+  </defs>
   <rect width="64" height="64" rx="14" fill="#ffffff"/>
-  <rect x="12" y="12" width="40" height="16" fill="#009FDF"/>
-  <rect x="12" y="36" width="40" height="16" fill="#009FDF"/>
+  <g clip-path="url(#degiroBadge)" fill="#009FDF">
+    <rect x="4" y="13" width="56" height="15"/>
+    <rect x="4" y="36" width="56" height="15"/>
+  </g>
 </svg>
