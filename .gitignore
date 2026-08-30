@@ -25,6 +25,3 @@ yarn-error.log*
 
 # vercel
 .vercel
-
-# local audio - not published
-/public/music/*.mp3
