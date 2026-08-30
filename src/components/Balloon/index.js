@@ -25,16 +25,27 @@ function Balloon({ startAfter = 3000, duration = 15000 }) {
         <div className="balloon__container">
           <button onClick={() => setShow(false)} className="balloon__close" />
           <div className="balloon__header">
-            <img className="balloon__header__img" src={risk} alt="risk" />
-            <span className="balloon__header__text">
-              Your computer might be at risk
-            </span>
+            <img className="balloon__header__img" src={risk} alt="" />
+            <span className="balloon__header__text">Thanks for visiting!</span>
           </div>
           <p className="balloon__text__first">
-            Antivirus software might not be installed
-          </p>
-          <p className="balloon__text__second">
-            Click this balloon to fix this problem.
+            Follow me on{' '}
+            <a
+              href="https://x.com/MaartenSlebos"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              X
+            </a>{' '}
+            and connect on{' '}
+            <a
+              href="https://www.linkedin.com/in/maarten-slebos/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </a>
+            .
           </p>
         </div>
       </Div>
