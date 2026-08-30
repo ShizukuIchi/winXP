@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 
-import risk from 'assets/windowsIcons/229(16x16).png';
+import xpLogo from 'assets/windowsIcons/xpLogo.png';
 
 function Balloon({ startAfter = 3000, duration = 15000 }) {
   const [show, setShow] = useState(true);
@@ -25,7 +25,7 @@ function Balloon({ startAfter = 3000, duration = 15000 }) {
         <div className="balloon__container">
           <button onClick={() => setShow(false)} className="balloon__close" />
           <div className="balloon__header">
-            <img className="balloon__header__img" src={risk} alt="" />
+            <img className="balloon__header__img" src={xpLogo} alt="" />
             <span className="balloon__header__text">Thanks for visiting!</span>
           </div>
           <p className="balloon__text__first">
