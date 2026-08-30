@@ -90,8 +90,16 @@ function Icon({
 
 const IconsContainer = styled.div`
   position: absolute;
-  margin-top: 40px;
-  margin-left: 40px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 30px; /* leave room for the taskbar so icons never hide behind it */
+  padding: 40px 0 0 40px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  column-gap: 20px;
 `;
 
 const StyledIcon = styled(Icon)`
