@@ -1,4 +1,4 @@
-import degiro from 'assets/shortcuts/degiro.png';
+import degiro from 'assets/shortcuts/degiro.svg';
 import x from 'assets/shortcuts/x.svg';
 import youtube from 'assets/shortcuts/youtube.svg';
 import instagram from 'assets/shortcuts/instagram.svg';
